@@ -7,7 +7,7 @@ import json
 
 import pygame as pg
 
-NEIGHBOR_OFFSET = [(a, b) for a in [-1, 0, 1] for b in [-1, 0, 1]]
+NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
 AUTOTILE_TYPES = {'grass', 'stone'}
 

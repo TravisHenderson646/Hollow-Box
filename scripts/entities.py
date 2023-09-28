@@ -25,6 +25,11 @@ class PhysicsEntity:
         self.flip = False
         self.set_action('idle')
         
+        
+        self.test_surf = pg.Surface(size)
+        self.test_surf.fill((200, 0, 0))
+        self.test_pos = self.pos
+        
     def rect(self):
         return pg.Rect(*self.pos, *self.size)
     
@@ -62,6 +67,8 @@ class PhysicsEntity:
                     self.collisions['up'] = True
                 self.pos.y = entity_rect.y
                 
+        self.test_pos = self.pos 
+                
         if movement[0] > 0:
             self.flip = False
         if movement[0] < 0:
@@ -95,6 +102,7 @@ class Enemy(PhysicsEntity):
             else:
                 self.flip = not self.flip
             self.walking = max(0, self.walking - 1)
+            ### Enemies shoot at player
             if not self.walking: #should happen only 1 frame bc we're inside a if self.walking cond
                 dist = (self.game.player.pos[0] - self.pos[0], self.game.player.pos[1] - self.pos[1])
                 if (abs(dist[1]) < 80):
@@ -108,6 +116,7 @@ class Enemy(PhysicsEntity):
                         self.game.projectiles.append([[self.rect().centerx + 7, self.rect().centery], 1.5, 0])
                         for i in range(4):
                             self.game.sparks.append(Spark(self.game.projectiles[-1][0], random.random() - 0.5, 2 + random.random()))
+            ###
         elif random.random() < 0.01:
             self.walking = random.randint(30, 120)
         
@@ -180,7 +189,7 @@ class Player(PhysicsEntity):
             else:
                 self.set_action('idle')
         
-        # 10 frames fast then 50? frames slow? and those 50 frames are also a cooldown        
+        # 10 frames on then 50 frames arecooldown        
         if self.dashing > 0:
             self.dashing = max(0, self.dashing - 1)
         if self.dashing < 0:

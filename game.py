@@ -14,7 +14,7 @@ RESTRUCTURE ALL OF CODE LIKE THE PONG EXAMPLE ON MY GITHUB????
 ####
 Next
 ####
-how to connect pathways like a hollow knight map
+how to connect pathways like a hollow knight map (with robust naming scheme and loading, not just 0.json, as well as a nested state machine like each room inherits from the biome which inherits from base 'room' which inherits (just like menu) from state
 consider a better name for each object
 remake tileset. make it simpler like a neon line that connects around the outside
 
@@ -25,6 +25,8 @@ camera: add a minimum speed
 
 each tile should be Tile class?
 entities rects to frects
+
+particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 
 frame advance
 screenshots from anywhere
@@ -57,7 +59,7 @@ class Game:
         pg.init()
         self.clock = pg.time.Clock()
 
-        pg.display.set_caption('All Things Go')
+        pg.display.set_caption('Hollow Box')
         self.screen = pg.display.set_mode((960, 720)) # What the player sees
         self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
         self.display_2 = pg.Surface((320, 240))
@@ -103,7 +105,7 @@ class Game:
 
         self.clouds = Clouds(self.assets['clouds'], count=16) # Create an instance of the Clouds class
         
-        self.player = Player(self, (50, 50), (8, 15)) # Create an instance of the Player class
+        self.player = Player(self, (50, 50), (32, 27)) # Create an instance of the Player class
         
         self.tilemap = Tilemap(self, tile_size=16) # Create an instance of the Tilemap class
         
@@ -126,7 +128,7 @@ class Game:
             else:
                 self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
                 
-        self.projectiles = [] # could be objects apparently
+        self.projectiles = []
         self.particles = []
         self.sparks = []
         
@@ -152,79 +154,98 @@ class Game:
             
             self.screenshake = max(0, self.screenshake - 1)
             
-            if not len(self.enemies): #if enemies list is empty
+            ### Level transitions if enemies list is empty
+            if not len(self.enemies):
                 self.transition += 1
                 if self.transition > 30:
                     self.level = min(self.level + 1, len(os.listdir('data/maps')) - 1)
                     self.load_level(self.level)
             if self.transition < 0:
                 self.transition += 1
+            ###
             
+            ### If you're dead increment a timer and reload the level eventually
             if self.dead > 0:
                 self.dead += 1 #timer
                 if self.dead <= 50:
                     self.transition = min(30, self.transition + 1) #hack soln to screen transition
                 if self.dead > 80:
                     self.load_level(self.level)
+            ###
             
+            ### Update camera position
             self.scroll.x += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll.x) / 60
             self.scroll.y += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll.y) / 60
             self.rounded_scroll.x = math.floor(self.scroll.x)
             self.rounded_scroll.y = math.floor(self.scroll.y)
+            ###
             
+            ### Maybe spawn leafs
             for rect in self.leaf_spawners:
                 if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
                     pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
                     self.particles.append(Particle(self, 'leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
+            ###
                     
             self.clouds.update()
             self.clouds.render(self.display_2, offset=self.rounded_scroll)
             
             self.tilemap.render(self.display, offset=self.rounded_scroll)
             
+            ### Update enemies, render and kill
             for enemy in self.enemies.copy():
                 kill = enemy.update(self.tilemap, (0, 0))
                 enemy.render(self.display, offset=self.rounded_scroll)
                 if kill:
                     self.enemies.remove(enemy)
+            ### Update player, render
             if not self.dead:
                 self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
                 self.player.render(self.display, offset=self.rounded_scroll)
+            ###
             
-            # [[x, y], direction, timer]
-            for projectile in self.projectiles.copy():
+            
+            ### Update enemy projectiles, render
+            for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
+                projectile[2] += 1
                 projectile[0][0] += projectile[1]
                 img = self.assets['projectile']
-                self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1]))
+                self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) # blitting here is crazy
                 if self.tilemap.solid_check(projectile[0]):
                     self.projectiles.remove(projectile)
                     for i in range(4):
                         self.sparks.append(Spark(projectile[0], random.random() - 0.5 + (math.pi if projectile[1] > 0 else 0), 2 + random.random()))
-                elif projectile[2] > 300:
+                elif projectile[2] > 300: # projectile times out for cleanup
                     self.projectiles.remove(projectile)
-                elif abs(self.player.dashing) < 50:
+                elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
                     if self.player.rect().collidepoint(projectile[0]):
                         self.dead += 1
                         self.sfx['hit'].play()
-                        self.screenshake = max(45, self.screenshake) #max so this line wont overwrite a larger screen shake
+                        self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                         self.projectiles.remove(projectile)
                         for i in range(30):
                             angle = random.random() * math.pi * 2
                             speed = random.random() * 5
                             self.sparks.append(Spark(self.player.rect().center, angle, 2 + random.random()))
                             self.particles.append(Particle(self, 'particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
+            ###
             
+            ### Update sparks, render
             for spark in self.sparks.copy():
                 kill = spark.update()
                 spark.render(self.display, offset=self.rounded_scroll)
                 if kill:
                     self.sparks.remove(spark)
-                    
+            ###
+
+            ### Use surface mask to generate outlines for objects (only works on single layer renders)
             display_mask = pg.mask.from_surface(self.display)
             display_sillhouette = display_mask.to_surface(setcolor=(0, 0, 0, 180), unsetcolor=(0, 0, 0, 0))
             for offset in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 self.display_2.blit(display_sillhouette, (offset))
+            ###
             
+            ### Update particles, render
             for particle in self.particles.copy():
                 kill = particle.update()
                 if kill:
@@ -232,7 +253,9 @@ class Game:
                 else:
                     particle.render(self.display, offset=self.rounded_scroll)
                     particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
+            ###
             
+            ### User input
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -254,17 +277,23 @@ class Game:
                         self.movement[0] = False
                     if event.key == pg.K_d:
                         self.movement[1] = False
-                        
+            ###
+            
+                     
             self.display_2.blit(self.display, (0, 0))
-                        
-            if self.transition:
+            
+            if self.transition: # Hacky transition
                 transition_surf = pg.Surface(self.display.get_size())
                 pg.draw.circle(transition_surf, (255, 255, 255), (self.display.get_width() // 2, self.display.get_height() // 2), (30 - abs(self.transition)) * 8)
                 transition_surf.set_colorkey((255, 255, 255))
                 self.display_2.blit(transition_surf, (0, 0))
 
+    #        self.display_2.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
+
             screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2, random.random() * self.screenshake - self.screenshake / 2)
             self.screen.blit(pg.transform.scale(self.display_2, self.screen.get_size()), screenshake_offset)
+            
+
             
             pg.display.update()
             self.clock.tick(60)

@@ -9,7 +9,6 @@ class Spark:
         self.speed = speed
         
     def update(self):
-      #  print(self.pos, math.cos(self.angle), self.speed)
         self.pos[0] += math.cos(self.angle) * self.speed
         self.pos[1] += math.sin(self.angle) * self.speed
         
