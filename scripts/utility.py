@@ -19,11 +19,12 @@ class Animation:
     def __init__(self, images, image_dur=5, loop=True):
         self.images = images
         self.loop = loop
-        self.image_dur = image_dur
+        self.image_dur = image_dur # larger dur is slower
         
         self.done = False
         self.frame = 0
         
+    # Each entity makes a copy of the animation
     def copy(self):
         return Animation(self.images, self.image_dur, self.loop)
     

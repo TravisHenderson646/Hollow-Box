@@ -18,6 +18,7 @@ how to connect pathways like a hollow knight map (with robust naming scheme and 
 consider a better name for each object
 remake tileset. make it simpler like a neon line that connects around the outside
 
+Test maps for sandboxing abilities or monsters
 ####
 Must be nice
 ####
@@ -35,8 +36,7 @@ closing the game should do some cleanup
 probably want to use a 'touched the ground' cleanup cycle so i can make it so
 walljumps give back the double jump and or (not) dash
 
-Test maps for sandboxing abilities or monsters
-
+implement delta time if movement or animations get choppy? idk
 '''
 
 import os
@@ -62,7 +62,6 @@ class Game:
         pg.display.set_caption('Hollow Box')
         self.screen = pg.display.set_mode((960, 720)) # What the player sees
         self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
-        self.display_2 = pg.Surface((320, 240))
 
 
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
@@ -75,8 +74,8 @@ class Game:
             'player' : load_image('entities/player.png'),
             'background' : load_image('background.png'),
             'clouds' : load_images('clouds'),
-            'enemy/idle': Animation(load_images('entities/enemy/idle'), 6),
-            'enemy/run': Animation(load_images('entities/enemy/run'), 4),
+            'enemy/idle': Animation(load_images('entities/enemy/idle'), 12),
+            'enemy/run': Animation(load_images('entities/enemy/run'), 8),
             'player/idle' : Animation(load_images('entities/player/idle'), image_dur=12),
             'player/run' : Animation(load_images('entities/player/run'), image_dur=8),
             'player/jump' : Animation(load_images('entities/player/jump'), image_dur=5,),
@@ -149,10 +148,9 @@ class Game:
         self.sfx['ambience'].play(-1)
         
         while True:
-            self.display.fill((0, 0, 0, 0)) #floats in front
-            self.display_2.blit(self.assets['background'], (0, 0))
             
             self.screenshake = max(0, self.screenshake - 1)
+            self.display.blit(self.assets['background'], (0, 0))
             
             ### Level transitions if enemies list is empty
             if not len(self.enemies):
@@ -188,7 +186,7 @@ class Game:
             ###
                     
             self.clouds.update()
-            self.clouds.render(self.display_2, offset=self.rounded_scroll)
+            self.clouds.render(self.display, offset=self.rounded_scroll)
             
             self.tilemap.render(self.display, offset=self.rounded_scroll)
             
@@ -237,13 +235,6 @@ class Game:
                 if kill:
                     self.sparks.remove(spark)
             ###
-
-            ### Use surface mask to generate outlines for objects (only works on single layer renders)
-            display_mask = pg.mask.from_surface(self.display)
-            display_sillhouette = display_mask.to_surface(setcolor=(0, 0, 0, 180), unsetcolor=(0, 0, 0, 0))
-            for offset in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                self.display_2.blit(display_sillhouette, (offset))
-            ###
             
             ### Update particles, render
             for particle in self.particles.copy():
@@ -279,19 +270,16 @@ class Game:
                         self.movement[1] = False
             ###
             
-                     
-            self.display_2.blit(self.display, (0, 0))
-            
             if self.transition: # Hacky transition
                 transition_surf = pg.Surface(self.display.get_size())
                 pg.draw.circle(transition_surf, (255, 255, 255), (self.display.get_width() // 2, self.display.get_height() // 2), (30 - abs(self.transition)) * 8)
                 transition_surf.set_colorkey((255, 255, 255))
-                self.display_2.blit(transition_surf, (0, 0))
+                self.display.blit(transition_surf, (0, 0))
 
-    #        self.display_2.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
+    #        self.display.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
 
             screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2, random.random() * self.screenshake - self.screenshake / 2)
-            self.screen.blit(pg.transform.scale(self.display_2, self.screen.get_size()), screenshake_offset)
+            self.screen.blit(pg.transform.scale(self.display, self.screen.get_size()), screenshake_offset)
             
 
             
