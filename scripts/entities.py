@@ -36,7 +36,7 @@ class PhysicsEntity:
     def set_action(self, action):
         if action !=self.action:
             self.action = action
-            self.animation = self.game.assets[self.entity_type + '/' + self.action].copy()
+            self.animation = self.game.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe
         
     def update(self, tilemap, movement=(0, 0)):
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
@@ -103,8 +103,9 @@ class Enemy(PhysicsEntity):
                 self.flip = not self.flip
             self.walking = max(0, self.walking - 1)
             ### Enemies shoot at player
+            ###### GAME this block should be moved into the level
             if not self.walking: #should happen only 1 frame bc we're inside a if self.walking cond
-                dist = (self.game.player.pos[0] - self.pos[0], self.game.player.pos[1] - self.pos[1])
+                dist = (self.game.player.pos[0] - self.pos[0], self.game.player.pos[1] - self.pos[1]) 
                 if (abs(dist[1]) < 80):
                     if (self.flip and dist[0] < 0):
                         self.game.sfx['shoot'].play()
@@ -127,7 +128,7 @@ class Enemy(PhysicsEntity):
         else:
             self.set_action('idle')
             
-        if abs(self.game.player.dashing) >= 50:
+        if abs(self.game.player.dashing) >= 50: 
             if self.rect().colliderect(self.game.player.rect()):
                 self.game.screenshake = max(30, self.game.screenshake)
                 self.game.sfx['hit'].play()
