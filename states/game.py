@@ -1,46 +1,3 @@
-'''
-####
-Critical
-####
-FIRST STEPS:
-write code schematic for each 'section' of the code insofar as you can reduce the logic to sensible sections
-Make the hitboxes playable with debugging
-
-***rewrite the code so that it has exactly the "Perfect game loop" from pygame tidbits repo on github
-it is perfect
-
-RESTRUCTURE ALL OF CODE LIKE THE PONG EXAMPLE ON MY GITHUB????
-
-####
-Next
-####
-how to connect pathways like a hollow knight map (with robust naming scheme and loading, not just 0.json, as well as a nested state machine like each room inherits from the biome which inherits from base 'room' which inherits (just like menu) from state
-consider a better name for each object
-remake tileset. make it simpler like a neon line that connects around the outside
-
-Test maps for sandboxing abilities or monsters
-####
-Must be nice
-####
-camera: add a minimum speed
-
-each tile should be Tile class?
-entities rects to frects
-
-particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
-Maybe it spits one out every half second instead of like a sprinkler
-
-frame advance
-screenshots from anywhere
-closing the game should do some cleanup
-
-probably want to use a 'touched the ground' cleanup cycle so i can make it so
-walljumps give back the double jump and or (not) dash
-
-implement delta time if movement or animations get choppy? idk
-use set_timer and custom USER_EVENTS for every cooldown in the game?
-'''
-
 import os
 import sys
 import math
@@ -121,7 +78,7 @@ class Game:
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 self.done = True
-                self.next = 'game'  
+                self.next = 'menu'  
             if event.key == pg.K_a:
                 self.movement[0] = True
             if event.key == pg.K_d:
