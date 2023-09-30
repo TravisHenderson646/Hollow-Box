@@ -36,7 +36,7 @@ class PhysicsEntity:
     def set_action(self, action):
         if action !=self.action:
             self.action = action
-            self.animation = self.game.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe
+            self.animation = self.game.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
     def update(self, tilemap, movement=(0, 0)):
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
