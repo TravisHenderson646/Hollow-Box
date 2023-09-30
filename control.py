@@ -41,26 +41,25 @@ implement delta time if movement or animations get choppy? idk
 use set_timer and custom USER_EVENTS for every cooldown in the game?
 
 maybe tools should be a folder
+
+could have like GAME = 'game' instead of having state['game'] show up
 '''
 import os
 import sys
 
-import pygame as pg
+import pygame as pg 
 
-pg.mixer.pre_init(44100, -16, 1, 512)
-pg.init()
-SCREEN = pg.display.set_mode((960, 720)) # What the player sees
-DISPLAY = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+from scripts import setup # pg.init right away!
 
-from states import level1, level2, menu
+from states import level1, level2, menu #### pg.init first!
 
 
 class Control():
     def __init__(self, size=(960, 720)):
         pg.display.set_caption("Hollow Box")
         self.screensize = (int(size[0]), int(size[1]))
-        self.screen = SCREEN # What the player sees
-        self.display = DISPLAY # What we draw on to blit to screen
+        self.screen = setup.SCREEN # What the player sees
+        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
         self.screen_rect = self.screen.get_rect()
         self.clock = pg.time.Clock()
         self.fps = 60

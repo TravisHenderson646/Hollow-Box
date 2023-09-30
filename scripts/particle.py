@@ -1,10 +1,11 @@
+from scripts import setup
+
 class Particle:
-    def __init__(self, game, particle_type, pos, vel=[0, 0], frame=0):
-        self.game = game
+    def __init__(self, particle_type, pos, vel=[0, 0], frame=0):
         self.type = particle_type
         self.pos = list(pos)
         self.vel = list(vel)
-        self.animation = self.game.assets['particle/' + self.type].copy()
+        self.animation = setup.assets['particle/' + self.type].copy()
         self.animation.frame = frame
         
     def update(self):

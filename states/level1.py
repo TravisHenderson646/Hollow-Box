@@ -11,23 +11,23 @@ from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.particle import Particle
 from scripts.spark import Spark
+from scripts import setup
 
 
 class Level_1(Biome_1):
     def __init__(self):
         super().__init__()
+        self.tilemap = Tilemap(tile_size=16) # Create an instance of the Tilemap class
+        
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
 
-        self.clouds = Clouds(Biome_1.assets['clouds'], count=16) # Create an instance of the Clouds class
+        self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
         
         self.player = Player(self, (50, 50), (32, 27)) # Create an instance of the Player class
-        
-        self.tilemap = Tilemap(self, tile_size=16) # Create an instance of the Tilemap class
         
         self.level = 0 # Set starting level to 0
 
         self.map_id = 0
-
     
     def entry(self):
         print('entering level1!')
@@ -35,7 +35,7 @@ class Level_1(Biome_1):
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.play(-1)
         
-        self.sfx['ambience'].play(-1)
+        setup.sfx['ambience'].play(-1)
         
         self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
         self.leaf_spawners = []
@@ -117,7 +117,7 @@ class Level_1(Biome_1):
     
     def render(self, screen: pg.display):
         
-        self.display.blit(Biome_1.assets['background'], (0, 0))
+        self.display.blit(setup.assets['background'], (0, 0))
         
         self.clouds.render(self.display, offset=self.rounded_scroll)
         
@@ -171,7 +171,7 @@ class Level_1(Biome_1):
         for rect in self.leaf_spawners:
             if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
                 pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
-                self.particles.append(Particle(self, 'leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
+                self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
         ###
                 
         self.clouds.update()
@@ -191,7 +191,7 @@ class Level_1(Biome_1):
         for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
             projectile[2] += 1
             projectile[0][0] += projectile[1]
-            img = Biome_1.assets['projectile']
+            img = setup.assets['projectile']
             self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) # blitting here is crazy
             if self.tilemap.solid_check(projectile[0]):
                 self.projectiles.remove(projectile)
@@ -202,14 +202,14 @@ class Level_1(Biome_1):
             elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
                 if self.player.rect().collidepoint(projectile[0]):
                     self.dead += 1
-                    self.sfx['hit'].play()
+                    setup.sfx['hit'].play()
                     self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                     self.projectiles.remove(projectile)
                     for i in range(30):
                         angle = random.random() * math.pi * 2
                         speed = random.random() * 5
                         self.sparks.append(Spark(self.player.rect().center, angle, 2 + random.random()))
-                        self.particles.append(Particle(self, 'particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
+                        self.particles.append(Particle('particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
         ###
         
 
