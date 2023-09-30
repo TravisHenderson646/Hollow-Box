@@ -39,12 +39,14 @@ walljumps give back the double jump and or (not) dash
 
 implement delta time if movement or animations get choppy? idk
 use set_timer and custom USER_EVENTS for every cooldown in the game?
+
+maybe tools should be a folder
 '''
 import os
 import sys
 
 import pygame as pg
-from states import game, menu
+from states import level1, level2, menu
 
 
 class Control():
@@ -61,10 +63,11 @@ class Control():
         self.keys = pg.key.get_pressed() #?
         self.done = False
         self.state_dict = {
-            'game': game.Game(),
+            'level1': level1.Level_1(),
+            'level2': level2.Level_2(),
             'menu': menu.Menu(),
         }
-        self.state_name = 'game'
+        self.state_name = 'menu'
         self.state = self.state_dict[self.state_name]
         
     def event_loop(self):

@@ -56,7 +56,7 @@ class Tilemap:
             if (tile['type'] in AUTOTILE_TYPES) and (neighbors in AUTOTILE_MAP):
                 tile['variant'] = AUTOTILE_MAP[neighbors]
 
-    def extract(self, id_pairs, keep=False):
+    def extract(self, id_pairs, keep=False): #change name to give tiles
         matches = []
         for tile in self.offgrid_tiles.copy():
             if (tile['type'], tile['variant']) in id_pairs:
@@ -71,6 +71,7 @@ class Tilemap:
                 matches[-1]['pos'] = matches[-1]['pos'].copy()
                 matches[-1]['pos'][0] *= self.tile_size
                 matches[-1]['pos'][1] *= self.tile_size
+                print(keep)
                 if not keep:
                     del self.tilemap[loc]
         return matches

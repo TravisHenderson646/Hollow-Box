@@ -6,53 +6,17 @@ import random
 import pygame as pg
 
 from scripts.entities import Player, Enemy
-from scripts.tools import load_image, load_images, Animation
+from scripts.tools import load_image, load_images, Animation, Biome_1
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.particle import Particle
 from scripts.spark import Spark
 
 
-class Game:
+class Level_1(Biome_1):
     def __init__(self):
+        super().__init__()
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
-    
-        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen    
-        self.assets = { # dict of every sprite's image or animation's set of images
-            'decor' : load_images('tiles/decor'),
-            'grass' : load_images('tiles/grass'),
-            'large_decor' : load_images('tiles/large_decor'),
-            'stone' : load_images('tiles/stone'),
-            'player' : load_image('entities/player.png'),
-            'background' : load_image('background.png'),
-            'clouds' : load_images('clouds'),
-            'enemy/idle': Animation(load_images('entities/enemy/idle'), 12),
-            'enemy/run': Animation(load_images('entities/enemy/run'), 8),
-            'player/idle' : Animation(load_images('entities/player/idle'), image_dur=12),
-            'player/run' : Animation(load_images('entities/player/run'), image_dur=8),
-            'player/jump' : Animation(load_images('entities/player/jump'), image_dur=5,),
-            'player/slide' : Animation(load_images('entities/player/slide'), image_dur=5,),
-            'player/wallslide' : Animation(load_images('entities/player/wallslide'), image_dur=5,),
-            'particle/leaf': Animation(load_images('particles/leaf'), 20, False),
-            'particle/particle': Animation(load_images('particles/particle'), 6, False),
-            'gun': load_image('gun.png'),
-            'projectile': load_image('projectile.png'),
-        }
-        
-        self.sfx = { # dict of every sound effect
-            'jump': pg.mixer.Sound('data/sfx/jump.wav'),
-            'dash': pg.mixer.Sound('data/sfx/hit.wav'),
-            'hit': pg.mixer.Sound('data/sfx/dash.wav'),
-            'shoot': pg.mixer.Sound('data/sfx/shoot.wav'),
-            'ambience': pg.mixer.Sound('data/sfx/ambience.wav'),
-        }
-        
-        # manually setting individual volumes
-        self.sfx['jump'].set_volume(0.2)
-        self.sfx['dash'].set_volume(0.2)
-        self.sfx['hit'].set_volume(0.4)
-        self.sfx['shoot'].set_volume(0.3)
-        self.sfx['ambience'].set_volume(0.7)
 
         self.clouds = Clouds(self.assets['clouds'], count=16) # Create an instance of the Clouds class
         
@@ -61,14 +25,67 @@ class Game:
         self.tilemap = Tilemap(self, tile_size=16) # Create an instance of the Tilemap class
         
         self.level = 0 # Set starting level to 0
-        self.load_level(self.level) # Load starting level
+
+        self.map_id = 0
+
+    
+    def entry(self):
+        print('entering level1!')
+        pg.mixer.music.load('data/music.wav')
+        pg.mixer.music.set_volume(0.5)
+        pg.mixer.music.play(-1)
         
-        self.screenshake = 0
+        self.sfx['ambience'].play(-1)
         
-        ### Make this a state
-        self.done = False
-        self.quit = False
-        self.next = None # will have to export the levels to other classes for this transitiion i think
+        self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
+        self.leaf_spawners = []
+        for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
+            self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
+        
+        self.enemies = [] 
+        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
+            if spawner['variant'] == 0:
+                self.player.pos = pg.Vector2(spawner['pos'])
+                self.player.air_time = 0
+            else:
+                self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
+                
+
+                
+        self.projectiles = []
+        self.particles = []
+        self.sparks = []
+        
+        # todo: camera should probably be a class
+        self.scroll = pg.Vector2(-500, 200) # Initial camera position
+        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
+        
+        self.dead = 0
+        self.transition = -30
+    ###          
+    
+    def reset(self):
+        self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
+        self.enemies = [] 
+        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
+            if spawner['variant'] == 0:
+                self.player.pos = pg.Vector2(spawner['pos'])
+                self.player.air_time = 0
+            else:
+                self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
+                
+        self.projectiles = []
+        self.particles = []
+        self.sparks = []
+        
+        # todo: camera should probably be a class
+        self.scroll = pg.Vector2(-500, 200) # Initial camera position
+        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
+        
+        self.dead = 0
+        self.transition = -30
+    ###          
+
 
         
     def get_event(self, event, keys):        
@@ -78,7 +95,10 @@ class Game:
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 self.done = True
-                self.next = 'menu'  
+                self.next = 'menu'
+            if event.key == pg.K_p: #for testing
+                self.done = True
+                self.next = 'level2'
             if event.key == pg.K_a:
                 self.movement[0] = True
             if event.key == pg.K_d:
@@ -93,19 +113,6 @@ class Game:
             if event.key == pg.K_d:
                 self.movement[1] = False
         ###
-        
-    def cleanup(self):
-        print('cleaning up!')
-        pg.mixer.music.stop()
-    
-    def entry(self):
-        print('entering!')
-        pg.mixer.music.load('data/music.wav')
-        pg.mixer.music.set_volume(0.5)
-        pg.mixer.music.play(-1)
-        
-        self.sfx['ambience'].play(-1)
-    ###          
 
     
     def render(self, screen: pg.display):
@@ -150,7 +157,7 @@ class Game:
             if self.dead <= 50:
                 self.transition = min(30, self.transition + 1) #hack soln to screen transition
             if self.dead > 80:
-                self.load_level(self.level)
+                self.reset()
         ###
         
         ### Update camera position
@@ -214,29 +221,3 @@ class Game:
             else:
                 particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
         ###
-
-    
-    def load_level(self, map_id):
-        self.tilemap.load('data/maps/' + str(map_id) + '.json')
-        self.leaf_spawners = []
-        for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
-            self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
-        
-        self.enemies = [] 
-        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
-            if spawner['variant'] == 0:
-                self.player.pos = pg.Vector2(spawner['pos'])
-                self.player.air_time = 0
-            else:
-                self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
-                
-        self.projectiles = []
-        self.particles = []
-        self.sparks = []
-        
-        # todo: camera should probably be a class
-        self.scroll = pg.Vector2(-500, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
-        
-        self.dead = 0
-        self.transition = -30

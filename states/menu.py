@@ -5,7 +5,7 @@ class Menu():
     def __init__(self):
         self.done = False
         self.quit = False
-        self.next = 'game'
+        self.next = 'level1'
     def cleanup(self):
         print('cleaning up Menu state stuff')
     def entry(self): #could be called cleanup
@@ -14,8 +14,10 @@ class Menu():
         if event.type == pg.QUIT:
             self.quit = True
         if event.type == pg.KEYDOWN:
-            print('Menu State keydown')
-            self.done = True
+            if event.key == pg.K_ESCAPE:
+                self.quit = True
+            else:
+                self.done = True
     def update(self, now, keys):
         pass
     def render(self, screen):
