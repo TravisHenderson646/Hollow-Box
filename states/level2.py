@@ -18,7 +18,7 @@ class Level_2(Biome_1):
         super().__init__()
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
 
-        self.clouds = Clouds(self.assets['clouds'], count=16) # Create an instance of the Clouds class
+        self.clouds = Clouds(Biome_1.assets['clouds'], count=16) # Create an instance of the Clouds class
         
         self.player = Player(self, (50, 50), (32, 27)) # Create an instance of the Player class
         
@@ -111,7 +111,7 @@ class Level_2(Biome_1):
     
     def render(self, screen: pg.display):
         
-        self.display.blit(self.assets['background'], (0, 0))
+        self.display.blit(Biome_1.assets['background'], (0, 0))
         
         self.clouds.render(self.display, offset=self.rounded_scroll)
         
@@ -185,7 +185,7 @@ class Level_2(Biome_1):
         for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
             projectile[2] += 1
             projectile[0][0] += projectile[1]
-            img = self.assets['projectile']
+            img = Biome_1.assets['projectile']
             self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) # blitting here is crazy
             if self.tilemap.solid_check(projectile[0]):
                 self.projectiles.remove(projectile)

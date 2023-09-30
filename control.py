@@ -46,17 +46,21 @@ import os
 import sys
 
 import pygame as pg
+
+pg.mixer.pre_init(44100, -16, 1, 512)
+pg.init()
+SCREEN = pg.display.set_mode((960, 720)) # What the player sees
+DISPLAY = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+
 from states import level1, level2, menu
 
 
 class Control():
     def __init__(self, size=(960, 720)):
-        pg.mixer.pre_init(44100, -16, 1, 512)
-        pg.init()
         pg.display.set_caption("Hollow Box")
         self.screensize = (int(size[0]), int(size[1]))
-        self.screen = pg.display.set_mode((960, 720)) # What the player sees
-        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+        self.screen = SCREEN # What the player sees
+        self.display = DISPLAY # What we draw on to blit to screen
         self.screen_rect = self.screen.get_rect()
         self.clock = pg.time.Clock()
         self.fps = 60
