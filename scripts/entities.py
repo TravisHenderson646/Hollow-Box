@@ -42,7 +42,7 @@ class PhysicsEntity:
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
 
         frame_movement = pg.Vector2(movement[0] + self.vel.x, movement[1] + self.vel.y)
-
+     # this movement should be in the generic level class
         self.pos.x += frame_movement.x
         entity_rect = self.rect()
         for rect in tilemap.physics_rects_near(self.pos):
