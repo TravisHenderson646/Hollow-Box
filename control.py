@@ -42,6 +42,9 @@ use set_timer and custom USER_EVENTS for every cooldown in the game?
 
 maybe tools should be a folder
 
+maybe tilemap collision should be in the level not the physics entity
+- make a group (list) called tilemap_colliders and iterate it in the levels update
+
 could have like GAME = 'game' instead of having state['game'] show up
 '''
 import os

@@ -23,7 +23,7 @@ class Level_1(Biome_1):
 
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
         
-        self.player = Player(self, (50, 50), (32, 27)) # Create an instance of the Player class
+        self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class
         
         self.level = 0 # Set starting level to 0
 
@@ -48,7 +48,7 @@ class Level_1(Biome_1):
                 self.player.pos = pg.Vector2(spawner['pos'])
                 self.player.air_time = 0
             else:
-                self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
+                self.enemies.append(Enemy(spawner['pos'], (8, 15)))
                 
 
                 
@@ -72,7 +72,7 @@ class Level_1(Biome_1):
                 self.player.pos = pg.Vector2(spawner['pos'])
                 self.player.air_time = 0
             else:
-                self.enemies.append(Enemy(self, spawner['pos'], (8, 15)))
+                self.enemies.append(Enemy(spawner['pos'], (8, 15)))
                 
         self.projectiles = []
         self.particles = []
@@ -127,7 +127,7 @@ class Level_1(Biome_1):
             img = setup.assets['projectile']
             self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
         
-        if not self.player.dead:
+        if not self.player.dead > 25:
             self.player.render(self.display, offset=self.rounded_scroll)
         
         ### Update sparks, render
@@ -182,12 +182,12 @@ class Level_1(Biome_1):
         
         ### Update enemies
         for enemy in self.enemies.copy():
-            kill = enemy.update(self.tilemap, (0, 0))
+            kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
             if kill:
                 self.enemies.remove(enemy)
         ### Update player
         if not self.player.dead:
-            self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
+            self.player.update(self.tilemap, self.particles, (self.movement[1] - self.movement[0], 0))
         ###
         
         ### Update enemy projectiles

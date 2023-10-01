@@ -12,8 +12,7 @@ from scripts.spark import Spark
 from scripts import setup
 
 class PhysicsEntity:
-    def __init__(self, game, entity_type, pos, size):
-        self.game = game
+    def __init__(self, entity_type, pos, size):
         self.entity_type = entity_type
         self.pos = pg.Vector2(pos)
         self.size = size
@@ -89,8 +88,8 @@ class PhysicsEntity:
         surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (self.pos - offset + self.anim_offset)) # maybe they should go in the same direction
 
 class Player(PhysicsEntity):
-    def __init__(self, game, pos, size):
-        super().__init__(game, 'player', pos, size)
+    def __init__(self, pos, size):
+        super().__init__('player', pos, size)
         self.air_time = 0
         self.jumps = 1
         # todo: hes about to do something else but i think you could just do if you collide with a wall left or right set jumps to 1
@@ -98,14 +97,10 @@ class Player(PhysicsEntity):
         self.dashing = 0 # poor name for non bool
         self.dead = 0
         
-    def update(self, tilemap, movement=(0, 0)):
+    def update(self, tilemap, particles, movement=(0, 0)):
         super().update(tilemap, movement=movement)
     
         self.air_time += 1
-        
-        if self.air_time > 180:
-            self.game.screenshake = max(45, self.game.screenshake)
-            self.dead += 1
         
         if self.collisions['down']:
             self.air_time = 0
@@ -141,13 +136,13 @@ class Player(PhysicsEntity):
                 self.vel[0] *= 0.1
             #visual effects of dash
             particle_velocity = [abs(self.dashing) / self.dashing * random.random() * 3, 0]
-            self.game.particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
+            particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
         if abs(self.dashing) in {49, 59}: #start and end (-1)
             for i in range(20):
                 angle = random.random() * math.pi * 2
                 speed = random.random() * 0.5 + 0.5
                 particle_velocity = [math.cos(angle) * speed, math.sin(angle) *speed]
-                self.game.particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
+                particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
                 
     def render(self, surf, offset=(0, 0)):
         if abs(self.dashing) <= 50:
@@ -192,12 +187,12 @@ class Player(PhysicsEntity):
                 self.dashing = 60
 
 class Enemy(PhysicsEntity):
-    def __init__(self, game, pos, size):
-        super().__init__(game, 'enemy', pos, size)
+    def __init__(self, pos, size):
+        super().__init__('enemy', pos, size)
         
         self.walking = 0
         
-    def update(self, tilemap, movement=(0, 0)):
+    def update(self, tilemap, player_rect, player_dashing, projectiles, sparks, particles, movement=(0, 0)):
         if self.walking:
             if tilemap.solid_check((self.rect().centerx + (-7 if self.flip else 7), self.pos[1] + 23)):
                 if (self.collisions['right'] or self.collisions['left']):
@@ -209,18 +204,18 @@ class Enemy(PhysicsEntity):
             ### Enemies shoot at player
             ###### GAME this block should be moved into the level
             if not self.walking: #should happen only 1 frame bc we're inside a if self.walking cond
-                dist = (self.game.player.pos[0] - self.pos[0], self.game.player.pos[1] - self.pos[1]) 
+                dist = (player_rect.x - self.pos[0], player_rect.y - self.pos[1]) 
                 if (abs(dist[1]) < 80):
                     if (self.flip and dist[0] < 0):
                         setup.sfx['shoot'].play()
-                        self.game.projectiles.append([[self.rect().centerx - 7, self.rect().centery], -1.5, 0])
+                        projectiles.append([[self.rect().centerx - 7, self.rect().centery], -1.5, 0])
                         for i in range(4):
-                            self.game.sparks.append(Spark(self.game.projectiles[-1][0], random.random() - 0.5 + math.pi, 2 + random.random()))
+                            sparks.append(Spark(projectiles[-1][0], random.random() - 0.5 + math.pi, 2 + random.random()))
                     if (not self.flip and dist[0]> 0):
                         setup.sfx['shoot'].play()
-                        self.game.projectiles.append([[self.rect().centerx + 7, self.rect().centery], 1.5, 0])
+                        projectiles.append([[self.rect().centerx + 7, self.rect().centery], 1.5, 0])
                         for i in range(4):
-                            self.game.sparks.append(Spark(self.game.projectiles[-1][0], random.random() - 0.5, 2 + random.random()))
+                            sparks.append(Spark(projectiles[-1][0], random.random() - 0.5, 2 + random.random()))
             ###
         elif random.random() < 0.01:
             self.walking = random.randint(30, 120)
@@ -232,17 +227,16 @@ class Enemy(PhysicsEntity):
         else:
             self.set_action('idle')
             
-        if abs(self.game.player.dashing) >= 50: 
-            if self.rect().colliderect(self.game.player.rect()):
-                self.game.screenshake = max(30, self.game.screenshake)
+        if abs(player_dashing) >= 50: 
+            if self.rect().colliderect(player_rect):
                 setup.sfx['hit'].play()
                 for i in range(30):
                     angle = random.random() * math.pi * 2
                     speed = random.random() * 5
-                    self.game.sparks.append(Spark(self.rect().center, angle, 2 + random.random()))
-                    self.game.particles.append(Particle('particle', self.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
-                self.game.sparks.append(Spark(self.rect().center, 0, 5 + random.random()))
-                self.game.sparks.append(Spark(self.rect().center, math.pi, 5 + random.random()))
+                    sparks.append(Spark(self.rect().center, angle, 2 + random.random()))
+                    particles.append(Particle('particle', self.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
+                sparks.append(Spark(self.rect().center, 0, 5 + random.random()))
+                sparks.append(Spark(self.rect().center, math.pi, 5 + random.random()))
                 return True
             
     def render(self, surf, offset=(0, 0)):
