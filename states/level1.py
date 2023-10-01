@@ -60,7 +60,7 @@ class Level_1(Biome_1):
         self.scroll = pg.Vector2(-500, 200) # Initial camera position
         self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
         
-        self.dead = 0
+        self.dead = self.player.dead
         self.transition = -30
     ###          
     
@@ -82,7 +82,7 @@ class Level_1(Biome_1):
         self.scroll = pg.Vector2(-500, 200) # Initial camera position
         self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
         
-        self.dead = 0
+        self.player.dead = 0
         self.transition = -30
     ###          
 
@@ -123,7 +123,11 @@ class Level_1(Biome_1):
         
         self.tilemap.render(self.display, offset=self.rounded_scroll)
         
-        if not self.dead:
+        for projectile in self.projectiles.copy():
+            img = setup.assets['projectile']
+            self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
+        
+        if not self.player.dead:
             self.player.render(self.display, offset=self.rounded_scroll)
         
         ### Update sparks, render
@@ -152,11 +156,11 @@ class Level_1(Biome_1):
 
         
         ### If you're dead increment a timer and reload the level eventually
-        if self.dead > 0:
-            self.dead += 1 #timer
-            if self.dead <= 50:
+        if self.player.dead > 0:
+            self.player.dead += 1 #timer
+            if self.player.dead <= 50:
                 self.transition = min(30, self.transition + 1) #hack soln to screen transition
-            if self.dead > 80:
+            if self.player.dead > 80:
                 self.reset()
         ###
         
@@ -182,17 +186,14 @@ class Level_1(Biome_1):
             if kill:
                 self.enemies.remove(enemy)
         ### Update player
-        if not self.dead:
+        if not self.player.dead:
             self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
         ###
         
-        ####### projectile logic needs encapsulated so render is not tied in to update logic
-        ### Update enemy projectiles, render
+        ### Update enemy projectiles
         for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
             projectile[2] += 1
             projectile[0][0] += projectile[1]
-            img = setup.assets['projectile']
-            self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) # blitting here is crazy
             if self.tilemap.solid_check(projectile[0]):
                 self.projectiles.remove(projectile)
                 for i in range(4):
@@ -201,7 +202,7 @@ class Level_1(Biome_1):
                 self.projectiles.remove(projectile)
             elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
                 if self.player.rect().collidepoint(projectile[0]):
-                    self.dead += 1
+                    self.player.dead += 1
                     setup.sfx['hit'].play()
                     self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                     self.projectiles.remove(projectile)
@@ -213,7 +214,7 @@ class Level_1(Biome_1):
         ###
         
 
-        ### Update particles, render
+        ### Update particles
         for particle in self.particles.copy():
             kill = particle.update()
             if kill:

@@ -96,6 +96,7 @@ class Player(PhysicsEntity):
         # todo: hes about to do something else but i think you could just do if you collide with a wall left or right set jumps to 1
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
+        self.dead = 0
         
     def update(self, tilemap, movement=(0, 0)):
         super().update(tilemap, movement=movement)
@@ -104,7 +105,7 @@ class Player(PhysicsEntity):
         
         if self.air_time > 180:
             self.game.screenshake = max(45, self.game.screenshake)
-            self.game.dead += 1
+            self.dead += 1
         
         if self.collisions['down']:
             self.air_time = 0
