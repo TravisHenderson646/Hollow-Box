@@ -202,7 +202,7 @@ class Level_1(Biome_1):
                 self.projectiles.remove(projectile)
             elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
                 if self.player.rect().collidepoint(projectile[0]):
-                    self.player.dead += 1
+                    self.player.dead += 1 # should def just have a is dead variable idk todo
                     setup.sfx['hit'].play()
                     self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                     self.projectiles.remove(projectile)
