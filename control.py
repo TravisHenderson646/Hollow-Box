@@ -1,4 +1,10 @@
 '''
+
+can send any random thing through the event queue apparently 
+from anywhere in pygame. so idk how to use that
+maybe for player losing hp or idk
+
+
 ####
 Critical
 ####
