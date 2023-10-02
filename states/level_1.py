@@ -21,9 +21,9 @@ class Level_1(Biome_1):
     def __init__(self):
         super().__init__()        
         self.level = 0 # Set starting level to 0
-        self.map_id = 2
+        self.map_id = 3
     
-    def entry(self):
+    def entry(self, test):
         super().entry()
 
         # todo: camera should probably be a class
@@ -45,6 +45,12 @@ class Level_1(Biome_1):
 
     def update(self, now, keys):
         super().update(now, keys)
+        for rect, type in self.tilemap.physics_rects_near(self.player.pos):
+            if type == 'loading_zones':
+                if self.player.rect().colliderect(rect):
+                    self.done = True
+                    self.next = 'level2'
+                    self.exit = type
         
     def render(self, screen: pg.display):
         super().render(screen)

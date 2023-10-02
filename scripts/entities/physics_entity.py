@@ -43,27 +43,29 @@ class PhysicsEntity:
      # that dont just simply body block the player
         self.pos.x += frame_movement.x
         entity_rect = self.rect()
-        for rect in tilemap.physics_rects_near(self.pos):
-            if entity_rect.colliderect(rect):
-                if frame_movement.x > 0:
-                    entity_rect.right = rect.left
-                    self.collisions['right'] = True
-                if frame_movement.x < 0:
-                    entity_rect.left = rect.right
-                    self.collisions['left'] = True
-                self.pos.x = entity_rect.x
+        for rect, type in tilemap.physics_rects_near(self.pos):
+            if not type:
+                if entity_rect.colliderect(rect):
+                    if frame_movement.x > 0:
+                        entity_rect.right = rect.left
+                        self.collisions['right'] = True
+                    if frame_movement.x < 0:
+                        entity_rect.left = rect.right
+                        self.collisions['left'] = True
+                    self.pos.x = entity_rect.x
         
         self.pos.y += frame_movement.y
         entity_rect = self.rect()
-        for rect in tilemap.physics_rects_near(self.pos):
-            if entity_rect.colliderect(rect):
-                if frame_movement.y > 0:
-                    entity_rect.bottom = rect.top
-                    self.collisions['down'] = True
-                if frame_movement.y < 0:
-                    entity_rect.top = rect.bottom
-                    self.collisions['up'] = True
-                self.pos.y = entity_rect.y
+        for rect, type in tilemap.physics_rects_near(self.pos):
+            if not type:
+                if entity_rect.colliderect(rect):
+                    if frame_movement.y > 0:
+                        entity_rect.bottom = rect.top
+                        self.collisions['down'] = True
+                    if frame_movement.y < 0:
+                        entity_rect.top = rect.bottom
+                        self.collisions['up'] = True
+                    self.pos.y = entity_rect.y
                 
         self.test_pos = self.pos 
                 

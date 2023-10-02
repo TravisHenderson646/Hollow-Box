@@ -35,7 +35,7 @@ class Tilemap:
                 if not keep:
                     self.offgrid_tiles.remove(tile)
         # on grid tiles
-        for loc in self.tilemap:
+        for loc in self.tilemap.copy():
             tile = self.tilemap[loc]
             if (tile['type'], tile['variant']) in id_pairs:
                 matches.append(tile.copy())
@@ -67,7 +67,10 @@ class Tilemap:
         rects = []
         for tile in self.tiles_near(pos):
             if tile['type'] in PHYSICS_TILES:
-                rects.append(pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size))
+                rects.append((pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size), False))
+            if tile['type'] == 'loading_zones':
+                rects.append((pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size), 'loading_zones')) 
+
         return rects
 
     def render(self, surf, offset):
@@ -81,9 +84,10 @@ class Tilemap:
                 loc = str(x) +';' + str(y)
                 if loc in self.tilemap:
                     tile = self.tilemap[loc]
-
-                    surf.blit(setup.assets[tile['type']][tile['variant']], (floor(tile['pos'][0]) * self.tile_size - offset[0], floor(tile['pos'][1]) * self.tile_size - offset[1]))
-                    
+                    if True:#tile['type'] != 'loading_zones':
+                        surf.blit(setup.assets[tile['type']][tile['variant']], (floor(tile['pos'][0]) * self.tile_size - offset[0], floor(tile['pos'][1]) * self.tile_size - offset[1]))
+                    else:
+                        pass          
                     
                     
                     

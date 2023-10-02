@@ -37,6 +37,7 @@ class Biome_1:
         self.done = False
         self.quit = False
         self.next = None
+        self.exit = None
         self.map_id = 0
         
     def cleanup(self):
@@ -54,6 +55,13 @@ class Biome_1:
         setup.sfx['ambience'].play(-1)
         
         self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
+        
+        self.loading_zones = []
+        for tile in self.tilemap.extract([('loading_zones', 0), ('loading_zones', 1)], keep=True):
+            if tile['variant'] == 0:
+                pass
+            
+            
         self.leaf_spawners = []
         for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
             self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))

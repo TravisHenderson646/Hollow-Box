@@ -54,6 +54,9 @@ use set_timer and custom USER_EVENTS for every cooldown in the game?
 
 maybe tools should be a folder
 
+midd middle tile of tileset (or any one really) could have random alterations that
+occur at controlled random frequencies
+
 maybe tilemap collision should be in the level not the physics entity
 - make a group (list) called tilemap_colliders and iterate it in the levels update
 
@@ -96,14 +99,14 @@ class Control():
 
     def change_state(self):
         if self.state.done:
+            self.done = False
             self.state.cleanup()
             self.state_name = self.state.next
             self.state.done = False
             self.state.quit = False
             self.state = self.state_dict[self.state_name]
-            self.state.entry()
+            self.state.entry(self.state.exit)
         elif self.state.quit:
-            self.done = True
             self.state.cleanup()
             
     def run(self):

@@ -5,6 +5,7 @@ class Menu():
     def __init__(self):
         self.done = False
         self.quit = False
+        self.exit = None
         self.next = 'level1'
     def cleanup(self):
         print('cleaning up Menu state stuff')

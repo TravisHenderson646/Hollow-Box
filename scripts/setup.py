@@ -25,6 +25,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'particle/particle': Animation(load_images('particles/particle'), 6, False),
     'gun': load_image('gun.png'),
     'projectile': load_image('projectile.png'),
+    'loading_zones': load_images('loading_zones')
 }
 
 sfx = { # dict of every sound effect

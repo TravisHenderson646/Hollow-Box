@@ -22,9 +22,9 @@ class Level_2(Biome_1):
         super().__init__()
         self.level = 1
 
-        self.map_id = 1
+        self.map_id = 0
     
-    def entry(self):
+    def entry(self, test):
         super().entry()
 
         # todo: camera should probably be a class
