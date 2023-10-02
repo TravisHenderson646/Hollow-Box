@@ -24,7 +24,7 @@ class Biome_1:
         
         self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
             
-        self.tilemap = Tilemap(tile_size=16) # Create an instance of the Tilemap class
+        self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
         self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 

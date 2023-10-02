@@ -21,7 +21,7 @@ class Level_1(Biome_1):
     def __init__(self):
         super().__init__()        
         self.level = 0 # Set starting level to 0
-        self.map_id = 0
+        self.map_id = 2
     
     def entry(self):
         super().entry()
