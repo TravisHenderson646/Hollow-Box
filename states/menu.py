@@ -9,7 +9,7 @@ class Menu():
         self.next = 'level1'
     def cleanup(self):
         print('cleaning up Menu state stuff')
-    def entry(self): #could be called cleanup
+    def entry(self, test): #could be called cleanup
         print('starting Menu state stuff')
     def get_event(self, event, keys):
         if event.type == pg.QUIT:
