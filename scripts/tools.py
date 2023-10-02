@@ -4,8 +4,6 @@ import random
 
 import pygame as pg
 
-from .entities import Enemy, Player
-
 BASE_IMG_PATH = 'data/images/'
 
 def load_image(path):

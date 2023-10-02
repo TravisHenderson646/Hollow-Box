@@ -5,7 +5,9 @@ import random
 
 import pygame as pg
 
-from scripts.entities import Player, Enemy
+from scripts.entities.physics_entity import PhysicsEntity
+from scripts.entities.enemy import Enemy
+from scripts.entities.player import Player
 from scripts.tools import load_image, load_images, Animation
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
