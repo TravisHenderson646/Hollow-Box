@@ -6,7 +6,7 @@ import random
 import pygame as pg
 
 from scripts.entities import Player, Enemy
-from scripts.tools import load_image, load_images, Animation, Biome_1
+from scripts.tools import load_image, load_images, Animation
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.particle import Particle
@@ -14,23 +14,37 @@ from scripts.spark import Spark
 from scripts import setup
 
 
-class Level_2(Biome_1):
+#could inherit from a dummy state class for now, or even a dummy level state which inherits from state
+# a biome instance should never be created (abstract base class)
+class Biome_1:    
     def __init__(self):
-        super().__init__()
+        self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right
+        
+        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+            
         self.tilemap = Tilemap(tile_size=16) # Create an instance of the Tilemap class
-        
-        self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
-
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
+        self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
         
-        self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class
+        self.screenshake = 0
+        # todo: camera should probably be a class
+        self.scroll = pg.Vector2(0, 0) # Initial camera position
+        self.rounded_scroll = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
         
-        self.level = 1 # Set starting level to 0
-
-        self.map_id = 1
+        self.done = False
+        self.quit = False
+        self.next = None
+        self.map_id = 0
+        
+    def cleanup(self):
+        print(f'cleaning up lvl{self.map_id + 1}!')
+        self.movement = [False, False]
+        pg.mixer.music.stop()
     
     def entry(self):
-        print('entering level1!')
+        print("Entering a biome_1!")
+        print(f'Entering level {self.map_id + 1}')
         pg.mixer.music.load('data/music.wav')
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.play(-1)
@@ -50,16 +64,9 @@ class Level_2(Biome_1):
             else:
                 self.enemies.append(Enemy(spawner['pos'], (8, 15)))
                 
-
-                
         self.projectiles = []
         self.particles = []
         self.sparks = []
-        
-        # todo: camera should probably be a class
-        self.scroll = pg.Vector2(-500, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
-        
         self.dead = self.player.dead
         self.transition = -30
     ###          
@@ -78,13 +85,8 @@ class Level_2(Biome_1):
         self.particles = []
         self.sparks = []
         
-        # todo: camera should probably be a class
-        self.scroll = pg.Vector2(-500, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
-        
         self.player.dead = 0
-        self.transition = -30
-    ###          
+        self.transition = -30 
 
 
         
@@ -113,47 +115,9 @@ class Level_2(Biome_1):
             if event.key == pg.K_d:
                 self.movement[1] = False
         ###
-
-    
-    def render(self, screen: pg.display):
         
-        self.display.blit(setup.assets['background'], (0, 0))
-        
-        self.clouds.render(self.display, offset=self.rounded_scroll)
-        
-        self.tilemap.render(self.display, offset=self.rounded_scroll)
-        
-        for projectile in self.projectiles.copy():
-            img = setup.assets['projectile']
-            self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
-        
-        if not self.player.dead > 25:
-            self.player.render(self.display, offset=self.rounded_scroll)
-        
-        ### Update sparks, render
-        for spark in self.sparks.copy():
-            kill = spark.update()
-            spark.render(self.display, offset=self.rounded_scroll)
-            if kill:
-                self.sparks.remove(spark)
-        ###
-        
-        for enemy in self.enemies:
-            enemy.render(self.display, offset=self.rounded_scroll)
-    
-    
-        for particle in self.particles:
-            particle.render(self.display, offset=self.rounded_scroll)
-            
-     #  self.display.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
-        
-        screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2, random.random() * self.screenshake - self.screenshake / 2)
-        screen.blit(pg.transform.scale(self.display, screen.get_size()), screenshake_offset)
-
-    def update(self, now, keys): # Main game loop
+    def update(self, now, keys): # Main loop
         self.screenshake = max(0, self.screenshake - 1)
-        
-
         
         ### If you're dead increment a timer and reload the level eventually
         if self.player.dead > 0:
@@ -202,7 +166,7 @@ class Level_2(Biome_1):
                 self.projectiles.remove(projectile)
             elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
                 if self.player.rect().collidepoint(projectile[0]):
-                    self.player.dead += 1
+                    self.player.dead += 1 # should def just have a is dead variable idk todo
                     setup.sfx['hit'].play()
                     self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                     self.projectiles.remove(projectile)
@@ -222,3 +186,37 @@ class Level_2(Biome_1):
             else:
                 particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
         ###
+    
+    def render(self, screen: pg.display):
+        self.display.blit(setup.assets['background'], (0, 0))
+        
+        self.clouds.render(self.display, offset=self.rounded_scroll)
+        
+        self.tilemap.render(self.display, offset=self.rounded_scroll)
+        
+        for projectile in self.projectiles.copy():
+            img = setup.assets['projectile']
+            self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
+        
+        if not self.player.dead > 25:
+            self.player.render(self.display, offset=self.rounded_scroll)
+        
+        ### Update sparks, render
+        for spark in self.sparks.copy():
+            kill = spark.update()
+            spark.render(self.display, offset=self.rounded_scroll)
+            if kill:
+                self.sparks.remove(spark)
+        ###
+        
+        for enemy in self.enemies:
+            enemy.render(self.display, offset=self.rounded_scroll)
+    
+    
+        for particle in self.particles:
+            particle.render(self.display, offset=self.rounded_scroll)
+            
+     #  self.display.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
+        
+        screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2, random.random() * self.screenshake - self.screenshake / 2)
+        screen.blit(pg.transform.scale(self.display, screen.get_size()), screenshake_offset)

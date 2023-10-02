@@ -27,6 +27,10 @@ consider a better name for each object
 remake tileset. make it simpler like a neon line that connects around the outside
 
 Test maps for sandboxing abilities or monsters
+
+save file
+(maybe cool to have a 'total play time' that just goes up constantly when i play and
+saves when i close it)
 ####
 Must be nice
 ####
@@ -62,7 +66,7 @@ import pygame as pg
 
 from scripts import setup # pg.init right away!
 
-from states import level1, level2, menu #### pg.init first!
+from states import level_1, level_2, menu #### pg.init first!
 
 
 class Control():
@@ -77,8 +81,8 @@ class Control():
         self.keys = pg.key.get_pressed() #?
         self.done = False
         self.state_dict = {
-            'level1': level1.Level_1(),
-            'level2': level2.Level_2(),
+            'level1': level_1.Level_1(),
+            'level2': level_2.Level_2(),
             'menu': menu.Menu(),
         }
         self.state_name = 'menu'
