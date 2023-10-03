@@ -77,7 +77,7 @@ class Control():
         pg.display.set_caption("Hollow Box")
         self.screensize = (int(size[0]), int(size[1]))
         self.screen = setup.SCREEN # What the player sees
-        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+        self.display = setup.DISPLAY # What we draw on to blit to screen
         self.screen_rect = self.screen.get_rect()
         self.clock = pg.time.Clock()
         self.fps = 60

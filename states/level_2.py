@@ -24,7 +24,7 @@ class Level_2(Biome_1):
 
         self.map_id = 0
     
-    def entry(self, test):
+    def entry(self, exit):
         super().entry()
 
         # todo: camera should probably be a class

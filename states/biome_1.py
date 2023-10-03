@@ -22,7 +22,7 @@ class Biome_1:
     def __init__(self):
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right
         
-        self.display = pg.Surface((320,240), pg.SRCALPHA) # What we draw on to blit to screen
+        self.display = setup.DISPLAY # What we draw on to blit to screen
             
         self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
