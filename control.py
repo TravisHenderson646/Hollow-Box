@@ -73,7 +73,7 @@ from states import level_1, level_2, menu #### pg.init first!
 
 
 class Control():
-    def __init__(self, size=(960, 720)):
+    def __init__(self, size=(1280, 720)):
         pg.display.set_caption("Hollow Box")
         self.screensize = (int(size[0]), int(size[1]))
         self.screen = setup.SCREEN # What the player sees

@@ -11,7 +11,14 @@ from scripts import setup
 
 NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
-
+    
+class Tile:
+    def __init__(self, variant, pos, tile_size=32):
+        self.type = type
+        self.variant = variant
+        self.pos = pos
+        self.rect = True
+    
 class Tilemap:
     def __init__(self, tile_size=32):
         self.tile_size = tile_size
@@ -88,6 +95,4 @@ class Tilemap:
                         surf.blit(setup.assets[tile['type']][tile['variant']], (floor(tile['pos'][0]) * self.tile_size - offset[0], floor(tile['pos'][1]) * self.tile_size - offset[1]))
                     else:
                         pass          
-                    
-                    
-                    
+                
