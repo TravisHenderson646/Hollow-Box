@@ -97,6 +97,10 @@ class Tilemap:
             for x in range(panels_required[0]):
                 panels[(x, y)] = pg.Surface((screen_width, screen_height))
                 current_panel = panels[(x, y)]
+                panel_offset = (x * screen_width, y * screen_height)
+                for tile in self.drawn_tiles:
+                    current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
+
 
     def find_a_tiles_panels(self, tile):
         screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
