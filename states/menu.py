@@ -8,10 +8,10 @@ class Menu():
         self.exit = None
         self.next = 'level1'
     def cleanup(self):
-        print('cleaning up Menu state stuff')
+        print('cleaning up Menu state stuff...')
     def entry(self, test): #could be called cleanup
-        print('starting Menu state stuff')
-    def get_event(self, event, keys):
+        print('starting Menu state stuff...')
+    def process_event(self, event):
         if event.type == pg.QUIT:
             self.quit = True
         if event.type == pg.KEYDOWN:
@@ -19,7 +19,7 @@ class Menu():
                 self.quit = True
             else:
                 self.done = True
-    def update(self, now, keys):
+    def update(self):
         pass
     def render(self, screen):
         screen.fill((150,60,90))

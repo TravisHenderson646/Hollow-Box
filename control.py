@@ -31,10 +31,15 @@ Test maps for sandboxing abilities or monsters
 save file
 (maybe cool to have a 'total play time' that just goes up constantly when i play and
 saves when i close it)
+###
+IMPORTANT TIDYING
+###
+make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
 ####
 Must be nice
 ####
-camera: add a minimum speed
+camera: add a minimum speed, could be its own class
+
 
 each tile should be Tile class?
 entities rects to frects
@@ -91,11 +96,12 @@ class Control():
         self.state_name = 'menu'
         self.state = self.state_dict[self.state_name]
         
-    def event_loop(self):
+    def cleanup(self):
+        print('cleaning up before closing the game...')
+        
+    def pass_event(self):
         for event in pg.event.get():
-            if event.type in (pg.KEYDOWN,pg.KEYUP):
-                self.keys = pg.key.get_pressed()
-            self.state.get_event(event, self.keys)
+            self.state.process_event(event)
 
     def change_state(self):
         if self.state.done:
@@ -110,16 +116,18 @@ class Control():
             self.state.cleanup()
             
     def run(self):
+        self.state.entry(self.state.exit) # 'enter' first state (for consistancy)
         while not self.done:
             if self.state.quit or self.state.done:
                 self.done = True
-            now = pg.time.get_ticks()
-            self.event_loop()
             self.change_state()
-            self.state.update(now, self.keys)
+            self.pass_event()
+            self.state.update()
             self.state.render(self.screen)
             pg.display.update()
             self.clock.tick(self.fps)
+        self.cleanup()
+        
 
 control = Control()
 control.run()

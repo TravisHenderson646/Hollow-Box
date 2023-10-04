@@ -41,25 +41,24 @@ class Biome_1:
         self.map_id = 0
         
     def cleanup(self):
-        print(f'cleaning up lvl{self.map_id + 1}!')
+        print(f'cleaning up lvl{self.map_id + 1}...')
         self.movement = [False, False]
         pg.mixer.music.stop()
     
     def entry(self):
-        print("Entering a biome_1!")
-        print(f'Entering level {self.map_id + 1}')
+        print("Entering a biome_1...")
+        print(f'    Entering level {self.map_id + 1}...')
         pg.mixer.music.load('data/music.wav')
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.play(-1)
         
-        setup.sfx['ambience'].play(-1)
         
         self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
         
-        self.loading_zones = []
-        for tile in self.tilemap.extract([('loading_zones', 0), ('loading_zones', 1)], keep=True):
-            if tile['variant'] == 0:
-                pass
+     #   self.loading_zones = []
+      #  for tile in self.tilemap.extract([('loading_zones', 0), ('loading_zones', 1)], keep=True):
+       #     if tile['variant'] == 0:
+        #        pass
             
             
         self.leaf_spawners = []
@@ -100,7 +99,7 @@ class Biome_1:
 
 
         
-    def get_event(self, event, keys):        
+    def process_event(self, event):        
         ### User input
         if event.type == pg.QUIT:
             self.quit = True
@@ -126,7 +125,7 @@ class Biome_1:
                 self.movement[1] = False
         ###
         
-    def update(self, now, keys): # Main loop
+    def update(self): # Main loop
         self.screenshake = max(0, self.screenshake - 1)
         
         ### If you're dead increment a timer and reload the level eventually

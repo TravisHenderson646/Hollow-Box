@@ -21,30 +21,30 @@ class Level_1(Biome_1):
     def __init__(self):
         super().__init__()        
         self.level = 0 # Set starting level to 0
-        self.map_id = 3
+        self.map_id = 0
     
     def entry(self, exit):
         super().entry()
 
         # todo: camera should probably be a class
-        self.scroll = pg.Vector2(-500, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering       
+        self.scroll = pg.Vector2(100, 200) # Initial camera position
+        self.rounded_scroll = pg.Vector2(100, 200) # Rounded fix for camera scroll rendering       
     
     def reset(self):
         super().reset()
         # todo: camera should probably be a class
-        self.scroll = pg.Vector2(-500, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(-500, 200) # Rounded fix for camera scroll rendering
+        self.scroll = pg.Vector2(100, 200) # Initial camera position
+        self.rounded_scroll = pg.Vector2(100, 200) # Rounded fix for camera scroll rendering
         
-    def get_event(self, event, keys):
-        super().get_event(event, keys)
+    def process_event(self, event):
+        super().process_event(event)
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_p: #for testing
                 self.done = True
                 self.next = 'level2'
 
-    def update(self, now, keys):
-        super().update(now, keys)
+    def update(self):
+        super().update()
         for rect, type in self.tilemap.physics_rects_near(self.player.pos):
             if type == 'loading_zones':
                 if self.player.rect().colliderect(rect):
