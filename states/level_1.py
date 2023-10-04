@@ -22,6 +22,7 @@ class Level_1(Biome_1):
         super().__init__()        
         self.level = 0 # Set starting level to 0
         self.map_id = 0
+        self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
     
     def entry(self, exit):
         super().entry()

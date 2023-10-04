@@ -26,8 +26,9 @@ assets = { # dict of every sprite's image or animation's set of images
     'particle/particle': Animation(load_images('particles/particle'), 6, False),
     'gun': load_image('gun.png'),
     'projectile': load_image('projectile.png'),
-    'loading_zones': load_images('loading_zones')
-}
+    'loading_zones': load_images('tiles/loading_zones'),
+    'spawns': load_images('tiles/spawns'),
+} # todo way later on this should probably be split up so theyre not all loaded at the same time
 
 sfx = { # dict of every sound effect
     'jump': pg.mixer.Sound('data/sfx/jump.wav'),

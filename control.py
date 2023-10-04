@@ -7,6 +7,9 @@ maybe for player losing hp or idk
 screenshake would be a really good example i think!! add it 
 
 
+
+`
+
 ####
 Critical
 ####
@@ -67,7 +70,9 @@ occur at controlled random frequencies
 maybe tilemap collision should be in the level not the physics entity
 - make a group (list) called tilemap_colliders and iterate it in the levels update
 
-could have like GAME = 'game' instead of having state['game'] show up
+might want to make sure images that get painted to panels are cropped
+
+is_drawn in tile info should be called is_painted
 '''
 import os
 import sys

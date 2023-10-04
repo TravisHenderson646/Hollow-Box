@@ -37,10 +37,8 @@ class Biome_1:
         self.done = False
         self.quit = False
         self.next = None
-        self.exit = None
+        self.exit = None # exit shouldn't be done! instead have every entrance be its own class
         self.map_id = 0
-        
-        self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         
         
         
