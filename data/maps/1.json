@@ -1,1175 +1,436 @@
 {
   "tilemap": {
-    "1;3": {
+    "2;2": {
       "type": "grass",
       "variant": 1,
       "pos": [
-        1,
-        3
-      ]
+        64,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "2;3": {
+    "3;2": {
       "type": "grass",
       "variant": 1,
       "pos": [
-        2,
-        3
-      ]
+        96,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "3;3": {
+    "4;2": {
       "type": "grass",
       "variant": 1,
       "pos": [
-        3,
-        3
-      ]
+        128,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "4;3": {
+    "5;2": {
       "type": "grass",
       "variant": 1,
       "pos": [
-        4,
-        3
-      ]
+        160,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "5;3": {
+    "6;2": {
       "type": "grass",
-      "variant": 1,
+      "variant": 2,
       "pos": [
-        5,
-        3
-      ]
-    },
-    "1;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        1,
-        4
-      ]
-    },
-    "2;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        2,
-        4
-      ]
-    },
-    "3;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        3,
-        4
-      ]
-    },
-    "4;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        4,
-        4
-      ]
-    },
-    "5;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        5,
-        4
-      ]
-    },
-    "6;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        6,
-        4
-      ]
-    },
-    "6;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        6,
-        5
-      ]
-    },
-    "5;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        5,
-        5
-      ]
-    },
-    "4;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        4,
-        5
-      ]
-    },
-    "3;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        3,
-        5
-      ]
-    },
-    "2;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        2,
-        5
-      ]
-    },
-    "1;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        1,
-        5
-      ]
-    },
-    "1;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        1,
-        6
-      ]
-    },
-    "2;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        2,
-        6
-      ]
-    },
-    "3;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        3,
-        6
-      ]
-    },
-    "4;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        4,
-        6
-      ]
-    },
-    "5;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        5,
-        6
-      ]
-    },
-    "6;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        6,
-        6
-      ]
-    },
-    "7;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        7,
-        5
-      ]
-    },
-    "7;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        7,
-        4
-      ]
+        192,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
     "6;3": {
       "type": "grass",
+      "variant": 3,
+      "pos": [
+        192,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "5;3": {
+      "type": "grass",
+      "variant": 8,
+      "pos": [
+        160,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "4;3": {
+      "type": "grass",
+      "variant": 8,
+      "pos": [
+        128,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "3;3": {
+      "type": "grass",
+      "variant": 8,
+      "pos": [
+        96,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "2;3": {
+      "type": "grass",
+      "variant": 8,
+      "pos": [
+        64,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "2;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        64,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "3;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        96,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "4;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        128,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "5;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        160,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "6;4": {
+      "type": "grass",
+      "variant": 4,
+      "pos": [
+        192,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "4;1": {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        128,
+        32
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": "east_spawn"
+    },
+    "6;1": {
+      "type": "loading_zones",
+      "variant": 0,
+      "pos": [
+        192,
+        32
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": "east_exit"
+    },
+    "1;2": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        32,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-2;2": {
+      "type": "grass",
+      "variant": 2,
+      "pos": [
+        -64,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-3;2": {
+      "type": "grass",
       "variant": 1,
       "pos": [
-        6,
-        3
-      ]
+        -96,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "7;3": {
+    "-4;2": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
-        7,
-        3
-      ]
+        -128,
+        64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "8;3": {
+    "-4;3": {
       "type": "grass",
-      "variant": 1,
+      "variant": 9,
       "pos": [
-        8,
-        3
-      ]
+        -128,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "8;4": {
+    "-5;3": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        8,
-        4
-      ]
+        -160,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "7;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        7,
-        6
-      ]
-    },
-    "8;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        6
-      ]
-    },
-    "8;5": {
+    "-3;3": {
       "type": "grass",
       "variant": 8,
       "pos": [
-        8,
-        5
-      ]
+        -96,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "7;7": {
+    "-2;3": {
       "type": "grass",
-      "variant": 8,
+      "variant": 10,
       "pos": [
-        7,
-        7
-      ]
+        -64,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "6;7": {
+    "1;3": {
       "type": "grass",
-      "variant": 8,
+      "variant": 9,
       "pos": [
-        6,
-        7
-      ]
+        32,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "5;7": {
+    "1;4": {
       "type": "grass",
-      "variant": 8,
+      "variant": 5,
       "pos": [
-        5,
-        7
-      ]
-    },
-    "4;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        4,
-        7
-      ]
-    },
-    "3;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        3,
-        7
-      ]
-    },
-    "2;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        2,
-        7
-      ]
-    },
-    "1;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        1,
-        7
-      ]
-    },
-    "0;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        7
-      ]
+        32,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
     "0;4": {
       "type": "grass",
-      "variant": 8,
+      "variant": 5,
       "pos": [
         0,
-        4
-      ]
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-1;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        -32,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-2;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        -64,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-3;4": {
+      "type": "grass",
+      "variant": 5,
+      "pos": [
+        -96,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-1;3": {
+      "type": "grass",
+      "variant": 1,
+      "pos": [
+        -32,
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
     "0;3": {
       "type": "grass",
       "variant": 1,
       "pos": [
         0,
-        3
-      ]
+        96
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "0;5": {
+    "-4;4": {
       "type": "grass",
-      "variant": 8,
+      "variant": 5,
       "pos": [
-        0,
-        5
-      ]
+        -128,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     },
-    "0;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        6
-      ]
-    },
-    "-1;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -1,
-        5
-      ]
-    },
-    "-1;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -1,
-        4
-      ]
-    },
-    "-1;3": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -1,
-        3
-      ]
-    },
-    "-1;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -1,
-        6
-      ]
-    },
-    "-1;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -1,
-        7
-      ]
-    },
-    "-2;6": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -2,
-        6
-      ]
-    },
-    "-2;5": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -2,
-        5
-      ]
-    },
-    "-2;4": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -2,
-        4
-      ]
-    },
-    "-2;3": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        3
-      ]
-    },
-    "-2;7": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -2,
-        7
-      ]
-    },
-    "-2;8": {
+    "-5;4": {
       "type": "grass",
       "variant": 6,
       "pos": [
-        -2,
-        8
-      ]
-    },
-    "-1;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -1,
-        8
-      ]
-    },
-    "0;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        0,
-        8
-      ]
-    },
-    "1;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        1,
-        8
-      ]
-    },
-    "2;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        2,
-        8
-      ]
-    },
-    "3;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        3,
-        8
-      ]
-    },
-    "4;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        4,
-        8
-      ]
-    },
-    "5;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        5,
-        8
-      ]
-    },
-    "6;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        6,
-        8
-      ]
-    },
-    "7;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        7,
-        8
-      ]
-    },
-    "8;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        8,
-        8
-      ]
-    },
-    "9;8": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        9,
-        8
-      ]
-    },
-    "9;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        9,
-        7
-      ]
-    },
-    "8;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        7
-      ]
-    },
-    "10;7": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        7
-      ]
-    },
-    "10;8": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        10,
-        8
-      ]
-    },
-    "10;6": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        6
-      ]
-    },
-    "9;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        9,
-        5
-      ]
-    },
-    "9;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        9,
-        6
-      ]
-    },
-    "10;5": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        5
-      ]
-    },
-    "10;4": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        4
-      ]
-    },
-    "9;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        9,
-        4
-      ]
-    },
-    "9;3": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        9,
-        3
-      ]
-    },
-    "10;3": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        10,
-        3
-      ]
-    },
-    "9;0": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        9,
-        0
-      ]
-    },
-    "10;0": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        10,
-        0
-      ]
-    },
-    "9;-1": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -1
-      ]
-    },
-    "10;-1": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -1
-      ]
-    },
-    "10;-2": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -2
-      ]
-    },
-    "10;-3": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -3
-      ]
-    },
-    "9;-3": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -3
-      ]
-    },
-    "9;-2": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -2
-      ]
-    },
-    "9;-4": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -4
-      ]
-    },
-    "10;-4": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -4
-      ]
-    },
-    "10;-5": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -5
-      ]
-    },
-    "9;-5": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -5
-      ]
-    },
-    "9;-6": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -6
-      ]
-    },
-    "9;-7": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        9,
-        -7
-      ]
-    },
-    "10;-7": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -7
-      ]
-    },
-    "10;-8": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        10,
-        -8
-      ]
-    },
-    "9;-8": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        9,
-        -8
-      ]
-    },
-    "10;-6": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        10,
-        -6
-      ]
-    },
-    "-2;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        0
-      ]
-    },
-    "-1;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        0
-      ]
-    },
-    "-2;-1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -1
-      ]
-    },
-    "-1;-1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -1
-      ]
-    },
-    "-1;-2": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -2
-      ]
-    },
-    "-1;-3": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -3
-      ]
-    },
-    "-1;-4": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -4
-      ]
-    },
-    "-1;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -5
-      ]
-    },
-    "-1;-6": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -6
-      ]
-    },
-    "-1;-7": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -7
-      ]
-    },
-    "-1;-8": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -1,
-        -8
-      ]
-    },
-    "-2;-8": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -8
-      ]
-    },
-    "-2;-7": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -7
-      ]
-    },
-    "-2;-6": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -6
-      ]
-    },
-    "-2;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -5
-      ]
-    },
-    "-2;-4": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -4
-      ]
-    },
-    "-2;-3": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -3
-      ]
-    },
-    "-2;-2": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        -2,
-        -2
-      ]
-    },
-    "10;1": {
-      "type": "loading_zones",
-      "variant": 0,
-      "pos": [
-        10,
-        1
-      ]
-    },
-    "10;2": {
-      "type": "loading_zones",
-      "variant": 0,
-      "pos": [
-        10,
-        2
-      ]
-    },
-    "-2;1": {
-      "type": "loading_zones",
-      "variant": 1,
-      "pos": [
-        -2,
-        1
-      ]
-    },
-    "-2;2": {
-      "type": "loading_zones",
-      "variant": 1,
-      "pos": [
-        -2,
-        2
-      ]
-    },
-    "2;-1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        2,
-        -1
-      ]
-    },
-    "2;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        2,
-        0
-      ]
-    },
-    "3;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        3,
-        0
-      ]
-    },
-    "3;-1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        3,
-        -1
-      ]
-    },
-    "4;-1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        4,
-        -1
-      ]
-    },
-    "4;-2": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        4,
-        -2
-      ]
-    },
-    "5;-2": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        -2
-      ]
-    },
-    "5;-3": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        -3
-      ]
-    },
-    "6;-2": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        -2
-      ]
-    },
-    "6;-3": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        -3
-      ]
-    },
-    "6;-4": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        -4
-      ]
-    },
-    "6;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        -5
-      ]
-    },
-    "5;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        -5
-      ]
-    },
-    "5;-6": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        -6
-      ]
-    },
-    "4;-6": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        4,
-        -6
-      ]
-    },
-    "3;-6": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        3,
-        -6
-      ]
-    },
-    "3;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        3,
-        -5
-      ]
-    },
-    "2;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        2,
-        -5
-      ]
-    },
-    "2;-4": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        2,
-        -4
-      ]
-    },
-    "4;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        4,
-        0
-      ]
-    },
-    "5;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        0
-      ]
-    },
-    "6;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        0
-      ]
-    },
-    "2;1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        2,
-        1
-      ]
-    },
-    "3;1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        3,
-        1
-      ]
-    },
-    "4;1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        4,
-        1
-      ]
-    },
-    "5;1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        5,
-        1
-      ]
-    },
-    "6;1": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        6,
-        1
-      ]
+        -160,
+        128
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
     }
   },
   "tile_size": 32,
   "offgrid": [
     {
-      "type": "spawners",
+      "type": "decor",
       "variant": 0,
       "pos": [
-        65.66666666666666,
-        73.66666666666666
-      ]
+        -92,
+        48
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": ""
+    },
+    {
+      "type": "decor",
+      "variant": 0,
+      "pos": [
+        -9,
+        81
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": ""
+    },
+    {
+      "type": "decor",
+      "variant": 0,
+      "pos": [
+        56,
+        48
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": ""
+    },
+    {
+      "type": "large_decor",
+      "variant": 0,
+      "pos": [
+        -64,
+        55
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": ""
     }
   ]
 }

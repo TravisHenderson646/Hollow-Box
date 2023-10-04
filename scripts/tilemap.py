@@ -13,26 +13,41 @@ NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
     
 class Tile:
-    def __init__(self, variant, pos, tile_size=32):
-        self.type = type
+    def __init__(self, type, variant, pos):
+        self.type = type #maybe type should be group bc python type eh idc
         self.variant = variant
         self.pos = pos
         self.rect = True
+        self.is_interactable = False
+        self.flag = ''
+        self.is_drawn = False # i want to try self.is_drawn : bool # when i know im setting it later
     
 class Tilemap:
     def __init__(self, tile_size=32):
         self.tile_size = tile_size
         self.tilemap = {}
-        self.offgrid_tiles = []
+        self.interactable_tiles = []
+        self.drawn_tiles = []
         
-    def load(self, path):
+    def process_tilemap(self, path):
         file = open(path, 'r')
         map_data = json.load(file)
         file.close()
         
-        self.tilemap = map_data['tilemap']
-        self.tile_size = map_data['tile_size']
-        self.offgrid_tiles = map_data['offgrid']
+        ongrid_data = map_data['tilemap']
+        offgrid_data = map_data['offgrid']
+        ###########################################################################################################################################################################################
+        for key, tile in ongrid_data.items():
+            tile['pos'] = tuple(tile['pos'])
+            tile_instance = Tile(tile['type'], tile['variant'], tile['pos'])
+            tile_instance.is_interactable = tile['is_interactable']
+            tile_instance.is_drawn = tile['is_drawn']
+            tile_instance.flag = tile['flag']
+            if tile_instance.is_drawn:
+                self.drawn_tiles.append(tile_instance)
+            if tile_instance.is_interactable:
+                self.interactable_tiles.append(tile_instance)
+            print(key, tile, vars(tile_instance))
 
     def extract(self, id_pairs, keep=False): #change name to give tiles
         matches = []

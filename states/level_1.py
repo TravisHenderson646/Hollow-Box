@@ -45,7 +45,7 @@ class Level_1(Biome_1):
 
     def update(self):
         super().update()
-        for rect, type in self.tilemap.physics_rects_near(self.player.pos):
+        for rect, type in self.tilemap.physics_rects_near(self.player.pos): # rework probably gonna have to do collision in the level now
             if type == 'loading_zones':
                 if self.player.rect().colliderect(rect):
                     self.done = True

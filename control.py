@@ -26,6 +26,8 @@ how to connect pathways like a hollow knight map (with robust naming scheme and 
 consider a better name for each object
 remake tileset. make it simpler like a neon line that connects around the outside
 
+maybe rework file system to be more than just 0.png 1.png
+
 Test maps for sandboxing abilities or monsters
 
 save file

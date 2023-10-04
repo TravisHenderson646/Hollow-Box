@@ -40,6 +40,10 @@ class Biome_1:
         self.exit = None
         self.map_id = 0
         
+        self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
+        
+        
+        
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
         self.movement = [False, False]
@@ -53,7 +57,7 @@ class Biome_1:
         pg.mixer.music.play(-1)
         
         
-        self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
+       # self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
         
      #   self.loading_zones = []
       #  for tile in self.tilemap.extract([('loading_zones', 0), ('loading_zones', 1)], keep=True):
@@ -81,14 +85,6 @@ class Biome_1:
     ###          
     
     def reset(self):
-        self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
-        self.enemies = [] 
-        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
-            if spawner['variant'] == 0:
-                self.player.pos = pg.Vector2(spawner['pos'])
-                self.player.air_time = 0
-            else:
-                self.enemies.append(Enemy(spawner['pos'], (8, 15)))
                 
         self.projectiles = []
         self.particles = []
