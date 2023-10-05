@@ -139,7 +139,7 @@ class Tilemap:
         #have to optimize offgrid tiles at some point probably once i have enough
         disp_width = surf.get_width()
         disp_height = surf.get_height()
-        center_node = (round(offset[0] / disp_width), round(offset[1] / disp_height))
+        center_node = (round((offset[0] + disp_width/2) / disp_width), round((offset[1] + disp_height/2) / disp_height))
         hot_panels = (
             (center_node[0] - 1, center_node[1] - 1),
             (center_node[0]    , center_node[1] - 1),
