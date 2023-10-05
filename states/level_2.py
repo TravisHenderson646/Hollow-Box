@@ -21,7 +21,8 @@ class Level_2(Biome_1):
     def __init__(self):
         super().__init__()
         self.level = 1
-        self.map_id = 1
+        self.map_id = 1            
+        self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
     
     def entry(self, exit):

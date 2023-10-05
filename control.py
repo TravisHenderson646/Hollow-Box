@@ -1,14 +1,9 @@
 '''
-
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
 maybe for player losing hp or idk
 
 screenshake would be a really good example i think!! add it 
-
-
-
-`
 
 ####
 Critical
@@ -45,12 +40,10 @@ Must be nice
 ####
 camera: add a minimum speed, could be its own class
 
-
-each tile should be Tile class?
-entities rects to frects
-
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler
+
+fix the naming of screen and display. display needs a better name. canvas? canvas!
 
 frame advance
 screenshots from anywhere
@@ -64,8 +57,8 @@ use set_timer and custom USER_EVENTS for every cooldown in the game?
 
 maybe tools should be a folder
 
-midd middle tile of tileset (or any one really) could have random alterations that
-occur at controlled random frequencies
+middled middle tile of tileset (or any one really) could have random alterations that
+occur at controlled randodddddddddddddddddm frequencies
 
 maybe tilemap collision should be in the level not the physics entity
 - make a group (list) called tilemap_colliders and iterate it in the levels update

@@ -23,8 +23,7 @@ class Biome_1:
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right
         
         self.display = setup.DISPLAY # What we draw on to blit to screen
-            
-        self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
+
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
         self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
@@ -40,8 +39,6 @@ class Biome_1:
         self.exit = None # exit shouldn't be done! instead have every entrance be its own class
         self.map_id = 0
         
-        
-        
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
         self.movement = [False, False]
@@ -52,28 +49,19 @@ class Biome_1:
         print(f'    Entering level {self.map_id + 1}...')
         pg.mixer.music.load('data/music.wav')
         pg.mixer.music.set_volume(0.5)
-        pg.mixer.music.play(-1)
-        
-        
-       # self.tilemap.load('data/maps/' + str(self.map_id) + '.json')
-        
-     #   self.loading_zones = []
-      #  for tile in self.tilemap.extract([('loading_zones', 0), ('loading_zones', 1)], keep=True):
-       #     if tile['variant'] == 0:
-        #        pass
+        pg.mixer.music.play(-1)     
             
-            
-        self.leaf_spawners = []
-        for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
-            self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
+   #     self.leaf_spawners = []
+    #    for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
+     #       self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
         
-        self.enemies = [] 
-        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
-            if spawner['variant'] == 0:
-                self.player.pos = pg.Vector2(spawner['pos'])
-                self.player.air_time = 0
-            else:
-                self.enemies.append(Enemy(spawner['pos'], (8, 15)))
+  #      self.enemies = [] 
+   #     for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
+    #        if spawner['variant'] == 0:
+     #           self.player.pos = pg.Vector2(spawner['pos'])
+      #          self.player.air_time = 0
+       #     else:
+        #        self.enemies.append(Enemy(spawner['pos'], (8, 15)))
                 
         self.projectiles = []
         self.particles = []
@@ -139,19 +127,19 @@ class Biome_1:
         ###
         
         ### Maybe spawn leafs
-        for rect in self.leaf_spawners:
-            if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
-                pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
-                self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
+    #    for rect in self.leaf_spawners:
+     #       if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
+      #          pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
+       #         self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
         ###
                 
         self.clouds.update()
         
         ### Update enemies
-        for enemy in self.enemies.copy():
-            kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
-            if kill:
-                self.enemies.remove(enemy)
+ #       for enemy in self.enemies.copy():
+  #          kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
+   #         if kill:
+    #            self.enemies.remove(enemy)
         ### Update player
         if not self.player.dead:
             self.player.update(self.tilemap, self.particles, (self.movement[1] - self.movement[0], 0))

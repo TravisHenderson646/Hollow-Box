@@ -3824,8 +3824,8 @@
       "type": "spawners",
       "variant": 1,
       "pos": [
-        -188,
-        79
+        100,
+        190
       ],
       "is_drawn": false,
       "is_interactable": false,

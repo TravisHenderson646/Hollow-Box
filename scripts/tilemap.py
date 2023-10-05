@@ -32,7 +32,7 @@ class Tilemap:
         self.tiles = []
         self.interactable_tiles = []
         self.drawn_tiles = []
-        self.panels = (0, 0)
+        self.panels = {}
         self.chunks = (0, 0)
         
     def process_tile(self, tile):
@@ -68,16 +68,15 @@ class Tilemap:
         ongrid_data = map_data['tilemap']
         offgrid_data = map_data['offgrid']
         
-        
+        # process EVERY tiles
         for key, tile in ongrid_data.items(): # no key used should this just be a list as well?
             self.process_tile(tile)
         for tile in offgrid_data:
             self.process_tile(tile)
             
-        panels = self.calculate_panels()
+        self.calculate_panels()
         
     def calculate_panels(self):
-        panels = {}
         screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
         max_left = min([tile.pos[0] for tile in self.drawn_tiles])
         max_right = max([tile.pos[0] + tile.size[0] for tile in self.drawn_tiles])
@@ -95,39 +94,18 @@ class Tilemap:
         panels_required = (map_width // screen_width + 1, map_height // screen_height + 1)
         for y in range(panels_required[1]):
             for x in range(panels_required[0]):
-                panels[(x, y)] = pg.Surface((screen_width, screen_height))
-                current_panel = panels[(x, y)]
+                self.panels[(x, y)] = pg.Surface((screen_width, screen_height))
+                current_panel = self.panels[(x, y)]
                 panel_offset = (x * screen_width, y * screen_height)
                 for tile in self.drawn_tiles:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
-
-
+                current_panel.set_colorkey((0, 0, 0))
+                
     def find_a_tiles_panels(self, tile):
         screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
         tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
         br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
         tile.panels = (tl, br)
-    
-    
-    
-    def extract(self, id_pairs, keep=False): #change name to give tiles
-        matches = []
-        for tile in self.offgrid_tiles.copy():
-            if (tile['type'], tile['variant']) in id_pairs:
-                matches.append(tile.copy())
-                if not keep:
-                    self.offgrid_tiles.remove(tile)
-        # on grid tiles
-        for loc in self.tilemap.copy():
-            tile = self.tilemap[loc]
-            if (tile['type'], tile['variant']) in id_pairs:
-                matches.append(tile.copy())
-                matches[-1]['pos'] = matches[-1]['pos'].copy()
-                matches[-1]['pos'][0] *= self.tile_size
-                matches[-1]['pos'][1] *= self.tile_size
-                if not keep:
-                    del self.tilemap[loc]
-        return matches
 
     def tiles_near(self, pos):
         '''Takes a game position and returns a list of any adjacent tiles(dicts)'''
@@ -157,18 +135,18 @@ class Tilemap:
         return rects
 
     def render(self, surf, offset):
-        '''Takes the display surface and screen scroll and renders the tilemap section'''
+        '''Takes the display surface and screen scroll and renders the relevant tilemap panels'''
         #have to optimize offgrid tiles at some point probably once i have enough
-        for tile in self.offgrid_tiles: #todo: dafluffy says this order but maybe its cooler to have offgrin in front THINK ABOUT IT
-            surf.blit(setup.assets[tile['type']][tile['variant']], (floor(tile['pos'][0] - offset[0]), floor(tile['pos'][1] - offset[1])))
-
-        for x in range(floor(offset[0] // self.tile_size), floor((offset[0] + surf.get_width()) // self.tile_size + 1)):
-            for y in range(floor(offset[1] // self.tile_size), floor((offset[1] + surf.get_height()) // self.tile_size + 1)):
-                loc = str(x) +';' + str(y)
-                if loc in self.tilemap:
-                    tile = self.tilemap[loc]
-                    if True:#tile['type'] != 'loading_zones':
-                        surf.blit(setup.assets[tile['type']][tile['variant']], (floor(tile['pos'][0]) * self.tile_size - offset[0], floor(tile['pos'][1]) * self.tile_size - offset[1]))
-                    else:
-                        pass          
-                
+        disp_width = surf.get_width()
+        disp_height = surf.get_height()
+        center_node = (round(offset[0] / disp_width), round(offset[1] / disp_height))
+        hot_panels = (
+            (center_node[0] - 1, center_node[1] - 1),
+            (center_node[0]    , center_node[1] - 1),
+            (center_node[0] - 1, center_node[1]    ),
+            (center_node[0]    , center_node[1]    ),)
+    #    for key, panel in [(hot_panel_pos ,self.panels[hot_panel_pos]) for hot_panel_pos in hot_panels if (hot_panel_pos[0] >= 0 and hot_panel_pos[1] >= 0)]: # the most beautiful list comprehension i have ever devised
+        for panel_pos in hot_panels:
+            if panel_pos[0] >= 0 and panel_pos[1] >= 0:
+                panel = self.panels[panel_pos]
+                surf.blit(panel, (panel_pos[0] * disp_width - offset[0], panel_pos[1] * disp_height - offset[1]))
