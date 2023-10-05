@@ -4,6 +4,7 @@ pg.mixer.pre_init(44100, -16, 1, 512) # no idea how to do this in Control.__init
 pg.init()
 SCREEN = pg.display.set_mode((1280, 720)) # What the player sees
 DISPLAY = pg.Surface((640,360), pg.SRCALPHA) # What the player sees
+PLAYER_COLLISION_SIZE = (24, 25)
 
 from .tools import * #I HAVE NO IDEA. I NEED TO FIX THIS ATROCITY
 

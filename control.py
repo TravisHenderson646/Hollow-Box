@@ -38,7 +38,7 @@ make sure nothing is positioned between the low res tiles in its final position,
 ####
 Must be nice
 ####
-camera: add a minimum speed, could be its own class
+arbitrary amount of collisionboxes on player. big one for interacting, smaller for physics, smallerer hurtbox
 
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler

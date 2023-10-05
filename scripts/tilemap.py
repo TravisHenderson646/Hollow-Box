@@ -24,6 +24,8 @@ class Tile:
         self.size = size
         self.bottom_right = (pos[0] + self.size[0], pos[1] + self.size[1])
         self.panels = ((0, 0), (0, 0)) # (top_left, bottom_right)
+        if self.is_interactable:
+            self.rect = pg.Rect(pos[0], pos[1], self.image.get_width(), self.image.get_height())
     
 class Tilemap:
     def __init__(self, tile_size=32):
@@ -33,7 +35,9 @@ class Tilemap:
         self.interactable_tiles = []
         self.drawn_tiles = []
         self.panels = {}
-        self.chunks = (0, 0)
+        self.chunks = {}
+        self.map_width = 0
+        self.map_height = 0
         
     def process_tile(self, tile):
         if tile['is_drawn']:
@@ -73,25 +77,27 @@ class Tilemap:
             self.process_tile(tile)
         for tile in offgrid_data:
             self.process_tile(tile)
-            
-        self.calculate_panels()
         
+        self.calculate_map_dimensions()
+        self.calculate_panels()
+        self.calculate_chunks()
+        
+    def calculate_chunks(self):
+        player_width, player_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
+        chunks_required = (self.map_width // player_width + 1, self.map_height // player_height + 1)
+        for y in range(chunks_required[1]):
+            for x in range(chunks_required[0]):
+                self.chunks[(x, y)] = []
+                current_chunk = self.chunks[(x, y)]
+                chunk_topleft = (x * player_width, y * player_height)
+                chunk_rect = pg.Rect(chunk_topleft[0], chunk_topleft[1], player_width, player_height)
+                for tile in self.interactable_tiles:
+                    if tile.rect.colliderect(chunk_rect):
+                        current_chunk.append(tile.rect)
+
     def calculate_panels(self):
         screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
-        max_left = min([tile.pos[0] for tile in self.drawn_tiles])
-        max_right = max([tile.pos[0] + tile.size[0] for tile in self.drawn_tiles])
-        max_top = min([tile.pos[1] for tile in self.drawn_tiles])
-        max_bottom = max([tile.pos[1] + tile.size[1] for tile in self.drawn_tiles])
-        map_width = max_right - max_left
-        map_height = max_bottom - max_top
-        
-        # update tile positions
-        map_offset = (max_left, max_top)
-        for tile in self.tiles:
-            tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
-            self.find_a_tiles_panels(tile)
-
-        panels_required = (map_width // screen_width + 1, map_height // screen_height + 1)
+        panels_required = (self.map_width // screen_width + 1, self.map_height // screen_height + 1)
         for y in range(panels_required[1]):
             for x in range(panels_required[0]):
                 self.panels[(x, y)] = pg.Surface((screen_width, screen_height))
@@ -99,7 +105,22 @@ class Tilemap:
                 panel_offset = (x * screen_width, y * screen_height)
                 for tile in self.drawn_tiles:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
-                current_panel.set_colorkey((0, 0, 0))
+                current_panel.set_colorkey((0, 0, 0))  
+                  
+    def calculate_map_dimensions(self):
+                # todo thismap ca;culation should be done in a function
+        max_left = min([tile.pos[0] for tile in self.drawn_tiles])
+        max_right = max([tile.pos[0] + tile.size[0] for tile in self.tiles])
+        max_top = min([tile.pos[1] for tile in self.drawn_tiles])
+        max_bottom = max([tile.pos[1] + tile.size[1] for tile in self.tiles])
+        self.map_width = max_right - max_left
+        self.map_height = max_bottom - max_top
+        
+        # update ALL(?) tile positions
+        map_offset = (max_left, max_top)
+        for tile in self.tiles:
+            tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
+            self.find_a_tiles_panels(tile)
                 
     def find_a_tiles_panels(self, tile):
         screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()

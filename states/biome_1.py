@@ -25,7 +25,7 @@ class Biome_1:
         self.display = setup.DISPLAY # What we draw on to blit to screen
 
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((50, 50), (32, 27)) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.player = Player((50, 50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
         
         self.screenshake = 0
