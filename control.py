@@ -35,6 +35,7 @@ saves when i close it)
 IMPORTANT TIDYING
 ###
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
+share player = Player() via abc, do not make self.player = Player() in each lvl
 ####
 Must be nice
 ####
