@@ -1,4 +1,4 @@
-'''
+'''ddddddw
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
 maybe for player losing hp or idk
@@ -36,6 +36,9 @@ IMPORTANT TIDYING
 ###
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
 share player = Player() via abc, do not make self.player = Player() in each lvl
+the chunks should probably be based on the largest enemy in the level?
+    the chunks could also crop the colidable rects 
+i think collision box detection should happen and update positions, then hitbox/hurtbox detection happens
 ####
 Must be nice
 ####
@@ -94,7 +97,7 @@ class Control():
             'level2': level_2.Level_2(),
             'menu': menu.Menu(),
         }
-        self.state_name = 'menu'
+        self.state_name = 'level1'
         self.state = self.state_dict[self.state_name]
         
     def cleanup(self):

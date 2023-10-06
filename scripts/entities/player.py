@@ -19,8 +19,8 @@ class Player(PhysicsEntity):
         self.dashing = 0 # poor name for non bool
         self.dead = 0
         
-    def update(self, tilemap, particles, movement=(0, 0)):
-        super().update(tilemap, movement=movement)
+    def update(self, particles, movement):
+        super().update(movement)
     
         self.air_time += 1
         

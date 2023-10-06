@@ -1,0 +1,39 @@
+{
+  "tilemap": {
+    "-2;-2": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -64,
+        -64
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    }
+  },
+  "offgrid": [
+    {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        181,
+        84
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    {
+      "type": "spawners",
+      "variant": 0,
+      "pos": [
+        114,
+        -78
+      ],
+      "is_drawn": false,
+      "is_interactable": false,
+      "flag": ""
+    }
+  ]
+}

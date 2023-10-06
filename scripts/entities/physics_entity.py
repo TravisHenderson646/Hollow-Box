@@ -12,11 +12,12 @@ class PhysicsEntity:
         self.entity_type = entity_type
         self.pos = pg.Vector2(pos)
         self.size = size
-        self.vel = pg.Vector2(0, 0)
+        self.movement = [0, 0, 0, 0] # desired L/R movement of entity???
+        self.vel = pg.Vector2(0, 0) # velocity imparted from other action
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         
         self.action = ''
-        self.last_movement = [0, 0]
+        self.last_movement = [0, 0, 0, 0]
         self.anim_offset = pg.Vector2(-3, -3) #todo: this apparently a hack soln to match the idle to the run img padding and more
         self.flip = False
         self.set_action('idle')
@@ -34,38 +35,37 @@ class PhysicsEntity:
             self.action = action
             self.animation = setup.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
-    def update(self, tilemap, movement=(0, 0)):
-        self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
+    def update(self, movement):
 
         frame_movement = pg.Vector2(movement[0] + self.vel.x, movement[1] + self.vel.y)
      # this movement should be in the generic level class
      # if i had this movement in the level, there could more easily be different blocks
      # that dont just simply body block the player
-        self.pos.x += frame_movement.x
-        entity_rect = self.rect()
-        for rect, type in tilemap.physics_rects_near(self.pos):
-            if not type:
-                if entity_rect.colliderect(rect):
-                    if frame_movement.x > 0:
-                        entity_rect.right = rect.left
-                        self.collisions['right'] = True
-                    if frame_movement.x < 0:
-                        entity_rect.left = rect.right
-                        self.collisions['left'] = True
-                    self.pos.x = entity_rect.x
+ #       self.pos.x += frame_movement.x
+  #      entity_rect = self.rect()
+   #     for rect, type in tilemap.physics_rects_near(self.pos):
+    #        if not type:
+     #           if entity_rect.colliderect(rect):
+      #              if frame_movement.x > 0:
+       #                 entity_rect.right = rect.left
+        #                self.collisions['right'] = True
+         #           if frame_movement.x < 0:
+          #              entity_rect.left = rect.right
+           #             self.collisions['left'] = True
+            #        self.pos.x = entity_rect.x
         
-        self.pos.y += frame_movement.y
-        entity_rect = self.rect()
-        for rect, type in tilemap.physics_rects_near(self.pos):
-            if not type:
-                if entity_rect.colliderect(rect):
-                    if frame_movement.y > 0:
-                        entity_rect.bottom = rect.top
-                        self.collisions['down'] = True
-                    if frame_movement.y < 0:
-                        entity_rect.top = rect.bottom
-                        self.collisions['up'] = True
-                    self.pos.y = entity_rect.y
+ #       self.pos.y += frame_movement.y
+  #      entity_rect = self.rect()
+   #     for rect, type in tilemap.physics_rects_near(self.pos):
+    #        if not type:
+     #           if entity_rect.colliderect(rect):
+      #              if frame_movement.y > 0:
+       #                 entity_rect.bottom = rect.top
+        #                self.collisions['down'] = True
+         #           if frame_movement.y < 0:
+          #              entity_rect.top = rect.bottom
+           #             self.collisions['up'] = True
+            #        self.pos.y = entity_rect.y
                 
         self.test_pos = self.pos 
                 
@@ -77,7 +77,9 @@ class PhysicsEntity:
         self.last_movement = movement
         
         #gravity with terminal vel
-        self.vel.y = min(5, self.vel.y + 0.1)
+     #   self.vel.y = min(5, self.vel.y + 0.1)
+        self.pos.x += movement[0] * 5
+        self.pos.y += movement[1] * 5
         
         if self.collisions['down'] or self.collisions['up']:
             self.vel.y = 0

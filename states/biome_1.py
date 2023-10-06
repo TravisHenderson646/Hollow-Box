@@ -25,8 +25,10 @@ class Biome_1:
         self.display = setup.DISPLAY # What we draw on to blit to screen
 
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((50, 50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
-        self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right 
+        self.player = Player((500, 250), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.tilemap : Tilemap
+        self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
+        self.solid_entities = [self.player] # start a list of the solid entities in the level
         
         self.screenshake = 0
         # todo: camera should probably be a class
@@ -41,7 +43,7 @@ class Biome_1:
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
-        self.movement = [False, False]
+        self.movement = [False, False, False, False]
         pg.mixer.music.stop()
     
     def entry(self):
@@ -96,6 +98,10 @@ class Biome_1:
                 self.movement[0] = True
             if event.key == pg.K_d:
                 self.movement[1] = True
+            if event.key == pg.K_w:
+                self.movement[2] = True
+            if event.key == pg.K_s:
+                self.movement[3] = True
             if event.key == pg.K_SPACE:
                 self.player.jump()
             if event.key == pg.K_j:
@@ -105,8 +111,12 @@ class Biome_1:
                 self.movement[0] = False
             if event.key == pg.K_d:
                 self.movement[1] = False
+            if event.key == pg.K_w:
+                self.movement[2] = False
+            if event.key == pg.K_s:
+                self.movement[3] = False
         ###
-        
+   
     def update(self): # Main loop
         self.screenshake = max(0, self.screenshake - 1)
         
@@ -140,10 +150,17 @@ class Biome_1:
   #          kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
    #         if kill:
     #            self.enemies.remove(enemy)
+        ###
+    
         ### Update player
         if not self.player.dead:
-            self.player.update(self.tilemap, self.particles, (self.movement[1] - self.movement[0], 0))
+            self.player.update(None, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
         ###
+        
+        ### Solids collide with map (note: after solids have moved)
+        for entity in self.solid_entities:
+            self.tilemap.push_out_solids(entity)
+
         
         ### Update enemy projectiles
         for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
@@ -168,7 +185,6 @@ class Biome_1:
                         self.particles.append(Particle('particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
         ###
         
-
         ### Update particles
         for particle in self.particles.copy():
             kill = particle.update()
@@ -183,7 +199,7 @@ class Biome_1:
         
         self.clouds.render(self.display, offset=self.rounded_scroll)
         
-        self.tilemap.render(self.display, offset=self.rounded_scroll)
+        self.tilemap.render(self.display, self.rounded_scroll, self.player.pos)
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']
