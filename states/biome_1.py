@@ -1,14 +1,9 @@
-import os
-import sys
 import math
 import random
 
 import pygame as pg
 
-from scripts.entities.physics_entity import PhysicsEntity
-from scripts.entities.enemy import Enemy
 from scripts.entities.player import Player
-from scripts.tools import load_image, load_images, Animation
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.particle import Particle
@@ -20,17 +15,15 @@ from scripts import setup
 # a biome instance should never be created (abstract base class)
 class Biome_1:    
     def __init__(self):
-        self.movement = [False, False] # [left, right] - Tracks whether the player is inputting left or right
-        
-        self.display = setup.DISPLAY # What we draw on to blit to screen
+        self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
+
 
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
         self.player = Player((50, 50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.tilemap : Tilemap
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
         self.solid_entities = [self.player] # start a list of the solid entities in the level
-        
-        self.screenshake = 0
+
         # todo: camera should probably be a class
         self.scroll = pg.Vector2(0, 0) # Initial camera position
         self.rounded_scroll = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
@@ -118,48 +111,117 @@ class Biome_1:
         ###
    
     def update(self): # Main loop
-        self.screenshake = max(0, self.screenshake - 1)
-        
-        ### If you're dead increment a timer and reload the level eventually
-        if self.player.dead > 0:
-            self.player.dead += 1 #timer
-            if self.player.dead <= 50:
-                self.transition = min(30, self.transition + 1) #hack soln to screen transition
-            if self.player.dead > 80:
-                self.reset()
-        ###
-        
         ### Update camera position
-        self.scroll.x += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll.x) / 60
-        self.scroll.y += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll.y) / 60
+        self.scroll.x += (self.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.scroll.x) / 60
+        self.scroll.y += (self.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.scroll.y) / 60
         self.rounded_scroll.x = math.floor(self.scroll.x)
         self.rounded_scroll.y = math.floor(self.scroll.y)
         ###
         
-        ### Maybe spawn leafs
-    #    for rect in self.leaf_spawners:
-     #       if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
-      #          pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
-       #         self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
-        ###
-                
+
         self.clouds.update()
-        
-        ### Update enemies
- #       for enemy in self.enemies.copy():
-  #          kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
-   #         if kill:
-    #            self.enemies.remove(enemy)
-        ###
-    
+
         ### Update player
         if not self.player.dead:
             self.player.update(None, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
         ###
-        
+
         ### Solids collide with map (note: after solids have moved)
         for entity in self.solid_entities:
-            self.tilemap.push_out_solids(entity)
+            self.push_out_solids(entity)
+
+        ### Update particles
+        for particle in self.particles.copy():
+            kill = particle.update()
+            if kill:
+                self.particles.remove(particle)
+            else:
+                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
+        ###
+
+        
+    def push_out_solids(self, entity):
+        entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
+ #       frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
+        frame_movement = ( # (x, y)
+            math.floor(self.movement[1] - self.movement[0]) + entity.vel.x,
+            math.floor(self.movement[3] - self.movement[2]) + entity.vel.y,)
+        
+        entity_width = entity.rect().width
+        entity_height = entity.rect().height
+        center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
+        
+        hot_chunks = (
+            (center_node[0] - 1, center_node[1] - 1),
+            (center_node[0]    , center_node[1] - 1),
+            (center_node[0] - 1, center_node[1]    ),
+            (center_node[0]    , center_node[1]    ),)
+        
+        entity.pos.x += frame_movement[0] * 4
+        entity_rect = entity.rect()
+        for chunk_pos in hot_chunks:
+        #    print(self.chunks.items())
+            chunk = self.tilemap.chunks.get(chunk_pos, {})
+            for rect in chunk:
+                print(rect)
+                if entity_rect.colliderect(rect):
+                    if frame_movement[0] > 0:
+                        entity_rect.right = rect.left
+                        entity.collisions['right'] = True
+                    if frame_movement[0] < 0:
+                        entity_rect.left = rect.right
+                        entity.collisions['left'] = True
+                    entity.pos.x = entity_rect.x
+                    
+        entity.pos.y += frame_movement[1] * 4
+        entity_rect = entity.rect()
+        for chunk in hot_chunks:
+            chunk = self.tilemap.chunks.get(chunk_pos, {})
+            for rect in chunk:
+                if entity_rect.colliderect(rect):
+                    if frame_movement[1] > 0:
+                        entity_rect.right = rect.left
+                        entity.collisions['down'] = True
+                    if frame_movement[1] < 0:
+                        entity_rect.left = rect.right
+                        entity.collisions['up'] = True
+                    entity.pos.y = entity_rect.y
+
+    
+    def render(self, canvas: pg.Surface):
+        canvas.blit(setup.assets['background'], (0, 0))
+        
+        self.clouds.render(canvas, self.rounded_scroll)
+        
+        self.tilemap.render(canvas, self.rounded_scroll, self.player.rect())
+        
+        for projectile in self.projectiles.copy():
+            img = setup.assets['projectile']
+            canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
+        
+        if not self.player.dead > 25:
+            self.player.render(canvas, self.rounded_scroll)
+        
+        ### Update sparks, render
+        for spark in self.sparks.copy():
+            kill = spark.update()
+            spark.render(canvas, self.rounded_scroll)
+            if kill:
+                self.sparks.remove(spark)
+        ###
+        
+        for enemy in self.enemies:
+            enemy.render(canvas, self.rounded_scroll)
+    
+    
+        for particle in self.particles:
+            particle.render(canvas, self.rounded_scroll)
+        
+        return canvas
+    
+    
+    
+'''    CODE GRAVEYARD
 
         
         ### Update enemy projectiles
@@ -176,7 +238,6 @@ class Biome_1:
                 if self.player.rect().collidepoint(projectile[0]):
                     self.player.dead += 1 # should def just have a is dead variable idk todo
                     setup.sfx['hit'].play()
-                    self.screenshake = max(45, self.screenshake) # max so this line wont overwrite a larger screen shake
                     self.projectiles.remove(projectile)
                     for i in range(30):
                         angle = random.random() * math.pi * 2
@@ -184,46 +245,25 @@ class Biome_1:
                         self.sparks.append(Spark(self.player.rect().center, angle, 2 + random.random()))
                         self.particles.append(Particle('particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
         ###
-        
-        ### Update particles
-        for particle in self.particles.copy():
-            kill = particle.update()
-            if kill:
-                self.particles.remove(particle)
-            else:
-                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
+        ### Update enemies
+ #       for enemy in self.enemies.copy():
+  #          kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
+   #         if kill:
+    #            self.enemies.remove(enemy)
         ###
-    
-    def render(self, screen: pg.display):
-        self.display.blit(setup.assets['background'], (0, 0))
-        
-        self.clouds.render(self.display, offset=self.rounded_scroll)
-        
-        self.tilemap.render(self.display, self.rounded_scroll, self.player.rect())
-        
-        for projectile in self.projectiles.copy():
-            img = setup.assets['projectile']
-            self.display.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
-        
-        if not self.player.dead > 25:
-            self.player.render(self.display, offset=self.rounded_scroll)
-        
-        ### Update sparks, render
-        for spark in self.sparks.copy():
-            kill = spark.update()
-            spark.render(self.display, offset=self.rounded_scroll)
-            if kill:
-                self.sparks.remove(spark)
+        ### Maybe spawn leafs
+    #    for rect in self.leaf_spawners:
+     #       if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
+      #          pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
+       #         self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
         ###
-        
-        for enemy in self.enemies:
-            enemy.render(self.display, offset=self.rounded_scroll)
-    
-    
-        for particle in self.particles:
-            particle.render(self.display, offset=self.rounded_scroll)
-            
-     #  self.display.blit(self.player.test_surf, (self.player.test_pos - self.rounded_scroll))
-        
-        screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2, random.random() * self.screenshake - self.screenshake / 2)
-        screen.blit(pg.transform.scale(self.display, screen.get_size()), screenshake_offset)
+              
+        ### If you're dead increment a timer and reload the level eventually
+        if self.player.dead > 0:
+            self.player.dead += 1 #timer
+            if self.player.dead <= 50:
+                self.transition = min(30, self.transition + 1) #hack soln to screen transition
+            if self.player.dead > 80:
+                self.reset()
+        ###
+'''

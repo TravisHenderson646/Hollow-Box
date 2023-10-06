@@ -20,6 +20,6 @@ class Particle:
         
         return kill
     
-    def render(self, surf, offset=(0, 0)):
+    def render(self, surf, offset):
         image = self.animation.img()
         surf.blit(image, (self.pos[0] - offset[0] - image.get_width() // 2, self.pos[1] - offset[1] - image.get_height() // 2))

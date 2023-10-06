@@ -1,19 +1,6 @@
-import os
-import sys
-import math
-import random
-
 import pygame as pg
 
-from scripts.entities.physics_entity import PhysicsEntity
-from scripts.entities.enemy import Enemy
-from scripts.entities.player import Player
-from scripts.tools import load_image, load_images, Animation
 from scripts.tilemap import Tilemap
-from scripts.clouds import Clouds
-from scripts.particle import Particle
-from scripts.spark import Spark
-from scripts import setup
 from .biome_1 import Biome_1
 
 
@@ -24,6 +11,7 @@ class Level_2(Biome_1):
         self.map_id = 4
         self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
+        self.enemies = []
     
     def entry(self, exit):
         super().entry()
@@ -46,12 +34,7 @@ class Level_2(Biome_1):
 
     def update(self):
         super().update()
-        for rect, type in self.tilemap.physics_rects_near(self.player.pos):
-            if type == 'loading_zones':
-                if self.player.rect().colliderect(rect):
-                    self.done = True
-                    self.next = 'level1'
-                    self.exit = type
         
-    def render(self, screen: pg.display):
-        super().render(screen)
+    def render(self, canvas: pg.Surface):
+        canvas = super().render(canvas)      
+        return canvas

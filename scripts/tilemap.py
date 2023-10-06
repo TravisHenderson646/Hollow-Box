@@ -24,8 +24,8 @@ class Tile:
         self.size = size
         self.bottom_right = (pos[0] + self.size[0], pos[1] + self.size[1])
         self.panels = ((0, 0), (0, 0)) # (top_left, bottom_right)
-     #   self.rect = pg.Rect(0, 0, 0, 0)
-        self.rect = pg.Rect(pos[0], pos[1], 32, 32)
+        self.rect = pg.Rect(0, 0, 0, 0)
+    #    self.rect = pg.Rect(pos[0], pos[1], 32, 32)
     
 class Tilemap:
     def __init__(self, tile_size=32):
@@ -79,6 +79,8 @@ class Tilemap:
             self.process_tile(tile)
         
         self.calculate_map_dimensions()
+        for tile in self.interactable_tiles:
+            print(tile.rect)
         self.calculate_panels()
         self.calculate_chunks()
         
@@ -86,28 +88,20 @@ class Tilemap:
         player_width, player_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
         chunks_required = (self.map_width // player_width + 1, self.map_height // player_height + 1)
         
-     #   print(chunks_required)
-   #     for tile in self.interactable_tiles:
-   #         print('tile.rect' , tile.rect)
         for y in range(chunks_required[1]):
             for x in range(chunks_required[0]):
                 self.chunks[(x, y)] = []
                 current_chunk = self.chunks.get((x, y), {})
                 chunk_topleft = (x * player_width, y * player_height)
                 chunk_rect = pg.Rect(chunk_topleft[0], chunk_topleft[1], player_width, player_height)
-        #        print('chunkrect', chunk_rect)
+
                 for tile in self.interactable_tiles:
-                    
-        #            print('chunkrect:', chunk_rect)
-                #    print('tilerect :', tile.rect, 'pos', tile.pos)
                     if tile.rect.colliderect(chunk_rect):
-                        print(tile.rect)
                         print('ITS A BLOODY MIRACLE WYOFWKEFOWK')
                         current_chunk.append(tile.rect)
-           #     print('chunks', self.chunks)
 
     def calculate_panels(self):
-        screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
+        screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
         panels_required = (self.map_width // screen_width + 1, self.map_height // screen_height + 1)
         for y in range(panels_required[1]):
             for x in range(panels_required[0]):
@@ -133,20 +127,20 @@ class Tilemap:
             tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
             self.find_a_tiles_panels(tile)
             if tile.is_interactable:
-                print('THIS IS AN ALL CAPS TEST')
-                self.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())
-                print(self.rect)
+            #    print('THIS IS AN ALL CAPS TEST')
+                tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())
                 
     def find_a_tiles_panels(self, tile): # do i even use this funtion once?
-        screen_width, screen_height = setup.DISPLAY.get_width(), setup.DISPLAY.get_height()
+        screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
         tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
         br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
         tile.panels = (tl, br)
         
     def push_out_solids(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
-        frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
-        
+ #       frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
+        frame_movement = (floor(self.movement[0] + entity.vel.x), floor(self.movement[1] + entity.vel.x))        
+        print('rrream', frame_movement)
         entity_width = entity.rect().width
         entity_height = entity.rect().height
         center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
@@ -157,31 +151,31 @@ class Tilemap:
             (center_node[0] - 1, center_node[1]    ),
             (center_node[0]    , center_node[1]    ),)
         
-        entity.pos.x += frame_movement.x
+        entity.pos.x += frame_movement[0] * 5
         entity_rect = entity.rect()
         for chunk_pos in hot_chunks:
         #    print(self.chunks.items())
             chunk = self.chunks.get(chunk_pos, {})
             for rect in chunk:
                 if entity_rect.colliderect(rect):
-                    if frame_movement.x > 0:
+                    if frame_movement[0] > 0:
                         entity_rect.right = rect.left
                         entity.collisions['right'] = True
-                    if frame_movement.x < 0:
+                    if frame_movement[0] < 0:
                         entity_rect.left = rect.right
                         entity.collisions['left'] = True
                     entity.pos.x = entity_rect.x
                     
-        entity.pos.y += frame_movement.y
+        entity.pos.y += frame_movement[1] * 5
         entity_rect = entity.rect()
         for chunk in hot_chunks:
             chunk = self.chunks.get(chunk_pos, {})
             for rect in chunk:
                 if entity_rect.colliderect(rect):
-                    if frame_movement.y > 0:
+                    if frame_movement[1] > 0:
                         entity_rect.right = rect.left
                         entity.collisions['down'] = True
-                    if frame_movement.y < 0:
+                    if frame_movement[1] < 0:
                         entity_rect.left = rect.right
                         entity.collisions['up'] = True
                     entity.pos.y = entity_rect.y
@@ -217,8 +211,8 @@ class Tilemap:
             for rect in chunk:
                 print('solid tile: ', rect)
                 surf.fill((150,50,50), (rect.x * disp_width - offset[0], rect.y * disp_height - offset[1], rect.w, rect.h))
-        print('tester: ', tester)
-     #   surf.fill((50,150,150), (tester[0] * disp_width - offset[0]+25, tester[1] * disp_width - offset[1], setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
+       # print('tester: ', tester)
+        surf.fill((50,150,150), (tester[0] * disp_width - offset[0]+25, tester[1] * disp_height - offset[1], setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
               
               
               
@@ -228,7 +222,7 @@ class Tilemap:
               
               
               
-              
+"""   CODE GRAVEYARD
               
                 
     def tiles_near(self, pos):
@@ -257,3 +251,4 @@ class Tilemap:
                 rects.append((pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size), 'loading_zones')) 
 
         return rects
+"""

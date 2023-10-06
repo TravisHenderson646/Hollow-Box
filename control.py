@@ -71,7 +71,6 @@ might want to make sure images that get painted to panels are cropped
 
 is_drawn in tile info should be called is_painted
 '''
-import os
 import sys
 
 import pygame as pg 
@@ -84,10 +83,9 @@ from states import level_1, level_2, menu #### pg.init first!
 class Control():
     def __init__(self, size=(1280, 720)):
         pg.display.set_caption("Hollow Box")
-        self.screensize = (int(size[0]), int(size[1]))
         self.screen = setup.SCREEN # What the player sees
-        self.display = setup.DISPLAY # What we draw on to blit to screen
         self.screen_rect = self.screen.get_rect()
+        self.canvas = setup.CANVAS # What we draw on to blit to screen
         self.clock = pg.time.Clock()
         self.fps = 60
         self.keys = pg.key.get_pressed() #?
@@ -127,7 +125,9 @@ class Control():
             self.change_state()
             self.pass_event()
             self.state.update()
-            self.state.render(self.screen)
+            self.canvas = self.state.render(self.canvas)
+            
+            pg.transform.scale(self.canvas, self.screen_rect.size, self.screen)
             pg.display.update()
             self.clock.tick(self.fps)
         self.cleanup()

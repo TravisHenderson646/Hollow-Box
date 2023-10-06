@@ -1,6 +1,3 @@
-import math
-import random
-
 import pygame as pg
 
 from scripts.particle import Particle
@@ -12,7 +9,6 @@ class PhysicsEntity:
         self.entity_type = entity_type
         self.pos = pg.Vector2(pos)
         self.size = size
-        self.movement = [0, 0, 0, 0] # desired L/R movement of entity???
         self.vel = pg.Vector2(0, 0) # velocity imparted from other action
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         
@@ -36,8 +32,28 @@ class PhysicsEntity:
             self.animation = setup.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
     def update(self, movement):
+        self.test_pos = self.pos 
+                
+        if movement[0] > 0:
+            self.flip = False
+        if movement[0] < 0:
+            self.flip = True
+        
+        self.last_movement = movement
+        
+        #gravity with terminal vel
+     #   self.vel.y = min(5, self.vel.y + 0.1)
+        
+        if self.collisions['down'] or self.collisions['up']:
+            self.vel.y = 0
+            
+        self.animation.tick()
+        
+    def render(self, surf:pg.Surface, offset):
+        surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (self.pos - offset + self.anim_offset))
 
-        frame_movement = pg.Vector2(movement[0] + self.vel.x, movement[1] + self.vel.y)
+
+''' CODE GRAVEYARD
      # this movement should be in the generic level class
      # if i had this movement in the level, there could more easily be different blocks
      # that dont just simply body block the player
@@ -66,25 +82,5 @@ class PhysicsEntity:
           #              entity_rect.top = rect.bottom
            #             self.collisions['up'] = True
             #        self.pos.y = entity_rect.y
-                
-        self.test_pos = self.pos 
-                
-        if movement[0] > 0:
-            self.flip = False
-        if movement[0] < 0:
-            self.flip = True
-        
-        self.last_movement = movement
-        
-        #gravity with terminal vel
-     #   self.vel.y = min(5, self.vel.y + 0.1)
-        self.pos.x += movement[0] * 5
-        self.pos.y += movement[1] * 5
-        
-        if self.collisions['down'] or self.collisions['up']:
-            self.vel.y = 0
-            
-        self.animation.update()
-        
-    def render(self, surf:pg.Surface, offset):
-        surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (self.pos - offset + self.anim_offset)) # maybe they should go in the same direction
+
+'''

@@ -1,12 +1,14 @@
 import pygame as pg
 
+# Initialize pygame and display information
 pg.mixer.pre_init(44100, -16, 1, 512) # no idea how to do this in Control.__init__ like i should
 pg.init()
-SCREEN = pg.display.set_mode((1280, 720)) # What the player sees
-DISPLAY = pg.Surface((640,360), pg.SRCALPHA) # What the player sees
+SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically
+CANVAS = pg.Surface((640,360)) # What the player sees
+CANVAS_SIZE = CANVAS.get_size()
 PLAYER_COLLISION_SIZE = (24, 25)
 
-from .tools import * #I HAVE NO IDEA. I NEED TO FIX THIS ATROCITY
+from scripts.image_handler import load_image, load_images, Animation
 
 assets = { # dict of every sprite's image or animation's set of images
     'decor' : load_images('tiles/decor'),

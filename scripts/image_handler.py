@@ -1,6 +1,4 @@
 import os
-import math
-import random
 
 import pygame as pg
 
@@ -30,7 +28,7 @@ class Animation:
     def copy(self):
         return Animation(self.images, self.image_dur, self.loop)
     
-    def update(self):
+    def tick(self):
         if self.loop:
             self.frame = (self.frame + 1) % (self.image_dur * len(self.images))
         else:

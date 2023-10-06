@@ -1,19 +1,6 @@
-import os
-import sys
-import math
-import random
-
 import pygame as pg
 
-from scripts.entities.physics_entity import PhysicsEntity
-from scripts.entities.enemy import Enemy
-from scripts.entities.player import Player
-from scripts.tools import load_image, load_images, Animation
 from scripts.tilemap import Tilemap
-from scripts.clouds import Clouds
-from scripts.particle import Particle
-from scripts.spark import Spark
-from scripts import setup
 from .biome_1 import Biome_1
 
 
@@ -48,12 +35,13 @@ class Level_1(Biome_1):
 
     def update(self):
         super().update()
-        for rect, type in self.tilemap.physics_rects_near(self.player.pos): # rework probably gonna have to do collision in the level now
-            if type == 'loading_zones':
-                if self.player.rect().colliderect(rect):
-                    self.done = True
-                    self.next = 'level2'
-                    self.exit = type
         
-    def render(self, screen: pg.display):
-        super().render(screen)
+    def render(self, canvas: pg.Surface):
+        canvas = super().render(canvas)
+        canvas.fill((0, 230, 170), pg.Rect(self.player.pos.x - self.rounded_scroll[0], self.player.pos.y - self.rounded_scroll[1], 24,25))
+        for tile in self.tilemap.interactable_tiles:
+        #     print(tile.rect)
+            canvas.fill((230, 25, 170), pg.Rect(tile.rect.x - self.rounded_scroll[0], tile.rect.y - self.rounded_scroll[1], tile.rect.w,tile.rect.h))
+       # canvas.fill((50,150,150), (tester[0] * screen.get_width - self.rounded_scroll[0]+25, tester[1] * disp_width - self.rounded_scroll[1], setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
+       
+        return canvas

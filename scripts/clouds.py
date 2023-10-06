@@ -32,4 +32,4 @@ class Clouds:
         
     def render(self, surf, offset):
         for cloud in self.clouds:
-            cloud.render(surf, offset=offset)
+            cloud.render(surf, offset)

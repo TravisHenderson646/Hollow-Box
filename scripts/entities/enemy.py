@@ -14,6 +14,7 @@ class Enemy(PhysicsEntity):
         super().__init__('enemy', pos, size)
         
         self.walking = 0
+        self.movement = [0, 0, 0, 0] # desired L/R movement of entity???
         
     def update(self, tilemap, player_rect, player_dashing, projectiles, sparks, particles, movement=(0, 0)):
         if self.walking:
@@ -62,8 +63,8 @@ class Enemy(PhysicsEntity):
                 sparks.append(Spark(self.rect().center, math.pi, 5 + random.random()))
                 return True
             
-    def render(self, surf, offset=(0, 0)):
-        super().render(surf, offset=offset)
+    def render(self, surf, offset):
+        super().render(surf, offset)
         
         if self.flip:
             surf.blit(pg.transform.flip(setup.assets['gun'], True, False), (self.rect().centerx - 4 - setup.assets['gun'].get_width() - offset[0], self.rect().centery - offset[1]))

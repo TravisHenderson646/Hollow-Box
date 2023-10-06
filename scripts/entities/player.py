@@ -1,10 +1,7 @@
 import math
 import random
 
-import pygame as pg
-
 from scripts.particle import Particle
-from scripts.spark import Spark
 from scripts import setup
 from .physics_entity import PhysicsEntity
 
@@ -65,17 +62,16 @@ class Player(PhysicsEntity):
                 speed = random.random() * 0.5 + 0.5
                 particle_velocity = [math.cos(angle) * speed, math.sin(angle) *speed]
                 particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
-                
-    def render(self, surf, offset=(0, 0)):
-        if abs(self.dashing) <= 50:
-            super().render(surf, offset = offset)
-
 
         # lower the base (non player) vel slowly toward 0
         if self.vel[0] > 0:
             self.vel[0] = max(self.vel[0] - 0.1, 0)
         if self.vel[0] < 0:
-            self.vel[0] = min(self.vel[0] + 0.1, 0)
+            self.vel[0] = min(self.vel[0] + 0.1, 0)     
+                       
+    def render(self, surf, offset):
+        if abs(self.dashing) <= 50:
+            super().render(surf, offset)
             
     def jump(self):
         if self.wallslide:

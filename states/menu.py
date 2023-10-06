@@ -22,6 +22,7 @@ class Menu():
                 self.done = True
     def update(self):
         pass
-    def render(self, screen):
-        screen.fill((150,60,90))
+    def render(self, canvas):
+        canvas.fill((150,60,90))
+        return canvas
   
