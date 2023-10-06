@@ -1,10 +1,21 @@
 {
   "tilemap": {
-    "-2;-2": {
+    "0;0": {
       "type": "grass",
       "variant": 0,
       "pos": [
-        -64,
+        0,
+        0
+      ],
+      "is_drawn": true,
+      "is_interactable": true,
+      "flag": ""
+    },
+    "-4;-2": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -128,
         -64
       ],
       "is_drawn": true,
@@ -17,8 +28,8 @@
       "type": "grass",
       "variant": 0,
       "pos": [
-        181,
-        84
+        144,
+        85
       ],
       "is_drawn": true,
       "is_interactable": true,
@@ -28,12 +39,24 @@
       "type": "spawners",
       "variant": 0,
       "pos": [
-        114,
-        -78
+        55,
+        28
       ],
       "is_drawn": false,
       "is_interactable": false,
       "flag": ""
+    },
+    {
+      "type": "large_decor",
+      "variant": 2,
+      "pos": [
+        -130,
+        -35
+      ],
+      "is_drawn": true,
+      "is_interactable": false,
+      "flag": ""
     }
-  ]
+  ],
+  "tile_size": 32
 }

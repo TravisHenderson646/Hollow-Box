@@ -25,7 +25,7 @@ class Biome_1:
         self.display = setup.DISPLAY # What we draw on to blit to screen
 
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((500, 250), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.player = Player((50, 50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.tilemap : Tilemap
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
         self.solid_entities = [self.player] # start a list of the solid entities in the level
@@ -199,7 +199,7 @@ class Biome_1:
         
         self.clouds.render(self.display, offset=self.rounded_scroll)
         
-        self.tilemap.render(self.display, self.rounded_scroll, self.player.pos)
+        self.tilemap.render(self.display, self.rounded_scroll, self.player.rect())
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']

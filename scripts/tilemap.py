@@ -215,9 +215,9 @@ class Tilemap:
         for chunk_pos in hot_chunks:
             chunk = self.chunks.get(chunk_pos, {})
             for rect in chunk:
-                print(rect)
+                print('solid tile: ', rect)
                 surf.fill((150,50,50), (rect.x * disp_width - offset[0], rect.y * disp_height - offset[1], rect.w, rect.h))
-  #      print(tester)
+        print('tester: ', tester)
      #   surf.fill((50,150,150), (tester[0] * disp_width - offset[0]+25, tester[1] * disp_width - offset[1], setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
               
               
