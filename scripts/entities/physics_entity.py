@@ -43,9 +43,6 @@ class PhysicsEntity:
         
         #gravity with terminal vel
         self.vel.y = min(5, self.vel.y + 0.1)
-        
-        if self.collisions['down'] or self.collisions['up']:
-            self.vel.y = 0
             
         self.animation.tick()
         

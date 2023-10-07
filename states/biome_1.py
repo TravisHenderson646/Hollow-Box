@@ -167,7 +167,9 @@ class Biome_1:
                     entity_rect.top = tile.rect.bottom
                     entity.collisions['up'] = True
                     print('collided up')
-                entity.pos.y = entity_rect.y
+                entity.pos.y = entity_rect.y                
+        if entity.collisions['down'] or entity.collisions['up']:
+            entity.vel = pg.Vector2()
 
     
     def render(self, canvas: pg.Surface):
