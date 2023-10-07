@@ -3905,7 +3905,7 @@
         -296
       ],
       "is_drawn": true,
-      "is_interactable": true,
+      "is_interactable": false,
       "flag": "east_exit"
     },
     {
@@ -3916,8 +3916,8 @@
         14
       ],
       "is_drawn": true,
-      "is_interactable": true,
-      "flag": "east_exit"
+      "is_interactable": false,
+      "flag": ""
     },
     {
       "type": "large_decor",
@@ -3927,8 +3927,8 @@
         -27
       ],
       "is_drawn": true,
-      "is_interactable": true,
-      "flag": "east_exit"
+      "is_interactable": false,
+      "flag": ""
     },
     {
       "type": "large_decor",
@@ -3938,8 +3938,8 @@
         -26
       ],
       "is_drawn": true,
-      "is_interactable": true,
-      "flag": "east_exit"
+      "is_interactable": false,
+      "flag": ""
     },
     {
       "type": "large_decor",
@@ -3949,8 +3949,8 @@
         -149
       ],
       "is_drawn": true,
-      "is_interactable": true,
-      "flag": "east_exit"
+      "is_interactable": false,
+      "flag": ""
     },
     {
       "type": "grass",

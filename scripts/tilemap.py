@@ -84,17 +84,17 @@ class Tilemap:
         
     def calculate_chunks(self):
         player_width, player_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
-        chunks_required = (self.map_width // player_width + 1, self.map_height // player_height + 1)
+        chunks_required = (self.map_width // player_width + 1 + 2, self.map_height // player_height + 1 + 2) # +2 for padding
         
         for y in range(chunks_required[1]):
             for x in range(chunks_required[0]):
-                self.chunks[(x, y)] = []
-                current_chunk = self.chunks.get((x, y), {})
-                chunk_topleft = (x * player_width, y * player_height)
-                chunk_rect = pg.Rect(chunk_topleft[0], chunk_topleft[1], player_width, player_height)
+                self.chunks[(x - 1, y - 1)] = []
+                current_chunk = self.chunks.get((x - 1, y - 1), {})
+                chunk_topleft = ((x - 1) * player_width, (y - 1) * player_height)
+                chunk_test_rect = pg.Rect(chunk_topleft[0] - (player_width * 1.5), chunk_topleft[1]-(player_height*1.5), player_width * 3, player_height* 3) # make a test rect 3x the player
 
                 for tile in self.interactable_tiles:
-                    if tile.rect.colliderect(chunk_rect):
+                    if tile.rect.colliderect(chunk_test_rect):
                         current_chunk.append(tile.rect)
 
     def calculate_panels(self):

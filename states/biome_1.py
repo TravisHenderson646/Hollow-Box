@@ -136,7 +136,8 @@ class Biome_1:
         entity_width = entity.rect().width
         entity_height = entity.rect().height
         center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
-        
+      #  center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
+
         hot_chunks = (
             (center_node[0] - 1, center_node[1] - 1),
             (center_node[0]    , center_node[1] - 1),
@@ -145,26 +146,27 @@ class Biome_1:
         
         entity.pos.x += frame_movement[0]
         entity_rect = entity.rect()
-        for tile in self.tilemap.interactable_tiles:
-            if entity_rect.colliderect(tile.rect):
+        print('-----------------------------------------------------')
+        for rect in self.tilemap.chunks.get(center_node, {}):
+            print(rect)
+            if entity_rect.colliderect(rect):
                 if frame_movement[0] > 0:
-                    entity_rect.right = tile.rect.left
+                    entity_rect.right = rect.left
                     entity.collisions['right'] = True
                 if frame_movement[0] < 0:
-                    entity_rect.left = tile.rect.right
+                    entity_rect.left = rect.right
                     entity.collisions['left'] = True
                 entity.pos.x = entity_rect.x
                     
         entity.pos.y += frame_movement[1]
         entity_rect = entity.rect()
-        for tile in self.tilemap.interactable_tiles:
-            
-            if entity_rect.colliderect(tile.rect):
+        for rect in self.tilemap.chunks.get(center_node, {}):
+            if entity_rect.colliderect(rect):
                 if frame_movement[1] > 0:
-                    entity_rect.bottom = tile.rect.top
+                    entity_rect.bottom = rect.top
                     entity.collisions['down'] = True
                 if frame_movement[1] < 0:
-                    entity_rect.top = tile.rect.bottom
+                    entity_rect.top = rect.bottom
                     entity.collisions['up'] = True
                     print('collided up')
                 entity.pos.y = entity_rect.y                
@@ -203,7 +205,9 @@ class Biome_1:
     
     
         center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
-        
+    #    canvas.fill((150,0,0),(center_node[0],center_node[1],10,10))
+        for rect in self.tilemap.chunks.get(center_node, {}):
+            canvas.fill((150,0,0),(rect.x - self.rounded_scroll[0], rect.y - self.rounded_scroll[1], rect.w, rect.h))
         hot_chunks = (
             (center_node[0] - 1, center_node[1] - 1),
             (center_node[0]    , center_node[1] - 1),

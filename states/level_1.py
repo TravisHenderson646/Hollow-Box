@@ -38,6 +38,6 @@ class Level_1(Biome_1):
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)
-        canvas.fill((0, 230, 170), pg.Rect(self.player.pos.x - self.rounded_scroll[0], self.player.pos.y - self.rounded_scroll[1], 24,25))
+        canvas.fill((200, 120, 170), pg.Rect(self.player.pos.x - self.rounded_scroll[0], self.player.pos.y - self.rounded_scroll[1], 24,25))
     
         return canvas
