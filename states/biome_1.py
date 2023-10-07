@@ -16,10 +16,8 @@ from scripts import setup
 class Biome_1:    
     def __init__(self):
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
-
-
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((50, 50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.player = Player((0, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.tilemap : Tilemap
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
         self.solid_entities = [self.player] # start a list of the solid entities in the level
@@ -45,18 +43,7 @@ class Biome_1:
         pg.mixer.music.load('data/music.wav')
         pg.mixer.music.set_volume(0.5)
         pg.mixer.music.play(-1)     
-            
-   #     self.leaf_spawners = []
-    #    for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
-     #       self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
-        
-  #      self.enemies = [] 
-   #     for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
-    #        if spawner['variant'] == 0:
-     #           self.player.pos = pg.Vector2(spawner['pos'])
-      #          self.player.air_time = 0
-       #     else:
-        #        self.enemies.append(Enemy(spawner['pos'], (8, 15)))
+
                 
         self.projectiles = []
         self.particles = []
@@ -118,7 +105,6 @@ class Biome_1:
         self.rounded_scroll.y = math.floor(self.scroll.y)
         ###
         
-
         self.clouds.update()
 
         ### Update player
@@ -144,8 +130,8 @@ class Biome_1:
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
  #       frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
         frame_movement = ( # (x, y)
-            math.floor(self.movement[1] - self.movement[0]) + entity.vel.x,
-            math.floor(self.movement[3] - self.movement[2]) + entity.vel.y,)
+            (self.movement[1] - self.movement[0]) + entity.vel.x,
+            (self.movement[3] - self.movement[2]) + entity.vel.y,)
         
         entity_width = entity.rect().width
         entity_height = entity.rect().height
@@ -157,35 +143,31 @@ class Biome_1:
             (center_node[0] - 1, center_node[1]    ),
             (center_node[0]    , center_node[1]    ),)
         
-        entity.pos.x += frame_movement[0] * 4
+        entity.pos.x += frame_movement[0]
         entity_rect = entity.rect()
-        for chunk_pos in hot_chunks:
-        #    print(self.chunks.items())
-            chunk = self.tilemap.chunks.get(chunk_pos, {})
-            for rect in chunk:
-                print(rect)
-                if entity_rect.colliderect(rect):
-                    if frame_movement[0] > 0:
-                        entity_rect.right = rect.left
-                        entity.collisions['right'] = True
-                    if frame_movement[0] < 0:
-                        entity_rect.left = rect.right
-                        entity.collisions['left'] = True
-                    entity.pos.x = entity_rect.x
+        for tile in self.tilemap.interactable_tiles:
+            if entity_rect.colliderect(tile.rect):
+                if frame_movement[0] > 0:
+                    entity_rect.right = tile.rect.left
+                    entity.collisions['right'] = True
+                if frame_movement[0] < 0:
+                    entity_rect.left = tile.rect.right
+                    entity.collisions['left'] = True
+                entity.pos.x = entity_rect.x
                     
-        entity.pos.y += frame_movement[1] * 4
+        entity.pos.y += frame_movement[1]
         entity_rect = entity.rect()
-        for chunk in hot_chunks:
-            chunk = self.tilemap.chunks.get(chunk_pos, {})
-            for rect in chunk:
-                if entity_rect.colliderect(rect):
-                    if frame_movement[1] > 0:
-                        entity_rect.right = rect.left
-                        entity.collisions['down'] = True
-                    if frame_movement[1] < 0:
-                        entity_rect.left = rect.right
-                        entity.collisions['up'] = True
-                    entity.pos.y = entity_rect.y
+        for tile in self.tilemap.interactable_tiles:
+            
+            if entity_rect.colliderect(tile.rect):
+                if frame_movement[1] > 0:
+                    entity_rect.bottom = tile.rect.top
+                    entity.collisions['down'] = True
+                if frame_movement[1] < 0:
+                    entity_rect.top = tile.rect.bottom
+                    entity.collisions['up'] = True
+                    print('collided up')
+                entity.pos.y = entity_rect.y
 
     
     def render(self, canvas: pg.Surface):
@@ -215,14 +197,40 @@ class Biome_1:
     
     
         for particle in self.particles:
-            particle.render(canvas, self.rounded_scroll)
+            particle.render(canvas, self.rounded_scroll)        
+    
+    
+        center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
+        
+        hot_chunks = (
+            (center_node[0] - 1, center_node[1] - 1),
+            (center_node[0]    , center_node[1] - 1),
+            (center_node[0] - 1, center_node[1]    ),
+            (center_node[0]    , center_node[1]    ),)
+        
+        for chunkpos in hot_chunks:
+            chunk = self.tilemap.chunks.get(chunkpos, {})
+            for rect in chunk:
+                canvas.fill((150,50,50), (rect.x * canvas.get_width() - self.rounded_scroll[0], rect.y * canvas.get_height() - self.rounded_scroll[1], rect.w, rect.h))
+            
         
         return canvas
     
     
     
 '''    CODE GRAVEYARD
-
+            
+   #     self.leaf_spawners = []
+    #    for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
+     #       self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
+        
+  #      self.enemies = [] 
+   #     for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
+    #        if spawner['variant'] == 0:
+     #           self.player.pos = pg.Vector2(spawner['pos'])
+      #          self.player.air_time = 0
+       #     else:
+        #        self.enemies.append(Enemy(spawner['pos'], (8, 15)))
         
         ### Update enemy projectiles
         for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS

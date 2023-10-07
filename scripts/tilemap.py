@@ -79,8 +79,6 @@ class Tilemap:
             self.process_tile(tile)
         
         self.calculate_map_dimensions()
-        for tile in self.interactable_tiles:
-            print(tile.rect)
         self.calculate_panels()
         self.calculate_chunks()
         
@@ -97,7 +95,6 @@ class Tilemap:
 
                 for tile in self.interactable_tiles:
                     if tile.rect.colliderect(chunk_rect):
-                        print('ITS A BLOODY MIRACLE WYOFWKEFOWK')
                         current_chunk.append(tile.rect)
 
     def calculate_panels(self):
@@ -127,7 +124,6 @@ class Tilemap:
             tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
             self.find_a_tiles_panels(tile)
             if tile.is_interactable:
-            #    print('THIS IS AN ALL CAPS TEST')
                 tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())
                 
     def find_a_tiles_panels(self, tile): # do i even use this funtion once?
@@ -135,50 +131,6 @@ class Tilemap:
         tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
         br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
         tile.panels = (tl, br)
-        
-    def push_out_solids(self, entity):
-        entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
- #       frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
-        frame_movement = (floor(self.movement[0] + entity.vel.x), floor(self.movement[1] + entity.vel.x))        
-        print('rrream', frame_movement)
-        entity_width = entity.rect().width
-        entity_height = entity.rect().height
-        center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
-        
-        hot_chunks = (
-            (center_node[0] - 1, center_node[1] - 1),
-            (center_node[0]    , center_node[1] - 1),
-            (center_node[0] - 1, center_node[1]    ),
-            (center_node[0]    , center_node[1]    ),)
-        
-        entity.pos.x += frame_movement[0] * 5
-        entity_rect = entity.rect()
-        for chunk_pos in hot_chunks:
-        #    print(self.chunks.items())
-            chunk = self.chunks.get(chunk_pos, {})
-            for rect in chunk:
-                if entity_rect.colliderect(rect):
-                    if frame_movement[0] > 0:
-                        entity_rect.right = rect.left
-                        entity.collisions['right'] = True
-                    if frame_movement[0] < 0:
-                        entity_rect.left = rect.right
-                        entity.collisions['left'] = True
-                    entity.pos.x = entity_rect.x
-                    
-        entity.pos.y += frame_movement[1] * 5
-        entity_rect = entity.rect()
-        for chunk in hot_chunks:
-            chunk = self.chunks.get(chunk_pos, {})
-            for rect in chunk:
-                if entity_rect.colliderect(rect):
-                    if frame_movement[1] > 0:
-                        entity_rect.right = rect.left
-                        entity.collisions['down'] = True
-                    if frame_movement[1] < 0:
-                        entity_rect.left = rect.right
-                        entity.collisions['up'] = True
-                    entity.pos.y = entity_rect.y
 
     def render(self, surf, offset, tester):
         '''Takes the display surface and screen scroll and renders the relevant tilemap panels'''
@@ -201,7 +153,7 @@ class Tilemap:
         entity_height = setup.PLAYER_COLLISION_SIZE[1]
         center_node = (round((tester.x + entity_width/2) / entity_width), round((tester.y + entity_height/2) / entity_height))
         
-        hot_chunks = (
+'''        hot_chunks = (
             (center_node[0] - 1, center_node[1] - 1),
             (center_node[0]    , center_node[1] - 1),
             (center_node[0] - 1, center_node[1]    ),
@@ -209,11 +161,8 @@ class Tilemap:
         for chunk_pos in hot_chunks:
             chunk = self.chunks.get(chunk_pos, {})
             for rect in chunk:
-                print('solid tile: ', rect)
                 surf.fill((150,50,50), (rect.x * disp_width - offset[0], rect.y * disp_height - offset[1], rect.w, rect.h))
-       # print('tester: ', tester)
-        surf.fill((50,150,150), (tester[0] * disp_width - offset[0]+25, tester[1] * disp_height - offset[1], setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
-              
+        prlint('tester: ', tester)  '''         
               
               
               
