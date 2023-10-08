@@ -6,23 +6,10 @@ maybe for player losing hp or idk
 screenshake would be a really good example i think!! add it 
 
 ####
-Critical
-####
-FIRST STEPS:
-write code schematic for each 'section' of the code insofar as you can reduce the logic to sensible sections
-Make the hitboxes playable with debugging
-
-***rewrite the code so that it has exactly the "Perfect game loop" from pygame tidbits repo on github
-it is perfect
-
-RESTRUCTURE ALL OF CODE LIKE THE PONG EXAMPLE ON MY GITHUB????
-
-####
 Next
 ####
 how to connect pathways like a hollow knight map (with robust naming scheme and loading, not just 0.json, as well as a nested state machine like each room inherits from the biome which inherits from base 'room' which inherits (just like menu) from state
 consider a better name for each object
-remake tileset. make it simpler like a neon line that connects around the outside
 
 maybe rework file system to be more than just 0.png 1.png
 
@@ -109,16 +96,16 @@ class Control():
         if self.state.done:
             self.done = False
             self.state.cleanup()
-            self.state_name = self.state.next
+            previous, self.state_name = self.state_name, self.state.next
             self.state.done = False
             self.state.quit = False
             self.state = self.state_dict[self.state_name]
-            self.state.entry(self.state.exit)
+            self.state.entry()
         elif self.state.quit:
             self.state.cleanup()
             
     def run(self):
-        self.state.entry(self.state.exit) # 'enter' first state (for consistancy)
+        self.state.entry() # 'enter' first state (for consistancy)
         while not self.done:
             if self.state.quit or self.state.done:
                 self.done = True

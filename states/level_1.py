@@ -13,7 +13,7 @@ class Level_1(Biome_1):
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
     
-    def entry(self, exit):
+    def entry(self):
         super().entry()
 
         # todo: camera should probably be a class
@@ -35,6 +35,11 @@ class Level_1(Biome_1):
 
     def update(self):
         super().update()
+        for tile in self.tilemap.flagged_tiles:
+            if tile.rect.colliderect(self.player.rect()):
+                if tile.flag == 'west_exit':
+                    self.done = True
+                    self.next = 'level2'
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)

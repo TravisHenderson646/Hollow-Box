@@ -10,6 +10,7 @@ class PhysicsEntity:
         self.pos = pg.Vector2(pos)
         self.size = size
         self.vel = pg.Vector2(0, 0) # velocity imparted from other action
+        self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         
         self.action = ''
@@ -23,7 +24,7 @@ class PhysicsEntity:
         self.test_surf.fill((200, 0, 0))
         self.test_pos = self.pos
         
-    def rect(self):
+    def rect(self): # This version is better trust, think about it
         return pg.Rect(*self.pos, *self.size)
     
     def set_action(self, action):

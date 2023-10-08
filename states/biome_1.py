@@ -15,12 +15,14 @@ from scripts import setup
 # a biome instance should never be created (abstract base class)
 class Biome_1:    
     def __init__(self):
+        self.biome = "Biome_1"
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((0, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+        self.player = Player((500, 250), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
         self.tilemap : Tilemap
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
         self.solid_entities = [self.player] # start a list of the solid entities in the level
+        self.previous = 'menu'
 
         # todo: camera should probably be a class
         self.scroll = pg.Vector2(0, 0) # Initial camera position
@@ -29,7 +31,6 @@ class Biome_1:
         self.done = False
         self.quit = False
         self.next = None
-        self.exit = None # exit shouldn't be done! instead have every entrance be its own class
         self.map_id = 0
         
     def cleanup(self):
@@ -71,9 +72,6 @@ class Biome_1:
             if event.key == pg.K_ESCAPE:
                 self.done = True
                 self.next = 'menu'
-            if event.key == pg.K_p: #for testing
-                self.done = True
-                self.next = 'level2'
             if event.key == pg.K_a:
                 self.movement[0] = True
             if event.key == pg.K_d:
@@ -137,18 +135,10 @@ class Biome_1:
         entity_height = entity.rect().height
         center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
       #  center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
-
-        hot_chunks = (
-            (center_node[0] - 1, center_node[1] - 1),
-            (center_node[0]    , center_node[1] - 1),
-            (center_node[0] - 1, center_node[1]    ),
-            (center_node[0]    , center_node[1]    ),)
         
         entity.pos.x += frame_movement[0]
         entity_rect = entity.rect()
-        print('-----------------------------------------------------')
         for rect in self.tilemap.chunks.get(center_node, {}):
-            print(rect)
             if entity_rect.colliderect(rect):
                 if frame_movement[0] > 0:
                     entity_rect.right = rect.left
@@ -203,9 +193,9 @@ class Biome_1:
         for particle in self.particles:
             particle.render(canvas, self.rounded_scroll)        
     
-    
+        
+        # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
         center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
-    #    canvas.fill((150,0,0),(center_node[0],center_node[1],10,10))
         for rect in self.tilemap.chunks.get(center_node, {}):
             canvas.fill((150,0,0),(rect.x - self.rounded_scroll[0], rect.y - self.rounded_scroll[1], rect.w, rect.h))
         hot_chunks = (

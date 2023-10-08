@@ -1,7 +1,3 @@
-'''
-todo: make sepeterate editor tilemap module
-'''
-
 from math import floor
 import json
 
@@ -25,7 +21,6 @@ class Tile:
         self.bottom_right = (pos[0] + self.size[0], pos[1] + self.size[1])
         self.panels = ((0, 0), (0, 0)) # (top_left, bottom_right)
         self.rect = pg.Rect(0, 0, 0, 0)
-    #    self.rect = pg.Rect(pos[0], pos[1], 32, 32)
     
 class Tilemap:
     def __init__(self, tile_size=32):
@@ -34,6 +29,7 @@ class Tilemap:
         self.tiles = []
         self.interactable_tiles = []
         self.drawn_tiles = []
+        self.flagged_tiles = []
         self.panels = {}
         self.chunks = {}
         self.map_width = 0
@@ -63,6 +59,8 @@ class Tilemap:
             self.drawn_tiles.append(tile_instance)
         if tile_instance.is_interactable:
             self.interactable_tiles.append(tile_instance)
+        if tile_instance.flag:
+            self.flagged_tiles.append(tile_instance)
         
     def process_tilemap(self, path):
         file = open(path, 'r')
@@ -72,7 +70,7 @@ class Tilemap:
         ongrid_data = map_data['tilemap']
         offgrid_data = map_data['offgrid']
         
-        # process EVERY tiles
+        # process EVERY Tile
         for key, tile in ongrid_data.items(): # no key used should this just be a list as well?
             self.process_tile(tile)
         for tile in offgrid_data:
@@ -110,7 +108,6 @@ class Tilemap:
                 current_panel.set_colorkey((0, 0, 0))  
                   
     def calculate_map_dimensions(self):
-                # todo thismap calculation should be done in a function
         max_left = min([tile.pos[0] for tile in self.drawn_tiles])
         max_right = max([tile.pos[0] + tile.size[0] for tile in self.tiles])
         max_top = min([tile.pos[1] for tile in self.drawn_tiles])
@@ -118,14 +115,17 @@ class Tilemap:
         self.map_width = max_right - max_left
         self.map_height = max_bottom - max_top
         
-        # update ALL(?) tile positions
+        # update ALL tile positions
         map_offset = (max_left, max_top)
-        for tile in self.tiles:
+        for tile in self.tiles.copy():
             tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
             self.find_a_tiles_panels(tile)
             if tile.is_interactable:
                 tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())
-                
+                if tile.flag:
+                    print(tile.flag)
+                    self.tiles.remove(tile)
+            
     def find_a_tiles_panels(self, tile): # do i even use this funtion once?
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
         tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
