@@ -3,7 +3,7 @@ import random
 
 from scripts.particle import Particle
 from scripts import setup
-from .physics_entity import PhysicsEntity
+from scripts.entities.physics_entity import PhysicsEntity
 
 
 class Player(PhysicsEntity):

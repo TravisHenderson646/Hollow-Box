@@ -82,7 +82,7 @@ class Control():
             'level2': level_2.Level_2(),
             'menu': menu.Menu(),
         }
-        self.state_name = 'level1'
+        self.state_name = 'menu'
         self.state = self.state_dict[self.state_name]
         
     def cleanup(self):
@@ -100,12 +100,13 @@ class Control():
             self.state.done = False
             self.state.quit = False
             self.state = self.state_dict[self.state_name]
-            self.state.entry()
+            self.state.previous = previous
+            self.state.start()
         elif self.state.quit:
             self.state.cleanup()
             
     def run(self):
-        self.state.entry() # 'enter' first state (for consistancy)
+        self.state.start() # 'enter' first state (for consistancy)
         while not self.done:
             if self.state.quit or self.state.done:
                 self.done = True

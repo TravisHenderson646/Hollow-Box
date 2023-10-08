@@ -1,17 +1,21 @@
 import pygame as pg
 
+from states.state import State
 
 
-class Menu():
+class Menu(State):
     def __init__(self):
-        self.done = False
-        self.quit = False
+        super().__init__()
         self.next = 'level1'
-        self.previous = ''
+        self.previous : str
+        
     def cleanup(self):
         print('cleaning up Menu state stuff...')
-    def entry(self, test): #could be called cleanup
+        
+    def start(self):
         print('starting Menu state stuff...')
+        State.music.play('music2.ogg')
+        
     def process_event(self, event):
         if event.type == pg.QUIT:
             self.quit = True
@@ -20,8 +24,10 @@ class Menu():
                 self.quit = True
             else:
                 self.done = True
+                
     def update(self):
         pass
+    
     def render(self, canvas):
         canvas.fill((150,60,90))
         return canvas

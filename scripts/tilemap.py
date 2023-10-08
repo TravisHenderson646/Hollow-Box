@@ -9,14 +9,12 @@ NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
     
 class Tile:
-    def __init__(self, type, variant, pos, image, is_interactable, is_drawn, flag, size=(32, 32)):
+    def __init__(self, type, variant, pos, image, tags, size=(32, 32)):
         self.type = type #maybe type should be group bc python type eh idc
         self.variant = variant
         self.pos = pos
         self.image = image
-        self.is_interactable = is_interactable
-        self.flag = flag
-        self.is_drawn = is_drawn # i want to try self.is_drawn : bool # when i know im setting it later
+        self.tags = tags
         self.size = size
         self.bottom_right = (pos[0] + self.size[0], pos[1] + self.size[1])
         self.panels = ((0, 0), (0, 0)) # (top_left, bottom_right)
@@ -27,40 +25,45 @@ class Tilemap:
         self.tile_size = tile_size
         self.tilemap = {}
         self.tiles = []
-        self.interactable_tiles = []
+        self.solid_tiles = []
         self.drawn_tiles = []
-        self.flagged_tiles = []
+        self.tagged_tiles = []
         self.panels = {}
         self.chunks = {}
+        self.exits = []
+        self.entrances = []
         self.map_width = 0
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['is_drawn']:
+        if tile['type'] in ['spawners']: # add 'spawns
+            image = pg.Surface((0, 0))
+            width = 0
+            height = 0
+        else:
             image = setup.assets[tile['type']][tile['variant']]
             width = image.get_width()
             height = image.get_height()
-        else:
-            image = None
-            width = 0
-            height = 0
+            
         tile['pos'] = tuple(tile['pos'])
+        
         tile_instance = Tile(
             tile['type'], 
             tile['variant'],
             tile['pos'],
             image,
-            tile['is_interactable'],
-            tile['is_drawn'],
-            tile['flag'],
+            tile['tags'],
             size=(width, height))
         self.tiles.append(tile_instance)
-        if tile_instance.is_drawn:
+        
+        if 'drawn' in tile_instance.tags:
             self.drawn_tiles.append(tile_instance)
-        if tile_instance.is_interactable:
-            self.interactable_tiles.append(tile_instance)
-        if tile_instance.flag:
-            self.flagged_tiles.append(tile_instance)
+        if 'solid' in tile_instance.tags:
+            self.solid_tiles.append(tile_instance)
+        if 'entrance' in tile_instance.tags:
+            self.entrances.append(tile_instance)
+        if 'exit' in tile_instance.tags:
+            self.exits.append(tile_instance)
         
     def process_tilemap(self, path):
         file = open(path, 'r')
@@ -79,7 +82,22 @@ class Tilemap:
         self.calculate_map_dimensions()
         self.calculate_panels()
         self.calculate_chunks()
+
+    def calculate_map_dimensions(self):
+        max_left = min([tile.pos[0] for tile in self.drawn_tiles])
+        max_right = max([tile.pos[0] + tile.size[0] for tile in self.tiles])
+        max_top = min([tile.pos[1] for tile in self.drawn_tiles])
+        max_bottom = max([tile.pos[1] + tile.size[1] for tile in self.tiles])
+        self.map_width = max_right - max_left
+        self.map_height = max_bottom - max_top
         
+        # update ALL tile positions
+        map_offset = (max_left, max_top)
+        for tile in self.tiles.copy():
+            tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
+            self.find_a_tiles_panels(tile)
+            tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())     
+
     def calculate_chunks(self):
         player_width, player_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
         chunks_required = (self.map_width // player_width + 1 + 2, self.map_height // player_height + 1 + 2) # +2 for padding
@@ -91,7 +109,7 @@ class Tilemap:
                 chunk_topleft = ((x - 1) * player_width, (y - 1) * player_height)
                 chunk_test_rect = pg.Rect(chunk_topleft[0] - (player_width * 1.5), chunk_topleft[1]-(player_height*1.5), player_width * 3, player_height* 3) # make a test rect 3x the player
 
-                for tile in self.interactable_tiles:
+                for tile in self.solid_tiles:
                     if tile.rect.colliderect(chunk_test_rect):
                         current_chunk.append(tile.rect)
 
@@ -106,25 +124,7 @@ class Tilemap:
                 for tile in self.drawn_tiles:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
                 current_panel.set_colorkey((0, 0, 0))  
-                  
-    def calculate_map_dimensions(self):
-        max_left = min([tile.pos[0] for tile in self.drawn_tiles])
-        max_right = max([tile.pos[0] + tile.size[0] for tile in self.tiles])
-        max_top = min([tile.pos[1] for tile in self.drawn_tiles])
-        max_bottom = max([tile.pos[1] + tile.size[1] for tile in self.tiles])
-        self.map_width = max_right - max_left
-        self.map_height = max_bottom - max_top
-        
-        # update ALL tile positions
-        map_offset = (max_left, max_top)
-        for tile in self.tiles.copy():
-            tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
-            self.find_a_tiles_panels(tile)
-            if tile.is_interactable:
-                tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())
-                if tile.flag:
-                    print(tile.flag)
-                    self.tiles.remove(tile)
+
             
     def find_a_tiles_panels(self, tile): # do i even use this funtion once?
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()

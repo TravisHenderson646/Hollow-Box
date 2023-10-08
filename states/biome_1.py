@@ -9,19 +9,22 @@ from scripts.clouds import Clouds
 from scripts.particle import Particle
 from scripts.spark import Spark
 from scripts import setup
+from scripts.music import Music
+from states.state import State
 
 
 #could inherit from a dummy state class for now, or even a dummy level state which inherits from state
 # a biome instance should never be created (abstract base class)
-class Biome_1:    
+class Biome_1():            
+    player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+
     def __init__(self):
         self.biome = "Biome_1"
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
-        self.player = Player((500, 250), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
-        self.tilemap : Tilemap
+        self.tilemap:Tilemap
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
-        self.solid_entities = [self.player] # start a list of the solid entities in the level
+        self.solid_entities = [Biome_1.player] # start a list of the solid entities in the level
         self.previous = 'menu'
 
         # todo: camera should probably be a class
@@ -36,20 +39,17 @@ class Biome_1:
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
         self.movement = [False, False, False, False]
-        pg.mixer.music.stop()
     
-    def entry(self):
+    def start(self):
         print("Entering a biome_1...")
         print(f'    Entering level {self.map_id + 1}...')
-        pg.mixer.music.load('data/music.wav')
-        pg.mixer.music.set_volume(0.5)
-        pg.mixer.music.play(-1)     
 
+        State.music.play('music.wav')
                 
         self.projectiles = []
         self.particles = []
         self.sparks = []
-        self.dead = self.player.dead
+        self.dead = Biome_1.player.dead
         self.transition = -30
     ###          
     
@@ -59,7 +59,7 @@ class Biome_1:
         self.particles = []
         self.sparks = []
         
-        self.player.dead = 0
+        Biome_1.player.dead = 0
         self.transition = -30 
 
 
@@ -81,9 +81,9 @@ class Biome_1:
             if event.key == pg.K_s:
                 self.movement[3] = True
             if event.key == pg.K_SPACE:
-                self.player.jump()
+                Biome_1.player.jump()
             if event.key == pg.K_j:
-                self.player.dash()
+                Biome_1.player.dash()
         if event.type == pg.KEYUP:
             if event.key == pg.K_a:
                 self.movement[0] = False
@@ -97,8 +97,8 @@ class Biome_1:
    
     def update(self): # Main loop
         ### Update camera position
-        self.scroll.x += (self.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.scroll.x) / 60
-        self.scroll.y += (self.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.scroll.y) / 60
+        self.scroll.x += (Biome_1.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.scroll.x) / 60
+        self.scroll.y += (Biome_1.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.scroll.y) / 60
         self.rounded_scroll.x = math.floor(self.scroll.x)
         self.rounded_scroll.y = math.floor(self.scroll.y)
         ###
@@ -106,8 +106,8 @@ class Biome_1:
         self.clouds.update()
 
         ### Update player
-        if not self.player.dead:
-            self.player.update(None, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
+        if not Biome_1.player.dead:
+            Biome_1.player.update(None, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
         ###
 
         ### Solids collide with map (note: after solids have moved)
@@ -169,14 +169,14 @@ class Biome_1:
         
         self.clouds.render(canvas, self.rounded_scroll)
         
-        self.tilemap.render(canvas, self.rounded_scroll, self.player.rect())
+        self.tilemap.render(canvas, self.rounded_scroll, Biome_1.player.rect())
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']
             canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
         
-        if not self.player.dead > 25:
-            self.player.render(canvas, self.rounded_scroll)
+        if not Biome_1.player.dead > 25:
+            Biome_1.player.render(canvas, self.rounded_scroll)
         
         ### Update sparks, render
         for spark in self.sparks.copy():
@@ -195,7 +195,7 @@ class Biome_1:
     
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-        center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
+        center_node = (round((Biome_1.player.pos.x + 24/2) / 24), round((Biome_1.player.pos.y + 25/2) / 25))
         for rect in self.tilemap.chunks.get(center_node, {}):
             canvas.fill((150,0,0),(rect.x - self.rounded_scroll[0], rect.y - self.rounded_scroll[1], rect.w, rect.h))
         hot_chunks = (

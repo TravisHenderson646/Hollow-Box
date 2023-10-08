@@ -13,8 +13,8 @@ class Level_1(Biome_1):
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
     
-    def entry(self):
-        super().entry()
+    def start(self):
+        super().start()
 
         # todo: camera should probably be a class
         self.scroll = pg.Vector2(100, 200) # Initial camera position
@@ -35,14 +35,14 @@ class Level_1(Biome_1):
 
     def update(self):
         super().update()
-        for tile in self.tilemap.flagged_tiles:
-            if tile.rect.colliderect(self.player.rect()):
-                if tile.flag == 'west_exit':
+        for tile in self.tilemap.exits:
+            if tile.rect.colliderect(Biome_1.player.rect()):
+                if 'west' in tile.tags:
                     self.done = True
                     self.next = 'level2'
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)
-        canvas.fill((200, 120, 170), pg.Rect(self.player.pos.x - self.rounded_scroll[0], self.player.pos.y - self.rounded_scroll[1], 24,25))
+        canvas.fill((200, 120, 170), pg.Rect(Biome_1.player.pos.x - self.rounded_scroll[0], Biome_1.player.pos.y - self.rounded_scroll[1], 24,25))
     
         return canvas

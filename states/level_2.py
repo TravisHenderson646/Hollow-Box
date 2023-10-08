@@ -13,8 +13,8 @@ class Level_2(Biome_1):
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
     
-    def entry(self):
-        super().entry()
+    def start(self):
+        super().start()
 
         # todo: camera should probably be a class
         self.scroll = pg.Vector2(200, 100) # Initial camera position
