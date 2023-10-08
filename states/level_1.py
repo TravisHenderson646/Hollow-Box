@@ -1,7 +1,8 @@
 import pygame as pg
 
+from scripts import setup
 from scripts.tilemap import Tilemap
-from .biome_1 import Biome_1
+from states.biome_1 import Biome_1
 
 
 class Level_1(Biome_1):
@@ -16,15 +17,22 @@ class Level_1(Biome_1):
     def start(self):
         super().start()
 
-        # todo: camera should probably be a class
-        self.scroll = pg.Vector2(100, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(100, 200) # Rounded fix for camera scroll rendering       
+        # todo: camera should probably be a class 
+                
+        if self.previous == 'level2': # if you came from level 2
+            for tile in self.tilemap.entrances:
+                if 'west' in tile.tags: # find the tile for level 2
+                    Biome_1.player.pos = pg.Vector2(tile.pos)
+                    self.camera.pos = pg.Vector2(tile.pos[0] - setup.CANVAS_SIZE[0]/2, tile.pos[1] - setup.CANVAS_SIZE[1]/2) # Initial camera position
+        if self.previous == 'level3':
+            for tile in self.tilemap.entrances:
+                if 'east' in tile.tags:
+                    Biome_1.player.pos = pg.Vector2(tile.pos)
+                    self.camera.pos = pg.Vector2(tile.pos[0] - setup.CANVAS_SIZE[0]/2, tile.pos[1] - setup.CANVAS_SIZE[1]/2) # Initial camera position
+   
     
     def reset(self):
         super().reset()
-        # todo: camera should probably be a class
-        self.scroll = pg.Vector2(100, 200) # Initial camera position
-        self.rounded_scroll = pg.Vector2(100, 200) # Rounded fix for camera scroll rendering
         
     def process_event(self, event):
         super().process_event(event)
@@ -40,9 +48,12 @@ class Level_1(Biome_1):
                 if 'west' in tile.tags:
                     self.done = True
                     self.next = 'level2'
+                if 'east' in tile.tags:
+                    self.done = True
+                    self.next = 'level3'
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)
-        canvas.fill((200, 120, 170), pg.Rect(Biome_1.player.pos.x - self.rounded_scroll[0], Biome_1.player.pos.y - self.rounded_scroll[1], 24,25))
+        canvas.fill((200, 120, 170), pg.Rect(Biome_1.player.pos.x - self.camera.rounded_pos[0], Biome_1.player.pos.y - self.camera.rounded_pos[1], 24,25))
     
         return canvas

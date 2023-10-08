@@ -38,15 +38,11 @@ fix the naming of screen and display. display needs a better name. canvas? canva
 
 frame advance
 screenshots from anywhere
-closing the game should do some cleanup
+
+place camera scroll on player better between levels
 
 probably want to use a 'touched the ground' cleanup cycle so i can make it so
 walljumps give back the double jump and or (not) dash
-
-implement delta time if movement or animations get choppy? idk
-use set_timer and custom USER_EVENTS for every cooldown in the game?
-
-maybe tools should be a folder
 
 middled middle tile of tileset (or any one really) could have random alterations that
 occur at controlled randodddddddddddddddddm frequencies
@@ -57,6 +53,10 @@ maybe tilemap collision should be in the level not the physics entity
 might want to make sure images that get painted to panels are cropped
 
 is_drawn in tile info should be called is_painted
+####
+Things to keep an eye on
+####
+once i have some levels, maybe i should zoom it out
 '''
 import sys
 
@@ -64,7 +64,7 @@ import pygame as pg
 
 from scripts import setup # pg.init right away!
 
-from states import level_1, level_2, menu #### pg.init first!
+from states import level_1, level_2, level_3, menu #### pg.init first!
 
 
 class Control():
@@ -80,6 +80,7 @@ class Control():
         self.state_dict = {
             'level1': level_1.Level_1(),
             'level2': level_2.Level_2(),
+            'level3': level_3.Level_3(),
             'menu': menu.Menu(),
         }
         self.state_name = 'menu'

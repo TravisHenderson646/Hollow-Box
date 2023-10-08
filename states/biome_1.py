@@ -10,6 +10,7 @@ from scripts.particle import Particle
 from scripts.spark import Spark
 from scripts import setup
 from scripts.music import Music
+from scripts.camera import Camera
 from states.state import State
 
 
@@ -19,6 +20,7 @@ class Biome_1():
     player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
 
     def __init__(self):
+        self.camera = Camera()
         self.biome = "Biome_1"
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
         self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
@@ -28,8 +30,8 @@ class Biome_1():
         self.previous = 'menu'
 
         # todo: camera should probably be a class
-        self.scroll = pg.Vector2(0, 0) # Initial camera position
-        self.rounded_scroll = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
+      #  self.scroll = pg.Vector2(0, 0) # Initial camera position
+       # self.camera.rounded_pos = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
         
         self.done = False
         self.quit = False
@@ -38,7 +40,6 @@ class Biome_1():
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
-        self.movement = [False, False, False, False]
     
     def start(self):
         print("Entering a biome_1...")
@@ -51,6 +52,9 @@ class Biome_1():
         self.sparks = []
         self.dead = Biome_1.player.dead
         self.transition = -30
+        keys = pg.key.get_pressed()
+        self.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
+        
     ###          
     
     def reset(self):
@@ -97,10 +101,9 @@ class Biome_1():
    
     def update(self): # Main loop
         ### Update camera position
-        self.scroll.x += (Biome_1.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.scroll.x) / 60
-        self.scroll.y += (Biome_1.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.scroll.y) / 60
-        self.rounded_scroll.x = math.floor(self.scroll.x)
-        self.rounded_scroll.y = math.floor(self.scroll.y)
+        self.camera.pos.x += (Biome_1.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.camera.pos.x) / 60 # could do one line pg.V2 += (#, #)
+        self.camera.pos.y += (Biome_1.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.camera.pos.y) / 60
+        self.camera.update()
         ###
         
         self.clouds.update()
@@ -167,37 +170,37 @@ class Biome_1():
     def render(self, canvas: pg.Surface):
         canvas.blit(setup.assets['background'], (0, 0))
         
-        self.clouds.render(canvas, self.rounded_scroll)
+        self.clouds.render(canvas, self.camera.rounded_pos)
         
-        self.tilemap.render(canvas, self.rounded_scroll, Biome_1.player.rect())
+        self.tilemap.render(canvas, self.camera.rounded_pos, Biome_1.player.rect())
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']
-            canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.rounded_scroll[0], projectile[0][1] - img.get_height() / 2 - self.rounded_scroll[1])) 
+            canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.camera.rounded_pos[0], projectile[0][1] - img.get_height() / 2 - self.camera.rounded_pos[1])) 
         
         if not Biome_1.player.dead > 25:
-            Biome_1.player.render(canvas, self.rounded_scroll)
+            Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         ### Update sparks, render
         for spark in self.sparks.copy():
             kill = spark.update()
-            spark.render(canvas, self.rounded_scroll)
+            spark.render(canvas, self.camera.rounded_pos)
             if kill:
                 self.sparks.remove(spark)
         ###
         
         for enemy in self.enemies:
-            enemy.render(canvas, self.rounded_scroll)
+            enemy.render(canvas, self.camera.rounded_pos)
     
     
         for particle in self.particles:
-            particle.render(canvas, self.rounded_scroll)        
+            particle.render(canvas, self.camera.rounded_pos)        
     
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
         center_node = (round((Biome_1.player.pos.x + 24/2) / 24), round((Biome_1.player.pos.y + 25/2) / 25))
         for rect in self.tilemap.chunks.get(center_node, {}):
-            canvas.fill((150,0,0),(rect.x - self.rounded_scroll[0], rect.y - self.rounded_scroll[1], rect.w, rect.h))
+            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         hot_chunks = (
             (center_node[0] - 1, center_node[1] - 1),
             (center_node[0]    , center_node[1] - 1),
@@ -207,7 +210,7 @@ class Biome_1():
         for chunkpos in hot_chunks:
             chunk = self.tilemap.chunks.get(chunkpos, {})
             for rect in chunk:
-                canvas.fill((150,50,50), (rect.x * canvas.get_width() - self.rounded_scroll[0], rect.y * canvas.get_height() - self.rounded_scroll[1], rect.w, rect.h))
+                canvas.fill((150,50,50), (rect.x * canvas.get_width() - self.camera.rounded_pos[0], rect.y * canvas.get_height() - self.camera.rounded_pos[1], rect.w, rect.h))
             
         
         return canvas
