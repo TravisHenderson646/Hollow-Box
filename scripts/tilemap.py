@@ -116,7 +116,7 @@ class Tilemap:
     def calculate_panels(self):
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
         panels_required = (self.map_width // screen_width + 1, self.map_height // screen_height + 1)
-        for y in range(panels_required[1]):
+        for y in range(panels_required[1]): # todo could try itertools.product here
             for x in range(panels_required[0]):
                 self.panels[(x, y)] = pg.Surface((screen_width, screen_height))
                 current_panel = self.panels[(x, y)]
