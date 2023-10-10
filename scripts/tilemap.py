@@ -9,7 +9,7 @@ NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
     
 class Tile:
-    def __init__(self, type, variant, pos, image, tags, size=(32, 32)):
+    def __init__(self, type, variant, pos, image, tags, size=(8, 8)):
         self.type = type #maybe type should be group bc python type eh idc
         self.variant = variant
         self.pos = pos

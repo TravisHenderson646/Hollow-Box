@@ -198,20 +198,9 @@ class Biome_1():
     
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-        center_node = (round((Biome_1.player.pos.x + 24/2) / 24), round((Biome_1.player.pos.y + 25/2) / 25))
+        center_node = (round((Biome_1.player.pos.x + 7/2) / 7), round((Biome_1.player.pos.y + 13/2) / 13))
         for rect in self.tilemap.chunks.get(center_node, {}):
             canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
-        hot_chunks = (
-            (center_node[0] - 1, center_node[1] - 1),
-            (center_node[0]    , center_node[1] - 1),
-            (center_node[0] - 1, center_node[1]    ),
-            (center_node[0]    , center_node[1]    ),)
-        
-        for chunkpos in hot_chunks:
-            chunk = self.tilemap.chunks.get(chunkpos, {})
-            for rect in chunk:
-                canvas.fill((150,50,50), (rect.x * canvas.get_width() - self.camera.rounded_pos[0], rect.y * canvas.get_height() - self.camera.rounded_pos[1], rect.w, rect.h))
-            
         
         return canvas
     

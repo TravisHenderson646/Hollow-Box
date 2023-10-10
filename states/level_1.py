@@ -10,7 +10,7 @@ class Level_1(Biome_1):
         super().__init__()        
         self.level = 0 # Set starting level to 0
         self.map_id = 0
-        self.tilemap = Tilemap(tile_size=32) # Create an instance of the Tilemap class
+        self.tilemap = Tilemap(tile_size=8) # Create an instance of the Tilemap class
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
     
@@ -54,6 +54,6 @@ class Level_1(Biome_1):
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)
-        canvas.fill((200, 120, 170), pg.Rect(Biome_1.player.pos.x - self.camera.rounded_pos[0], Biome_1.player.pos.y - self.camera.rounded_pos[1], 24,25))
+   #     canvas.fill((200, 120, 170), pg.Rect(Biome_1.player.pos.x - self.camera.rounded_pos[0], Biome_1.player.pos.y - self.camera.rounded_pos[1], 7,13))
     
         return canvas

@@ -15,7 +15,7 @@ class PhysicsEntity:
         
         self.action = ''
         self.last_movement = [0, 0, 0, 0]
-        self.anim_offset = pg.Vector2(-3, -3) #todo: this apparently a hack soln to match the idle to the run img padding and more
+        self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
         self.flip = False
         self.set_action('idle')
         
