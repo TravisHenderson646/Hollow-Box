@@ -66,9 +66,8 @@ class Tilemap:
             self.exits.append(tile_instance)
         
     def process_tilemap(self, path):
-        file = open(path, 'r')
-        map_data = json.load(file)
-        file.close()
+        with open(path, 'r') as file:
+            map_data = json.load(file)
         
         ongrid_data = map_data['tilemap']
         offgrid_data = map_data['offgrid']

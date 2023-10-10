@@ -16,10 +16,11 @@ from states.state import State
 
 #could inherit from a dummy state class for now, or even a dummy level state which inherits from state
 # a biome instance should never be created (abstract base class)
-class Biome_1():            
+class Biome_1(State):            
     player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
 
     def __init__(self):
+        super().__init__()
         self.camera = Camera()
         self.biome = "Biome_1"
         self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
@@ -32,10 +33,7 @@ class Biome_1():
         # todo: camera should probably be a class
       #  self.scroll = pg.Vector2(0, 0) # Initial camera position
        # self.camera.rounded_pos = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
-        
-        self.done = False
-        self.quit = False
-        self.next = None
+
         self.map_id = 0
         
     def cleanup(self):
@@ -69,6 +67,7 @@ class Biome_1():
 
         
     def process_event(self, event):        
+        super().process_event(event)
         ### User input
         if event.type == pg.QUIT:
             self.quit = True

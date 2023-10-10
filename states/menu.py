@@ -17,6 +17,7 @@ class Menu(State):
         State.music.play('music2.ogg')
         
     def process_event(self, event):
+        super().process_event(event)
         if event.type == pg.QUIT:
             self.quit = True
         if event.type == pg.KEYDOWN:

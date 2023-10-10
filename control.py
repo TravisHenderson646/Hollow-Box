@@ -105,6 +105,7 @@ class Control():
             self.state.start()
         elif self.state.quit:
             self.state.cleanup()
+            self.state.quicksave()
             
     def run(self):
         self.state.start() # 'enter' first state (for consistancy)
@@ -119,6 +120,7 @@ class Control():
             pg.transform.scale(self.canvas, self.screen_rect.size, self.screen)
             pg.display.update()
             self.clock.tick(self.fps)
+            setup.GAME_TICK += 1
         self.cleanup()
         
 

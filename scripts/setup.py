@@ -7,6 +7,7 @@ SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes p
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
 PLAYER_COLLISION_SIZE = (7, 13)
+GAME_TICK = 0
 
 from scripts.image_handler import load_image, load_images, Animation
 
