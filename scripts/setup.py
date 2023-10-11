@@ -3,6 +3,7 @@ import pygame as pg
 pg.mixer.pre_init(44100, -16, 1, 512) # no idea how to do this in Control.__init__ like i should
 pg.init()
 SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically
+SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
 PLAYER_COLLISION_SIZE = (7, 13)

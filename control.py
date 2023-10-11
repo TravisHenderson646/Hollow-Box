@@ -61,6 +61,7 @@ import pygame as pg
 from scripts import setup # pg.init right away!
 
 from states import level_1, level_2, level_3, menu #### pg.init first!
+from scripts.debugger import debugger
 
 
 class Control():
@@ -114,6 +115,7 @@ class Control():
             self.canvas = self.state.render(self.canvas)
             
             pg.transform.scale(self.canvas, self.screen_rect.size, self.screen)
+            debugger.render()
             pg.display.update()
             self.clock.tick(self.fps)
             setup.GAME_TICK += 1
