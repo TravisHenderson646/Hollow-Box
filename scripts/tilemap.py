@@ -36,7 +36,7 @@ class Tilemap:
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['type'] in ['spawners']: # add 'spawns
+        if tile['type'] in ['spawners']: # add 'spawns'
             image = pg.Surface((0, 0))
             width = 0
             height = 0
@@ -131,9 +131,8 @@ class Tilemap:
         br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
         tile.panels = (tl, br)
 
-    def render(self, surf, offset, tester):
+    def render(self, surf, offset):
         '''Takes the display surface and screen scroll and renders the relevant tilemap panels'''
-        #have to optimize offgrid tiles at some point probably once i have enough
         disp_width = surf.get_width()
         disp_height = surf.get_height()
         center_node = (round((offset[0] + disp_width/2) / disp_width), round((offset[1] + disp_height/2) / disp_height))
@@ -147,56 +146,3 @@ class Tilemap:
             if panel_pos[0] >= 0 and panel_pos[1] >= 0:
                 panel = self.panels.get(panel_pos, pg.Surface((0, 0)))
                 surf.blit(panel, (panel_pos[0] * disp_width - offset[0], panel_pos[1] * disp_height - offset[1]))
-   
-        entity_width = setup.PLAYER_COLLISION_SIZE[0]
-        entity_height = setup.PLAYER_COLLISION_SIZE[1]
-        center_node = (round((tester.x + entity_width/2) / entity_width), round((tester.y + entity_height/2) / entity_height))
-        
-'''        hot_chunks = (
-            (center_node[0] - 1, center_node[1] - 1),
-            (center_node[0]    , center_node[1] - 1),
-            (center_node[0] - 1, center_node[1]    ),
-            (center_node[0]    , center_node[1]    ),)
-        for chunk_pos in hot_chunks:
-            chunk = self.chunks.get(chunk_pos, {})
-            for rect in chunk:
-                surf.fill((150,50,50), (rect.x * disp_width - offset[0], rect.y * disp_height - offset[1], rect.w, rect.h))
-        prlint('tester: ', tester)  '''         
-              
-              
-              
-              
-              
-              
-              
-              
-"""   CODE GRAVEYARD
-              
-                
-    def tiles_near(self, pos):
-        '''Takes a game position and returns a list of any adjacent tiles(dicts)'''
-        tiles = []
-        tile_loc = pg.Vector2((pos.x / self.tile_size), (pos.y / self.tile_size))
-        for offset in NEIGHBOR_OFFSET: #offset really?
-            check_loc = (str(floor(tile_loc.x + offset[0])) + ';' +  str(floor(tile_loc.y + offset[1])))
-            if check_loc in self.tilemap:
-                tiles.append(self.tilemap[check_loc])
-        return tiles
-    
-    def solid_check(self, pos):
-        tile_loc = str(int(pos[0] // self.tile_size)) + ';' + str(int(pos[1] // self.tile_size))
-        if tile_loc in self.tilemap:
-            if self.tilemap[tile_loc]['type'] in PHYSICS_TILES:
-                return self.tilemap[tile_loc]
-    
-    def physics_rects_near(self, pos):
-        '''Takes a game position and returns a list of any adjacent tiles(Rects) in the physics tiles list'''
-        rects = []
-        for tile in self.tiles_near(pos):
-            if tile['type'] in PHYSICS_TILES:
-                rects.append((pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size), False))
-            if tile['type'] == 'loading_zones':
-                rects.append((pg.Rect(tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size, self.tile_size, self.tile_size), 'loading_zones')) 
-
-        return rects
-"""

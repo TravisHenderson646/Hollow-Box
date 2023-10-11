@@ -54,14 +54,14 @@ class Player(PhysicsEntity):
             if abs(self.dashing) == 51:
                 self.vel[0] *= 0.1
             #visual effects of dash
-#            particle_velocity = [abs(self.dashing) / self.dashing * random.random() * 3, 0]
- #           particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
-  #      if abs(self.dashing) in {49, 59}: #start and end (-1)
-   #         for i in range(20):
-    #            angle = random.random() * math.pi * 2
-     #           speed = random.random() * 0.5 + 0.5
-      #          particle_velocity = [math.cos(angle) * speed, math.sin(angle) *speed]
-       #         particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
+            particle_velocity = [abs(self.dashing) / self.dashing * random.random() * 3, 0]
+            particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
+        if abs(self.dashing) in {49, 59}: #start and end (-1)
+            for i in range(20):
+                angle = random.random() * math.pi * 2
+                speed = random.random() * 0.5 + 0.5
+                particle_velocity = [math.cos(angle) * speed, math.sin(angle) *speed]
+                particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
 
         # lower the base (non player) vel slowly toward 0
         if self.vel[0] > 0:
@@ -70,8 +70,7 @@ class Player(PhysicsEntity):
             self.vel[0] = min(self.vel[0] + 0.1, 0)     
                        
     def render(self, surf, offset):
-        if abs(self.dashing) <= 50:
-            super().render(surf, offset)
+        super().render(surf, offset)
             
     def jump(self):
         if self.wallslide:

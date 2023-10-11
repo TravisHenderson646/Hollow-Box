@@ -49,36 +49,3 @@ class PhysicsEntity:
         
     def render(self, surf:pg.Surface, offset):
         surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (self.pos - offset + self.anim_offset))
-
-
-''' CODE GRAVEYARD
-     # this movement should be in the generic level class
-     # if i had this movement in the level, there could more easily be different blocks
-     # that dont just simply body block the player
- #       self.pos.x += frame_movement.x
-  #      entity_rect = self.rect()
-   #     for rect, type in tilemap.physics_rects_near(self.pos):
-    #        if not type:
-     #           if entity_rect.colliderect(rect):
-      #              if frame_movement.x > 0:
-       #                 entity_rect.right = rect.left
-        #                self.collisions['right'] = True
-         #           if frame_movement.x < 0:
-          #              entity_rect.left = rect.right
-           #             self.collisions['left'] = True
-            #        self.pos.x = entity_rect.x
-        
- #       self.pos.y += frame_movement.y
-  #      entity_rect = self.rect()
-   #     for rect, type in tilemap.physics_rects_near(self.pos):
-    #        if not type:
-     #           if entity_rect.colliderect(rect):
-      #              if frame_movement.y > 0:
-       #                 entity_rect.bottom = rect.top
-        #                self.collisions['down'] = True
-         #           if frame_movement.y < 0:
-          #              entity_rect.top = rect.bottom
-           #             self.collisions['up'] = True
-            #        self.pos.y = entity_rect.y
-
-'''

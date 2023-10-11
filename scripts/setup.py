@@ -1,5 +1,4 @@
 import pygame as pg
-
 # Initialize pygame and display information
 pg.mixer.pre_init(44100, -16, 1, 512) # no idea how to do this in Control.__init__ like i should
 pg.init()

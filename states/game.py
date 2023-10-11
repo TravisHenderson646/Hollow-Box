@@ -1,7 +1,7 @@
 from scripts.music import Music
 from scripts.saves import Saves
 
-class State:
+class Game:
     music = Music()
     saves = Saves()
     
@@ -10,10 +10,9 @@ class State:
         self.quit = False
         self.next : str
         self.previous : str
-        print(self, self.done)
         
     def quicksave(self):
-        State.saves.save_game()
+        Game.saves.save_game()
         
     def cleanup(self):
         pass

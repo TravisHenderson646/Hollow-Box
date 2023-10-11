@@ -16,7 +16,7 @@ class Particle:
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
         
-        self.animation.update()
+        self.animation.tick()
         
         return kill
     

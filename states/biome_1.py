@@ -6,34 +6,23 @@ import pygame as pg
 from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
-from scripts.particle import Particle
-from scripts.spark import Spark
 from scripts import setup
-from scripts.music import Music
 from scripts.camera import Camera
-from states.state import State
+from states.game import Game
 
-
-#could inherit from a dummy state class for now, or even a dummy level state which inherits from state
-# a biome instance should never be created (abstract base class)
-class Biome_1(State):            
-    player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1])) # Create an instance of the Player class. Perhaps this should be a class attribute so that it isn't a new player instance for each level
+class Biome_1(Game):            
+    # The ONLY player instance
+    player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
 
     def __init__(self):
         super().__init__()
         self.camera = Camera()
         self.biome = "Biome_1"
-        self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right
-        self.clouds = Clouds(setup.assets['clouds'], count=16) # Create an instance of the Clouds class
+        self.clouds = Clouds(setup.assets['clouds'], count=16)
         self.tilemap:Tilemap
-        self.movement = [False, False, False, False] # [left, right] - Tracks whether the player is inputting left or right 
-        self.solid_entities = [Biome_1.player] # start a list of the solid entities in the level
+        self.movement = [False, False, False, False] # [left, right, up, down]
+        self.solid_entities = [Biome_1.player] 
         self.previous = 'menu'
-
-        # todo: camera should probably be a class
-      #  self.scroll = pg.Vector2(0, 0) # Initial camera position
-       # self.camera.rounded_pos = pg.Vector2(0, 0) # Rounded fix for camera scroll rendering
-
         self.map_id = 0
         
     def cleanup(self):
@@ -43,32 +32,17 @@ class Biome_1(State):
         print("Entering a biome_1...")
         print(f'    Entering level {self.map_id + 1}...')
 
-        State.music.play('music.wav')
+        Game.music.play('music.wav')
                 
         self.projectiles = []
         self.particles = []
         self.sparks = []
         self.dead = Biome_1.player.dead
-        self.transition = -30
         keys = pg.key.get_pressed()
         self.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
         
-    ###          
-    
-    def reset(self):
-                
-        self.projectiles = []
-        self.particles = []
-        self.sparks = []
-        
-        Biome_1.player.dead = 0
-        self.transition = -30 
-
-
-        
     def process_event(self, event):        
         super().process_event(event)
-        ### User input
         if event.type == pg.QUIT:
             self.quit = True
         elif event.type == pg.KEYDOWN:
@@ -96,39 +70,35 @@ class Biome_1(State):
                 self.movement[2] = False
             if event.key == pg.K_s:
                 self.movement[3] = False
-        ###
    
     def update(self): # Main loop
-        ### Update camera position
         self.camera.pos.x += (Biome_1.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.camera.pos.x) / 60 # could do one line pg.V2 += (#, #)
         self.camera.pos.y += (Biome_1.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.camera.pos.y) / 60
         self.camera.update()
-        ###
         
         self.clouds.update()
 
-        ### Update player
         if not Biome_1.player.dead:
-            Biome_1.player.update(None, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
-        ###
+            Biome_1.player.update(self.particles, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
 
-        ### Solids collide with map (note: after solids have moved)
         for entity in self.solid_entities:
-            self.push_out_solids(entity)
+            self.push_out_solids(entity) # (note: after solids have moved)
 
-        ### Update particles
         for particle in self.particles.copy():
             kill = particle.update()
             if kill:
                 self.particles.remove(particle)
             else:
-                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3
-        ###
-
+                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3    
+                    
+        ### Update sparks, render
+        for spark in self.sparks.copy():
+            kill = spark.update()
+            if kill:
+                self.sparks.remove(spark)
         
     def push_out_solids(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
- #       frame_movement = pg.Vector2(entity.movement[0] + entity.vel.x, entity.movement[1] + entity.vel.x)
         frame_movement = ( # (x, y)
             (self.movement[1] - self.movement[0]) + entity.vel.x,
             (self.movement[3] - self.movement[2]) + entity.vel.y,)
@@ -136,7 +106,6 @@ class Biome_1(State):
         entity_width = entity.rect().width
         entity_height = entity.rect().height
         center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
-      #  center_node = (round((self.player.pos.x + 24/2) / 24), round((self.player.pos.y + 25/2) / 25))
         
         entity.pos.x += frame_movement[0]
         entity_rect = entity.rect()
@@ -163,15 +132,13 @@ class Biome_1(State):
                     print('collided up')
                 entity.pos.y = entity_rect.y                
         if entity.collisions['down'] or entity.collisions['up']:
-            entity.vel = pg.Vector2()
+            entity.vel = pg.Vector2(0, 0)
 
     
     def render(self, canvas: pg.Surface):
         canvas.blit(setup.assets['background'], (0, 0))
-        
         self.clouds.render(canvas, self.camera.rounded_pos)
-        
-        self.tilemap.render(canvas, self.camera.rounded_pos, Biome_1.player.rect())
+        self.tilemap.render(canvas, self.camera.rounded_pos)
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']
@@ -180,26 +147,19 @@ class Biome_1(State):
         if not Biome_1.player.dead > 25:
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
-        ### Update sparks, render
-        for spark in self.sparks.copy():
-            kill = spark.update()
-            spark.render(canvas, self.camera.rounded_pos)
-            if kill:
-                self.sparks.remove(spark)
-        ###
-        
         for enemy in self.enemies:
             enemy.render(canvas, self.camera.rounded_pos)
     
-    
         for particle in self.particles:
-            particle.render(canvas, self.camera.rounded_pos)        
-    
+            particle.render(canvas, self.camera.rounded_pos)   
+              
+        for spark in self.sparks:
+            spark.render(canvas, self.camera.rounded_pos)   
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-        center_node = (round((Biome_1.player.pos.x + 7/2) / 7), round((Biome_1.player.pos.y + 13/2) / 13))
-        for rect in self.tilemap.chunks.get(center_node, {}):
-            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+     #   center_node = (round((Biome_1.player.pos.x + 7/2) / 7), round((Biome_1.player.pos.y + 13/2) / 13))
+      #  for rect in self.tilemap.chunks.get(center_node, {}):
+       #     canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
         return canvas
     

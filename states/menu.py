@@ -1,9 +1,8 @@
 import pygame as pg
 
-from states.state import State
+from states.game import Game
 
-
-class Menu(State):
+class Menu(Game):
     def __init__(self):
         super().__init__()
         self.next = 'level1'
@@ -14,7 +13,7 @@ class Menu(State):
         
     def start(self):
         print('starting Menu state stuff...')
-        State.music.play('music2.ogg')
+        Game.music.play('music2.ogg')
         
     def process_event(self, event):
         super().process_event(event)
