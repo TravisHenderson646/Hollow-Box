@@ -3,8 +3,7 @@ can send any random thing through the event queue apparently
 from anywhere in pygame. so idk how to use that
 maybe for player losing hp or idk
 
-screenshake would be a really good example i think!! add it 
-
+screenshake would be a really good example i think!!
 ####
 Next
 ####
@@ -39,20 +38,17 @@ fix the naming of screen and display. display needs a better name. canvas? canva
 frame advance
 screenshots from anywhere
 
+camera max and min distance each level
+
+solids could have decor hanging off them, vines hanging from platforms
+
 place camera scroll on player better between levels
 
 probably want to use a 'touched the ground' cleanup cycle so i can make it so
 walljumps give back the double jump and or (not) dash
 
 middled middle tile of tileset (or any one really) could have random alterations that
-occur at controlled randodddddddddddddddddm frequencies
-
-maybe tilemap collision should be in the level not the physics entity
-- make a group (list) called tilemap_colliders and iterate it in the levels update
-
-might want to make sure images that get painted to panels are cropped
-
-is_drawn in tile info should be called is_painted
+occur at controlled random frequencies
 ####
 Things to keep an eye on
 ####
