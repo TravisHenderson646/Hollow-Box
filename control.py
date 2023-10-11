@@ -1,54 +1,15 @@
 '''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 peach float
-
-
-
-
-
-
-
-
-
-
-
 
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
-maybe for player losing hp or idk
-
 screenshake would be a really good example i think!!
-####
-Next
-####
-how to connect pathways like a hollow knight map (with robust naming scheme and loading, not just 0.json, as well as a nested state machine like each room inherits from the biome which inherits from base 'room' which inherits (just like menu) from state
-consider a better name for each object
 
-maybe rework file system to be more than just 0.png 1.png
-
-Test maps for sandboxing abilities or monsters
-
-save file
-(maybe cool to have a 'total play time' that just goes up constantly when i play and
-saves when i close it)
 ###
 IMPORTANT TIDYING
 ###
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
-share player = Player() via abc, do not make self.player = Player() in each lvl
 the chunks should probably be based on the largest enemy in the level?
     the chunks could also crop the colidable rects 
 i think collision box detection should happen and update positions, then hitbox/hurtbox detection happens
@@ -59,8 +20,6 @@ arbitrary amount of collisionboxes on player. big one for interacting, smaller f
 
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler
-
-fix the naming of screen and display. display needs a better name. canvas? canvas!
 
 frame advance
 screenshots from anywhere
@@ -115,6 +74,9 @@ class Control():
         
     def pass_event(self):
         for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.key == 1073741894: # print screen button, triggers both on release idk why
+                    pg.image.save(self.canvas, 'art/screenshots/screenshot.png')
             self.state.process_event(event)
 
     def change_state(self):
