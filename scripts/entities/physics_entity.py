@@ -13,11 +13,11 @@ class PhysicsEntity:
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         
-        self.action = ''
+        self.animation = ''
         self.last_movement = [0, 0, 0, 0]
         self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
         self.flip = False
-        self.set_action('idle')
+        self.set_animation('idle')
         
         
         self.test_surf = pg.Surface(size)
@@ -27,10 +27,10 @@ class PhysicsEntity:
     def rect(self): # This version is better trust, think about it
         return pg.Rect(*self.pos, *self.size)
     
-    def set_action(self, action):
-        if action !=self.action:
-            self.action = action
-            self.animation = setup.assets[self.entity_type + '/' + self.action].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
+    def set_animation(self, animation):
+        if animation !=self.animation:
+            self.animation = animation
+            self.animation = setup.assets[self.entity_type + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
     def update(self, movement):
         self.test_pos = self.pos 

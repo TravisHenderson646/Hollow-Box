@@ -1,11 +1,11 @@
 '''
-
 peach float
+wall climb like celest w button cling but can attack
+maybe a crouch? crouch also grabs walls? crouch jump is a roll
 
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
-
 ###
 IMPORTANT TIDYING
 ###
@@ -22,7 +22,6 @@ particles should be like little sparks (not his sparks) when you jump or land or
 Maybe it spits one out every half second instead of like a sprinkler
 
 frame advance
-screenshots from anywhere
 
 camera max and min distance each level
 
@@ -32,9 +31,6 @@ place camera scroll on player better between levels
 
 probably want to use a 'touched the ground' cleanup cycle so i can make it so
 walljumps give back the double jump and or (not) dash
-
-middled middle tile of tileset (or any one really) could have random alterations that
-occur at controlled random frequencies
 ####
 Things to keep an eye on
 ####

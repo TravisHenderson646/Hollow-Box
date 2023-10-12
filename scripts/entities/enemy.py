@@ -47,9 +47,9 @@ class Enemy(PhysicsEntity):
         super().update(tilemap, movement=movement) #handles physics in parent class
         
         if movement[0] != 0:
-            self.set_action('run')
+            self.set_animation('run')
         else:
-            self.set_action('idle')
+            self.set_animation('idle')
             
         if abs(player_dashing) >= 50: 
             if self.rect().colliderect(player_rect):

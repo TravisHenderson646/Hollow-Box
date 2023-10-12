@@ -58,7 +58,7 @@ class Biome_1(Game):
             if event.key == pg.K_s:
                 self.movement[3] = True
             if event.key == pg.K_SPACE:
-                Biome_1.player.jump()
+                Biome_1.player.jumpold()
             if event.key == pg.K_j:
                 Biome_1.player.dash()
         if event.type == pg.KEYUP:
@@ -82,7 +82,7 @@ class Biome_1(Game):
             Biome_1.player.update(self.particles, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
 
         for entity in self.solid_entities:
-            self.push_out_solids(entity) # (note: after solids have moved)
+            self.push_out_solid(entity) # (note: after solids have moved)
 
         for particle in self.particles.copy():
             kill = particle.update()
@@ -97,7 +97,7 @@ class Biome_1(Game):
             if kill:
                 self.sparks.remove(spark)
         
-    def push_out_solids(self, entity):
+    def push_out_solid(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         frame_movement = ( # (x, y)
             (self.movement[1] - self.movement[0]) + entity.vel.x,

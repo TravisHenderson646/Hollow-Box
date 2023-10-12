@@ -9,8 +9,9 @@ from scripts.entities.physics_entity import PhysicsEntity
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
+        self.jump = Jump()
         self.air_time = 0
-        self.jumps = 1
+        self.jumps = 0
         # todo: hes about to do something else but i think you could just do if you collide with a wall left or right set jumps to 1
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
@@ -18,14 +19,16 @@ class Player(PhysicsEntity):
         
     def update(self, particles, movement):
         super().update(movement)
-    
-        self.air_time += 1
-        
         if self.collisions['down']:
+            self.jump.can_jump = True
             self.air_time = 0
             self.jumps = 1
+    
+        self.air_time += 1
+        if self.air_time > 12:
+            self.jump.can_jump = False
             
-        self.wallslide = False
+        '''self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
             self.wallslide = True
             self.vel[1] = min(self.vel[1], 0.7)
@@ -33,16 +36,16 @@ class Player(PhysicsEntity):
                 self.flip = False
             else:
                 self.flip = True
-            self.set_action('wallslide')
+            self.set_animation('wallslide')
         
         if not self.wallslide: #could just unindent the next block and make them elifs    
             if self.air_time > 12:
-                self.set_action('jump')
+                self.set_animation('jump')
                 self.jumps -= 1
             elif movement[0] != 0:
-                self.set_action('run')
+                self.set_animation('run')
             else:
-                self.set_action('idle')
+                self.set_animation('idle')
         
         # 10 frames on then 50 frames arecooldown        
         if self.dashing > 0:
@@ -67,12 +70,12 @@ class Player(PhysicsEntity):
         if self.vel[0] > 0:
             self.vel[0] = max(self.vel[0] - 0.1, 0)
         if self.vel[0] < 0:
-            self.vel[0] = min(self.vel[0] + 0.1, 0)     
+            self.vel[0] = min(self.vel[0] + 0.1, 0)     '''
                        
     def render(self, surf, offset):
         super().render(surf, offset)
             
-    def jump(self):
+    def jumpold(self):
         if self.wallslide:
             if self.flip and self.last_movement[0] < 0:
                 self.vel[0] = 2.5
@@ -102,3 +105,10 @@ class Player(PhysicsEntity):
                 self.dashing = -60
             else:
                 self.dashing = 60
+                
+class Jump:
+    def __init__(self):
+        self.can_jump = False
+        self.jump_buffer = 5
+        
+    
