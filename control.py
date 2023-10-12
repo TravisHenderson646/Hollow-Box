@@ -17,6 +17,7 @@ i think collision box detection should happen and update positions, then hitbox/
 Must be nice
 ####
 arbitrary amount of collisionboxes on player. big one for interacting, smaller for physics, smallerer hurtbox
+    bonus: extrabig keep_talking box to let player keep movement while talking
 
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler

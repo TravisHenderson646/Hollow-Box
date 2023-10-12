@@ -12,7 +12,7 @@ from states.game import Game
 
 class Biome_1(Game):            
     # The ONLY player instance
-    player = Player((50, -50), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
+    player = Player((250, 350), (setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]))
 
     def __init__(self):
         super().__init__()
@@ -20,7 +20,6 @@ class Biome_1(Game):
         self.biome = "Biome_1"
         self.clouds = Clouds(setup.assets['clouds'], count=16)
         self.tilemap:Tilemap
-        self.movement = [False, False, False, False] # [left, right, up, down]
         self.solid_entities = [Biome_1.player] 
         self.previous = 'menu'
         self.map_id = 0
@@ -39,7 +38,7 @@ class Biome_1(Game):
         self.sparks = []
         self.dead = Biome_1.player.dead
         keys = pg.key.get_pressed()
-        self.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
+        self.player.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
         
     def process_event(self, event):        
         super().process_event(event)
@@ -50,36 +49,36 @@ class Biome_1(Game):
                 self.done = True
                 self.next = 'menu'
             if event.key == pg.K_a:
-                self.movement[0] = True
+                self.player.movement[0] = True
             if event.key == pg.K_d:
-                self.movement[1] = True
+                self.player.movement[1] = True
             if event.key == pg.K_w:
-                self.movement[2] = True
+                self.player.movement[2] = True
             if event.key == pg.K_s:
-                self.movement[3] = True
+                self.player.movement[3] = True
             if event.key == pg.K_SPACE:
-                Biome_1.player.jumpold()
+                Biome_1.player.try_jump()
             if event.key == pg.K_j:
                 Biome_1.player.dash()
         if event.type == pg.KEYUP:
             if event.key == pg.K_a:
-                self.movement[0] = False
+                self.player.movement[0] = False
             if event.key == pg.K_d:
-                self.movement[1] = False
+                self.player.movement[1] = False
             if event.key == pg.K_w:
-                self.movement[2] = False
+                self.player.movement[2] = False
             if event.key == pg.K_s:
-                self.movement[3] = False
+                self.player.movement[3] = False
    
     def update(self): # Main loop
-        self.camera.pos.x += (Biome_1.player.rect().centerx - setup.CANVAS_SIZE[0] / 2 - self.camera.pos.x) / 60 # could do one line pg.V2 += (#, #)
-        self.camera.pos.y += (Biome_1.player.rect().centery - setup.CANVAS_SIZE[1]  / 2 - self.camera.pos.y) / 60
+        self.camera.pos.x += (Biome_1.player.rect.centerx - setup.CANVAS_SIZE[0] / 2 - self.camera.pos.x) / 60 # could do one line pg.V2 += (#, #)
+        self.camera.pos.y += (Biome_1.player.rect.centery - setup.CANVAS_SIZE[1] / 2 - self.camera.pos.y) / 60
         self.camera.update()
         
         self.clouds.update()
 
         if not Biome_1.player.dead:
-            Biome_1.player.update(self.particles, (self.movement[1] - self.movement[0], self.movement[3] - self.movement[2]))
+            Biome_1.player.update(self.particles)
 
         for entity in self.solid_entities:
             self.push_out_solid(entity) # (note: after solids have moved)
@@ -98,43 +97,41 @@ class Biome_1(Game):
                 self.sparks.remove(spark)
         
     def push_out_solid(self, entity):
+        entity.last_pixel = (math.floor(entity.rect.left), math.floor(entity.rect.top))
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         frame_movement = ( # (x, y)
-            (self.movement[1] - self.movement[0]) + entity.vel.x,
-            (self.movement[3] - self.movement[2]) + entity.vel.y,)
+            (entity.movement[1] - entity.movement[0]) * entity.speed + entity.vel.x,
+            (entity.movement[3] - entity.movement[2]) * entity.speed + entity.vel.y,)
         
-        entity_width = entity.rect().width
-        entity_height = entity.rect().height
-        center_node = (round((entity.pos.x + entity_width/2) / entity_width), round((entity.pos.y + entity_height/2) / entity_height))
+        entity_width = entity.rect.width
+        entity_height = entity.rect.height
+        center_node = (round((entity.rect.x + entity_width/2) / entity_width), round((entity.rect.y + entity_height/2) / entity_height))
         
-        entity.pos.x += frame_movement[0]
-        entity_rect = entity.rect()
+        entity.rect.x += frame_movement[0]
         for rect in self.tilemap.chunks.get(center_node, {}):
-            if entity_rect.colliderect(rect):
+            if entity.rect.colliderect(rect):
                 if frame_movement[0] > 0:
-                    entity_rect.right = rect.left
+                    entity.rect.right = rect.left
                     entity.collisions['right'] = True
                 if frame_movement[0] < 0:
-                    entity_rect.left = rect.right
+                    entity.rect.left = rect.right
                     entity.collisions['left'] = True
-                entity.pos.x = entity_rect.x
                     
-        entity.pos.y += frame_movement[1]
-        entity_rect = entity.rect()
+        entity.rect.y += frame_movement[1]
         for rect in self.tilemap.chunks.get(center_node, {}):
-            if entity_rect.colliderect(rect):
+            if entity.rect.colliderect(rect):
                 if frame_movement[1] > 0:
-                    entity_rect.bottom = rect.top
+                    entity.rect.bottom = rect.top
                     entity.collisions['down'] = True
                 if frame_movement[1] < 0:
-                    entity_rect.top = rect.bottom
+                    entity.rect.top = rect.bottom
                     entity.collisions['up'] = True
-                    print('collided up')
-                entity.pos.y = entity_rect.y                
+                    print('collided up')            
         if entity.collisions['down'] or entity.collisions['up']:
             entity.vel = pg.Vector2(0, 0)
+            
+        entity.current_pixel, entity.last_pixel = (math.floor(entity.rect.left), math.floor(entity.rect.top)), entity.current_pixel
 
-    
     def render(self, canvas: pg.Surface):
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)

@@ -16,9 +16,9 @@ class Enemy(PhysicsEntity):
         self.walking = 0
         self.movement = [0, 0, 0, 0] # desired L/R movement of entity???
         
-    def update(self, tilemap, player_rect, player_dashing, projectiles, sparks, particles, movement=(0, 0)):
+    def update(self, tilemap, player_rect, player_dashing, projectiles, sparks, particles):
         if self.walking:
-            if tilemap.solid_check((self.rect().centerx + (-7 if self.flip else 7), self.pos[1] + 23)):
+            if tilemap.solid_check((self.rect.centerx + (-7 if self.flip else 7), self.pos[1] + 23)):
                 if (self.collisions['right'] or self.collisions['left']):
                     self.flip = not self.flip
                 movement = (movement[0] - 0.5 if self.flip else 0.5, movement[1])
@@ -32,19 +32,19 @@ class Enemy(PhysicsEntity):
                 if (abs(dist[1]) < 80):
                     if (self.flip and dist[0] < 0):
                         setup.sfx['shoot'].play()
-                        projectiles.append([[self.rect().centerx - 7, self.rect().centery], -1.5, 0])
+                        projectiles.append([[self.rect.centerx - 7, self.rect.centery], -1.5, 0])
                         for i in range(4):
                             sparks.append(Spark(projectiles[-1][0], random.random() - 0.5 + math.pi, 2 + random.random()))
                     if (not self.flip and dist[0]> 0):
                         setup.sfx['shoot'].play()
-                        projectiles.append([[self.rect().centerx + 7, self.rect().centery], 1.5, 0])
+                        projectiles.append([[self.rect.centerx + 7, self.rect.centery], 1.5, 0])
                         for i in range(4):
                             sparks.append(Spark(projectiles[-1][0], random.random() - 0.5, 2 + random.random()))
             ###
         elif random.random() < 0.01:
             self.walking = random.randint(30, 120)
         
-        super().update(tilemap, movement=movement) #handles physics in parent class
+        super().update() #handles physics in parent class
         
         if movement[0] != 0:
             self.set_animation('run')
@@ -52,21 +52,21 @@ class Enemy(PhysicsEntity):
             self.set_animation('idle')
             
         if abs(player_dashing) >= 50: 
-            if self.rect().colliderect(player_rect):
+            if self.rect.colliderect(player_rect):
                 setup.sfx['hit'].play()
                 for i in range(30):
                     angle = random.random() * math.pi * 2
                     speed = random.random() * 5
-                    sparks.append(Spark(self.rect().center, angle, 2 + random.random()))
-                    particles.append(Particle('particle', self.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
-                sparks.append(Spark(self.rect().center, 0, 5 + random.random()))
-                sparks.append(Spark(self.rect().center, math.pi, 5 + random.random()))
+                    sparks.append(Spark(self.rect.center, angle, 2 + random.random()))
+                    particles.append(Particle('particle', self.rect.center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
+                sparks.append(Spark(self.rect.center, 0, 5 + random.random()))
+                sparks.append(Spark(self.rect.center, math.pi, 5 + random.random()))
                 return True
             
     def render(self, surf, offset):
         super().render(surf, offset)
         
         if self.flip:
-            surf.blit(pg.transform.flip(setup.assets['gun'], True, False), (self.rect().centerx - 4 - setup.assets['gun'].get_width() - offset[0], self.rect().centery - offset[1]))
+            surf.blit(pg.transform.flip(setup.assets['gun'], True, False), (self.rect.centerx - 4 - setup.assets['gun'].get_width() - offset[0], self.rect.centery - offset[1]))
         else:
-            surf.blit(setup.assets['gun'], (self.rect().centerx + 4 - offset[0], self.rect().centery - offset[1]))
+            surf.blit(setup.assets['gun'], (self.rect.centerx + 4 - offset[0], self.rect.centery - offset[1]))

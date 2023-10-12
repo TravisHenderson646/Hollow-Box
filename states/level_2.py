@@ -33,7 +33,7 @@ class Level_2(Biome_1):
     def update(self):
         super().update()
         for tile in self.tilemap.exits:
-            if tile.rect.colliderect(Biome_1.player.rect()):
+            if tile.rect.colliderect(Biome_1.player.rect):
                 if 'east' in tile.tags:
                     self.done = True
                     self.next = 'level1'

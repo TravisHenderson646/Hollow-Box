@@ -4,29 +4,37 @@ import random
 from scripts.particle import Particle
 from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
+from scripts.debugger import debugger
 
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
-        self.jump = Jump()
-        self.air_time = 0
-        self.jumps = 0
-        # todo: hes about to do something else but i think you could just do if you collide with a wall left or right set jumps to 1
+        self.speed = 0.5
+        self.dead = 0   
+        
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
-        self.dead = 0
+          
+        self.air_time = 0
+        self.can_jump = False
+        self.ticks_since_jump_input = 500
+        self.jump_buffer = 7
+        self.rising = False
         
-    def update(self, particles, movement):
-        super().update(movement)
+    def update(self, particles):
+        super().update()
         if self.collisions['down']:
-            self.jump.can_jump = True
+            self.can_jump = True
             self.air_time = 0
-            self.jumps = 1
     
         self.air_time += 1
         if self.air_time > 12:
-            self.jump.can_jump = False
+            self.can_jump = False
+        if self.ticks_since_jump_input < self.jump_buffer:
+            self.try_jump()
+        debugger.debug('ps',self.rect.y)
+        
             
         '''self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
@@ -75,7 +83,33 @@ class Player(PhysicsEntity):
     def render(self, surf, offset):
         super().render(surf, offset)
             
-    def jumpold(self):
+    def try_jump(self):
+        if self.ticks_since_jump_input >= self.jump_buffer: # when player tries to jump
+            self.ticks_since_jump_input = 0
+        if self.can_jump:
+            self.jump()
+            if self.ticks_since_jump_input > 0:
+                print('buffered jump alert!!!')
+            self.ticks_since_jump_input = 100
+        else:
+            self.ticks_since_jump_input += 1
+        
+            
+    def dash(self):
+        if self.dashing == 0:
+            setup.sfx['dash'].play()
+            if self.flip:
+                self.dashing = -60
+            else:
+                self.dashing = 60
+        
+    def jump(self):
+        self.can_jump = False
+        self.vel[1] = -2.3
+        setup.sfx['jump'].play()
+
+        
+    '''
         if self.wallslide:
             if self.flip and self.last_movement[0] < 0:
                 self.vel[0] = 2.5
@@ -91,24 +125,4 @@ class Player(PhysicsEntity):
                 self.air_time = 5
                 self.jumps -= 1
                 setup.sfx['jump'].play()
-                # could add 'return True' to 'hook' on events to the jump like an animation``
-        elif self.jumps > 0:
-            self.vel[1] = -3.1
-            self.jumps -= 1
-            self.air_time = 5
-            setup.sfx['jump'].play()
-            
-    def dash(self):
-        if self.dashing == 0:
-            setup.sfx['dash'].play()
-            if self.flip:
-                self.dashing = -60
-            else:
-                self.dashing = 60
-                
-class Jump:
-    def __init__(self):
-        self.can_jump = False
-        self.jump_buffer = 5
-        
-    
+                # could add 'return True' to 'hook' on events to the jump like an animation``'''
