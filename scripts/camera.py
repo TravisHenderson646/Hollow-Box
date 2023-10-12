@@ -2,15 +2,33 @@ from math import floor
 
 import pygame as pg
 
+from scripts.setup import CANVAS_SIZE
+from scripts.debugger import debugger
+
 class Camera:
     def __init__(self):
-        self.pos = pg.Vector2()
         self.rounded_pos = [0, 0] # try ': tuple[(int, int)]'
+        self.cage = pg.Rect(0, 0, CANVAS_SIZE[0] // 8, CANVAS_SIZE[1] // 4) # Move camera if player leaves this
         
         #premenition about what will be useful
         self.max_x = 999999
         self.max_y = 999999
         
-    def update(self):
-        self.rounded_pos[0] = min(floor(self.pos.x), self.max_x)
-        self.rounded_pos[1] = min(floor(self.pos.y), self.max_y)
+    def update(self, pos):
+        if pos[0] < self.cage.left:
+            self.cage.left = pos[0]
+        if pos[0] > self.cage.right:
+            self.cage.right = pos[0]
+        if pos[1] < self.cage.top:
+            self.cage.top = pos[1]
+        if pos[1] > self.cage.bottom:
+            self.cage.bottom = pos[1]
+            
+        self.rounded_pos = [self.cage.centerx - CANVAS_SIZE[0] // 2, self.cage.centery - CANVAS_SIZE[1] // 2 - 20] # magic numbers picked a slightly low center of box
+        
+        
+        
+        
+        
+       # self.rounded_pos[0] = min(floor(self.pos.x), self.max_x)
+        #self.rounded_pos[1] = min(floor(self.pos.y), self.max_y)

@@ -5,6 +5,7 @@ import pygame as pg
 from scripts.particle import Particle
 from scripts.spark import Spark
 from scripts import setup
+from scripts.debugger import debugger
 
 class PhysicsEntity:
     def __init__(self, entity_type, pos, size):
@@ -14,8 +15,6 @@ class PhysicsEntity:
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         self.movement = [False, False, False, False] # [left, right, up, down]
-        self.last_pixel = (0, 0)# hack fix for camera
-        self.current_pixel = (0, 0)
         
         self.animation = ''
         self.last_movement = [0, 0, 0, 0]
@@ -30,15 +29,15 @@ class PhysicsEntity:
         
     def update(self):
                 
-        if self.movement[0] > 0:
+        if self.movement[1]:
             self.flip = False
-        if self.movement[0] < 0:
+        if self.movement[0]:
             self.flip = True
         
         self.last_movement = self.movement
         
         #gravity with terminal vel
-        self.vel.y = min(5, self.vel.y + 0.08)
+        self.vel.y = min(100, self.vel.y + 0.16)
             
         self.animation.tick()
         

@@ -10,7 +10,7 @@ from scripts.debugger import debugger
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
-        self.speed = 0.5
+        self.speed = 0.7
         self.dead = 0   
         
         self.wallslide = False
@@ -20,20 +20,34 @@ class Player(PhysicsEntity):
         self.can_jump = False
         self.ticks_since_jump_input = 500
         self.jump_buffer = 7
-        self.rising = False
+        self.coyote_time = 7
+        self.holding_jump = False
+        self.jumping = False
+        self.float = False
         
     def update(self, particles):
         super().update()
+        print(self.rect.y)
         if self.collisions['down']:
+            self.set_animation('idle')
             self.can_jump = True
             self.air_time = 0
-    
         self.air_time += 1
-        if self.air_time > 12:
+        if self.air_time > self.coyote_time: #base this on vel[1] > 0.3 instead
             self.can_jump = False
+            self.set_animation('jump')
+        if self.jumping:
+            if self.holding_jump:
+                self.vel.y -= 0.06
+                self.set_animation('jump')
+            else:
+                self.set_animation('idle')
+                self.vel.y += 0.16
+            if self.vel.y > 0.3:
+                self.set_animation('jump')
+                self.jumping = False
         if self.ticks_since_jump_input < self.jump_buffer:
             self.try_jump()
-        debugger.debug('ps',self.rect.y)
         
             
         '''self.wallslide = False
@@ -104,8 +118,12 @@ class Player(PhysicsEntity):
                 self.dashing = 60
         
     def jump(self):
+        if not self.collisions['down']:
+            print('Coyote jump alert !!!')
         self.can_jump = False
-        self.vel[1] = -2.3
+        self.holding_jump = True
+        self.jumping = True
+        self.vel.y = -2.7
         setup.sfx['jump'].play()
 
         
