@@ -60,7 +60,7 @@ class Biome_1(Game):
             if event.key == pg.K_SPACE:
                 Biome_1.player.ticks_since_jump_input = 0
             if event.key == pg.K_j:
-                Biome_1.player.dash()
+                Biome_1.player.ticks_since_attack_input = 0
         if event.type == pg.KEYUP:
             if event.key == pg.K_a:
                 self.player.movement[0] = False
@@ -99,7 +99,8 @@ class Biome_1(Game):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         frame_movement = ( # (x, y)
             (entity.movement[1] - entity.movement[0]) * entity.speed + entity.vel.x,
-            (entity.movement[3] - entity.movement[2]) * entity.speed + entity.vel.y,)
+            entity.vel.y)
+            #(entity.movement[3] - entity.movement[2]) * entity.speed + entity.vel.y,)
         
         entity_width = entity.rect.width
         entity_height = entity.rect.height

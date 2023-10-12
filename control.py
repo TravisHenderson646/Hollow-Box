@@ -1,7 +1,12 @@
 '''
+####
+IDEAS
+####
 peach float
 wall climb like celest w button cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
+
+floating hurtboxes to pogo
 
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that

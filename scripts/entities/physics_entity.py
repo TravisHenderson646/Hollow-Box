@@ -28,7 +28,6 @@ class PhysicsEntity:
             self.animation = setup.assets[self.entity_type + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
     def update(self):
-                
         if self.movement[1]:
             self.flip = False
         if self.movement[0]:
