@@ -6,7 +6,6 @@ from scripts.particle import Particle
 from scripts.spark import Spark
 from scripts import setup
 from scripts.debugger import debugger
-
 class PhysicsEntity:
     def __init__(self, entity_type, pos, size):
         self.entity_type = entity_type
@@ -15,7 +14,7 @@ class PhysicsEntity:
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         self.movement = [False, False, False, False] # [left, right, up, down]
-        
+        self.max_vel = -100
         self.animation = ''
         self.last_movement = [0, 0, 0, 0]
         self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
@@ -36,8 +35,9 @@ class PhysicsEntity:
         self.last_movement = self.movement
         
         #gravity with terminal vel
-        self.vel.y = min(2.85, self.vel.y + 0.13)
-        debugger.debug('key', self.rect.topleft)
+        self.vel.y = min(4, self.vel.y + 0.13)
+        self.max_vel = max(self.max_vel, self.vel.y)
+        debugger.debug('key', self.max_vel)
             
         self.animation.tick()
         

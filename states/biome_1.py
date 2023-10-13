@@ -6,6 +6,7 @@ import pygame as pg
 from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
+from scripts.spark import Spark
 from scripts import setup
 from scripts.camera import Camera
 from states.game import Game
@@ -24,6 +25,7 @@ class Biome_1(Game):
         self.previous = 'menu'
         self.map_id = 0
         self.camera_buffer = 0
+        self.sparks = []
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
@@ -72,38 +74,7 @@ class Biome_1(Game):
                 self.player.movement[3] = False
             if event.key == pg.K_SPACE:
                 Biome_1.player.holding_jump = False
-   
-    def update(self): # Main loop
-        self.clouds.update()
-        
-        Biome_1.player.vel.x = 0
-        if not Biome_1.player.dead:
-            Biome_1.player.update(self.particles)
 
-        for entity in self.solid_entities:
-            self.push_out_solid(entity) # (note: after solids have moved)
-            
-        if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
-            Biome_1.player.place_attack()
-            for tile in self.tilemap.breakable_tiles.copy():
-                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
-                    self.tilemap.breakable_tiles.remove(tile)
-                    self.tilemap.rendered_tiles.remove(tile)
-                    Biome_1.player.ticks_since_attack_knockback = 0
-            
-            
-        for particle in self.particles.copy():
-            kill = particle.update()
-            if kill:
-                self.particles.remove(particle)
-            else:
-                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3    
-                    
-        ### Update sparks, render
-        for spark in self.sparks.copy():
-            kill = spark.update()
-            if kill:
-                self.sparks.remove(spark)
         
     def push_out_solid(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
@@ -134,7 +105,6 @@ class Biome_1(Game):
                 if frame_movement[0] < 0:
                     entity.rect.left = rect.right
                     entity.collisions['left'] = True
-            
                     
         entity.rect.y += frame_movement[1]
         for rect in self.tilemap.chunks.get(center_node, {}):
@@ -157,7 +127,43 @@ class Biome_1(Game):
                     
         if entity.collisions['down'] or entity.collisions['up']:
             entity.vel = pg.Vector2(0, 0)
+   
+    def update(self): # Main loop
+        self.clouds.update()
+        
+        Biome_1.player.vel.x = 0
+        if not Biome_1.player.dead:
+            Biome_1.player.update(self.particles)
 
+        for entity in self.solid_entities:
+            self.push_out_solid(entity) # (note: after solids have moved)
+        
+        
+        if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
+            sfx_flag = False # To prevent sfx stacking
+            Biome_1.player.place_attack()
+            for tile in self.tilemap.breakable_tiles.copy():
+                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
+                    self.tilemap.breakable_tiles.remove(tile)
+                    self.tilemap.rendered_tiles.remove(tile)
+                    Biome_1.player.ticks_since_attack_knockback = 0
+                    self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                    sfx_flag = True
+            if sfx_flag:
+                setup.sfx['shoot'].play()
+            
+        for particle in self.particles.copy():
+            kill = particle.update()
+            if kill:
+                self.particles.remove(particle)
+            else:
+                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3    
+                    
+        for spark in self.sparks.copy():
+            kill = spark.update()
+            if kill:
+                self.sparks.remove(spark)
+                
     def render(self, canvas: pg.Surface):
         
         canvas.blit(setup.assets['background'], (0, 0))

@@ -29,11 +29,11 @@ class Player(PhysicsEntity):
         self.attack_surface.fill((50,50,50))
         self.attack_surface_vertical.fill((50,50,50))
         self.attack_direction = 0
-        self.attack_duration = 10
+        self.attack_duration = 7
         self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
-        self.attack_cooldown = 45
+        self.attack_cooldown = 38
         self.ticks_since_attack_knockback = 500
-        self.attack_knockback_duration = 13
+        self.attack_knockback_duration = 4
         self.ticks_since_attack_input = 500
         self.attack_buffer = 7
         self.ticks_since_jump_input = 500
@@ -84,44 +84,44 @@ class Player(PhysicsEntity):
             
     def choose_attack_dir(self):
         if self.movement[3] and (not self.collisions['down']):
-            self.attack_direction = 3 #down
+            self.attack_direction = 1 #down
             self.active_hitbox = 1
         elif self.movement[2]:
-            self.attack_direction = 2 #up
+            self.attack_direction = 3 #up
             self.active_hitbox = 1
         elif self.flip:
-            self.attack_direction = 0 #left
+            self.attack_direction = 2 #left
             self.active_hitbox = 0
         else:
-            self.attack_direction = 1 #right
+            self.attack_direction = 0 #right
             self.active_hitbox = 0
         
     def place_attack(self):
         match self.attack_direction:
-            case 0: #left
+            case 2: #left
                 self.attack_hitbox.centery = self.rect.centery
                 self.attack_hitbox.right = self.rect.centerx
-            case 1: #right
+            case 0: #right
                 self.attack_hitbox.centery = self.rect.centery
                 self.attack_hitbox.left = self.rect.centerx
-            case 2: #up
+            case 3: #up
                 self.attack_hitbox_vertical.centerx = self.rect.centerx
                 self.attack_hitbox_vertical.bottom = self.rect.centery
-            case 3: #down
+            case 1: #down
                 self.attack_hitbox_vertical.centerx = self.rect.centerx
                 self.attack_hitbox_vertical.top = self.rect.centery
                 
     def attack_knockback(self):
         self.ticks_since_attack_knockback += 1
         match self.attack_direction:
-            case 0: #left
-                self.vel.x += 2
-            case 1: #right
-                self.vel.x -= 2
-            case 2: #up
+            case 2: #left
+                self.vel.x += 3
+            case 0: #right
+                self.vel.x -= 3
+            case 3: #up
                 self.vel.y = max(0, self.vel.y)
-            case 3: #down
-                self.vel.y = -2
+            case 1: #down
+                self.vel.y = -1.4
         
     def dash(self):
         if self.dashing == 0:
@@ -160,10 +160,10 @@ class Player(PhysicsEntity):
     def render(self, surf, offset):
         super().render(surf, offset)
         if self.ticks_since_last_attack < self.attack_duration:
-            if self.attack_direction in [0, 1]:
+            if self.attack_direction in [0, 2]:
                 pos = (self.attack_hitbox.x - offset[0], self.attack_hitbox.y - offset[1])
                 surf.blit(self.attack_surface,pos)
-            if self.attack_direction in [2, 3]:
+            if self.attack_direction in [1, 3]:
                 pos = (self.attack_hitbox_vertical.x - offset[0], self.attack_hitbox_vertical.y - offset[1])
                 surf.blit(self.attack_surface_vertical,pos)
                 
