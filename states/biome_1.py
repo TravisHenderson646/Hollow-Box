@@ -81,6 +81,11 @@ class Biome_1(Game):
 
         for entity in self.solid_entities:
             self.push_out_solid(entity) # (note: after solids have moved)
+            
+        if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
+            if Biome_1.player.ticks_since_last_attack == 0:
+                Biome_1.player.choose_attack_dir()
+            Biome_1.player.attack()        
 
         for particle in self.particles.copy():
             kill = particle.update()
@@ -124,8 +129,7 @@ class Biome_1(Game):
                     entity.collisions['down'] = True
                 if frame_movement[1] < 0:
                     entity.rect.top = rect.bottom
-                    entity.collisions['up'] = True
-                    print('collided up')            
+                    entity.collisions['up'] = True 
         if entity.collisions['down'] or entity.collisions['up']:
             entity.vel = pg.Vector2(0, 0)
 

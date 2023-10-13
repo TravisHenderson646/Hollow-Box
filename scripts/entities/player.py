@@ -21,10 +21,14 @@ class Player(PhysicsEntity):
         self.air_time = 0
         self.can_jump = False
         self.ticks_since_last_attack = 500
-        self.attack_hitbox = pg.FRect(0, 0, size[1] * 2, size[0] * 3)
+        self.attack_hitbox = pg.FRect(0, 0, size[1] * 3, size[0] * 3)
+        self.attack_hitbox_vertical = pg.FRect(0, 0, self.attack_hitbox.height, self.attack_hitbox.width)
         self.attack_surface = pg.Surface(self.attack_hitbox.size)
-        self.attack_surface.fill((200,200,200))
+        self.attack_surface_vertical = pg.Surface(self.attack_hitbox_vertical.size)
+        self.attack_surface.fill((50,50,50))
+        self.attack_surface_vertical.fill((50,50,50))
         self.attack_direction = 0
+        self.attack_duration = 10
         self.attack_cooldown = 45
         self.ticks_since_attack_input = 500
         self.attack_buffer = 7
@@ -63,38 +67,29 @@ class Player(PhysicsEntity):
             self.ticks_since_attack_input += 1
             
     def choose_attack_dir(self):
-        print(self.movement, self.attack_direction)
         if self.movement[3] and (not self.collisions['down']):
             self.attack_direction = 3 #down
-            print('test33')
         elif self.movement[2]:
             self.attack_direction = 2 #up
-            print('test22')
         elif self.flip:
             self.attack_direction = 0 #left
-            print('test00')
         else:
             self.attack_direction = 1 #right
-            print('test11')
         
     def attack(self):
         match self.attack_direction:
-            case 0:
-                print('attack0')
+            case 0: #left
                 self.attack_hitbox.centery = self.rect.centery
-                self.attack_hitbox.right = self.rect.left
-            case 1:
-                print('attack1')
+                self.attack_hitbox.right = self.rect.centerx
+            case 1: #right
                 self.attack_hitbox.centery = self.rect.centery
-                self.attack_hitbox.left = self.rect.right
-            case 2:
-                print('attack2')
-                self.attack_hitbox.centerx = self.rect.centerx
-                self.attack_hitbox.bottom = self.rect.top
-            case 3:
-                print('attack3')
-                self.attack_hitbox.centerx = self.rect.centerx
-                self.attack_hitbox.top = self.rect.bottom
+                self.attack_hitbox.left = self.rect.centerx
+            case 2: #up
+                self.attack_hitbox_vertical.centerx = self.rect.centerx
+                self.attack_hitbox_vertical.bottom = self.rect.centery
+            case 3: #down
+                self.attack_hitbox_vertical.centerx = self.rect.centerx
+                self.attack_hitbox_vertical.top = self.rect.centery
         
     def dash(self):
         if self.dashing == 0:
@@ -107,7 +102,14 @@ class Player(PhysicsEntity):
      
     def update(self, particles):
         super().update()
-
+        self.ticks_since_last_attack += 1
+        self.air_time += 1
+                
+        if self.ticks_since_jump_input < self.jump_buffer:
+            self.try_jump()
+        if self.ticks_since_attack_input < self.attack_buffer:
+            self.try_attack()
+            
         if self.collisions['down']:
             self.set_animation('idle')
             self.can_jump = True
@@ -127,25 +129,18 @@ class Player(PhysicsEntity):
             if self.vel.y > 0.3:
                 self.set_animation('jump')
                 self.jumping = False
-                
-        if self.ticks_since_last_attack < 20:
-            if self.ticks_since_last_attack == 1:
-                self.choose_attack_dir()
-            self.attack()
-                
-        if self.ticks_since_jump_input < self.jump_buffer:
-            self.try_jump()
-        if self.ticks_since_attack_input < self.attack_buffer:
-            self.try_attack()
-        
-            
-        self.ticks_since_last_attack += 1
-        self.air_time += 1
+
                        
     def render(self, surf, offset):
         super().render(surf, offset)
-        pos = (self.attack_hitbox.x - offset[0], self.attack_hitbox.y - offset[1])
-        surf.blit(self.attack_surface,pos)
+        if self.ticks_since_last_attack < self.attack_duration:
+            if self.attack_direction in [0, 1]:
+                pos = (self.attack_hitbox.x - offset[0], self.attack_hitbox.y - offset[1])
+                surf.blit(self.attack_surface,pos)
+            if self.attack_direction in [2, 3]:
+                pos = (self.attack_hitbox_vertical.x - offset[0], self.attack_hitbox_vertical.y - offset[1])
+                surf.blit(self.attack_surface_vertical,pos)
+                
 
         '''self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
