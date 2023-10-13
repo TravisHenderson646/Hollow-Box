@@ -11,7 +11,7 @@ class Debugger:
         self.font = pg.font.SysFont('Ariel', 20)
         
     def debug(self, key, info):
-        self.infos[key] = self.font.render(str(info), True, pg.Color(0, 0, 0))
+        self.infos[key] = self.font.render(str(info), True, (200, 200, 200),(0, 0, 0))
     
     def render(self):
         for i, info in enumerate(self.infos.values()):

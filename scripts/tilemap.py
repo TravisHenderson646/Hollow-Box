@@ -27,6 +27,8 @@ class Tilemap:
         self.tiles = []
         self.solid_tiles = []
         self.drawn_tiles = []
+        self.rendered_tiles = []
+        self.breakable_tiles = []
         self.tagged_tiles = []
         self.panels = {}
         self.chunks = {}
@@ -60,6 +62,10 @@ class Tilemap:
             self.drawn_tiles.append(tile_instance)
         if 'solid' in tile_instance.tags:
             self.solid_tiles.append(tile_instance)
+        if 'breakable' in tile_instance.tags:
+            self.breakable_tiles.append(tile_instance)
+        if 'rendered' in tile_instance.tags:
+            self.rendered_tiles.append(tile_instance)
         if 'entrance' in tile_instance.tags:
             self.entrances.append(tile_instance)
         if 'exit' in tile_instance.tags:
@@ -98,15 +104,15 @@ class Tilemap:
             tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())     
 
     def calculate_chunks(self):
-        player_width, player_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
-        chunks_required = (self.map_width // player_width + 1 + 2, self.map_height // player_height + 1 + 2) # +2 for padding
+        chunk_width, chunk_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
+        chunks_required = (self.map_width // chunk_width + 1 + 2, self.map_height // chunk_height + 1 + 2) # +2 for padding
         
         for y in range(chunks_required[1]):
             for x in range(chunks_required[0]):
                 self.chunks[(x - 1, y - 1)] = []
                 current_chunk = self.chunks.get((x - 1, y - 1), {})
-                chunk_topleft = ((x - 1) * player_width, (y - 1) * player_height)
-                chunk_test_rect = pg.Rect(chunk_topleft[0] - (player_width * 1.5), chunk_topleft[1]-(player_height*1.5), player_width * 3, player_height* 3) # make a test rect 3x the player
+                chunk_topleft = ((x - 1) * chunk_width, (y - 1) * chunk_height)
+                chunk_test_rect = pg.Rect(chunk_topleft[0] - (chunk_width * 1.5), chunk_topleft[1]-(chunk_height*1.5), chunk_width * 3, chunk_height* 3) # make a test rect 3x the chunk
 
                 for tile in self.solid_tiles:
                     if tile.rect.colliderect(chunk_test_rect):

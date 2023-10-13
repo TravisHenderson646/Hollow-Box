@@ -75,7 +75,8 @@ class Biome_1(Game):
    
     def update(self): # Main loop
         self.clouds.update()
-
+        
+        Biome_1.player.vel.x = 0
         if not Biome_1.player.dead:
             Biome_1.player.update(self.particles)
 
@@ -83,10 +84,14 @@ class Biome_1(Game):
             self.push_out_solid(entity) # (note: after solids have moved)
             
         if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
-            if Biome_1.player.ticks_since_last_attack == 0:
-                Biome_1.player.choose_attack_dir()
-            Biome_1.player.attack()        
-
+            Biome_1.player.place_attack()
+            for tile in self.tilemap.breakable_tiles.copy():
+                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
+                    self.tilemap.breakable_tiles.remove(tile)
+                    self.tilemap.rendered_tiles.remove(tile)
+                    Biome_1.player.ticks_since_attack_knockback = 0
+            
+            
         for particle in self.particles.copy():
             kill = particle.update()
             if kill:
@@ -121,6 +126,16 @@ class Biome_1(Game):
                     entity.rect.left = rect.right
                     entity.collisions['left'] = True
                     
+        for rect in [tile.rect for tile in self.tilemap.breakable_tiles]:
+            if entity.rect.colliderect(rect):
+                if frame_movement[0] > 0:
+                    entity.rect.right = rect.left
+                    entity.collisions['right'] = True
+                if frame_movement[0] < 0:
+                    entity.rect.left = rect.right
+                    entity.collisions['left'] = True
+            
+                    
         entity.rect.y += frame_movement[1]
         for rect in self.tilemap.chunks.get(center_node, {}):
             if entity.rect.colliderect(rect):
@@ -130,6 +145,16 @@ class Biome_1(Game):
                 if frame_movement[1] < 0:
                     entity.rect.top = rect.bottom
                     entity.collisions['up'] = True 
+                    
+        for rect in [tile.rect for tile in self.tilemap.breakable_tiles]:
+            if entity.rect.colliderect(rect):
+                if frame_movement[1] > 0:
+                    entity.rect.bottom = rect.top
+                    entity.collisions['down'] = True
+                if frame_movement[1] < 0:
+                    entity.rect.top = rect.bottom
+                    entity.collisions['up'] = True 
+                    
         if entity.collisions['down'] or entity.collisions['up']:
             entity.vel = pg.Vector2(0, 0)
 
@@ -138,6 +163,8 @@ class Biome_1(Game):
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)
         self.tilemap.render(canvas, self.camera.rounded_pos)
+        for tile in self.tilemap.rendered_tiles:
+            canvas.blit(tile.image, (tile.pos[0] - self.camera.rounded_pos[0], tile.pos[1] - self.camera.rounded_pos[1]))
         
         for projectile in self.projectiles.copy():
             img = setup.assets['projectile']

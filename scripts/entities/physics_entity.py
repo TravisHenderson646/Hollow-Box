@@ -36,7 +36,8 @@ class PhysicsEntity:
         self.last_movement = self.movement
         
         #gravity with terminal vel
-        self.vel.y = min(100, self.vel.y + 0.16)
+        self.vel.y = min(2.85, self.vel.y + 0.13)
+        debugger.debug('key', self.rect.topleft)
             
         self.animation.tick()
         

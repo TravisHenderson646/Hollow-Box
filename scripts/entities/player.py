@@ -20,16 +20,20 @@ class Player(PhysicsEntity):
           
         self.air_time = 0
         self.can_jump = False
-        self.ticks_since_last_attack = 500
         self.attack_hitbox = pg.FRect(0, 0, size[1] * 3, size[0] * 3)
         self.attack_hitbox_vertical = pg.FRect(0, 0, self.attack_hitbox.height, self.attack_hitbox.width)
+        self.attack_hitbox_list = [self.attack_hitbox, self.attack_hitbox_vertical]
+        self.active_hitbox = 0
         self.attack_surface = pg.Surface(self.attack_hitbox.size)
         self.attack_surface_vertical = pg.Surface(self.attack_hitbox_vertical.size)
         self.attack_surface.fill((50,50,50))
         self.attack_surface_vertical.fill((50,50,50))
         self.attack_direction = 0
         self.attack_duration = 10
+        self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
         self.attack_cooldown = 45
+        self.ticks_since_attack_knockback = 500
+        self.attack_knockback_duration = 13
         self.ticks_since_attack_input = 500
         self.attack_buffer = 7
         self.ticks_since_jump_input = 500
@@ -41,14 +45,14 @@ class Player(PhysicsEntity):
 
     def try_jump(self):
         if self.can_jump:
-            self.jump()
+            self.start_jump()
             if self.ticks_since_jump_input > 0:
                 print('Buffered jump alert!!!')
             self.ticks_since_jump_input = 100
         else:
             self.ticks_since_jump_input += 1  
             
-    def jump(self):
+    def start_jump(self):
         if not self.collisions['down']:
             print('Coyote jump alert !!!')
         self.can_jump = False
@@ -56,10 +60,22 @@ class Player(PhysicsEntity):
         self.jumping = True
         self.vel.y = -2.85
         setup.sfx['jump'].play()  
+    
+    def jump(self):
+        if self.holding_jump:
+            self.vel.y -= 0.06
+            self.set_animation('jump')
+        else:
+            self.set_animation('idle')
+            self.vel.y += 0.64
+        if self.vel.y > 0.3:
+            self.set_animation('jump')
+            self.jumping = False
                       
     def try_attack(self):
         if self.ticks_since_last_attack > self.attack_cooldown:
             self.ticks_since_last_attack = 0 # this is what actually causes the attack in update()
+            self.choose_attack_dir()
             if self.ticks_since_attack_input > 0:
                 print('Buffered attack alert!!!')
             self.ticks_since_attack_input = 100
@@ -69,14 +85,18 @@ class Player(PhysicsEntity):
     def choose_attack_dir(self):
         if self.movement[3] and (not self.collisions['down']):
             self.attack_direction = 3 #down
+            self.active_hitbox = 1
         elif self.movement[2]:
             self.attack_direction = 2 #up
+            self.active_hitbox = 1
         elif self.flip:
             self.attack_direction = 0 #left
+            self.active_hitbox = 0
         else:
             self.attack_direction = 1 #right
+            self.active_hitbox = 0
         
-    def attack(self):
+    def place_attack(self):
         match self.attack_direction:
             case 0: #left
                 self.attack_hitbox.centery = self.rect.centery
@@ -90,6 +110,18 @@ class Player(PhysicsEntity):
             case 3: #down
                 self.attack_hitbox_vertical.centerx = self.rect.centerx
                 self.attack_hitbox_vertical.top = self.rect.centery
+                
+    def attack_knockback(self):
+        self.ticks_since_attack_knockback += 1
+        match self.attack_direction:
+            case 0: #left
+                self.vel.x += 2
+            case 1: #right
+                self.vel.x -= 2
+            case 2: #up
+                self.vel.y = max(0, self.vel.y)
+            case 3: #down
+                self.vel.y = -2
         
     def dash(self):
         if self.dashing == 0:
@@ -104,31 +136,25 @@ class Player(PhysicsEntity):
         super().update()
         self.ticks_since_last_attack += 1
         self.air_time += 1
+        
+        if self.collisions['down']:
+            self.set_animation('idle')
+            self.can_jump = True
+            self.air_time = 0
                 
         if self.ticks_since_jump_input < self.jump_buffer:
             self.try_jump()
         if self.ticks_since_attack_input < self.attack_buffer:
             self.try_attack()
-            
-        if self.collisions['down']:
-            self.set_animation('idle')
-            self.can_jump = True
-            self.air_time = 0
+        if self.ticks_since_attack_knockback < self.attack_knockback_duration:
+            self.attack_knockback()
 
         if self.air_time > self.coyote_time: #base this on vel[1] > 0.3 instead
             self.can_jump = False
             self.set_animation('jump')
             
         if self.jumping:
-            if self.holding_jump:
-                self.vel.y -= 0.06
-                self.set_animation('jump')
-            else:
-                self.set_animation('idle')
-                self.vel.y += 0.64
-            if self.vel.y > 0.3:
-                self.set_animation('jump')
-                self.jumping = False
+            self.jump()
 
                        
     def render(self, surf, offset):
