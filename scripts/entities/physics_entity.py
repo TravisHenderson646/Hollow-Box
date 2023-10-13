@@ -7,14 +7,14 @@ from scripts.spark import Spark
 from scripts import setup
 from scripts.debugger import debugger
 class PhysicsEntity:
-    def __init__(self, entity_type, pos, size):
-        self.entity_type = entity_type
+    def __init__(self, name, pos, size):
+        self.name = name
         self.rect = pg.FRect(*pos, *size)
         self.vel = pg.Vector2(0, 0) # velocity imparted from other action
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         self.movement = [False, False, False, False] # [left, right, up, down]
-        self.max_vel = -100
+        self.terminal_vel = 4
         self.animation = ''
         self.last_movement = [0, 0, 0, 0]
         self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
@@ -24,7 +24,7 @@ class PhysicsEntity:
     def set_animation(self, animation):
         if animation !=self.animation:
             self.animation = animation
-            self.animation = setup.assets[self.entity_type + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
+            self.animation = setup.assets[self.name + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
         
     def update(self):
         if self.movement[1]:
@@ -35,9 +35,7 @@ class PhysicsEntity:
         self.last_movement = self.movement
         
         #gravity with terminal vel
-        self.vel.y = min(4, self.vel.y + 0.13)
-        self.max_vel = max(self.max_vel, self.vel.y)
-        debugger.debug('key', self.max_vel)
+        self.vel.y = min(self.terminal_vel, self.vel.y + 0.13)
             
         self.animation.tick()
         

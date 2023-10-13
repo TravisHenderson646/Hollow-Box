@@ -3,11 +3,13 @@ import random
 
 import pygame as pg
 
+from scripts.debugger import debugger
+from scripts import setup
 from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
-from scripts import setup
+from scripts.entities.crawlid import Crawlid
 from scripts.camera import Camera
 from states.game import Game
 
@@ -24,7 +26,7 @@ class Biome_1(Game):
         self.solid_entities = [Biome_1.player] 
         self.previous = 'menu'
         self.map_id = 0
-        self.camera_buffer = 0
+        self.enemies = 0
         self.sparks = []
         
     def cleanup(self):
@@ -35,15 +37,20 @@ class Biome_1(Game):
         print(f'    Entering level {self.map_id + 1}...')
 
         Game.music.play('music.wav')
-                
+        keys = pg.key.get_pressed()
+        self.player.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
+        self.enemies = []
         self.projectiles = []
         self.particles = []
         self.sparks = []
         self.tilemap.current_breakable_tiles = self.tilemap.breakable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
-        self.dead = Biome_1.player.dead
-        keys = pg.key.get_pressed()
-        self.player.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
+        
+        for tile in self.tilemap.enemies:
+            if 'crawlid' in tile.tags:
+                self.enemies.append(Crawlid(tile.rect.topleft))
+        for enemy in self.enemies:
+            self.solid_entities.append(enemy)
         
     def process_event(self, event):        
         super().process_event(event)
@@ -85,8 +92,8 @@ class Biome_1(Game):
             entity.vel.y)
             #(entity.movement[3] - entity.movement[2]) * entity.speed + entity.vel.y,)
         
-        entity_width = entity.rect.width
-        entity_height = entity.rect.height
+        entity_width = Biome_1.player.rect.width * 3
+        entity_height = Biome_1.player.rect.height * 3
         center_node = (round((entity.rect.x + entity_width/2) / entity_width), round((entity.rect.y + entity_height/2) / entity_height))
         
         entity.rect.x += frame_movement[0]
@@ -133,9 +140,14 @@ class Biome_1(Game):
     def update(self): # Main loop
         self.clouds.update()
         
+        debugger.debug('keyk', Biome_1.player.rect.topleft)
+        
         Biome_1.player.vel.x = 0
         if not Biome_1.player.dead:
             Biome_1.player.update(self.particles)
+            
+        for enemy in self.enemies:
+            enemy.update()
 
         for entity in self.solid_entities:
             self.push_out_solid(entity) # (note: after solids have moved)

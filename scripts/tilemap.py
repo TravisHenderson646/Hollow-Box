@@ -9,8 +9,8 @@ NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}
     
 class Tile:
-    def __init__(self, type, variant, pos, image, tags, size=(8, 8)):
-        self.type = type #maybe type should be group bc python type eh idc
+    def __init__(self, set, variant, pos, image, tags, size=(8, 8)):
+        self.set = set #maybe type should be group bc python type eh idc
         self.variant = variant
         self.pos = pos
         self.image = image
@@ -25,6 +25,7 @@ class Tilemap:
         self.tile_size = tile_size
         self.tilemap = {}
         self.tiles = []
+        self.enemies = []
         self.solid_tiles = []
         self.drawn_tiles = []
         self.rendered_tiles = []
@@ -71,6 +72,8 @@ class Tilemap:
             self.entrances.append(tile_instance)
         if 'exit' in tile_instance.tags:
             self.exits.append(tile_instance)
+        if 'enemy' in tile_instance.tags:
+            self.enemies.append(tile_instance)
         
     def process_tilemap(self, path):
         with open(path, 'r') as file:
@@ -105,7 +108,7 @@ class Tilemap:
             tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())     
 
     def calculate_chunks(self):
-        chunk_width, chunk_height = setup.PLAYER_COLLISION_SIZE[0], setup.PLAYER_COLLISION_SIZE[1]
+        chunk_width, chunk_height = setup.PLAYER_COLLISION_SIZE[0] * 3, setup.PLAYER_COLLISION_SIZE[1] * 3
         chunks_required = (self.map_width // chunk_width + 1 + 2, self.map_height // chunk_height + 1 + 2) # +2 for padding
         
         for y in range(chunks_required[1]):

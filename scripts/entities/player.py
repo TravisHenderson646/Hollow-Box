@@ -20,7 +20,7 @@ class Player(PhysicsEntity):
           
         self.air_time = 0
         self.can_jump = False
-        self.attack_hitbox = pg.FRect(0, 0, size[1] * 3, size[0] * 3)
+        self.attack_hitbox = pg.FRect(0, 0, size[1] * 2, size[0] * 3)
         self.attack_hitbox_vertical = pg.FRect(0, 0, self.attack_hitbox.height, self.attack_hitbox.width)
         self.attack_hitbox_list = [self.attack_hitbox, self.attack_hitbox_vertical]
         self.active_hitbox = 0
@@ -29,11 +29,11 @@ class Player(PhysicsEntity):
         self.attack_surface.fill((50,50,50))
         self.attack_surface_vertical.fill((50,50,50))
         self.attack_direction = 0
-        self.attack_duration = 7
+        self.attack_duration = 4
         self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
-        self.attack_cooldown = 38
+        self.attack_cooldown = 33
         self.ticks_since_attack_knockback = 500
-        self.attack_knockback_duration = 4
+        self.attack_knockback_duration = 7
         self.ticks_since_attack_input = 500
         self.attack_buffer = 7
         self.ticks_since_jump_input = 500
@@ -115,9 +115,9 @@ class Player(PhysicsEntity):
         self.ticks_since_attack_knockback += 1
         match self.attack_direction:
             case 2: #left
-                self.vel.x += 3
+                self.vel.x += 1.5
             case 0: #right
-                self.vel.x -= 3
+                self.vel.x -= 1.5
             case 3: #up
                 self.vel.y = max(0, self.vel.y)
             case 1: #down

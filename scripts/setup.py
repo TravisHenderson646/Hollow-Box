@@ -28,6 +28,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'player/wallslide': Animation(load_images('entities/player/wallslide'), image_dur=5,),
     'particle/leaf': Animation(load_images('particles/leaf'), 20, False),
     'particle/particle': Animation(load_images('particles/particle'), 6, False),
+    'crawlid/idle': Animation(load_images('entities/crawlid/idle'), image_dur=12),
     'gun': load_image('gun.png'),
     'projectile': load_image('projectile.png'),
     'loading_zones': load_images('tiles/loading_zones'),
