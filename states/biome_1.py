@@ -39,6 +39,8 @@ class Biome_1(Game):
         self.projectiles = []
         self.particles = []
         self.sparks = []
+        self.tilemap.current_breakable_tiles = self.tilemap.breakable_tiles.copy()
+        self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         self.dead = Biome_1.player.dead
         keys = pg.key.get_pressed()
         self.player.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
@@ -97,7 +99,7 @@ class Biome_1(Game):
                     entity.rect.left = rect.right
                     entity.collisions['left'] = True
                     
-        for rect in [tile.rect for tile in self.tilemap.breakable_tiles]:
+        for rect in [tile.rect for tile in self.tilemap.current_breakable_tiles]:
             if entity.rect.colliderect(rect):
                 if frame_movement[0] > 0:
                     entity.rect.right = rect.left
@@ -116,7 +118,7 @@ class Biome_1(Game):
                     entity.rect.top = rect.bottom
                     entity.collisions['up'] = True 
                     
-        for rect in [tile.rect for tile in self.tilemap.breakable_tiles]:
+        for rect in [tile.rect for tile in self.tilemap.current_breakable_tiles]:
             if entity.rect.colliderect(rect):
                 if frame_movement[1] > 0:
                     entity.rect.bottom = rect.top
@@ -142,10 +144,10 @@ class Biome_1(Game):
         if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
             sfx_flag = False # To prevent sfx stacking
             Biome_1.player.place_attack()
-            for tile in self.tilemap.breakable_tiles.copy():
+            for tile in self.tilemap.current_breakable_tiles.copy():
                 if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
-                    self.tilemap.breakable_tiles.remove(tile)
-                    self.tilemap.rendered_tiles.remove(tile)
+                    self.tilemap.current_breakable_tiles.remove(tile)
+                    self.tilemap.current_rendered_tiles.remove(tile)
                     Biome_1.player.ticks_since_attack_knockback = 0
                     self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                     sfx_flag = True
@@ -169,7 +171,7 @@ class Biome_1(Game):
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)
         self.tilemap.render(canvas, self.camera.rounded_pos)
-        for tile in self.tilemap.rendered_tiles:
+        for tile in self.tilemap.current_rendered_tiles:
             canvas.blit(tile.image, (tile.pos[0] - self.camera.rounded_pos[0], tile.pos[1] - self.camera.rounded_pos[1]))
         
         for projectile in self.projectiles.copy():

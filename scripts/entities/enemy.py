@@ -3,10 +3,10 @@ import random
 
 import pygame as pg
 
+from scripts.entities.physics_entity import PhysicsEntity
 from scripts.particle import Particle
 from scripts.spark import Spark
 from scripts import setup
-from .physics_entity import PhysicsEntity
 
 
 class Enemy(PhysicsEntity):

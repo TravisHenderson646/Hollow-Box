@@ -28,6 +28,7 @@ class Tilemap:
         self.solid_tiles = []
         self.drawn_tiles = []
         self.rendered_tiles = []
+        self.current_breakable_tiles = []
         self.breakable_tiles = []
         self.tagged_tiles = []
         self.panels = {}
