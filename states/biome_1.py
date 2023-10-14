@@ -49,6 +49,7 @@ class Biome_1(Game):
         for tile in self.tilemap.enemies:
             if 'crawlid' in tile.tags:
                 self.enemies.append(Crawlid(tile.rect.topleft))
+        self.enemies.append(Crawlid((100, -50)))
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         

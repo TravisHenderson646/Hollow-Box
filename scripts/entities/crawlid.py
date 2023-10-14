@@ -6,7 +6,7 @@ class Crawlid(PhysicsEntity):
     def __init__(self, pos):
         self.size = (14, 10)
         super().__init__('crawlid', pos, self.size)
-        self.speed = 1
+        self.speed = 0.2
         self.movement[0] = True
         
     def update(self):

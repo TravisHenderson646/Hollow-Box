@@ -141,6 +141,9 @@ class Player(PhysicsEntity):
             self.set_animation('idle')
             self.can_jump = True
             self.air_time = 0
+            
+        if self.movement[0] or self.movement[1]:
+            self.set_animation('run')
                 
         if self.ticks_since_jump_input < self.jump_buffer:
             self.try_jump()
@@ -155,6 +158,16 @@ class Player(PhysicsEntity):
             
         if self.jumping:
             self.jump()
+            
+        self.wallslide = False
+        if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
+            self.wallslide = True
+            self.vel[1] = min(self.vel[1], 0.7)
+            if self.collisions['right']:
+                self.flip = False
+            else:
+                self.flip = True
+            self.set_animation('wallslide')
 
                        
     def render(self, surf, offset):
