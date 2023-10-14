@@ -2,6 +2,12 @@ import pygame as pg
 # Initialize pygame and display information
 pg.mixer.pre_init(44100, -16, 1, 512) # no idea how to do this in Control.__init__ like i should
 pg.init()
+
+pg.joystick.init()
+print('joystick count', pg.joystick.get_count())
+joysticks = [pg.joystick.Joystick(x) for x in range(pg.joystick.get_count())]
+
+
 SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically
 SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees

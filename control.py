@@ -76,7 +76,9 @@ class Control():
         
     def pass_event(self):
         for event in pg.event.get():
-            if event.type == pg.KEYDOWN:
+            print(event)
+            debugger.debug('klajsdf', event)
+            if event.type == pg.KEYUP:
                 if event.key == 1073741894: # print screen button, triggers both on release idk why
                     pg.image.save(self.canvas, 'art/screenshots/screenshot.png')
             self.state.process_event(event)
