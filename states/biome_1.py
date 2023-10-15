@@ -53,37 +53,41 @@ class Biome_1(Game):
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         
-    def process_event(self, event):        
-        super().process_event(event)
-        if event.type == pg.QUIT:
+    def process_action(self, action):        
+        super().process_action(action)
+        if action == 'quit':
             self.quit = True
-        elif event.type == pg.KEYDOWN:
-            if event.key == pg.K_ESCAPE:
-                self.done = True
-                self.next = 'menu'
-            if event.key == pg.K_a:
-                self.player.movement[0] = True
-            if event.key == pg.K_d:
-                self.player.movement[1] = True
-            if event.key == pg.K_w:
-                self.player.movement[2] = True
-            if event.key == pg.K_s:
-                self.player.movement[3] = True
-            if event.key == pg.K_SPACE:
-                Biome_1.player.ticks_since_jump_input = 0
-            if event.key == pg.K_j:
-                Biome_1.player.ticks_since_attack_input = 0
-        if event.type == pg.KEYUP:
-            if event.key == pg.K_a:
-                self.player.movement[0] = False
-            if event.key == pg.K_d:
-                self.player.movement[1] = False
-            if event.key == pg.K_w:
-                self.player.movement[2] = False
-            if event.key == pg.K_s:
-                self.player.movement[3] = False
-            if event.key == pg.K_SPACE:
-                Biome_1.player.holding_jump = False
+        elif action == 'start':
+            self.done = True
+            self.next = 'menu'
+        elif action == 'left':
+            self.player.movement[0] = True
+        elif action == 'right':
+            self.player.movement[1] = True
+        elif action == 'up':
+            self.player.movement[2] = True
+        elif action == 'down':
+            self.player.movement[3] = True
+        elif action == 'a':
+            Biome_1.player.ticks_since_jump_input = 0
+        elif action == 'x':
+            Biome_1.player.ticks_since_attack_input = 0
+        elif action == 'unleft':
+            self.player.movement[0] = False
+        elif action == 'unright':
+            self.player.movement[1] = False
+        elif action == 'unup':
+            self.player.movement[2] = False
+        elif action == 'undown':
+            self.player.movement[3] = False
+        elif action == 'una':
+            Biome_1.player.holding_jump = False
+        elif action == 'stop':
+            self.player.movement[0] = False
+            self.player.movement[1] = False
+        elif action == 'neutral':
+            self.player.movement[2] = False
+            self.player.movement[3] = False
 
         
     def push_out_solid(self, entity):

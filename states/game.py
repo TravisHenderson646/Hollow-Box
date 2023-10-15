@@ -20,7 +20,7 @@ class Game:
     def start(self):
         pass
     
-    def process_event(self, event):
+    def process_action(self, action):
         pass
     
     def update(self):

@@ -15,15 +15,12 @@ class Menu(Game):
         print('starting Menu state stuff...')
         Game.music.play('music2.ogg')
         
-    def process_event(self, event):
-        super().process_event(event)
-        if event.type == pg.QUIT:
+    def process_action(self, action):
+        super().process_action(action)
+        if action == 'start':
             self.quit = True
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_ESCAPE:
-                self.quit = True
-            else:
-                self.done = True
+        elif action:
+            self.done = True
                 
     def update(self):
         pass

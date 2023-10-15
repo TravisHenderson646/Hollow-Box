@@ -55,3 +55,65 @@ sfx['dash'].set_volume(0.2)
 sfx['hit'].set_volume(0.4)
 sfx['shoot'].set_volume(0.3)
 sfx['ambience'].set_volume(0.7)
+
+
+def process_event(event):
+    action = ''
+    if event.type == pg.QUIT:
+        action = 'quit'
+    elif event.type == pg.KEYDOWN:
+        if event.key == pg.K_ESCAPE:
+            action = 'start'
+        if event.key == pg.K_a:
+            action = 'left'
+        if event.key == pg.K_d:
+            action = 'right'
+        if event.key == pg.K_w:
+            action = 'up'
+        if event.key == pg.K_s:
+            action = 'down'
+        if event.key == pg.K_SPACE:
+            action = 'a'
+        if event.key == pg.K_j:
+            action = 'x'
+        if event.key == pg.K_p:
+            action = 'p'
+    elif event.type == pg.KEYUP:
+        if event.key == pg.K_a:
+            action = 'unleft'
+        if event.key == pg.K_d:
+            action = 'unright'
+        if event.key == pg.K_w:
+            action = 'unup'
+        if event.key == pg.K_s:
+            action = 'undown'
+        if event.key == pg.K_SPACE:
+            action = 'una'
+    elif event.type == pg.JOYBUTTONDOWN:
+        if event.button == 7:
+            action = 'start'
+        if event.button == 0:
+            action = 'a'
+        if event.button == 2:
+            action = 'x'
+    elif event.type == pg.JOYBUTTONUP:
+        if event.button == 0:
+            action = 'una'
+    elif event.type == pg.JOYAXISMOTION:
+        if event.axis == 0:
+            if event.value < -0.3:
+                action = 'left'
+            if event.value > 0.3:
+                action = 'right'
+            if -0.3 < event.value < 0.3:
+                action = 'stop'
+        if event.axis == 1:
+            if event.value < -0.3:
+                action = 'up'
+            if event.value > 0.3:
+                action = 'down'
+            if -0.3 < event.value < 0.3:
+                action = 'neutral'
+        
+    
+    return action

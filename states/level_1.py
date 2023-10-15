@@ -28,10 +28,9 @@ class Level_1(Biome_1):
                     Biome_1.player.pos = pg.Vector2(tile.pos)
                     self.camera.pos = pg.Vector2(tile.pos[0] - setup.CANVAS_SIZE[0]/2, tile.pos[1] - setup.CANVAS_SIZE[1]/2) # Initial camera position
         
-    def process_event(self, event):
-        super().process_event(event)
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_p: #for testing
+    def process_action(self, action):
+        super().process_action(action)
+        if action == 'p':
                 self.done = True
                 self.next = 'level2'
 

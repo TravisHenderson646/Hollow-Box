@@ -81,7 +81,9 @@ class Control():
             if event.type == pg.KEYUP:
                 if event.key == 1073741894: # print screen button, triggers both on release idk why
                     pg.image.save(self.canvas, 'art/screenshots/screenshot.png')
-            self.state.process_event(event)
+            action = setup.process_event(event)
+            print(action)
+            self.state.process_action(action)
 
     def change_state(self):
         if self.state.done:
