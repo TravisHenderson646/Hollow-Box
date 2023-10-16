@@ -136,7 +136,7 @@ class Player(PhysicsEntity):
         self.invulnerable = True
         self.air_time = self.coyote_time + 1
         self.ticks_since_player_got_hit = 0
-        if enemy.flip:
+        if enemy.rect.centerx > self.rect.centerx:
             self.knockback_direction = -1
         else:
             self.knockback_direction = 1
