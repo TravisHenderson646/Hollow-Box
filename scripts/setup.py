@@ -52,8 +52,8 @@ sfx = { # dict of every sound effect
 # manually setting individual volumes
 sfx['jump'].set_volume(0.2)
 sfx['dash'].set_volume(0.2)
-sfx['hit'].set_volume(0.4)
-sfx['shoot'].set_volume(0.3)
+sfx['hit'].set_volume(0.12)
+sfx['shoot'].set_volume(0.2)
 sfx['ambience'].set_volume(0.7)
 
 

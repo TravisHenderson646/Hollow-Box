@@ -13,11 +13,22 @@ class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
         self.speed = 1
+        self.hp = 5
         self.dead = 0   
         
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
-          
+        self.invulnerable = False
+        
+        self.knockback_speed = 3
+        self.knockback_direction = 1# left is -1
+        self.ticks_since_player_got_hit = 500
+        self.player_got_hit_knockback_duration = 13
+        self.invulnerable_duration = 120
+        self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
+        self.ticks_since_attack_input = 500
+        self.ticks_since_attack_knockback = 500
+        self.ticks_since_jump_input = 500
         self.air_time = 0
         self.can_jump = False
         self.attack_hitbox = pg.FRect(0, 0, size[1] * 2, size[0] * 3)
@@ -30,13 +41,9 @@ class Player(PhysicsEntity):
         self.attack_surface_vertical.fill((50,50,50))
         self.attack_direction = 0
         self.attack_duration = 4
-        self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
         self.attack_cooldown = 33
-        self.ticks_since_attack_knockback = 500
         self.attack_knockback_duration = 7
-        self.ticks_since_attack_input = 500
         self.attack_buffer = 7
-        self.ticks_since_jump_input = 500
         self.jump_buffer = 7
         self.coyote_time = 7
         self.holding_jump = False
@@ -122,6 +129,17 @@ class Player(PhysicsEntity):
                 self.vel.y = max(0, self.vel.y)
             case 1: #down
                 self.vel.y = -1.4
+                
+    def got_hit(self, enemy):
+        self.hp -= 1
+        self.vel.y = -2.2
+        self.invulnerable = True
+        self.air_time = self.coyote_time + 1
+        self.ticks_since_player_got_hit = 0
+        if enemy.flip:
+            self.knockback_direction = -1
+        else:
+            self.knockback_direction = 1
         
     def dash(self):
         if self.dashing == 0:
@@ -134,8 +152,13 @@ class Player(PhysicsEntity):
      
     def update(self, particles):
         super().update()
+        self.invulnerable = False
+        self.ticks_since_player_got_hit += 1
         self.ticks_since_last_attack += 1
         self.air_time += 1
+        
+        debugger.debug('aklsjdf', self.hp)
+        
         
         if self.collisions['down']:
             self.set_animation('idle')
@@ -158,6 +181,11 @@ class Player(PhysicsEntity):
             
         if self.jumping:
             self.jump()
+            
+        if self.ticks_since_player_got_hit < self.invulnerable_duration:
+            self.invulnerable = True
+            if self.ticks_since_player_got_hit < self.player_got_hit_knockback_duration:
+                self.vel.x += self.knockback_speed * self.knockback_direction
             
         self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:

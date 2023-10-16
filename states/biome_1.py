@@ -144,8 +144,7 @@ class Biome_1(Game):
    
     def update(self): # Main loop
         self.clouds.update()
-        
-        debugger.debug('keyk', Biome_1.player.rect.topleft)
+    
         
         Biome_1.player.vel.x = 0
         if not Biome_1.player.dead:
@@ -157,9 +156,15 @@ class Biome_1(Game):
         for entity in self.solid_entities:
             self.push_out_solid(entity) # (note: after solids have moved)
         
+        debugger.debug('keyk', Biome_1.player.invulnerable)
+        for enemy in self.enemies:
+            if not Biome_1.player.invulnerable:
+                if Biome_1.player.rect.colliderect(enemy.rect):
+                        print(Biome_1.player.hp)
+                        Biome_1.player.got_hit(enemy)
         
         if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
-            sfx_flag = False # To prevent sfx stacking
+            sfx_flag_break = False # To prevent sfx stacking
             Biome_1.player.place_attack()
             for tile in self.tilemap.current_breakable_tiles.copy():
                 if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
@@ -167,9 +172,18 @@ class Biome_1(Game):
                     self.tilemap.current_rendered_tiles.remove(tile)
                     Biome_1.player.ticks_since_attack_knockback = 0
                     self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                    sfx_flag = True
-            if sfx_flag:
+                    sfx_flag_break = True
+            if sfx_flag_break:
                 setup.sfx['shoot'].play()
+            sfx_flag_hit = False # To prevent sfx stacking
+            for enemy in self.enemies.copy():
+                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(enemy.rect):
+                    Biome_1.player.ticks_since_attack_knockback = 0
+                    self.enemies.remove(enemy)
+                    self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                    sfx_flag_hit = True
+            if sfx_flag_hit:
+                setup.sfx['hit'].play()
             
         for particle in self.particles.copy():
             kill = particle.update()
