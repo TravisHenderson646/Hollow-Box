@@ -12,10 +12,11 @@ from scripts.debugger import debugger
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
-        self.speed = 1
+        self.speed = 0.7
         self.hp = 5
         self.dead = 0   
         
+        self.lt = False
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
         self.invulnerable = False
@@ -131,6 +132,7 @@ class Player(PhysicsEntity):
                 self.vel.y = -1.4
                 
     def got_hit(self, enemy):
+        self.collisions['down'] = False
         self.hp -= 1
         self.vel.y = -2.2
         self.invulnerable = True
@@ -147,20 +149,18 @@ class Player(PhysicsEntity):
             if self.flip:
                 self.dashing = -60
             else:
-                self.dashing = 60
-         
+                self.dashing = 60 
      
-    def update(self, particles):
-        super().update()
+    def update(self):
+        super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
         self.ticks_since_last_attack += 1
         self.air_time += 1
-        
-        debugger.debug('aklsjdf', self.hp)
-        
-        
+    
         if self.collisions['down']:
+            #i think this will reset the run animation to first frame every frame of running
+            #solve with a animation_flag and only set_anim at the end of update
             self.set_animation('idle')
             self.can_jump = True
             self.air_time = 0
@@ -186,17 +186,15 @@ class Player(PhysicsEntity):
             self.invulnerable = True
             if self.ticks_since_player_got_hit < self.player_got_hit_knockback_duration:
                 self.vel.x += self.knockback_speed * self.knockback_direction
-            
-        self.wallslide = False
-        if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
-            self.wallslide = True
-            self.vel[1] = min(self.vel[1], 0.7)
-            if self.collisions['right']:
-                self.flip = False
-            else:
-                self.flip = True
-            self.set_animation('wallslide')
-
+        
+        # at can lt like can_jump
+        #!!! could decay over time based on length of hover
+        if self.lt:
+            self.vel.y = min(.7,self.vel.y)
+                  
+        self.frame_movement = ( # (x, y)
+            (self.movement[1] - self.movement[0]) * self.speed + self.vel.x,
+             self.vel.y)     
                        
     def render(self, surf, offset):
         super().render(surf, offset)
@@ -207,7 +205,7 @@ class Player(PhysicsEntity):
             if self.attack_direction in [1, 3]:
                 pos = (self.attack_hitbox_vertical.x - offset[0], self.attack_hitbox_vertical.y - offset[1])
                 surf.blit(self.attack_surface_vertical,pos)
-                
+
 
         '''self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:

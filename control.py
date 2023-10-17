@@ -40,7 +40,7 @@ walljumps give back the double jump and or (not) dash
 ####
 Things to keep an eye on
 ####
-once i have some levels, maybe i should zoom it out
+Could have 3 chunk dicts for each map, one for small, big, boss size collisions
 '''
 import sys
 

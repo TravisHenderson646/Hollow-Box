@@ -24,7 +24,7 @@ class Camera:
         if pos[1] > self.cage.bottom:
             self.cage.bottom = pos[1]
             
-        self.rounded_pos = [self.cage.centerx - CANVAS_SIZE[0] // 2, self.cage.centery - CANVAS_SIZE[1] // 2] # magic numbers
+        self.rounded_pos = [floor(self.cage.centerx - CANVAS_SIZE[0] / 2), floor(self.cage.centery - CANVAS_SIZE[1] / 2)] # magic numbers
         
         
         

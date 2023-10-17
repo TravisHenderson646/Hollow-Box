@@ -68,6 +68,8 @@ class Biome_1(Game):
             self.player.movement[2] = True
         elif action == 'down':
             self.player.movement[3] = True
+        elif action == 'lt':
+            self.player.lt = True
         elif action == 'a':
             Biome_1.player.ticks_since_jump_input = 0
         elif action == 'x':
@@ -80,6 +82,8 @@ class Biome_1(Game):
             self.player.movement[2] = False
         elif action == 'undown':
             self.player.movement[3] = False
+        elif action == 'unlt':
+            self.player.lt = False
         elif action == 'una':
             Biome_1.player.holding_jump = False
         elif action == 'stop':
@@ -87,103 +91,51 @@ class Biome_1(Game):
             self.player.movement[1] = False
         elif action == 'neutral':
             self.player.movement[2] = False
-            self.player.movement[3] = False
+            self.player.movement[3] = False        
 
+            
+    def attack_collision(self):
+        sfx_flag_break = False # To prevent sfx stacking
+        Biome_1.player.place_attack()
+        for tile in self.tilemap.current_breakable_tiles.copy():
+            if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
+                self.tilemap.current_breakable_tiles.remove(tile)
+                self.tilemap.current_rendered_tiles.remove(tile)
+                Biome_1.player.ticks_since_attack_knockback = 0
+                self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                sfx_flag_break = True
+        if sfx_flag_break:
+            setup.sfx['shoot'].play()
+        sfx_flag_hit = False # To prevent sfx stacking
+        for enemy in self.enemies.copy():
+            if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(enemy.rect):
+                Biome_1.player.ticks_since_attack_knockback = 0
+                self.enemies.remove(enemy)
+                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                sfx_flag_hit = True
+        if sfx_flag_hit:
+            setup.sfx['hit'].play()
+            
+    def got_hit_collision(self):
+        for enemy in self.enemies:
+            if Biome_1.player.rect.colliderect(enemy.rect):
+                Biome_1.player.got_hit(enemy)
         
-    def push_out_solid(self, entity):
-        entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
-        frame_movement = ( # (x, y)
-            (entity.movement[1] - entity.movement[0]) * entity.speed + entity.vel.x,
-            entity.vel.y)
-            #(entity.movement[3] - entity.movement[2]) * entity.speed + entity.vel.y,)
-        
-        entity_width = Biome_1.player.rect.width * 3
-        entity_height = Biome_1.player.rect.height * 3
-        center_node = (round((entity.rect.x + entity_width/2) / entity_width), round((entity.rect.y + entity_height/2) / entity_height))
-        
-        entity.rect.x += frame_movement[0]
-        for rect in self.tilemap.chunks.get(center_node, {}):
-            if entity.rect.colliderect(rect):
-                if frame_movement[0] > 0:
-                    entity.rect.right = rect.left
-                    entity.collisions['right'] = True
-                if frame_movement[0] < 0:
-                    entity.rect.left = rect.right
-                    entity.collisions['left'] = True
-                    
-        for rect in [tile.rect for tile in self.tilemap.current_breakable_tiles]:
-            if entity.rect.colliderect(rect):
-                if frame_movement[0] > 0:
-                    entity.rect.right = rect.left
-                    entity.collisions['right'] = True
-                if frame_movement[0] < 0:
-                    entity.rect.left = rect.right
-                    entity.collisions['left'] = True
-                    
-        entity.rect.y += frame_movement[1]
-        for rect in self.tilemap.chunks.get(center_node, {}):
-            if entity.rect.colliderect(rect):
-                if frame_movement[1] > 0:
-                    entity.rect.bottom = rect.top
-                    entity.collisions['down'] = True
-                if frame_movement[1] < 0:
-                    entity.rect.top = rect.bottom
-                    entity.collisions['up'] = True 
-                    
-        for rect in [tile.rect for tile in self.tilemap.current_breakable_tiles]:
-            if entity.rect.colliderect(rect):
-                if frame_movement[1] > 0:
-                    entity.rect.bottom = rect.top
-                    entity.collisions['down'] = True
-                if frame_movement[1] < 0:
-                    entity.rect.top = rect.bottom
-                    entity.collisions['up'] = True 
-                    
-        if entity.collisions['down'] or entity.collisions['up']:
-            entity.vel = pg.Vector2(0, 0)
-   
     def update(self): # Main loop
-        self.clouds.update()
-    
-        
-        Biome_1.player.vel.x = 0
         if not Biome_1.player.dead:
-            Biome_1.player.update(self.particles)
+            Biome_1.player.update()
             
         for enemy in self.enemies:
-            enemy.update()
+            enemy.update(self.tilemap)
 
         for entity in self.solid_entities:
-            self.push_out_solid(entity) # (note: after solids have moved)
-        
-        debugger.debug('keyk', Biome_1.player.invulnerable)
-        for enemy in self.enemies:
-            if not Biome_1.player.invulnerable:
-                if Biome_1.player.rect.colliderect(enemy.rect):
-                        print(Biome_1.player.hp)
-                        Biome_1.player.got_hit(enemy)
+            self.tilemap.push_out_solid(entity) # (note: after solids have moved)
         
         if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
-            sfx_flag_break = False # To prevent sfx stacking
-            Biome_1.player.place_attack()
-            for tile in self.tilemap.current_breakable_tiles.copy():
-                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
-                    self.tilemap.current_breakable_tiles.remove(tile)
-                    self.tilemap.current_rendered_tiles.remove(tile)
-                    Biome_1.player.ticks_since_attack_knockback = 0
-                    self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                    sfx_flag_break = True
-            if sfx_flag_break:
-                setup.sfx['shoot'].play()
-            sfx_flag_hit = False # To prevent sfx stacking
-            for enemy in self.enemies.copy():
-                if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(enemy.rect):
-                    Biome_1.player.ticks_since_attack_knockback = 0
-                    self.enemies.remove(enemy)
-                    self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                    sfx_flag_hit = True
-            if sfx_flag_hit:
-                setup.sfx['hit'].play()
+            self.attack_collision()
+
+        if not Biome_1.player.invulnerable:
+            self.got_hit_collision()
             
         for particle in self.particles.copy():
             kill = particle.update()
@@ -197,8 +149,10 @@ class Biome_1(Game):
             if kill:
                 self.sparks.remove(spark)
                 
+        self.clouds.update()
+                
     def render(self, canvas: pg.Surface):
-        
+        self.camera.update((round(self.player.rect.centerx), round(self.player.rect.centery)))
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)
         self.tilemap.render(canvas, self.camera.rounded_pos)
@@ -220,13 +174,15 @@ class Biome_1(Game):
               
         for spark in self.sparks:
             spark.render(canvas, self.camera.rounded_pos)   
+            
+        print((round(self.player.rect.centerx, 5), self.camera.cage.right))
         
+        debugger.debug('alsfj', (round(self.player.rect.centery, 2), self.camera.cage.bottom))
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-     #   center_node = (round((Biome_1.player.pos.x + 7/2) / 7), round((Biome_1.player.pos.y + 13/2) / 13))
-      #  for rect in self.tilemap.chunks.get(center_node, {}):
-       #     canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+ #       hot_chunk = (round((Biome_1.player.rect.x + 60/2) / 60), round((Biome_1.player.rect.y + 60/2) / 60))
+  #      for rect in self.tilemap.chunks.get(hot_chunk, {}):
+   #         canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
-        self.camera.update(self.player.rect.center)
         return canvas
     
     

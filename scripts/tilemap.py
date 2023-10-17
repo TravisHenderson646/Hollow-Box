@@ -108,7 +108,7 @@ class Tilemap:
             tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())     
 
     def calculate_chunks(self):
-        chunk_width, chunk_height = setup.PLAYER_COLLISION_SIZE[0] * 3, setup.PLAYER_COLLISION_SIZE[1] * 3
+        chunk_width, chunk_height = setup.CHUNK_SIZE[0], setup.CHUNK_SIZE[1]
         chunks_required = (self.map_width // chunk_width + 1 + 2, self.map_height // chunk_height + 1 + 2) # +2 for padding
         
         for y in range(chunks_required[1]):
@@ -120,7 +120,44 @@ class Tilemap:
 
                 for tile in self.solid_tiles:
                     if tile.rect.colliderect(chunk_test_rect):
-                        current_chunk.append(tile.rect)
+                        current_chunk.append(tile.rect)      
+    
+    def collide_x(self, entity, rect):
+        if entity.frame_movement[0] > 0:
+            entity.rect.right = rect.left
+            entity.collisions['right'] = True
+        if entity.frame_movement[0] < 0:
+            entity.rect.left = rect.right
+            entity.collisions['left'] = True
+        
+    def collide_y(self, entity, rect):
+        if entity.frame_movement[1] > 0:
+            entity.rect.bottom = rect.top
+            entity.collisions['down'] = True
+        if entity.frame_movement[1] < 0:
+            entity.rect.top = rect.bottom
+            entity.collisions['up'] = True 
+                          
+    def push_out_solid(self, entity):
+        entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
+        # chunk tiles
+        entity.rect.x += entity.frame_movement[0]
+        for rect in self.chunks.get(entity.hot_chunk, {}):
+            if entity.rect.colliderect(rect):
+                self.collide_x(entity, rect)
+        # breakable tiles
+        for rect in [tile.rect for tile in self.current_breakable_tiles]:
+            if entity.rect.colliderect(rect):
+                self.collide_x(entity, rect)
+                    
+        entity.rect.y += entity.frame_movement[1]
+        for rect in self.chunks.get(entity.hot_chunk, {}):
+            if entity.rect.colliderect(rect):
+                self.collide_y(entity, rect)
+                    
+        for rect in [tile.rect for tile in self.current_breakable_tiles]:
+            if entity.rect.colliderect(rect):
+                self.collide_y(entity, rect)
 
     def calculate_panels(self):
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()

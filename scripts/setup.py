@@ -13,6 +13,7 @@ SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
 PLAYER_COLLISION_SIZE = (7, 13)
+CHUNK_SIZE = (60, 60)
 GAME_TICK = 0
 
 from scripts.image_handler import load_image, load_images, Animation
@@ -76,6 +77,8 @@ def process_event(event):
             action = 'a'
         if event.key == pg.K_j:
             action = 'x'
+        if event.key == pg.K_i:
+            action = 'lt'
         if event.key == pg.K_p:
             action = 'p'
     elif event.type == pg.KEYUP:
@@ -89,6 +92,8 @@ def process_event(event):
             action = 'undown'
         if event.key == pg.K_SPACE:
             action = 'una'
+        if event.key == pg.K_i:
+            action = 'unlt'
     elif event.type == pg.JOYBUTTONDOWN:
         if event.button == 7:
             action = 'start'
@@ -114,6 +119,11 @@ def process_event(event):
                 action = 'down'
             if -0.3 < event.value < 0.3:
                 action = 'neutral'
+        if event.axis == 4:
+            if event.value > 0.8:
+                action = 'lt'
+            if event.value < -0.8:
+                action = 'unlt'
         
     
     return action
