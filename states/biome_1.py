@@ -73,7 +73,7 @@ class Biome_1(Game):
         elif action == 'a':
             Biome_1.player.ticks_since_jump_input = 0
         elif action == 'x':
-            Biome_1.player.ticks_since_attack_input = 0
+            Biome_1.player.attack.ticks_since_input = 0
         elif action == 'unleft':
             self.player.movement[0] = False
         elif action == 'unright':
@@ -96,25 +96,25 @@ class Biome_1(Game):
             
     def attack_collision(self):
         sfx_flag_break = False # To prevent sfx stacking
-        Biome_1.player.place_attack()
+        Biome_1.player.attack.position()
         for tile in self.tilemap.current_breakable_tiles.copy():
-            if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(tile.rect):
+            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
                 self.tilemap.current_breakable_tiles.remove(tile)
                 self.tilemap.current_rendered_tiles.remove(tile)
-                Biome_1.player.ticks_since_attack_knockback = 0
-                self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                Biome_1.player.attack.ticks_since_knockback = 0
+                self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                 sfx_flag_break = True
         if sfx_flag_break:
             setup.sfx['shoot'].play()
-        sfx_flag_hit = False # To prevent sfx stacking
         for enemy in self.enemies.copy():
-            if Biome_1.player.attack_hitbox_list[Biome_1.player.active_hitbox].colliderect(enemy.rect):
-                Biome_1.player.ticks_since_attack_knockback = 0
-                self.enemies.remove(enemy)
-                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack_direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                sfx_flag_hit = True
-        if sfx_flag_hit:
-            setup.sfx['hit'].play()
+            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(enemy.rect):
+                if not enemy.invulnerable:
+                    Biome_1.player.attack.ticks_since_knockback = 0
+                    enemy.hp -= self.player.attack.damage
+                    enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
+                    #self.enemies.remove(enemy)
+                    #self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                    setup.sfx['dash'].play()
             
     def got_hit_collision(self):
         for enemy in self.enemies:
@@ -122,16 +122,22 @@ class Biome_1(Game):
                 Biome_1.player.got_hit(enemy)
         
     def update(self): # Main loop
-        if not Biome_1.player.dead:
-            Biome_1.player.update()
+        Biome_1.player.update()
             
         for enemy in self.enemies:
-            enemy.update(self.tilemap)
+            if not enemy.dead:
+                enemy.update(self.tilemap)
+                debugger.debug('alsfj', enemy.hp)
+            else:
+                self.enemies.remove(enemy)
+                setup.sfx['hit'].play()
+                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
         
-        if Biome_1.player.ticks_since_last_attack < Biome_1.player.attack_duration:
+        if Biome_1.player.attack.ticks_since_last < Biome_1.player.attack.duration:
             self.attack_collision()
 
         if not Biome_1.player.invulnerable:
@@ -141,7 +147,7 @@ class Biome_1(Game):
             kill = particle.update()
             if kill:
                 self.particles.remove(particle)
-            else:
+            else: # this just makes the leaves move wavy southwest idk its bad
                 particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3    
                     
         for spark in self.sparks.copy():
@@ -174,10 +180,7 @@ class Biome_1(Game):
               
         for spark in self.sparks:
             spark.render(canvas, self.camera.rounded_pos)   
-            
-        print((round(self.player.rect.centerx, 5), self.camera.cage.right))
         
-        debugger.debug('alsfj', (round(self.player.rect.centery, 2), self.camera.cage.bottom))
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
  #       hot_chunk = (round((Biome_1.player.rect.x + 60/2) / 60), round((Biome_1.player.rect.y + 60/2) / 60))
   #      for rect in self.tilemap.chunks.get(hot_chunk, {}):

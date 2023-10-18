@@ -8,44 +8,103 @@ from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
+class PlayerAttack: # could shove player attack variables into here and access with dot notation
+    def __init__(self, player):
+        self.player = player
+        self.damage = 2
+        self.direction = 0
+        self.duration = 4
+        self.cooldown = 33
+        self.hitbox = pg.FRect(0, 0, setup.PLAYER_COLLISION_SIZE[1] * 2, setup.PLAYER_COLLISION_SIZE[0] * 3)
+        self.hitbox_vertical = pg.FRect(0, 0, self.hitbox.height, self.hitbox.width)
+        self.hitbox_list = [self.hitbox, self.hitbox_vertical]
+        self.active_hitbox = 0
+        self.surface = pg.Surface(self.hitbox.size)
+        self.surface_vertical = pg.Surface(self.hitbox_vertical.size)    
+        self.surface.fill((30,50,20))
+        self.surface_vertical.fill((50,20,40))
+        self.ticks_since_input = 500
+        self.ticks_since_knockback = 500
+        self.knockback_duration = 7
+        self.buffer = 7
+        self.ticks_since_last = 500
+        
+    def position(self):
+        match self.direction:
+            case 2: #left
+                self.hitbox.centery = self.player.rect.centery
+                self.hitbox.right = self.player.rect.centerx
+            case 0: #right
+                self.hitbox.centery = self.player.rect.centery
+                self.hitbox.left = self.player.rect.centerx
+            case 3: #up
+                self.hitbox_vertical.centerx = self.player.rect.centerx
+                self.hitbox_vertical.bottom = self.player.rect.centery
+            case 1: #down
+                self.hitbox_vertical.centerx = self.player.rect.centerx
+                self.hitbox_vertical.top = self.player.rect.centery
+    
+    def try_attack(self):
+        if self.ticks_since_last > self.cooldown:
+            self.ticks_since_last = 0 # this is what actually causes the attack in update()
+            self.choose_dir()
+            if self.ticks_since_input > 0:
+                print('Buffered attack alert!!!')
+            self.ticks_since_input = 100
+        else:
+            self.ticks_since_input += 1
+            
+    def choose_dir(self):
+        if self.player.movement[3] and (not self.player.collisions['down']):
+            self.direction = 1 #down
+            self.active_hitbox = 1
+        elif self.player.movement[2]:
+            self.direction = 3 #up
+            self.active_hitbox = 1
+        elif self.player.flip:
+            self.direction = 2 #left
+            self.active_hitbox = 0
+        else:
+            self.direction = 0 #right
+            self.active_hitbox = 0
+                
+    def knockback(self):
+        self.ticks_since_knockback += 1
+        match self.direction:
+            case 2: #left
+                self.player.vel.x += 1.5
+            case 0: #right
+                self.player.vel.x -= 1.5
+            case 3: #up
+                self.player.vel.y = max(0, self.player.vel.y)
+            case 1: #down
+                self.player.vel.y = -1.4
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
         self.speed = 1.1
-        self.hp = 5
-        self.dead = 0   
+        self.hp = 5 
         
         self.lt = False
         self.wallslide = False
         self.dashing = 0 # poor name for non bool
         self.invulnerable = False
         
+        self.attack = PlayerAttack(self)
+        
         self.knockback_speed = 3
         self.knockback_direction = 1# left is -1
         self.ticks_since_player_got_hit = 500
         self.player_got_hit_knockback_duration = 13
-        self.invulnerable_duration = 120
-        self.ticks_since_last_attack = 500 # could put all the attack stuff in a dict
-        self.ticks_since_attack_input = 500
-        self.ticks_since_attack_knockback = 500
+        self.invulnerable_duration = 120 # could put all the attack stuff in a dict
         self.ticks_since_jump_input = 500
+        self.ticks_since_dash_input = 500
         self.air_time = 0
         self.can_jump = False
-        self.attack_hitbox = pg.FRect(0, 0, size[1] * 2, size[0] * 3)
-        self.attack_hitbox_vertical = pg.FRect(0, 0, self.attack_hitbox.height, self.attack_hitbox.width)
-        self.attack_hitbox_list = [self.attack_hitbox, self.attack_hitbox_vertical]
-        self.active_hitbox = 0
-        self.attack_surface = pg.Surface(self.attack_hitbox.size)
-        self.attack_surface_vertical = pg.Surface(self.attack_hitbox_vertical.size)
-        self.attack_surface.fill((50,50,50))
-        self.attack_surface_vertical.fill((50,50,50))
-        self.attack_direction = 0
-        self.attack_duration = 4
-        self.attack_cooldown = 33
-        self.attack_knockback_duration = 7
-        self.attack_buffer = 7
+        self.can_dash = False
         self.jump_buffer = 7
+        self.dash_buffer = 7
         self.coyote_time = 7
         self.holding_jump = False
         self.jumping = False
@@ -79,59 +138,11 @@ class Player(PhysicsEntity):
         if self.vel.y > 0.3:
             self.set_animation('jump')
             self.jumping = False
-                      
-    def try_attack(self):
-        if self.ticks_since_last_attack > self.attack_cooldown:
-            self.ticks_since_last_attack = 0 # this is what actually causes the attack in update()
-            self.choose_attack_dir()
-            if self.ticks_since_attack_input > 0:
-                print('Buffered attack alert!!!')
-            self.ticks_since_attack_input = 100
-        else:
-            self.ticks_since_attack_input += 1
             
-    def choose_attack_dir(self):
-        if self.movement[3] and (not self.collisions['down']):
-            self.attack_direction = 1 #down
-            self.active_hitbox = 1
-        elif self.movement[2]:
-            self.attack_direction = 3 #up
-            self.active_hitbox = 1
-        elif self.flip:
-            self.attack_direction = 2 #left
-            self.active_hitbox = 0
-        else:
-            self.attack_direction = 0 #right
-            self.active_hitbox = 0
-        
-    def place_attack(self):
-        match self.attack_direction:
-            case 2: #left
-                self.attack_hitbox.centery = self.rect.centery
-                self.attack_hitbox.right = self.rect.centerx
-            case 0: #right
-                self.attack_hitbox.centery = self.rect.centery
-                self.attack_hitbox.left = self.rect.centerx
-            case 3: #up
-                self.attack_hitbox_vertical.centerx = self.rect.centerx
-                self.attack_hitbox_vertical.bottom = self.rect.centery
-            case 1: #down
-                self.attack_hitbox_vertical.centerx = self.rect.centerx
-                self.attack_hitbox_vertical.top = self.rect.centery
-                
-    def attack_knockback(self):
-        self.ticks_since_attack_knockback += 1
-        match self.attack_direction:
-            case 2: #left
-                self.vel.x += 1.5
-            case 0: #right
-                self.vel.x -= 1.5
-            case 3: #up
-                self.vel.y = max(0, self.vel.y)
-            case 1: #down
-                self.vel.y = -1.4
+
                 
     def got_hit(self, enemy):
+        setup.sfx['hit'].play()
         self.collisions['down'] = False
         self.hp -= 1
         self.vel.y = -2.2
@@ -142,6 +153,35 @@ class Player(PhysicsEntity):
             self.knockback_direction = -1
         else:
             self.knockback_direction = 1
+                          
+    def try_dash(self):
+        if self.can_jump:
+            self.start_jump()
+            if self.ticks_since_jump_input > 0:
+                print('Buffered jump alert!!!')
+            self.ticks_since_jump_input = 100
+        else:
+            self.ticks_since_jump_input += 1  
+            
+    def start_dash(self):
+        if not self.collisions['down']:
+            print('Coyote jump alert !!!')
+        self.can_jump = False
+        self.holding_jump = True
+        self.jumping = True
+        self.vel.y = -2.85
+        setup.sfx['jump'].play()  
+    
+    def dashnew(self):
+        if self.holding_jump:
+            self.vel.y -= 0.06
+            self.set_animation('jump')
+        else:
+            self.set_animation('idle')
+            self.vel.y += 0.64
+        if self.vel.y > 0.3:
+            self.set_animation('jump')
+            self.jumping = False
         
     def dash(self):
         if self.dashing == 0:
@@ -155,7 +195,7 @@ class Player(PhysicsEntity):
         super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
-        self.ticks_since_last_attack += 1
+        self.attack.ticks_since_last += 1
         self.air_time += 1
     
         if self.collisions['down']:
@@ -163,6 +203,7 @@ class Player(PhysicsEntity):
             #solve with a animation_flag and only set_anim at the end of update
             self.set_animation('idle')
             self.can_jump = True
+            self.can_dash = True
             self.air_time = 0
             
         if self.movement[0] or self.movement[1]:
@@ -170,10 +211,12 @@ class Player(PhysicsEntity):
                 
         if self.ticks_since_jump_input < self.jump_buffer:
             self.try_jump()
-        if self.ticks_since_attack_input < self.attack_buffer:
-            self.try_attack()
-        if self.ticks_since_attack_knockback < self.attack_knockback_duration:
-            self.attack_knockback()
+        if self.attack.ticks_since_input < self.attack.buffer:
+            self.attack.try_attack()
+        if self.ticks_since_dash_input < self.dash_buffer:
+            self.try_dash()
+        if self.attack.ticks_since_knockback < self.attack.knockback_duration:
+            self.attack.knockback()
 
         if self.air_time > self.coyote_time: #base this on vel[1] > 0.3 instead
             self.can_jump = False
@@ -192,19 +235,17 @@ class Player(PhysicsEntity):
         if self.lt:
             self.vel.y = min(.4,self.vel.y)
                   
-        self.frame_movement = ( # (x, y)
-            (self.movement[1] - self.movement[0]) * self.speed + self.vel.x,
-             self.vel.y)     
+        super().calculate_frame_movement()
                        
     def render(self, surf, offset):
         super().render(surf, offset)
-        if self.ticks_since_last_attack < self.attack_duration:
-            if self.attack_direction in [0, 2]:
-                pos = (self.attack_hitbox.x - offset[0], self.attack_hitbox.y - offset[1])
-                surf.blit(self.attack_surface,pos)
-            if self.attack_direction in [1, 3]:
-                pos = (self.attack_hitbox_vertical.x - offset[0], self.attack_hitbox_vertical.y - offset[1])
-                surf.blit(self.attack_surface_vertical,pos)
+        if self.attack.ticks_since_last < self.attack.duration:
+            if self.attack.direction in [0, 2]:
+                pos = (self.attack.hitbox.x - offset[0], self.attack.hitbox.y - offset[1])
+                surf.blit(self.attack.surface,pos)
+            if self.attack.direction in [1, 3]:
+                pos = (self.attack.hitbox_vertical.x - offset[0], self.attack.hitbox_vertical.y - offset[1])
+                surf.blit(self.attack.surface_vertical,pos)
 
 
         '''self.wallslide = False

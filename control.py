@@ -3,14 +3,22 @@
 IDEAS
 ####
 peach float
+landing could reset attack cooldown
 wall climb like celest w button cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
-jjjjjd
 floating hurtboxes to pogo
 
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
+
+you have to fight a bouncing boss to get the jump? like 2nd room?
+
+if the player attacks an enemy the player loses any invulerability frames
+###
+FIRST LEVEL
+###
+first room you enter with sword put breakable blocks that you need to get up an immediate ledge, if they break them they can reset asap and learn that mechanic
 ###
 IMPORTANT TIDYING
 ###
@@ -40,7 +48,7 @@ walljumps give back the double jump and or (not) dash
 ####
 Things to keep an eye on
 ####
-Could have 3 chunk dicts for each map, one for small, big, boss size collisions
+Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 '''
 import sys
 

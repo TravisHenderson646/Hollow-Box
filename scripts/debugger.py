@@ -2,7 +2,7 @@ import pygame as pg
 
 from scripts import setup
 
-class Debugger:
+class _Debugger:
     def __init__(self):
         self.screen = setup.SCREEN
         self.infos = {}
@@ -17,4 +17,4 @@ class Debugger:
         for i, info in enumerate(self.infos.values()):
             self.screen.blit(info, (self.debugger_panel_offset[0], self.debugger_panel_offset[1] + i * 30))
             
-debugger = Debugger()
+debugger = _Debugger()
