@@ -12,7 +12,7 @@ from scripts.debugger import debugger
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
-        self.speed = 0.7
+        self.speed = 1.1
         self.hp = 5
         self.dead = 0   
         
@@ -187,10 +187,10 @@ class Player(PhysicsEntity):
             if self.ticks_since_player_got_hit < self.player_got_hit_knockback_duration:
                 self.vel.x += self.knockback_speed * self.knockback_direction
         
-        # at can lt like can_jump
+        # add can_lt like can_jump
         #!!! could decay over time based on length of hover
         if self.lt:
-            self.vel.y = min(.7,self.vel.y)
+            self.vel.y = min(.4,self.vel.y)
                   
         self.frame_movement = ( # (x, y)
             (self.movement[1] - self.movement[0]) * self.speed + self.vel.x,
