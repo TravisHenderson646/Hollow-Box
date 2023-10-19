@@ -8,78 +8,7 @@ from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
-class PlayerDash:
-    def __init__(self, player):
-        self.player = player
-        self.able = False
-        self.buffer = 7
-        self.active = False
-        self.ticks_since_input = 500
-        self.ticks_since_last = 500
-        self.cooldown = 33
-        self.direction = (0, 0)
-        self.duration = 20
-        self.speed = 3.3
-        
-    def check(self):
-        if self.able:
-            self.start()
-            if self.ticks_since_input > 0:
-                print('Buffered dash alert!!!')
-            self.ticks_since_input = 100
-            
-    def start(self):
-        if self.ticks_since_last > self.cooldown:
-            setup.sfx['jump'].play()
-            self.player.jump.active = False
-            self.active = True
-            self.ticks_since_last = 0
-            self.able = False
-            self.direction = (
-                (self.player.movement[1] - self.player.movement[0]),
-                (self.player.movement[3] - self.player.movement[2]))
-            match self.direction:
-                case ( 0,  0):
-                    if self.player.flip:
-                        self.direction = (-1, 0)
-                    else:
-                        self.direction = (1, 0)
-                case ( 0,  1):
-                    self.player.vel.y =  self.player.terminal_vel
-                case ( 0, -1):
-                    self.player.vel.y = -3.2
-                case ( 1,  1):
-                    self.player.vel.y = 1.8
-                case (-1,  1):
-                    self.player.vel.y = 1.8
-                case (-1, -1):
-                    self.player.vel.y = -3
-                case ( 1, -1):
-                    self.player.vel.y = -3
 
-    def update(self):
-        if self.ticks_since_last < self.duration:
-            match self.direction:
-                case ( 1,  0):
-                    self.player.vel.y = 0
-                    self.player.vel.x = self.player.speed * self.speed
-                case (-1,  0):
-                    self.player.vel.y = 0
-                    self.player.vel.x = -self.player.speed * self.speed
-                case ( 0,  1):
-                    pass
-                case ( 0, -1):
-                    pass
-                case ( 1,  1):
-                    self.player.vel.x = self.player.speed * self.speed / 2
-                case (-1,  1):
-                    self.player.vel.x = -self.player.speed * self.speed / 2
-                case (-1, -1):
-                    self.player.vel.x = -self.player.speed * self.speed / 2
-                case ( 1, -1):
-                    self.player.vel.x = self.player.speed * self.speed / 2
-        else:
-            self.active = False
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
@@ -132,6 +61,7 @@ class Player(PhysicsEntity):
             self.set_animation('idle')
             self.jump.able = True
             self.dash.able = True
+            self.jump.can_double = True
             self.air_time = 0
             
         if self.movement[0] or self.movement[1]:
@@ -194,6 +124,7 @@ class PlayerJump:
         self.held = False
         self.active = False
         self.ticks_since_input = 500
+        self.can_double = False
         
     def check(self):
         if self.able:
@@ -201,6 +132,17 @@ class PlayerJump:
             if self.ticks_since_input > 0:
                 print('Buffered jump alert!!!')
             self.ticks_since_input = 100
+        else:
+            if self.can_double:
+                self.start_double()
+                if self.ticks_since_input > 0:
+                    print('Buffered double jump alert!!!')
+                self.ticks_since_input = 100
+                
+    def start_double(self):
+        self.active = True
+        self.can_double = False
+        self.player.vel.y = -2.3
             
     def start(self):
         if not self.player.collisions['down']:
@@ -286,8 +228,82 @@ class PlayerAttack:
                 self.player.vel.x -= 1.5
             case 3: #up
                 self.player.vel.y = max(0, self.player.vel.y)
-            case 1: #down
-                self.player.vel.y = -1.4
+            case 1: #down pogo
+                self.player.vel.y = -1.8
+                self.player.jump.can_double = True
+                self.player.dash.able = True
+                
+class PlayerDash:
+    def __init__(self, player):
+        self.player = player
+        self.able = False
+        self.buffer = 7
+        self.active = False
+        self.ticks_since_input = 500
+        self.ticks_since_last = 500
+        self.cooldown = 33
+        self.direction = (0, 0)
+        self.duration = 20
+        self.speed = 3.3
+        
+    def check(self):
+        if self.able:
+            self.start()
+            if self.ticks_since_input > 0:
+                print('Buffered dash alert!!!')
+            self.ticks_since_input = 100
+            
+    def start(self):
+        if self.ticks_since_last > self.cooldown:
+            setup.sfx['jump'].play()
+            self.player.jump.active = False
+            self.active = True
+            self.ticks_since_last = 0
+            self.able = False
+            self.direction = (
+                (self.player.movement[1] - self.player.movement[0]),
+                (self.player.movement[3] - self.player.movement[2]))
+            match self.direction:
+                case ( 0,  0):
+                    if self.player.flip:
+                        self.direction = (-1, 0)
+                    else:
+                        self.direction = (1, 0)
+                case ( 0,  1):
+                    self.player.vel.y =  self.player.terminal_vel
+                case ( 0, -1):
+                    self.player.vel.y = -3.2
+                case (-1, -1):
+                    self.player.vel.y = -3
+                case ( 1, -1):
+                    self.player.vel.y = -3
+
+    def update(self):
+        if self.ticks_since_last < self.duration:
+            match self.direction:
+                case ( 1,  0):
+                    self.player.vel.y = 0
+                    self.player.vel.x = self.player.speed * self.speed
+                case (-1,  0):
+                    self.player.vel.y = 0
+                    self.player.vel.x = -self.player.speed * self.speed
+                case ( 0,  1):
+                    pass
+                case ( 0, -1):
+                    pass
+                case ( 1,  1):
+                    self.player.vel.y = 0
+                    self.player.vel.x = self.player.speed * self.speed
+                case (-1,  1):
+                    self.player.vel.y = 0
+                    self.player.vel.x = -self.player.speed * self.speed
+                case (-1, -1):
+                    self.player.vel.x = -self.player.speed * self.speed / 2
+                case ( 1, -1):
+                    self.player.vel.x = self.player.speed * self.speed / 2
+        else:
+            self.active = False
+
 
 
         '''self.wallslide = False
