@@ -20,7 +20,7 @@ class Player(PhysicsEntity):
         self.speed = 1.1
         self.hp = 5 
         
-        self.rt = False
+        self.lt = False
         self.wallslide = False
         
         self.invulnerable = False
@@ -93,7 +93,7 @@ class Player(PhysicsEntity):
         
         # add can_rt like jump.able
         #!!! could decay over time based on length of hover
-        if self.rt:
+        if self.lt:
             self.vel.y = min(.4,self.vel.y)
             
         self.jump.ticks_since_input += 1
