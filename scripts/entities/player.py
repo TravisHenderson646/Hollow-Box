@@ -13,41 +13,44 @@ class PlayerWallSlide:
         self.player = player
         self.active = False
         self.speed = 0.2
+        self.detach_buffer = 7
+        self.ticks_detaching = 500
+        self.direction = 1 # 1 or -1
         
     def start(self):
+        self.active = True
         self.player.jump.active = False
+        self.player.jump.can_double = True
+        self.player.dash.able = True
+        self.ticks_detaching = 0
+        if self.player.collisions['right']:
+            self.direction = 1
+        else:
+            self.direction = -1
         
     def update(self):
-        print('update?')
         self.player.vel[1] = min(self.player.vel[1], 0.2)
         self.player.set_animation('wallslide')
-        if self.player.flip:
+        if self.direction == -1:
             self.player.vel.x = -1
             if self.player.movement[1]:
-                self.active = False
-                print('more than one of this is bad')
-            elif not self.player.collisions['left']:
+                self.ticks_detaching += 1
+                if self.detach_buffer < self.ticks_detaching:
+                    self.active = False
+            if not self.player.collisions['left']:
                 self.player.rect.x += 1
                 self.active = False
                 self.player.vel.x = 0
-                print('more than one of this is bad')
         else:
             self.player.vel.x = 1
             if self.player.movement[0]:
-                self.active = False
-                print('more than one of this is bad')
-            elif not self.player.collisions['right']:
+                self.ticks_detaching += 1
+                if self.detach_buffer < self.ticks_detaching:
+                    self.active = False
+            if not self.player.collisions['right']:
                 self.player.rect.x -= 1
                 self.active = False
                 self.player.vel.x = 0
-                print('more than one of this is bad')
-            
-        
-            
-class PlayerWallJump:
-    def __init__(self, player):
-        self.player = player
-        self.active = False
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
@@ -93,8 +96,9 @@ class Player(PhysicsEntity):
         self.ticks_since_player_got_hit += 1
         self.attack.ticks_since_last += 1
         self.dash.ticks_since_last += 1
+        self.jump.ticks_since_walljump += 1
         self.air_time += 1
-        debugger.debug('lajksdfkfj', self.collisions)
+        
         if self.air_time > self.jump.coyote_time: #base this on vel[1] > 0.3 instead
             self.jump.able = False
             self.set_animation('jump')    
@@ -111,16 +115,15 @@ class Player(PhysicsEntity):
                 self.set_animation('run')
         elif self.collisions['right'] or self.collisions['left']:
             if self.vel.y > 0.3:
-                self.jump.active = False
-                self.wallslide.active = True
-                if self.collisions['right']:
-                    self.flip = False
-                else:
-                    self.flip = True
+                if not self.wallslide.active:
+                    self.wallslide.start()
         
         if not self.dash.active:
             if self.jump.ticks_since_input < self.jump.buffer:
-                self.jump.check()
+                if self.wallslide.active:
+                    self.jump.start_walljump()
+                else:
+                    self.jump.check()
         if self.attack.ticks_since_input < self.attack.buffer:
             self.attack.check()
         if self.dash.ticks_since_input < self.dash.buffer:
@@ -135,7 +138,7 @@ class Player(PhysicsEntity):
                 
         if self.wallslide.active:
             self.wallslide.update()
-        if self.jump.active: # elif is testing maybe should just be like that
+        if self.jump.active:
             self.jump.update()
         if self.dash.active:
             self.dash.update()
@@ -143,8 +146,8 @@ class Player(PhysicsEntity):
         
         # add can_rt like jump.able
         #!!! could decay over time based on length of hover
-  #      if self.lt:
-   #         self.vel.y = min(.4,self.vel.y)
+        if self.lt:
+            self.vel.y = min(.4,self.vel.y)
             
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
@@ -153,6 +156,8 @@ class Player(PhysicsEntity):
         if self.dash.active:
             self.frame_movement = (self.vel.x, self.vel.y)
         elif self.wallslide.active:
+            self.frame_movement = (self.vel.x, self.vel.y)
+        elif self.jump.walljump_active:
             self.frame_movement = (self.vel.x, self.vel.y)
         else:
             super().calculate_frame_movement()
@@ -177,26 +182,41 @@ class PlayerJump:
         self.active = False
         self.ticks_since_input = 500
         self.can_double = False
+        self.ticks_since_walljump = 500
+        self.walljump_active = False
+        self.walljump_duration = 8
+        self.walljump_speed = 2
+        self.walljump_direction = 1 # -1 left or 1 right
         
     def check(self):
         if self.able:
-            self.start()
             if self.ticks_since_input > 0:
                 print('Buffered jump alert!!!')
-            self.ticks_since_input = 100
+            self.start()
         else:
             if self.can_double:
-                self.start_double()
                 if self.ticks_since_input > 0:
                     print('Buffered double jump alert!!!')
-                self.ticks_since_input = 100
+                self.start_double()
                 
     def start_double(self):
+        self.ticks_since_input = 100
+        print('Double jump!!!')
         self.active = True
         self.can_double = False
         self.player.vel.y = -2.3
+        
+    def start_walljump(self):
+        print('Wall jump!!!')
+        self.player.wallslide.active = False
+        self.ticks_since_walljump = 0
+        self.active = True
+        self.player.vel.y = -2.3
+        self.ticks_since_input = 100
+        self.walljump_direction = -self.player.wallslide.direction
             
     def start(self):
+        self.ticks_since_input = 100
         if not self.player.collisions['down']:
             print('Coyote jump alert !!!')
         self.able = False
@@ -212,6 +232,11 @@ class PlayerJump:
             self.player.vel.y += 0.48
         if self.player.vel.y > 0.3:
             self.active = False
+        if self.ticks_since_walljump < self.walljump_duration:
+            self.player.vel.x = self.walljump_speed * self.walljump_direction
+            self.walljump_active = True
+        else:
+            self.walljump_active = False
          
 class PlayerAttack:
     def __init__(self, player):
@@ -251,13 +276,13 @@ class PlayerAttack:
     
     def check(self):
         if self.ticks_since_last > self.cooldown:
-            self.ticks_since_last = 0 # this is what actually causes the attack in update()
-            self.choose_dir()
             if self.ticks_since_input > 0:
-                print('Buffered attack alert!!!')
-            self.ticks_since_input = 100
+                print('Buffered attack alert!!!', self.ticks_since_input)
+            self.start()
             
-    def choose_dir(self):
+    def start(self):
+        self.ticks_since_last = 0 # this is what actually causes the attack in update()
+        self.ticks_since_input = 100
         if self.player.movement[3] and (not self.player.collisions['down']):
             self.direction = 1 #down
             self.active_hitbox = 1
@@ -313,10 +338,7 @@ class PlayerDash:
             self.ticks_since_last = 0
             self.able = False
             if self.player.wallslide.active:
-                if self.player.flip:
-                    self.direction = ( 1, 0)
-                else:
-                    self.direction = (-1, 0)
+                self.direction = (-self.player.wallslide.direction, 0)
             else:
                 self.direction = (
                     (self.player.movement[1] - self.player.movement[0]),

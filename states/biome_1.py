@@ -130,12 +130,10 @@ class Biome_1(Game):
         
     def update(self): # Main loop
         Biome_1.player.update(self.tilemap)
-
             
         for enemy in self.enemies:
             if not enemy.dead:
                 enemy.update(self.tilemap)
-                debugger.debug('alsfj', enemy.hp)
             else:
                 self.enemies.remove(enemy)
                 setup.sfx['hit'].play()
