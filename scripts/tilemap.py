@@ -158,6 +158,15 @@ class Tilemap:
         for rect in [tile.rect for tile in self.current_breakable_tiles]:
             if entity.rect.colliderect(rect):
                 self.collide_y(entity, rect)
+                
+    def check_point(self, pos, chunk):
+        for rect in self.chunks.get(chunk, {}):
+            if rect.collidepoint(pos[0], pos[1]):
+                return True
+        for rect in [tile.rect for tile in self.current_breakable_tiles]:
+            if rect.collidepoint(pos[0], pos[1]):
+                return True
+        return False
 
     def calculate_panels(self):
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()

@@ -8,7 +8,46 @@ from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
-
+class PlayerWallSlide:
+    def __init__(self, player):
+        self.player = player
+        self.active = False
+        self.speed = 0.2
+        
+    def start(self):
+        self.player.jump.active = False
+        
+    def update(self):
+        print('update?')
+        self.player.vel[1] = min(self.player.vel[1], 0.2)
+        self.player.set_animation('wallslide')
+        if self.player.flip:
+            self.player.vel.x = -1
+            if self.player.movement[1]:
+                self.active = False
+                print('more than one of this is bad')
+            elif not self.player.collisions['left']:
+                self.player.rect.x += 1
+                self.active = False
+                self.player.vel.x = 0
+                print('more than one of this is bad')
+        else:
+            self.player.vel.x = 1
+            if self.player.movement[0]:
+                self.active = False
+                print('more than one of this is bad')
+            elif not self.player.collisions['right']:
+                self.player.rect.x -= 1
+                self.active = False
+                self.player.vel.x = 0
+                print('more than one of this is bad')
+            
+        
+            
+class PlayerWallJump:
+    def __init__(self, player):
+        self.player = player
+        self.active = False
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
@@ -16,12 +55,12 @@ class Player(PhysicsEntity):
         self.attack = PlayerAttack(self)
         self.jump = PlayerJump(self)
         self.dash = PlayerDash(self)
+        self.wallslide = PlayerWallSlide(self)
         
         self.speed = 1.1
         self.hp = 5 
         
         self.lt = False
-        self.wallslide = False
         
         self.invulnerable = False
         self.knockback_speed = 3
@@ -35,6 +74,7 @@ class Player(PhysicsEntity):
     def got_hit(self, enemy):
         setup.sfx['hit'].play()
         self.jump.active = False
+        self.wallslide.active = False
         self.dash.active = False
         self.collisions['down'] = False
         self.hp -= 1
@@ -47,14 +87,17 @@ class Player(PhysicsEntity):
         else:
             self.knockback_direction = 1
      
-    def update(self):
+    def update(self, tilemap):
         super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
         self.attack.ticks_since_last += 1
         self.dash.ticks_since_last += 1
         self.air_time += 1
-    
+        debugger.debug('lajksdfkfj', self.collisions)
+        if self.air_time > self.jump.coyote_time: #base this on vel[1] > 0.3 instead
+            self.jump.able = False
+            self.set_animation('jump')    
         if self.collisions['down']:
             #i think this will reset the run animation to first frame every frame of running
             #solve with a animation_flag and only set_anim at the end of update
@@ -62,10 +105,18 @@ class Player(PhysicsEntity):
             self.jump.able = True
             self.dash.able = True
             self.jump.can_double = True
+            self.wallslide.active = False
             self.air_time = 0
-            
-        if self.movement[0] or self.movement[1]:
-            self.set_animation('run')
+            if self.movement[0] or self.movement[1]:
+                self.set_animation('run')
+        elif self.collisions['right'] or self.collisions['left']:
+            if self.vel.y > 0.3:
+                self.jump.active = False
+                self.wallslide.active = True
+                if self.collisions['right']:
+                    self.flip = False
+                else:
+                    self.flip = True
         
         if not self.dash.active:
             if self.jump.ticks_since_input < self.jump.buffer:
@@ -77,33 +128,34 @@ class Player(PhysicsEntity):
         if self.attack.ticks_since_knockback < self.attack.knockback_duration:
             self.attack.knockback()
 
-        if self.air_time > self.jump.coyote_time: #base this on vel[1] > 0.3 instead
-            self.jump.able = False
-            self.set_animation('jump')
-            
-        if self.jump.active:
-            self.jump.update()
-        if self.dash.active:
-            self.dash.update()
-            
         if self.ticks_since_player_got_hit < self.invulnerable_duration:
             self.invulnerable = True
             if self.ticks_since_player_got_hit < self.player_got_hit_knockback_duration:
                 self.vel.x += self.knockback_speed * self.knockback_direction
+                
+        if self.wallslide.active:
+            self.wallslide.update()
+        if self.jump.active: # elif is testing maybe should just be like that
+            self.jump.update()
+        if self.dash.active:
+            self.dash.update()
+            
         
         # add can_rt like jump.able
         #!!! could decay over time based on length of hover
-        if self.lt:
-            self.vel.y = min(.4,self.vel.y)
+  #      if self.lt:
+   #         self.vel.y = min(.4,self.vel.y)
             
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
         self.attack.ticks_since_input += 1
         
-        if not self.dash.active:  
-            super().calculate_frame_movement()
-        else:
+        if self.dash.active:
             self.frame_movement = (self.vel.x, self.vel.y)
+        elif self.wallslide.active:
+            self.frame_movement = (self.vel.x, self.vel.y)
+        else:
+            super().calculate_frame_movement()
                        
     def render(self, surf, offset):
         super().render(surf, offset)
@@ -260,9 +312,15 @@ class PlayerDash:
             self.active = True
             self.ticks_since_last = 0
             self.able = False
-            self.direction = (
-                (self.player.movement[1] - self.player.movement[0]),
-                (self.player.movement[3] - self.player.movement[2]))
+            if self.player.wallslide.active:
+                if self.player.flip:
+                    self.direction = ( 1, 0)
+                else:
+                    self.direction = (-1, 0)
+            else:
+                self.direction = (
+                    (self.player.movement[1] - self.player.movement[0]),
+                    (self.player.movement[3] - self.player.movement[2]))
             match self.direction:
                 case ( 0,  0):
                     if self.player.flip:

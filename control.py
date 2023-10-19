@@ -25,7 +25,7 @@ IMPORTANT TIDYING
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
 the chunks should probably be based on the largest enemy in the level?
     the chunks could also crop the colidable rects 
-i think collision box detection should happen and update positions, then hitbox/hurtbox detection happens
+i think collision box detection should happen and updatedddda dwd as, then hitbox/hurtbox detection happens
 ####
 Must be nice
 ####

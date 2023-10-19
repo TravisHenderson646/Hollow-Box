@@ -43,6 +43,8 @@ class Biome_1(Game):
         self.projectiles = []
         self.particles = []
         self.sparks = []
+        
+        # todo maybe i could call these just self.breakable_tiles and put it in the level not tilemap
         self.tilemap.current_breakable_tiles = self.tilemap.breakable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
@@ -127,7 +129,8 @@ class Biome_1(Game):
                 Biome_1.player.got_hit(enemy)
         
     def update(self): # Main loop
-        Biome_1.player.update()
+        Biome_1.player.update(self.tilemap)
+
             
         for enemy in self.enemies:
             if not enemy.dead:

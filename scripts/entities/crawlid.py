@@ -22,18 +22,11 @@ class Crawlid(PhysicsEntity):
         
         ### Turn around at a ledge
         if self.collisions['down']:
-            at_ledge = True
             if self.movement[0]:    
-                pos = (self.rect.left - 1, self.rect.bottom + 1)
+                check_pos = (self.rect.left - 1, self.rect.bottom + 1)
             else:
-                pos = (self.rect.right + 1, self.rect.bottom + 1)
-            for rect in tilemap.chunks.get(self.hot_chunk, {}):
-                if rect.collidepoint(pos[0], pos[1]):
-                    at_ledge = False
-            for rect in [tile.rect for tile in tilemap.current_breakable_tiles]:
-                if rect.collidepoint(pos[0], pos[1]):
-                    at_ledge = False
-            if at_ledge:
+                check_pos = (self.rect.right + 1, self.rect.bottom + 1)
+            if not tilemap.check_point(check_pos, self.hot_chunk):
                 self.movement[0] = not self.movement[0]
                 self.movement[1] = not self.movement[1] 
         ###           
