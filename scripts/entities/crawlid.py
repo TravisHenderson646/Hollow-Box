@@ -8,14 +8,22 @@ class Crawlid(PhysicsEntity):
         super().__init__('crawlid', pos, self.size)
         self.speed = 0.2
         self.movement[0] = True
-        self.hp = 3
+        self.hp = 300
         
     def update(self, tilemap):
         super().update()
         self.invulnerable = False
-        self.ticks_since_got_hit += 1
-        if self.ticks_since_got_hit < 10: # this number could be lower
+        if self.ticks_since_got_hit < 14: # this number could be lower
+            self.ticks_since_got_hit += 1
             self.invulnerable = True
+            match self.got_hit_direction:
+                case 2: #left
+                    self.vel.x -= 1.5
+                case 0: #right
+                    self.vel.x += 1.5
+                case 3: #up
+                    self.vel.y = -1
+                    
         if self.collisions['right'] or self.collisions['left']:
             self.movement[0] = not self.movement[0]
             self.movement[1] = not self.movement[1]
@@ -30,5 +38,8 @@ class Crawlid(PhysicsEntity):
                 self.movement[0] = not self.movement[0]
                 self.movement[1] = not self.movement[1] 
         ###           
+        
+        
+        
         super().calculate_frame_movement()
 

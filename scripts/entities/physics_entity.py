@@ -24,6 +24,7 @@ class PhysicsEntity:
         self.hot_chunk = (0, 0)
         self.dead = False
         self.ticks_since_got_hit = 500
+        self.got_hit_direction = 0 # 0right 1down 2left 3up
         self.invulnerable = False
 
     

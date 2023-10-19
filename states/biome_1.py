@@ -119,6 +119,7 @@ class Biome_1(Game):
                     Biome_1.player.attack.ticks_since_knockback = 0
                     enemy.hp -= self.player.attack.damage
                     enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
+                    enemy.got_hit_direction = Biome_1.player.attack.direction
                     #self.enemies.remove(enemy)
                     #self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                     setup.sfx['dash'].play()
