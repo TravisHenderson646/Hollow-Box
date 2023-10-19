@@ -101,7 +101,7 @@ class Biome_1(Game):
             
     def attack_collision(self):
         sfx_flag_break = False # To prevent sfx stacking
-        Biome_1.player.attack.position()
+        Biome_1.player.attack.update()
         for tile in self.tilemap.current_breakable_tiles.copy():
             if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
                 self.tilemap.current_breakable_tiles.remove(tile)

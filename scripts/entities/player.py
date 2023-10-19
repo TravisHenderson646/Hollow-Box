@@ -15,7 +15,8 @@ class PlayerDash:
         self.buffer = 7
         self.active = False
         self.ticks_since_input = 500
-        self.ticks_since_start = 500
+        self.ticks_since_last = 500
+        self.cooldown = 33
         self.direction = (0, 0)
         self.duration = 20
         self.speed = 3.3
@@ -24,41 +25,40 @@ class PlayerDash:
         if self.able:
             self.start()
             if self.ticks_since_input > 0:
-                print('Buffered jump alert!!!')
+                print('Buffered dash alert!!!')
             self.ticks_since_input = 100
-        else:
-            self.ticks_since_input += 1  
             
     def start(self):
-        setup.sfx['jump'].play()
-        self.player.jump.active = False
-        self.active = True
-        self.ticks_since_start = 0
-        self.able = False
-        self.direction = (
-            (self.player.movement[1] - self.player.movement[0]),
-            (self.player.movement[3] - self.player.movement[2]))
-        match self.direction:
-            case ( 0,  0):
-                if self.player.flip:
-                    self.direction = (-1, 0)
-                else:
-                    self.direction = (1, 0)
-            case ( 0,  1):
-                self.player.vel.y =  self.player.terminal_vel
-            case ( 0, -1):
-                self.player.vel.y = -3.2
-            case ( 1,  1):
-                self.player.vel.y = 1.8
-            case (-1,  1):
-                self.player.vel.y = 1.8
-            case (-1, -1):
-                self.player.vel.y = -3
-            case ( 1, -1):
-                self.player.vel.y = -3
+        if self.ticks_since_last > self.cooldown:
+            setup.sfx['jump'].play()
+            self.player.jump.active = False
+            self.active = True
+            self.ticks_since_last = 0
+            self.able = False
+            self.direction = (
+                (self.player.movement[1] - self.player.movement[0]),
+                (self.player.movement[3] - self.player.movement[2]))
+            match self.direction:
+                case ( 0,  0):
+                    if self.player.flip:
+                        self.direction = (-1, 0)
+                    else:
+                        self.direction = (1, 0)
+                case ( 0,  1):
+                    self.player.vel.y =  self.player.terminal_vel
+                case ( 0, -1):
+                    self.player.vel.y = -3.2
+                case ( 1,  1):
+                    self.player.vel.y = 1.8
+                case (-1,  1):
+                    self.player.vel.y = 1.8
+                case (-1, -1):
+                    self.player.vel.y = -3
+                case ( 1, -1):
+                    self.player.vel.y = -3
 
     def update(self):
-        if self.ticks_since_start < self.duration:
+        if self.ticks_since_last < self.duration:
             match self.direction:
                 case ( 1,  0):
                     self.player.vel.y = 0
@@ -80,7 +80,6 @@ class PlayerDash:
                     self.player.vel.x = self.player.speed * self.speed / 2
         else:
             self.active = False
-        self.ticks_since_start += 1
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
@@ -124,6 +123,7 @@ class Player(PhysicsEntity):
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
         self.attack.ticks_since_last += 1
+        self.dash.ticks_since_last += 1
         self.air_time += 1
     
         if self.collisions['down']:
@@ -167,6 +167,8 @@ class Player(PhysicsEntity):
             self.vel.y = min(.4,self.vel.y)
             
         self.jump.ticks_since_input += 1
+        self.dash.ticks_since_input += 1  
+        self.attack.ticks_since_input += 1
         
         if not self.dash.active:  
             super().calculate_frame_movement()
@@ -238,7 +240,7 @@ class PlayerAttack:
         self.buffer = 7
         self.ticks_since_last = 500
         
-    def position(self):
+    def update(self):
         match self.direction:
             case 2: #left
                 self.hitbox.centery = self.player.rect.centery
@@ -260,8 +262,6 @@ class PlayerAttack:
             if self.ticks_since_input > 0:
                 print('Buffered attack alert!!!')
             self.ticks_since_input = 100
-        else:
-            self.ticks_since_input += 1
             
     def choose_dir(self):
         if self.player.movement[3] and (not self.player.collisions['down']):
