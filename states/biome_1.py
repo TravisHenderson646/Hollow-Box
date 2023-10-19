@@ -68,10 +68,13 @@ class Biome_1(Game):
             self.player.movement[2] = True
         elif action == 'down':
             self.player.movement[3] = True
+        elif action == 'rt':
+            self.player.rt = True
         elif action == 'lt':
-            self.player.lt = True
+            Biome_1.player.dash.ticks_since_input = 0
         elif action == 'a':
             Biome_1.player.jump.ticks_since_input = 0
+            Biome_1.player.jump.held = True
         elif action == 'x':
             Biome_1.player.attack.ticks_since_input = 0
         elif action == 'unleft':
@@ -82,8 +85,10 @@ class Biome_1(Game):
             self.player.movement[2] = False
         elif action == 'undown':
             self.player.movement[3] = False
+        elif action == 'unrt':
+            self.player.rt = False
         elif action == 'unlt':
-            self.player.lt = False
+            pass
         elif action == 'una':
             Biome_1.player.jump.held = False
         elif action == 'stop':
