@@ -8,7 +8,7 @@ class Crawlid(PhysicsEntity):
         super().__init__('crawlid', pos, self.size)
         self.speed = 0.2
         self.movement[0] = True
-        self.hp = 300
+        self.hp = 3
         
     def update(self, tilemap):
         super().update()
@@ -24,7 +24,7 @@ class Crawlid(PhysicsEntity):
                 case 3: #up
                     self.vel.y = -1
                     
-        if self.collisions['right'] or self.collisions['left']:
+        if (self.collisions['right'] and self.movement[1]) or (self.collisions['left'] and self.movement[0]):
             self.movement[0] = not self.movement[0]
             self.movement[1] = not self.movement[1]
         
