@@ -17,12 +17,15 @@ class Level_2(Biome_1):
     def start(self):
         super().start()
         
-        if self.previous == 'level1':
+        if self.previous == 'level2': # if you came from level 2
+            for tile in self.tilemap.entrances:
+                if 'west' in tile.tags: # find the tile for level 2
+                    Biome_1.player.rect.topleft = tile.pos
+        if self.previous == 'level3':
             for tile in self.tilemap.entrances:
                 if 'east' in tile.tags:
-                    Biome_1.player.pos = pg.Vector2(tile.pos)
-                    self.camera.pos = pg.Vector2(tile.pos[0] - setup.CANVAS_SIZE[0]/2, tile.pos[1] - setup.CANVAS_SIZE[1]/2) # Initial camera position
-        
+                    Biome_1.player.rect.topleft = tile.pos
+                    
     def process_action(self, action):  
         super().process_action(action)
         if action == 'p':

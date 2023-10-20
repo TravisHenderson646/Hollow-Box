@@ -20,7 +20,7 @@ class PhysicsEntity:
         self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
         self.flip = False
         self.set_animation('idle') # could use self.animation_flag
-        self.frame_movement = (0, 0)        
+        self.frame_movement = pg.Vector2(0, 0)        
         self.hot_chunk = (0, 0)
         self.dead = False
         self.ticks_since_got_hit = 500
@@ -59,9 +59,9 @@ class PhysicsEntity:
     # !!ALWAYS call this at the very end of every entities update function!!!                    
     def calculate_frame_movement(self):
         if self.vel.x:
-            self.frame_movement = (self.vel.x, self.vel.y)   
+            self.frame_movement = pg.Vector2(self.vel.x, self.vel.y)   
         else:
-            self.frame_movement = ( # (x, y)
+            self.frame_movement = pg.Vector2( # (x, y)
                 (self.movement.x) * self.speed,
                 self.vel.y)    
         
