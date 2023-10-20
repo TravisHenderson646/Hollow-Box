@@ -12,7 +12,7 @@ class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
         self.active = False
-        self.speed = 0.4
+        self.speed = 1
         self.detach_buffer = 7
         self.ticks_detaching = 500
         self.direction = 1 # 1 or -1
@@ -26,11 +26,11 @@ class PlayerWallSlide:
         self.direction = direction
         
     def update(self):
-        self.player.vel[1] = min(self.player.vel[1], 0.2)
+        self.player.vel[1] = min(self.player.vel[1], self.speed)
         self.player.set_animation('wallslide')
         if self.direction == -1:
             self.player.vel.x = -1
-            if self.player.movement[1]:
+            if self.player.movement.x == 1:
                 self.ticks_detaching += 1
                 if self.detach_buffer < self.ticks_detaching:
                     self.active = False
@@ -40,7 +40,7 @@ class PlayerWallSlide:
                 self.player.vel.x = 0
         else:
             self.player.vel.x = 1
-            if self.player.movement[0]:
+            if self.player.movement.x == -1:
                 self.ticks_detaching += 1
                 if self.detach_buffer < self.ticks_detaching:
                     self.active = False
@@ -89,6 +89,25 @@ class Player(PhysicsEntity):
             self.knockback_direction = 1
      
     def update(self, tilemap):
+        if setup.joysticks:
+            axis0 = setup.joysticks[0].get_axis(0)
+            axis1 = setup.joysticks[0].get_axis(1)
+            if axis0 < -0.5:
+                self.movement.x = -1
+            elif axis0 > 0.5:
+                self.movement.x = 1
+            else:
+                self.movement.x = 0
+            if axis1 < -0.5:
+                self.movement.y = -1
+            elif axis1 > 0.5:
+                self.movement.y = 1
+            else:
+                self.movement.y = 0
+        else:
+            keys = pg.key.get_pressed()
+            self.movement = pg.Vector2(keys[pg.K_d] - keys[pg.K_a], keys[pg.K_s] - keys[pg.K_w])
+        debugger.debug('laksfjd', self.frame_movement)
         super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
@@ -109,16 +128,13 @@ class Player(PhysicsEntity):
             self.jump.can_double = True
             self.wallslide.active = False
             self.air_time = 0
-            if self.movement[0] or self.movement[1]:
+            if self.movement.x:
                 self.set_animation('run')
         elif self.collisions['right'] or self.collisions['left']:
             if not self.jump.active:
-                if not self.in_got_hit:
+                if not self.vel.x:
                     if not self.wallslide.active:
-                        if self.movement[1]:
-                            self.wallslide.start(1)
-                        elif self.movement[0]:
-                            self.wallslide.start(-1)
+                        self.wallslide.start(self.movement.x)
                         
         if not self.dash.active:
             if self.jump.ticks_since_input < self.jump.buffer:
@@ -157,19 +173,9 @@ class Player(PhysicsEntity):
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
         self.attack.ticks_since_input += 1
-        
-        if self.dash.active:
-            self.frame_movement = (self.vel.x, self.vel.y)
-        elif self.wallslide.active:
-            self.frame_movement = (self.vel.x, self.vel.y)
-        elif self.jump.walljump_active:
-            self.frame_movement = (self.vel.x, self.vel.y)
-        elif in_attack_knockback and self.attack.direction in [0, 2]:
-            self.frame_movement = (self.vel.x, self.vel.y)
-        elif self.in_got_hit:
-            self.frame_movement = (self.vel.x, self.vel.y)
-        else:
-            super().calculate_frame_movement()
+
+        super().calculate_frame_movement()
+        self.jump.walljump_active = False
                        
     def render(self, surf, offset):
         super().render(surf, offset)
@@ -244,8 +250,6 @@ class PlayerJump:
         if self.ticks_since_walljump < self.walljump_duration:
             self.player.vel.x = self.walljump_speed * self.walljump_direction
             self.walljump_active = True
-        else:
-            self.walljump_active = False
          
 class PlayerAttack:
     def __init__(self, player):
@@ -267,6 +271,7 @@ class PlayerAttack:
         self.knockback_duration = 7
         self.buffer = 7
         self.ticks_since_last = 500
+        self.in_knockback = False
         
     def update(self):
         match self.direction:
@@ -292,10 +297,10 @@ class PlayerAttack:
     def start(self):
         self.ticks_since_last = 0 # this is what actually causes the attack in update()
         self.ticks_since_input = 100
-        if self.player.movement[3] and (not self.player.collisions['down']):
+        if (self.player.movement.y == 1) and (not self.player.collisions['down']):
             self.direction = 1 #down
             self.active_hitbox = 1
-        elif self.player.movement[2]:
+        elif self.player.movement.y == -1:
             self.direction = 3 #up
             self.active_hitbox = 1
         elif self.player.flip:
@@ -308,9 +313,9 @@ class PlayerAttack:
     def knockback(self):
         match self.direction:
             case 2: #left
-                self.player.vel.x += 1.5
+                self.player.vel.x = 1.5 # could use max here to make sure it doesn't override a bigger knockback
             case 0: #right
-                self.player.vel.x -= 1.5
+                self.player.vel.x = -1.5
             case 3: #up
                 self.player.vel.y = max(0, self.player.vel.y)
             case 1: #down pogo
@@ -351,8 +356,8 @@ class PlayerDash:
                 self.direction = (-self.player.wallslide.direction, 0)
             else:
                 self.direction = (
-                    (self.player.movement[1] - self.player.movement[0]),
-                    (self.player.movement[3] - self.player.movement[2]))
+                    (self.player.movement.x),
+                    (self.player.movement.y))
             match self.direction:
                 case ( 0,  0):
                     if self.player.flip:

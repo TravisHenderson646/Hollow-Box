@@ -37,8 +37,6 @@ class Biome_1(Game):
         print(f'    Entering level {self.map_id + 1}...')
 
         Game.music.play('music.wav')
-        keys = pg.key.get_pressed()
-        self.player.movement = [keys[pg.K_a], keys[pg.K_d], keys[pg.K_w], keys[pg.K_s]]
         self.enemies = []
         self.projectiles = []
         self.particles = []
@@ -62,14 +60,6 @@ class Biome_1(Game):
         elif action == 'start':
             self.done = True
             self.next = 'menu'
-        elif action == 'left':
-            self.player.movement[0] = True
-        elif action == 'right':
-            self.player.movement[1] = True
-        elif action == 'up':
-            self.player.movement[2] = True
-        elif action == 'down':
-            self.player.movement[3] = True
         elif action == 'rt':
             Biome_1.player.dash.ticks_since_input = 0
         elif action == 'lt':
@@ -79,26 +69,12 @@ class Biome_1(Game):
             Biome_1.player.jump.held = True
         elif action == 'x':
             Biome_1.player.attack.ticks_since_input = 0
-        elif action == 'unleft':
-            self.player.movement[0] = False
-        elif action == 'unright':
-            self.player.movement[1] = False
-        elif action == 'unup':
-            self.player.movement[2] = False
-        elif action == 'undown':
-            self.player.movement[3] = False
         elif action == 'unrt':
             pass
         elif action == 'unlt':
             self.player.lt = False
         elif action == 'una':
-            Biome_1.player.jump.held = False
-        elif action == 'stop':
-            self.player.movement[0] = False
-            self.player.movement[1] = False
-        elif action == 'neutral':
-            self.player.movement[2] = False
-            self.player.movement[3] = False        
+            Biome_1.player.jump.held = False       
 
             
     def attack_collision(self):

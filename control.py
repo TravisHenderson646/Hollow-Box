@@ -57,6 +57,8 @@ Things to keep an eye on
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
+
+it wouldn't be that hard to implement chunking for sword attack collisions. This would enable making every piece of scenery breakable
 '''
 import sys
 
@@ -92,6 +94,9 @@ class Control():
         
     def pass_event(self):
         for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_m:
+                    setup.joysticks = False
             if event.type == pg.KEYUP:
                 if event.key == 1073741894: # print screen button, triggers both on release idk why
                     pg.image.save(self.canvas, 'art/screenshots/screenshot.png')

@@ -6,8 +6,6 @@ pg.init()
 pg.joystick.init()
 print('joystick count', pg.joystick.get_count())
 joysticks = [pg.joystick.Joystick(x) for x in range(pg.joystick.get_count())]
-
-
 SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically
 SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
@@ -113,6 +111,7 @@ class _EventProcessor:
         elif event.type == pg.JOYBUTTONUP:
             if event.button == 0:
                 action = 'una'
+        ### EVERYTHING HERE DOWN CAN GO?
         elif event.type == pg.JOYAXISMOTION:
             if event.axis == 0:
                 if event.value < -0.3:
