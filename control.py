@@ -2,11 +2,14 @@
 ####
 IDEAS
 ####
+its fun for now but i dont think im going to want the pogo to reset everything, its too centralizing late game
 peach float
 landing could reset attack cooldown
 wall climb like celest w button cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
 floating hurtboxes to pogo
+
+slime jumping enemy
 
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
@@ -32,6 +35,9 @@ Must be nice
 arbitrary amount of collisionboxes on player. big one for interacting, smaller for physics, smallerer hurtbox
     bonus: extrabig keep_talking box to let player keep movement while talking
 
+npc to talk to
+first make readable signpost
+    
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler
 
@@ -49,6 +55,8 @@ walljumps give back the double jump and or (not) dash
 Things to keep an eye on
 ####
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
+
+if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
 '''
 import sys
 

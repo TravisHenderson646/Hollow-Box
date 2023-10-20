@@ -21,6 +21,7 @@ from scripts.image_handler import load_image, load_images, Animation
 assets = { # dict of every sprite's image or animation's set of images
     'decor': load_images('tiles/decor'),
     'grass': load_images('tiles/grass'),
+    'special': load_images('tiles/special'),
     'large_decor': load_images('tiles/large_decor'),
     'stone': load_images('tiles/stone'),
     'player': load_image('entities/player.png'),
@@ -35,11 +36,11 @@ assets = { # dict of every sprite's image or animation's set of images
     'player/wallslide': Animation(load_images('entities/player/wallslide'), image_dur=5,),
     'particle/leaf': Animation(load_images('particles/leaf'), 20, False),
     'particle/particle': Animation(load_images('particles/particle'), 6, False),
-    'crawlid/idle': Animation(load_images('entities/crawlid/idle'), image_dur=12),
+    'slug/idle': Animation(load_images('entities/slug/idle'), image_dur=12),
     'gun': load_image('gun.png'),
     'projectile': load_image('projectile.png'),
-    'loading_zones': load_images('tiles/loading_zones'),
-    'spawns': load_images('tiles/spawns'),
+    'entrances': load_images('tiles/entrances'),
+    'exits': load_images('tiles/exits'),
 } # todo way later on this should probably be split up so theyre not all loaded at the same time
 
 sfx = { # dict of every sound effect

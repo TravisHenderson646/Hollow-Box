@@ -2,10 +2,10 @@ import pygame as pg
 
 from scripts.entities.physics_entity import PhysicsEntity
 
-class Crawlid(PhysicsEntity):
+class Slug(PhysicsEntity):
     def __init__(self, pos):
         self.size = (14, 10)
-        super().__init__('crawlid', pos, self.size)
+        super().__init__('slug', pos, self.size)
         self.speed = 0.2
         self.movement[0] = True
         self.hp = 3

@@ -9,7 +9,7 @@ from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
-from scripts.entities.crawlid import Crawlid
+from scripts.entities.slug import Slug
 from scripts.camera import Camera
 from states.game import Game
 
@@ -49,9 +49,9 @@ class Biome_1(Game):
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
         for tile in self.tilemap.enemies:
-            if 'crawlid' in tile.tags:
-                self.enemies.append(Crawlid(tile.rect.topleft))
-        self.enemies.append(Crawlid((100, -50)))
+            if 'slug' in tile.tags:
+                self.enemies.append(Slug(tile.rect.topleft))
+        self.enemies.append(Slug((100, -50)))
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         
@@ -120,8 +120,6 @@ class Biome_1(Game):
                     enemy.hp -= self.player.attack.damage
                     enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
                     enemy.got_hit_direction = Biome_1.player.attack.direction
-                    #self.enemies.remove(enemy)
-                    #self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                     setup.sfx['dash'].play()
             
     def got_hit_collision(self):

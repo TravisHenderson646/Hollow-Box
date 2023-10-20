@@ -12,7 +12,7 @@ class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
         self.active = False
-        self.speed = 0.2
+        self.speed = 0.4
         self.detach_buffer = 7
         self.ticks_detaching = 500
         self.direction = 1 # 1 or -1

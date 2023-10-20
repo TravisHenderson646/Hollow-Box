@@ -26,8 +26,8 @@ class Tilemap:
         self.tilemap = {}
         self.tiles = []
         self.enemies = []
-        self.solid_tiles = []
-        self.drawn_tiles = []
+        self.chunked_tiles = []
+        self.painted_tiles = []
         self.rendered_tiles = []
         self.current_breakable_tiles = []
         self.breakable_tiles = []
@@ -40,7 +40,7 @@ class Tilemap:
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['type'] in ['spawners']: # add 'spawns'
+        if tile['type'] in ['spawners', 'spawns', 'enemies']: # add 'spawns'
             image = pg.Surface((0, 0))
             width = 0
             height = 0
@@ -60,10 +60,10 @@ class Tilemap:
             size=(width, height))
         self.tiles.append(tile_instance)
         
-        if 'drawn' in tile_instance.tags:
-            self.drawn_tiles.append(tile_instance)
-        if 'solid' in tile_instance.tags:
-            self.solid_tiles.append(tile_instance)
+        if 'painted' in tile_instance.tags:
+            self.painted_tiles.append(tile_instance)
+        if 'chunked' in tile_instance.tags:
+            self.chunked_tiles.append(tile_instance)
         if 'breakable' in tile_instance.tags:
             self.breakable_tiles.append(tile_instance)
         if 'rendered' in tile_instance.tags:
@@ -93,9 +93,9 @@ class Tilemap:
         self.calculate_chunks()
 
     def calculate_map_dimensions(self):
-        max_left = min([tile.pos[0] for tile in self.drawn_tiles])
+        max_left = min([tile.pos[0] for tile in self.painted_tiles])
         max_right = max([tile.pos[0] + tile.size[0] for tile in self.tiles])
-        max_top = min([tile.pos[1] for tile in self.drawn_tiles])
+        max_top = min([tile.pos[1] for tile in self.painted_tiles])
         max_bottom = max([tile.pos[1] + tile.size[1] for tile in self.tiles])
         self.map_width = max_right - max_left
         self.map_height = max_bottom - max_top
@@ -118,7 +118,7 @@ class Tilemap:
                 chunk_topleft = ((x - 1) * chunk_width, (y - 1) * chunk_height)
                 chunk_test_rect = pg.Rect(chunk_topleft[0] - (chunk_width * 1.5), chunk_topleft[1]-(chunk_height*1.5), chunk_width * 3, chunk_height* 3) # make a test rect 3x the chunk
 
-                for tile in self.solid_tiles:
+                for tile in self.chunked_tiles:
                     if tile.rect.colliderect(chunk_test_rect):
                         current_chunk.append(tile.rect)      
     
@@ -176,7 +176,7 @@ class Tilemap:
                 self.panels[(x, y)] = pg.Surface((screen_width, screen_height))
                 current_panel = self.panels[(x, y)]
                 panel_offset = (x * screen_width, y * screen_height)
-                for tile in self.drawn_tiles:
+                for tile in self.painted_tiles:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
                 current_panel.set_colorkey((0, 0, 0))  
 
