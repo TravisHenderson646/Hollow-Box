@@ -16,19 +16,14 @@ class Level_1(Biome_1):
     
     def start(self):
         super().start()
-        
         if self.previous == 'menu': # if you came from level 2
             for tile in self.tilemap.entrances:
                 if 'west' in tile.tags: # find the tile for level 2
-                    Biome_1.player.rect.topleft = tile.pos
+                    Biome_1.player.rect.topleft = tile.rect.topleft
         if self.previous == 'level2': # if you came from level 2
             for tile in self.tilemap.entrances:
-                if 'west' in tile.tags: # find the tile for level 2
-                    Biome_1.player.rect.topleft = tile.pos
-        if self.previous == 'level3':
-            for tile in self.tilemap.entrances:
-                if 'east' in tile.tags:
-                    Biome_1.player.rect.topleft = tile.pos
+                if 'east' in tile.tags: # find the tile for level 2
+                    Biome_1.player.rect.topleft = tile.rect.topleft
         
     def process_action(self, action):
         super().process_action(action)
@@ -40,12 +35,9 @@ class Level_1(Biome_1):
         super().update()
         for tile in self.tilemap.exits:
             if tile.rect.colliderect(Biome_1.player.rect):
-                if 'west' in tile.tags:
-                    self.done = True
-                    self.next = 'level2'
                 if 'east' in tile.tags:
                     self.done = True
-                    self.next = 'level3'
+                    self.next = 'level2'
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)
