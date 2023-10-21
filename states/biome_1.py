@@ -49,9 +49,10 @@ class Biome_1(Game):
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
-        self.enemies.append(Slug((100, -50)))
+        #self.enemies.append(Slug((100, -50)))
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
+        
         
     def process_action(self, action):        
         super().process_action(action)
@@ -102,6 +103,8 @@ class Biome_1(Game):
         for enemy in self.enemies:
             if Biome_1.player.rect.colliderect(enemy.rect):
                 Biome_1.player.got_hit(enemy)
+        # for tile in spikes:
+    
         
     def update(self): # Main loop
         Biome_1.player.update(self.tilemap)
