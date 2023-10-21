@@ -56,6 +56,8 @@ Things to keep an eye on
 ####
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
+maybe spike tiles should reduce to rects before going in the list
+
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
 
 it wouldn't be that hard to implement chunking for sword attack collisions. This would enable making every piece of scenery breakable

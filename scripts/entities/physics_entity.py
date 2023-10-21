@@ -23,6 +23,7 @@ class PhysicsEntity:
         self.frame_movement = pg.Vector2(0, 0)        
         self.hot_chunk = (0, 0)
         self.dead = False
+        self.hit_by_spike = False
         self.ticks_since_got_hit = 500
         self.got_hit_direction = 0 # 0right 1down 2left 3up
         self.invulnerable = False

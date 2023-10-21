@@ -7216,7 +7216,7 @@
     },
     "46;24": {
       "type": "grass",
-      "variant": 3,
+      "variant": 4,
       "pos": [
         368,
         192
@@ -7228,7 +7228,7 @@
     },
     "46;23": {
       "type": "grass",
-      "variant": 3,
+      "variant": 4,
       "pos": [
         368,
         184

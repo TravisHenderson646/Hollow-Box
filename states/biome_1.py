@@ -42,14 +42,12 @@ class Biome_1(Game):
         self.particles = []
         self.sparks = []
         
-        # todo maybe i could call these just self.breakable_tiles and put it in the level not tilemap
         self.tilemap.current_breakable_tiles = self.tilemap.breakable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
-        #self.enemies.append(Slug((100, -50)))
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         
@@ -79,8 +77,10 @@ class Biome_1(Game):
 
             
     def attack_collision(self):
-        sfx_flag_break = False # To prevent sfx stacking
         Biome_1.player.attack.update()
+        
+        sfx_flag_break = False # To prevent sfx stacking
+        # breakable tiles
         for tile in self.tilemap.current_breakable_tiles.copy():
             if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
                 self.tilemap.current_breakable_tiles.remove(tile)
@@ -90,6 +90,17 @@ class Biome_1(Game):
                 sfx_flag_break = True
         if sfx_flag_break:
             setup.sfx['shoot'].play()
+        
+        # spikes
+        sfx_flag_spike = False
+        for rect in [tile.rect for tile in self.tilemap.spike_tiles]:
+            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(rect):
+                Biome_1.player.attack.ticks_since_knockback = 0
+                sfx_flag_spike = True
+        if sfx_flag_spike:
+            setup.sfx['dash']
+        
+        # enemies
         for enemy in self.enemies.copy():
             if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(enemy.rect):
                 if not enemy.invulnerable:
@@ -105,10 +116,15 @@ class Biome_1(Game):
                 Biome_1.player.got_hit(enemy)
         # for tile in spikes:
     
+    def hit_by_spike_collision(self):
+        for tile in self.tilemap.spike_tiles:
+            print(tile.rect, Biome_1.player.rect, Biome_1.player.vel.y)
+            if Biome_1.player.rect.colliderect(tile.rect):
+                Biome_1.player.got_hit(tile)
         
     def update(self): # Main loop
         Biome_1.player.update(self.tilemap)
-            
+        
         for enemy in self.enemies:
             if not enemy.dead:
                 enemy.update(self.tilemap)
@@ -117,15 +133,20 @@ class Biome_1(Game):
                 setup.sfx['hit'].play()
                 self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
 
+        
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
+
         
         if Biome_1.player.attack.ticks_since_last < Biome_1.player.attack.duration:
             self.attack_collision()
 
-        if not Biome_1.player.invulnerable:
-            self.got_hit_collision()
+        if not Biome_1.player.invulnerable: 
+            self.got_hit_collision()   
+            if Biome_1.player.hit_by_spike:
+                Biome_1.player.hit_by_spike = False
+                Biome_1.player.got_hit_by_spike()
             
         for particle in self.particles.copy():
             kill = particle.update()

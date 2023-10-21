@@ -46,7 +46,23 @@ class Player(PhysicsEntity):
         if enemy.rect.centerx > self.rect.centerx:
             self.knockback_direction = -1
         else:
+            self.knockback_direction = 1  
+                 
+    def got_hit_by_spike(self):
+        setup.sfx['hit'].play()
+        self.jump.active = False
+        self.wallslide.active = False
+        self.dash.active = False
+        self.collisions['down'] = False
+        self.hp -= 1
+        self.vel.y = -1.8
+        self.invulnerable = True
+        self.air_time = self.jump.coyote_time + 1
+        self.ticks_since_player_got_hit = 0
+        if self.flip:
             self.knockback_direction = 1
+        else:
+            self.knockback_direction = -1
      
     def update(self, tilemap):
         if setup.joysticks:

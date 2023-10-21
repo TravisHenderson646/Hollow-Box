@@ -31,7 +31,8 @@ class Tilemap:
         self.rendered_tiles = []
         self.current_breakable_tiles = []
         self.breakable_tiles = []
-        self.tagged_tiles = []
+        self.spike_tiles = []
+        
         self.panels = {}
         self.chunks = {}
         self.exits = []
@@ -74,6 +75,8 @@ class Tilemap:
             self.exits.append(tile_instance)
         if 'enemy' in tile_instance.tags:
             self.enemies.append(tile_instance)
+        if 'spike' in tile_instance.tags:
+            self.spike_tiles.append(tile_instance)
         
     def process_tilemap(self, path):
         with open(path, 'r') as file:
@@ -149,6 +152,11 @@ class Tilemap:
         for rect in [tile.rect for tile in self.current_breakable_tiles]:
             if entity.rect.colliderect(rect):
                 self.collide_x(entity, rect)
+        # spike tiles 
+        for rect in [tile.rect for tile in self.spike_tiles]:
+            if entity.rect.colliderect(rect):
+                self.collide_x(entity, rect)
+                entity.hit_by_spike = True
                     
         entity.rect.y += entity.frame_movement[1]
         for rect in self.chunks.get(entity.hot_chunk, {}):
@@ -158,6 +166,11 @@ class Tilemap:
         for rect in [tile.rect for tile in self.current_breakable_tiles]:
             if entity.rect.colliderect(rect):
                 self.collide_y(entity, rect)
+        # spike tiles 
+        for rect in [tile.rect for tile in self.spike_tiles]:
+            if entity.rect.colliderect(rect):
+                self.collide_y(entity, rect)
+                entity.hit_by_spike = True
                 
     def check_point(self, pos, chunk):
         for rect in self.chunks.get(chunk, {}):
