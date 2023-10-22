@@ -35,6 +35,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'particle/leaf': Animation(load_images('particles/leaf'), 20, False),
     'particle/particle': Animation(load_images('particles/particle'), 6, False),
     'slug/idle': Animation(load_images('entities/slug/idle'), image_dur=12),
+    'gnat/idle': Animation(load_images('entities/gnat/idle'), image_dur=12),
     'gun': load_image('gun.png'),
     'projectile': load_image('projectile.png'),
     'entrances': load_images('tiles/entrances'),

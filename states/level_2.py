@@ -24,7 +24,7 @@ class Level_2(Biome_1):
                     Biome_1.player.rect.topleft = tile.rect.topleft
         if self.previous == 'level3':
             for tile in self.tilemap.entrances:
-                if 'north' in tile.tags:
+                if 'east' in tile.tags:
                     Biome_1.player.rect.topleft = tile.rect.topleft
                     
     def process_action(self, action):  

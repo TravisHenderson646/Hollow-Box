@@ -179,6 +179,9 @@ class Tilemap:
         for rect in [tile.rect for tile in self.current_breakable_tiles]:
             if rect.collidepoint(pos[0], pos[1]):
                 return True
+        for rect in [tile.rect for tile in self.spike_tiles]:
+            if rect.collidepoint(pos[0], pos[1]):
+                return True
         return False
 
     def calculate_panels(self):

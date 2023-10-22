@@ -10,6 +10,7 @@ from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
 from scripts.entities.slug import Slug
+from scripts.entities.gnat import Gnat
 from scripts.camera import Camera
 from states.game import Game
 
@@ -48,6 +49,8 @@ class Biome_1(Game):
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
+            if 'gnat' in tile.tags:
+                self.enemies.append(Gnat(tile.rect.topleft))
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         
@@ -127,13 +130,11 @@ class Biome_1(Game):
         
         for enemy in self.enemies:
             if not enemy.dead:
-                enemy.update(self.tilemap)
+                enemy.update(self.tilemap, self.player)
             else:
                 self.enemies.remove(enemy)
                 setup.sfx['hit'].play()
                 self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-
-        
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
@@ -147,6 +148,8 @@ class Biome_1(Game):
             if Biome_1.player.hit_by_spike:
                 Biome_1.player.hit_by_spike = False
                 Biome_1.player.got_hit_by_spike()
+        else:
+            Biome_1.player.hit_by_spike = False
             
         for particle in self.particles.copy():
             kill = particle.update()

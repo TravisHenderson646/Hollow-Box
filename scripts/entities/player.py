@@ -83,7 +83,6 @@ class Player(PhysicsEntity):
         else:
             keys = pg.key.get_pressed()
             self.movement = pg.Vector2(keys[pg.K_d] - keys[pg.K_a], keys[pg.K_s] - keys[pg.K_w])
-        debugger.debug('laksfjd', self.rect.topleft)
         super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
