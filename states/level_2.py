@@ -19,7 +19,6 @@ class Level_2(Biome_1):
         
         if self.previous == 'level1': # if you came from level 1
             for tile in self.tilemap.entrances:
-                print(tile.rect.topleft, tile.pos)
                 if 'west' in tile.tags: # find the tile for level 1
                     Biome_1.player.rect.topleft = tile.rect.topleft
         if self.previous == 'level3':

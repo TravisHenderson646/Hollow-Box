@@ -117,7 +117,7 @@ class Tilemap:
         for y in range(chunks_required[1]):
             for x in range(chunks_required[0]):
                 self.chunks[(x - 1, y - 1)] = []
-                current_chunk = self.chunks.get((x - 1, y - 1), {})
+                current_chunk = self.chunks[(x - 1, y - 1)]
                 chunk_topleft = ((x - 1) * chunk_width, (y - 1) * chunk_height)
                 chunk_test_rect = pg.Rect(chunk_topleft[0] - (chunk_width * 1.5), chunk_topleft[1]-(chunk_height*1.5), chunk_width * 3, chunk_height* 3) # make a test rect 3x the chunk
 

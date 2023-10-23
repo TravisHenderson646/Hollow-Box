@@ -53,7 +53,7 @@ class PhysicsEntity:
         #gravity with terminal vel
         self.vel.y = min(self.terminal_vel, self.vel.y + 0.13)   
 
-        self.hot_chunk = (round((self.rect.x + setup.CHUNK_SIZE[0]/2) / setup.CHUNK_SIZE[0]), round((self.rect.y + setup.CHUNK_SIZE[1]/2) / setup.CHUNK_SIZE[1]))
+        self.hot_chunk = ((self.rect.centerx + setup.CHUNK_SIZE[0] / 2) // setup.CHUNK_SIZE[0], (self.rect.centery + setup.CHUNK_SIZE[1] / 2) // setup.CHUNK_SIZE[1])
         #self.animation.tick(self.animation_flag) also shouldn't this be at the end of the update? it will be off by 1 frame
         self.animation.tick()
         

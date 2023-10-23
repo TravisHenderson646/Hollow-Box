@@ -190,9 +190,10 @@ class Biome_1(Game):
             spark.render(canvas, self.camera.rounded_pos)   
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
- #       hot_chunk = (round((Biome_1.player.rect.x + 60/2) / 60), round((Biome_1.player.rect.y + 60/2) / 60))
-  #      for rect in self.tilemap.chunks.get(hot_chunk, {}):
-   #         canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+        hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
+        for rect in self.tilemap.chunks.get((hot_chunk), {}):
+            debugger.debug('alsfjd', (rect, Biome_1.player.rect.center))
+            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
         return canvas
     
