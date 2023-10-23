@@ -10,7 +10,8 @@ PHYSICS_TILES = {'grass', 'stone'}
     
 class Tile:
     def __init__(self, set, variant, pos, image, tags, size=(8, 8)):
-        self.set = set #maybe type should be group bc python type eh idc
+        self.name = ''
+        self.set = set
         self.variant = variant
         self.pos = pos
         self.image = image
@@ -19,6 +20,14 @@ class Tile:
         self.bottom_right = (pos[0] + self.size[0], pos[1] + self.size[1])
         self.panels = ((0, 0), (0, 0)) # (top_left, bottom_right)
         self.rect = pg.Rect(0, 0, 0, 0)
+        self.rendered = False
+        self.solid = False
+        self.breakable = False
+        self.clanker = False
+        self.north = False
+        self.south = False
+        self.east = False
+        self.west = False
     
 class Tilemap:
     def __init__(self, tile_size=32):
@@ -29,9 +38,10 @@ class Tilemap:
         self.chunked_tiles = []
         self.painted_tiles = []
         self.rendered_tiles = []
-        self.current_breakable_tiles = []
-        self.breakable_tiles = []
-        self.spike_tiles = []
+        self.current_rendered_tiles = []
+        self.current_attackable_tiles = []
+        self.attackable_tiles = []
+        self.solid_tiles = []
         
         self.panels = {}
         self.chunks = {}
@@ -41,7 +51,7 @@ class Tilemap:
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['type'] in ['spawners', 'spawns', 'enemies']: # add 'spawns'
+        if tile['type'] in ['spawners', 'spawns', 'enemies']:
             image = pg.Surface((0, 0))
             width = 0
             height = 0
@@ -65,18 +75,36 @@ class Tilemap:
             self.painted_tiles.append(tile_instance)
         if 'chunked' in tile_instance.tags:
             self.chunked_tiles.append(tile_instance)
-        if 'breakable' in tile_instance.tags:
-            self.breakable_tiles.append(tile_instance)
         if 'rendered' in tile_instance.tags:
             self.rendered_tiles.append(tile_instance)
+        if 'solid' in tile_instance.tags:
+            self.solid_tiles.append(tile_instance)
+        if 'enemy' in tile_instance.tags:
+            self.enemies.append(tile_instance)
         if 'entrance' in tile_instance.tags:
             self.entrances.append(tile_instance)
         if 'exit' in tile_instance.tags:
             self.exits.append(tile_instance)
-        if 'enemy' in tile_instance.tags:
-            self.enemies.append(tile_instance)
+        if 'north' in tile_instance.tags:
+            tile_instance.north = True
+        if 'south' in tile_instance.tags:
+            tile_instance.south = True
+        if 'east' in tile_instance.tags:
+            tile_instance.east = True
+        if 'west' in tile_instance.tags:
+            tile_instance.west = True
         if 'spike' in tile_instance.tags:
-            self.spike_tiles.append(tile_instance)
+            tile_instance.name = 'spike'
+        if 'decor' in tile_instance.tags:
+            tile_instance.name = 'decor'
+        if 'dirt' in tile_instance.tags:
+            tile_instance.name = 'dirt'
+        if 'breakable' in tile_instance.tags:
+            self.attackable_tiles.append(tile_instance) # this is important 
+            tile_instance.breakable = True
+        if 'clanker' in tile_instance.tags:
+            self.attackable_tiles.append(tile_instance) # this is important
+            tile_instance.clanker = True
         
     def process_tilemap(self, path):
         with open(path, 'r') as file:
@@ -117,7 +145,7 @@ class Tilemap:
         for y in range(chunks_required[1]):
             for x in range(chunks_required[0]):
                 self.chunks[(x - 1, y - 1)] = []
-                current_chunk = self.chunks[(x - 1, y - 1)]
+                current_chunk = self.chunks.get((x - 1, y - 1), {})
                 chunk_topleft = ((x - 1) * chunk_width, (y - 1) * chunk_height)
                 chunk_test_rect = pg.Rect(chunk_topleft[0] - (chunk_width * 1.5), chunk_topleft[1]-(chunk_height*1.5), chunk_width * 3, chunk_height* 3) # make a test rect 3x the chunk
 
@@ -143,43 +171,38 @@ class Tilemap:
                           
     def push_out_solid(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
-        # chunk tiles
+        
         entity.rect.x += entity.frame_movement[0]
+        
+        # chunk tiles
         for rect in self.chunks.get(entity.hot_chunk, {}):
             if entity.rect.colliderect(rect):
                 self.collide_x(entity, rect)
-        # breakable tiles
-        for rect in [tile.rect for tile in self.current_breakable_tiles]:
-            if entity.rect.colliderect(rect):
-                self.collide_x(entity, rect)
-        # spike tiles 
-        for rect in [tile.rect for tile in self.spike_tiles]:
-            if entity.rect.colliderect(rect):
-                self.collide_x(entity, rect)
-                entity.hit_by_spike = True
+        # special solid tiles
+        for tile in self.current_solid_tiles:
+            if entity.rect.colliderect(tile.rect):
+                self.collide_x(entity, tile.rect)
+                if tile.name == 'spike':
+                    entity.hit_by_spike = True
                     
         entity.rect.y += entity.frame_movement[1]
+        
+        # chunk tiles
         for rect in self.chunks.get(entity.hot_chunk, {}):
             if entity.rect.colliderect(rect):
                 self.collide_y(entity, rect)
-                    
-        for rect in [tile.rect for tile in self.current_breakable_tiles]:
-            if entity.rect.colliderect(rect):
-                self.collide_y(entity, rect)
-        # spike tiles 
-        for rect in [tile.rect for tile in self.spike_tiles]:
-            if entity.rect.colliderect(rect):
-                self.collide_y(entity, rect)
-                entity.hit_by_spike = True
+        # special solid tiles
+        for tile in self.current_solid_tiles:
+            if entity.rect.colliderect(tile.rect):
+                self.collide_y(entity, tile.rect)
+                if tile.name == 'spike':
+                    entity.hit_by_spike = True
                 
     def check_point(self, pos, chunk):
         for rect in self.chunks.get(chunk, {}):
             if rect.collidepoint(pos[0], pos[1]):
                 return True
-        for rect in [tile.rect for tile in self.current_breakable_tiles]:
-            if rect.collidepoint(pos[0], pos[1]):
-                return True
-        for rect in [tile.rect for tile in self.spike_tiles]:
+        for rect in [tile.rect for tile in self.current_solid_tiles]:
             if rect.collidepoint(pos[0], pos[1]):
                 return True
         return False
@@ -187,7 +210,7 @@ class Tilemap:
     def calculate_panels(self):
         screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
         panels_required = (self.map_width // screen_width + 1, self.map_height // screen_height + 1)
-        for y in range(panels_required[1]): # todo could try itertools.product here
+        for y in range(panels_required[1]):
             for x in range(panels_required[0]):
                 self.panels[(x, y)] = pg.Surface((screen_width, screen_height))
                 current_panel = self.panels[(x, y)]
@@ -196,9 +219,9 @@ class Tilemap:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
                 current_panel.set_colorkey((0, 0, 0))  
 
-            
-    def find_a_tiles_panels(self, tile): # do i even use this funtion once?
-        screen_width, screen_height = setup.CANVAS.get_width(), setup.CANVAS.get_height()
+        ### ??????????????????????????????????????????????????????????????    
+    def find_a_tiles_panels(self, tile): # todo: do i even use this funtion once?
+        screen_width, screen_height = setup.CANVAS_SIZE[0], setup.CANVAS_SIZE[1]
         tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
         br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
         tile.panels = (tl, br)

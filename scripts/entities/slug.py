@@ -37,7 +37,5 @@ class Slug(PhysicsEntity):
                 self.movement.x = -self.movement.x 
         ###           
         
-        
-        
         super().calculate_frame_movement()
 

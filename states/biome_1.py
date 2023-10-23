@@ -43,7 +43,10 @@ class Biome_1(Game):
         self.particles = []
         self.sparks = []
         
-        self.tilemap.current_breakable_tiles = self.tilemap.breakable_tiles.copy()
+        
+        
+        self.tilemap.current_solid_tiles = self.tilemap.solid_tiles.copy()
+        self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
         for tile in self.tilemap.enemies:
@@ -82,26 +85,24 @@ class Biome_1(Game):
     def attack_collision(self):
         Biome_1.player.attack.update()
         
-        sfx_flag_break = False # To prevent sfx stacking
-        # breakable tiles
-        for tile in self.tilemap.current_breakable_tiles.copy():
-            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
-                self.tilemap.current_breakable_tiles.remove(tile)
-                self.tilemap.current_rendered_tiles.remove(tile)
-                Biome_1.player.attack.ticks_since_knockback = 0
-                self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                sfx_flag_break = True
-        if sfx_flag_break:
-            setup.sfx['shoot'].play()
-        
-        # spikes
         sfx_flag_spike = False
-        for rect in [tile.rect for tile in self.tilemap.spike_tiles]:
-            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(rect):
-                Biome_1.player.attack.ticks_since_knockback = 0
-                sfx_flag_spike = True
+        sfx_flag_break = False # To prevent sfx stacking
+        for tile in self.tilemap.current_attackable_tiles.copy():
+            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
+                if tile.clanker:
+                    Biome_1.player.attack.ticks_since_knockback = 0
+                if tile.breakable:
+                    self.tilemap.current_attackable_tiles.remove(tile)
+                    if tile in self.tilemap.current_solid_tiles:
+                        self.tilemap.current_solid_tiles.remove(tile)
+                    if tile in self.tilemap.current_rendered_tiles:
+                        self.tilemap.current_rendered_tiles.remove(tile)
+                    self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                    #if tile.name == 'decor': sfx flag.... etc
+        if sfx_flag_break: # todo: fix sfx flags
+            setup.sfx['shoot'].play()
         if sfx_flag_spike:
-            setup.sfx['dash']
+            setup.sfx['dash'].play()
         
         # enemies
         for enemy in self.enemies.copy():
@@ -113,13 +114,13 @@ class Biome_1(Game):
                     enemy.got_hit_direction = Biome_1.player.attack.direction
                     setup.sfx['dash'].play()
             
-    def got_hit_collision(self):
+    def player_got_hit_collision(self):
         for enemy in self.enemies:
             if Biome_1.player.rect.colliderect(enemy.rect):
                 Biome_1.player.got_hit(enemy)
         # for tile in spikes:
     
-    def hit_by_spike_collision(self):
+    def hit_by_spike_collision(self): ###################p r e t t y sure this is unused hot garbage
         for tile in self.tilemap.spike_tiles:
             print(tile.rect, Biome_1.player.rect, Biome_1.player.vel.y)
             if Biome_1.player.rect.colliderect(tile.rect):
@@ -144,7 +145,7 @@ class Biome_1(Game):
             self.attack_collision()
 
         if not Biome_1.player.invulnerable: 
-            self.got_hit_collision()   
+            self.player_got_hit_collision()   
             if Biome_1.player.hit_by_spike:
                 Biome_1.player.hit_by_spike = False
                 Biome_1.player.got_hit_by_spike()

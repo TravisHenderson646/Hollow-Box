@@ -8,6 +8,47 @@ from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
+class PlayerWallSlide:
+    def __init__(self, player):
+        self.player = player
+        self.active = False
+        self.speed = 1
+        self.detach_buffer = 7
+        self.ticks_detaching = 50
+        self.direction = 1 # 1 or -1
+        
+    def start(self, direction):
+        self.active = True
+        self.player.jump.active = False
+        self.player.jump.can_double = True
+        self.player.dash.able = True
+        self.ticks_detaching = 0
+        self.direction = direction
+        
+    def update(self):
+        self.player.vel[1] = min(self.player.vel[1], self.speed)
+        self.player.set_animation('wallslide')
+        if self.direction == -1:
+            self.player.vel.x = -1
+            if self.player.movement.x == 1:
+                self.ticks_detaching += 1
+                if self.detach_buffer < self.ticks_detaching:
+                    self.active = False
+            if not self.player.collisions['left']:
+                self.player.rect.x += 1
+                self.active = False
+                self.player.vel.x = 0
+        else:
+            self.player.vel.x = 1
+            if self.player.movement.x == -1:
+                self.ticks_detaching += 1
+                if self.detach_buffer < self.ticks_detaching:
+                    self.active = False
+            if not self.player.collisions['right']:
+                self.player.rect.x -= 1
+                self.active = False
+                self.player.vel.x = 0
+
 
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
@@ -195,7 +236,7 @@ class PlayerJump:
         print('Double jump!!!')
         self.active = True
         self.can_double = False
-        self.player.vel.y = -2.3
+        self.player.vel.y = min(self.player.vel.y, -2.3)
         
     def start_walljump(self):
         print('Wall jump!!!')
@@ -296,7 +337,8 @@ class PlayerAttack:
                 self.player.vel.y = max(0, self.player.vel.y)
             case 1: #down pogo
                 if self.ticks_since_knockback == 0:
-                    self.player.vel.y = -2.35
+                    self.player.jump.active = False
+                    self.player.vel.y = min(self.player.vel.y, -2.35)
                     self.player.jump.can_double = True
                     self.player.dash.able = True
         self.ticks_since_knockback += 1
@@ -375,47 +417,6 @@ class PlayerDash:
         else:
             self.active = False
 
-
-class PlayerWallSlide:
-    def __init__(self, player):
-        self.player = player
-        self.active = False
-        self.speed = 1
-        self.detach_buffer = 7
-        self.ticks_detaching = 500
-        self.direction = 1 # 1 or -1
-        
-    def start(self, direction):
-        self.active = True
-        self.player.jump.active = False
-        self.player.jump.can_double = True
-        self.player.dash.able = True
-        self.ticks_detaching = 0
-        self.direction = direction
-        
-    def update(self):
-        self.player.vel[1] = min(self.player.vel[1], self.speed)
-        self.player.set_animation('wallslide')
-        if self.direction == -1:
-            self.player.vel.x = -1
-            if self.player.movement.x == 1:
-                self.ticks_detaching += 1
-                if self.detach_buffer < self.ticks_detaching:
-                    self.active = False
-            if not self.player.collisions['left']:
-                self.player.rect.x += 1
-                self.active = False
-                self.player.vel.x = 0
-        else:
-            self.player.vel.x = 1
-            if self.player.movement.x == -1:
-                self.ticks_detaching += 1
-                if self.detach_buffer < self.ticks_detaching:
-                    self.active = False
-            if not self.player.collisions['right']:
-                self.player.rect.x -= 1
-                self.active = False
-                self.player.vel.x = 0
 
         '''self.wallslide = False
         if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:

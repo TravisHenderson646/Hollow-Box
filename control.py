@@ -18,9 +18,10 @@ screenshake would be a really good example i think!!
 you have to fight a bouncing boss to get the jump? like 2nd room?
 
 if the player attacks an enemy the player loses any invulerability frames
-###
+###a
 FIRST LEVEL
 ###
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! first room ACTUALLY u have no sword and theres breakable blocks. then JUMPY BOSS 2.0
 first room you enter with sword put breakable blocks that you need to get up an immediate ledge, if they break them they can reset asap and learn that mechanic
 ###
 IMPORTANT TIDYING
@@ -60,7 +61,7 @@ maybe spike tiles should reduce to rects before going in the list
 
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
 
-it wouldn't be that hard to implement chunking for sword attack collisions. This would enable making every piece of scenery breakable
+could add a flag like 'spike' just for sfx purposes
 '''
 import sys
 
