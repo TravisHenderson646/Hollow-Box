@@ -230,11 +230,13 @@ class Player(PhysicsEntity):
         super().render(surf, offset)
         if self.attack.ticks_since_last < self.attack.duration:
             if self.attack.direction in [0, 2]:
-                pos = (self.attack.hitbox.x - offset[0], self.attack.hitbox.y - offset[1])
-                surf.blit(self.attack.surface,pos)
+                for hitbox, surface in zip(self.attack.hitboxes, self.attack.surfaces):
+                    pos = (hitbox.x - offset[0], hitbox.y - offset[1])
+                    surf.blit(surface,pos)
             if self.attack.direction in [1, 3]:
-                pos = (self.attack.hitbox_vertical.x - offset[0], self.attack.hitbox_vertical.y - offset[1])
-                surf.blit(self.attack.surface_vertical,pos)
+                for hitbox, surface in zip(self.attack.hitboxes_vertical, self.attack.surfaces_vertical):
+                    pos = (hitbox.x - offset[0], hitbox.y - offset[1])
+                    surf.blit(surface,pos)
 
 class PlayerJump:
     def __init__(self, player):
@@ -307,35 +309,72 @@ class PlayerAttack:
         self.direction = 0 # 0,1,2,3=right,down,left,up
         self.duration = 4
         self.cooldown = 33
-        self.hitbox = pg.FRect(0, 0, setup.PLAYER_COLLISION_SIZE[1] * 2, setup.PLAYER_COLLISION_SIZE[0] * 3)
-        self.hitbox_vertical = pg.FRect(0, 0, self.hitbox.height, self.hitbox.width)
-        self.hitbox_list = [self.hitbox, self.hitbox_vertical]
-        self.active_hitbox = 0
-        self.surface = pg.Surface(self.hitbox.size)
-        self.surface_vertical = pg.Surface(self.hitbox_vertical.size)    
-        self.surface.fill((30,50,20))
-        self.surface_vertical.fill((50,20,40))
         self.ticks_since_input = 500
         self.ticks_since_knockback = 500
         self.knockback_duration = 7
         self.buffer = 7
         self.ticks_since_last = 500
         self.in_knockback = False
+        self.active_hitboxes = 0 # could be active hitboxes
+        
+        self.hitboxes = []
+        self.hitboxes_vertical = []
+        self.surfaces = []
+        self.surfaces_vertical = [] # these could be in a dict with names
+        self.hitboxes.append(pg.FRect(0, 0, 13, 20))
+        self.hitboxes.append(pg.FRect(0, 0, 13, 16))
+        self.hitboxes.append(pg.FRect(0, 0, 20,  8))
+        self.hitboxes.append(pg.FRect(0, 0, 6 ,  4))
+        self.hitboxes_vertical.append(pg.FRect(0, 0, 20, 13))
+        self.hitboxes_vertical.append(pg.FRect(0, 0, 16, 13))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  8, 20))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  4, 6))
+        self.hitbox_list = [self.hitboxes, self.hitboxes_vertical]
+        for hitbox in self.hitboxes:
+            self.surfaces.append(pg.Surface(hitbox.size))
+            self.surfaces[-1].fill((150,50,100))
+        for hitbox in self.hitboxes_vertical:
+            self.surfaces_vertical.append(pg.Surface(hitbox.size))
+            self.surfaces_vertical[-1].fill((150,50,100))
         
     def update(self):
         match self.direction:
             case 2: #left
-                self.hitbox.centery = self.player.rect.centery
-                self.hitbox.right = self.player.rect.centerx
+                self.hitboxes[0].centery = self.player.rect.centery
+                self.hitboxes[0].right = self.player.rect.centerx
+                self.hitboxes[1].centery = self.player.rect.centery
+                self.hitboxes[1].right = self.hitboxes[0].left
+                self.hitboxes[2].centery = self.player.rect.centery
+                self.hitboxes[2].right = self.hitboxes[1].left
+                self.hitboxes[3].centery = self.player.rect.centery
+                self.hitboxes[3].right = self.hitboxes[2].left
             case 0: #right
-                self.hitbox.centery = self.player.rect.centery
-                self.hitbox.left = self.player.rect.centerx
+                self.hitboxes[0].centery = self.player.rect.centery
+                self.hitboxes[0].left = self.player.rect.centerx
+                self.hitboxes[1].centery = self.player.rect.centery
+                self.hitboxes[1].left = self.hitboxes[0].right
+                self.hitboxes[2].centery = self.player.rect.centery
+                self.hitboxes[2].left = self.hitboxes[1].right
+                self.hitboxes[3].centery = self.player.rect.centery
+                self.hitboxes[3].left = self.hitboxes[2].right
             case 3: #up
-                self.hitbox_vertical.centerx = self.player.rect.centerx
-                self.hitbox_vertical.bottom = self.player.rect.centery
+                self.hitboxes_vertical[0].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[0].bottom = self.player.rect.centery
+                self.hitboxes_vertical[1].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[1].bottom = self.hitboxes_vertical[0].top
+                self.hitboxes_vertical[2].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[2].bottom = self.hitboxes_vertical[1].top
+                self.hitboxes_vertical[3].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[3].bottom = self.hitboxes_vertical[2].top
             case 1: #down
-                self.hitbox_vertical.centerx = self.player.rect.centerx
-                self.hitbox_vertical.top = self.player.rect.centery
+                self.hitboxes_vertical[0].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[0].top = self.player.rect.centery
+                self.hitboxes_vertical[1].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[1].top = self.hitboxes_vertical[0].bottom
+                self.hitboxes_vertical[2].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[2].top = self.hitboxes_vertical[1].bottom
+                self.hitboxes_vertical[3].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[3].top = self.hitboxes_vertical[2].bottom
     
     def check(self):
         if self.ticks_since_last > self.cooldown:
@@ -350,22 +389,22 @@ class PlayerAttack:
         if self.player.wallslide.active:
             if self.player.wallslide.direction == 1:
                 self.direction = 2 #left
-                self.active_hitbox = 0
+                self.active_hitboxes = 0
             if self.player.wallslide.direction == -1:
                 self.direction = 0 #right
-                self.active_hitbox = 0
+                self.active_hitboxes = 0
         elif (self.player.movement.y == 1) and (not self.player.collisions['down']):
             self.direction = 1 #down
-            self.active_hitbox = 1
+            self.active_hitboxes = 1
         elif self.player.movement.y == -1:
             self.direction = 3 #up
-            self.active_hitbox = 1
+            self.active_hitboxes = 1
         elif self.player.flip:
             self.direction = 2 #left
-            self.active_hitbox = 0
+            self.active_hitboxes = 0
         else:
             self.direction = 0 #right
-            self.active_hitbox = 0
+            self.active_hitboxes = 0
                 
     def knockback(self):
         match self.direction:

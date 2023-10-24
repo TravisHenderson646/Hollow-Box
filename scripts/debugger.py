@@ -8,7 +8,7 @@ class _Debugger:
         self.infos = {}
         
         self.debugger_panel_offset = (5, setup.SCREEN_SIZE[1] // 2 - 40)
-        self.font = pg.font.SysFont('Ariel', 20)
+        self.font = pg.font.SysFont('arial', 20)
         
     def debug(self, key, info):
         self.infos[key] = self.font.render(str(info), True, (200, 200, 200),(0, 0, 0))

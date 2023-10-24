@@ -1,7 +1,9 @@
 '''
 ####
 IDEAS
-####
+#### 
+attack is like a upward jab with a stinger
+
 its fun for now but i dont think im going to want the pogo to reset everything, its too centralizing late game
 peach float
 landing could reset attack cooldown
@@ -62,6 +64,10 @@ maybe spike tiles should reduce to rects before going in the list
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
 
 could add a flag like 'spike' just for sfx purposes
+###
+SFX to make
+###
+player hurt, spike clank, dirt clank, enemy hit, weapon swoosh
 '''
 import sys
 

@@ -88,7 +88,7 @@ class Biome_1(Game):
         sfx_flag_spike = False
         sfx_flag_break = False # To prevent sfx stacking
         for tile in self.tilemap.current_attackable_tiles.copy():
-            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(tile.rect):
+            if tile.rect.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
                 if tile.clanker:
                     Biome_1.player.attack.ticks_since_knockback = 0
                 if tile.breakable:
@@ -106,8 +106,8 @@ class Biome_1(Game):
         
         # enemies
         for enemy in self.enemies.copy():
-            if Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitbox].colliderect(enemy.rect):
-                if not enemy.invulnerable:
+            if enemy.rect.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+                if not enemy.invulnerable: # todo: this check should go before collision bc faster
                     Biome_1.player.attack.ticks_since_knockback = 0
                     enemy.hp -= self.player.attack.damage
                     enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
@@ -192,10 +192,9 @@ class Biome_1(Game):
             spark.render(canvas, self.camera.rounded_pos)   
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-        hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
-        for rect in self.tilemap.chunks.get((hot_chunk), {}):
-            debugger.debug('alsfjd', (rect, Biome_1.player.rect.center))
-            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+  #      hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
+   #     for rect in self.tilemap.chunks.get((hot_chunk), {}):
+     #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
         return canvas
     
