@@ -205,6 +205,49 @@ class Tilemap:
         for rect in [tile.rect for tile in self.current_solid_tiles]:
             if rect.collidepoint(pos[0], pos[1]):
                 return True
+        return False    
+                
+    def check_wallslide(self, player):
+        if player.wallslide.direction == -1:
+        
+            top_check = (player.rect.left - 3, player.rect.top)
+            bottom_check = (player.rect.left - 3, player.rect.bottom)
+        
+            for rect in self.chunks.get(player.hot_chunk, {}):
+                if rect.collidepoint(top_check[0], top_check[1]):
+                    return True
+                if rect.collidepoint(bottom_check[0], bottom_check[1]):
+                    return True
+            for tile in self.current_solid_tiles:
+                if tile.rect.collidepoint(top_check[0], top_check[1]):
+                    if tile.name == 'spike':
+                        #return False
+                        player.hit_by_spike = True
+                    return True
+                if tile.rect.collidepoint(bottom_check[0], bottom_check[1]):
+                    if tile.name == 'spike':
+                        #return False
+                        player.hit_by_spike = True
+                    return True
+        if player.wallslide.direction == 1:
+            top_check = (player.rect.right + 3, player.rect.top)
+            bottom_check = (player.rect.right + 3, player.rect.bottom)
+            for rect in self.chunks.get(player.hot_chunk, {}):
+                if rect.collidepoint(top_check[0], top_check[1]):
+                    return True
+                if rect.collidepoint(bottom_check[0], bottom_check[1]):
+                    return True
+            for tile in self.current_solid_tiles:
+                if tile.rect.collidepoint(top_check[0], top_check[1]):
+                    if tile.name == 'spike':
+                        #return False
+                        player.hit_by_spike = True
+                    return True
+                if tile.rect.collidepoint(bottom_check[0], bottom_check[1]):
+                    if tile.name == 'spike':
+                        #return False
+                        player.hit_by_spike = True
+                    return True
         return False
 
     def calculate_panels(self):

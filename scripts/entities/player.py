@@ -12,9 +12,9 @@ class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
         self.active = False
-        self.speed = 1
+        self.speed = 0.5
         self.detach_buffer = 7
-        self.ticks_detaching = 50
+        self.ticks_detaching = 500
         self.direction = 1 # 1 or -1
         
     def start(self, direction):
@@ -25,10 +25,30 @@ class PlayerWallSlide:
         self.ticks_detaching = 0
         self.direction = direction
         
-    def update(self):
+    def update(self, tilemap):
         self.player.vel[1] = min(self.player.vel[1], self.speed)
         self.player.set_animation('wallslide')
         if self.direction == -1:
+            self.player.flip = True
+            self.active = tilemap.check_wallslide(self.player)
+            if self.player.movement.x == 1:
+                self.ticks_detaching += 1
+                if self.ticks_detaching > self.detach_buffer:
+                    self.active = False
+            else:
+                self.ticks_detaching = 0
+        if self.direction == 1:
+            self.player.flip = False
+            self.active = tilemap.check_wallslide(self.player)
+            if self.player.movement.x == -1:
+                self.ticks_detaching += 1
+                if self.ticks_detaching > self.detach_buffer:
+                    self.active = False
+            else:
+                self.ticks_detaching = 0
+        
+        
+        '''if self.direction == -1:
             self.player.vel.x = -1
             if self.player.movement.x == 1:
                 self.ticks_detaching += 1
@@ -47,7 +67,7 @@ class PlayerWallSlide:
             if not self.player.collisions['right']:
                 self.player.rect.x -= 1
                 self.active = False
-                self.player.vel.x = 0
+                self.player.vel.x = 0'''
 
 
 class Player(PhysicsEntity):
@@ -132,6 +152,7 @@ class Player(PhysicsEntity):
         self.jump.ticks_since_walljump += 1
         self.air_time += 1
         
+        
         if self.air_time > self.jump.coyote_time: #base this on vel[1] > 0.3 instead
             self.jump.able = False
             self.set_animation('jump')    
@@ -146,12 +167,18 @@ class Player(PhysicsEntity):
             self.air_time = 0
             if self.movement.x:
                 self.set_animation('run')
-        elif self.collisions['right'] or self.collisions['left']:
+        elif self.collisions['right']:
             if not self.jump.active:
                 if not self.vel.x:
-                    if not self.wallslide.active:
-                        pass
-                     #   self.wallslide.start(self.movement.x)
+                    if self.movement.x == 1:
+                        if not self.wallslide.active:
+                            self.wallslide.start(self.movement.x)
+        elif self.collisions['left']:
+            if not self.jump.active:
+                if not self.vel.x:
+                    if self.movement.x == -1:
+                        if not self.wallslide.active:
+                            self.wallslide.start(self.movement.x)
                         
         if not self.dash.active:
             if self.jump.ticks_since_input < self.jump.buffer:
@@ -175,7 +202,7 @@ class Player(PhysicsEntity):
                 self.vel.x = self.knockback_speed * self.knockback_direction
                 
         if self.wallslide.active:
-            self.wallslide.update()
+            self.wallslide.update(tilemap)
         if self.jump.active:
             self.jump.update()
         if self.dash.active:
@@ -190,8 +217,13 @@ class Player(PhysicsEntity):
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
         self.attack.ticks_since_input += 1
+        
+        debugger.debug('dd', self.invulnerable)
 
-        super().calculate_frame_movement()
+        if self.wallslide.active:
+            self.frame_movement = pg.Vector2(self.vel.x, self.vel.y)  
+        else:
+            super().calculate_frame_movement()
         self.jump.walljump_active = False
                        
     def render(self, surf, offset):
@@ -307,14 +339,22 @@ class PlayerAttack:
     
     def check(self):
         if self.ticks_since_last > self.cooldown:
-            if self.ticks_since_input > 0:
-                print('Buffered attack alert!!!', self.ticks_since_input)
-            self.start()
+            if not self.player.dash.active:
+                if self.ticks_since_input > 0:
+                    print('Buffered attack alert!!!', self.ticks_since_input)
+                self.start()
             
     def start(self):
         self.ticks_since_last = 0 # this is what actually causes the attack in update()
         self.ticks_since_input = 100
-        if (self.player.movement.y == 1) and (not self.player.collisions['down']):
+        if self.player.wallslide.active:
+            if self.player.wallslide.direction == 1:
+                self.direction = 2 #left
+                self.active_hitbox = 0
+            if self.player.wallslide.direction == -1:
+                self.direction = 0 #right
+                self.active_hitbox = 0
+        elif (self.player.movement.y == 1) and (not self.player.collisions['down']):
             self.direction = 1 #down
             self.active_hitbox = 1
         elif self.player.movement.y == -1:

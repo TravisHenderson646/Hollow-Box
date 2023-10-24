@@ -18,14 +18,14 @@ screenshake would be a really good example i think!!
 you have to fight a bouncing boss to get the jump? like 2nd room?
 
 if the player attacks an enemy the player loses any invulerability frames
-###a
+####
 FIRST LEVEL
-###
+####
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! first room ACTUALLY u have no sword and theres breakable blocks. then JUMPY BOSS 2.0
 first room you enter with sword put breakable blocks that you need to get up an immediate ledge, if they break them they can reset asap and learn that mechanic
-###
+####
 IMPORTANT TIDYING
-###
+####
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
 the chunks should probably be based on the largest enemy in the level?
     the chunks could also crop the colidable rects 

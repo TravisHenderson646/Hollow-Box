@@ -8,7 +8,7 @@ class Slug(PhysicsEntity):
         super().__init__('slug', pos, self.size)
         self.speed = 0.3
         self.movement.x = -1
-        self.hp = 3
+        self.hp = 3000
         
     def update(self, tilemap, player):
         super().update()

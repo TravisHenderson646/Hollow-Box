@@ -147,6 +147,7 @@ class Biome_1(Game):
         if not Biome_1.player.invulnerable: 
             self.player_got_hit_collision()   
             if Biome_1.player.hit_by_spike:
+                Biome_1.player.wallslide.active = False
                 Biome_1.player.hit_by_spike = False
                 Biome_1.player.got_hit_by_spike()
         else:
