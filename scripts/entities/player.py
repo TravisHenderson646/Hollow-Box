@@ -8,68 +8,6 @@ from scripts import setup
 from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
-class PlayerWallSlide:
-    def __init__(self, player):
-        self.player = player
-        self.active = False
-        self.speed = 0.5
-        self.detach_buffer = 7
-        self.ticks_detaching = 500
-        self.direction = 1 # 1 or -1
-        
-    def start(self, direction):
-        self.active = True
-        self.player.jump.active = False
-        self.player.jump.can_double = True
-        self.player.dash.able = True
-        self.ticks_detaching = 0
-        self.direction = direction
-        
-    def update(self, tilemap):
-        self.player.vel[1] = min(self.player.vel[1], self.speed)
-        self.player.set_animation('wallslide')
-        if self.direction == -1:
-            self.player.flip = True
-            self.active = tilemap.check_wallslide(self.player)
-            if self.player.movement.x == 1:
-                self.ticks_detaching += 1
-                if self.ticks_detaching > self.detach_buffer:
-                    self.active = False
-            else:
-                self.ticks_detaching = 0
-        if self.direction == 1:
-            self.player.flip = False
-            self.active = tilemap.check_wallslide(self.player)
-            if self.player.movement.x == -1:
-                self.ticks_detaching += 1
-                if self.ticks_detaching > self.detach_buffer:
-                    self.active = False
-            else:
-                self.ticks_detaching = 0
-        
-        
-        '''if self.direction == -1:
-            self.player.vel.x = -1
-            if self.player.movement.x == 1:
-                self.ticks_detaching += 1
-                if self.detach_buffer < self.ticks_detaching:
-                    self.active = False
-            if not self.player.collisions['left']:
-                self.player.rect.x += 1
-                self.active = False
-                self.player.vel.x = 0
-        else:
-            self.player.vel.x = 1
-            if self.player.movement.x == -1:
-                self.ticks_detaching += 1
-                if self.detach_buffer < self.ticks_detaching:
-                    self.active = False
-            if not self.player.collisions['right']:
-                self.player.rect.x -= 1
-                self.active = False
-                self.player.vel.x = 0'''
-
-
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
@@ -77,11 +15,10 @@ class Player(PhysicsEntity):
         self.jump = PlayerJump(self)
         self.dash = PlayerDash(self)
         self.wallslide = PlayerWallSlide(self)
+        self.lt = False
         
         self.speed = 1.1
         self.hp = 5 
-        
-        self.lt = False
         
         self.invulnerable = False
         self.knockback_speed = 3
@@ -118,8 +55,8 @@ class Player(PhysicsEntity):
         self.hp -= 1
         self.vel.y = -1.8
         self.invulnerable = True
-        self.air_time = self.jump.coyote_time + 1
         self.ticks_since_player_got_hit = 0
+        self.air_time = self.jump.coyote_time + 1
         if self.flip:
             self.knockback_direction = 1
         else:
@@ -141,9 +78,15 @@ class Player(PhysicsEntity):
                 self.movement.y = 1
             else:
                 self.movement.y = 0
+            axis4 = setup.joysticks[0].get_axis(4)
+            if axis4 > 0.8:
+                self.lt = True
+            else:
+                self.lt = False
         else:
             keys = pg.key.get_pressed()
             self.movement = pg.Vector2(keys[pg.K_d] - keys[pg.K_a], keys[pg.K_s] - keys[pg.K_w])
+            self.lt = keys[pg.K_i]
         super().update()    
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
@@ -209,7 +152,7 @@ class Player(PhysicsEntity):
             self.dash.update()
             
         
-        # add can_rt like jump.able
+        # add can_lt like jump.able
         #!!! could decay over time based on length of hover
         if self.lt:
             self.vel.y = min(.4,self.vel.y)
@@ -421,7 +364,46 @@ class PlayerAttack:
                     self.player.jump.can_double = True
                     self.player.dash.able = True
         self.ticks_since_knockback += 1
-                
+
+class PlayerWallSlide:
+    def __init__(self, player):
+        self.player = player
+        self.active = False
+        self.speed = 0.5
+        self.detach_buffer = 7
+        self.ticks_detaching = 500
+        self.direction = 1 # 1 or -1
+        
+    def start(self, direction):
+        self.active = True
+        self.player.jump.active = False
+        self.player.jump.can_double = True
+        self.player.dash.able = True
+        self.ticks_detaching = 0
+        self.direction = direction
+        
+    def update(self, tilemap):
+        self.player.vel[1] = min(self.player.vel[1], self.speed)
+        self.player.set_animation('wallslide')
+        if self.direction == -1:
+            self.player.flip = True
+            self.active = tilemap.check_wallslide(self.player)
+            if self.player.movement.x == 1:
+                self.ticks_detaching += 1
+                if self.ticks_detaching > self.detach_buffer:
+                    self.active = False
+            else:
+                self.ticks_detaching = 0
+        if self.direction == 1:
+            self.player.flip = False
+            self.active = tilemap.check_wallslide(self.player)
+            if self.player.movement.x == -1:
+                self.ticks_detaching += 1
+                if self.ticks_detaching > self.detach_buffer:
+                    self.active = False
+            else:
+                self.ticks_detaching = 0    
+                            
 class PlayerDash:
     def __init__(self, player):
         self.player = player

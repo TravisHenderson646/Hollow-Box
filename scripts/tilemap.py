@@ -135,7 +135,6 @@ class Tilemap:
         map_offset = (max_left, max_top)
         for tile in self.tiles.copy():
             tile.pos = (tile.pos[0] - map_offset[0], tile.pos[1] - map_offset[1])
-            self.find_a_tiles_panels(tile)
             tile.rect = pg.Rect(tile.pos[0], tile.pos[1], tile.image.get_width(), tile.image.get_height())     
 
     def calculate_chunks(self):
@@ -260,14 +259,7 @@ class Tilemap:
                 panel_offset = (x * screen_width, y * screen_height)
                 for tile in self.painted_tiles:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
-                current_panel.set_colorkey((0, 0, 0))  
-
-        ### ??????????????????????????????????????????????????????????????    
-    def find_a_tiles_panels(self, tile): # todo: do i even use this funtion once?
-        screen_width, screen_height = setup.CANVAS_SIZE[0], setup.CANVAS_SIZE[1]
-        tl = (tile.pos[0] // screen_width, tile.pos[1] // screen_height)
-        br = ((tile.bottom_right[0] // screen_width, tile.bottom_right[1] // screen_height))
-        tile.panels = (tl, br)
+                current_panel.set_colorkey((0, 0, 0))
 
     def render(self, surf, offset):
         '''Takes the display surface and screen scroll and renders the relevant tilemap panels'''

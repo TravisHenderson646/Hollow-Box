@@ -21,8 +21,8 @@ class Level_3(Biome_1):
                 if 'north' in tile.tags: # find the tile for level 2
                     Biome_1.player.rect.topleft = tile.rect.topleft
                     
-    def process_event(self, event):
-        super().process_event(event)
+    def process_action(self, event):
+        super().process_action(event)
 
     def update(self):
         super().update()

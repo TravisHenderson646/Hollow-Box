@@ -17,13 +17,14 @@ can send any random thing through the event queue apparently
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
 
-you have to fight a bouncing boss to get the jump? like 2nd room?
 
 if the player attacks an enemy the player loses any invulerability frames
 ####
 FIRST LEVEL
 ####
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! first room ACTUALLY u have no sword and theres breakable blocks. then JUMPY BOSS 2.0
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! first room ACTUALLY 
+sword to the left breakable wall to the right, you can't jump.
+
 first room you enter with sword put breakable blocks that you need to get up an immediate ledge, if they break them they can reset asap and learn that mechanic
 ####
 IMPORTANT TIDYING
@@ -62,12 +63,10 @@ Could have 3 chunk dicts for each map, one for small, big, boss size collisions 
 maybe spike tiles should reduce to rects before going in the list
 
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
-
-could add a flag like 'spike' just for sfx purposes
 ###
 SFX to make
 ###
-player hurt, spike clank, dirt clank, enemy hit, weapon swoosh
+player hurt, spike clank, dirt clank, enemy hit, weapon swoosh, flower slashed
 '''
 import sys
 
@@ -77,7 +76,7 @@ from scripts import setup # pg.init right away!
 
 from states import level_1, level_2, level_3, menu #### pg.init first!
 from scripts.debugger import debugger
-
+from scripts.event_processor import process_event
 
 class Control():
     def __init__(self, size=(1280, 720)):
@@ -109,7 +108,7 @@ class Control():
             if event.type == pg.KEYUP:
                 if event.key == 1073741894: # print screen button, triggers both on release idk why
                     pg.image.save(self.canvas, 'art/screenshots/screenshot.png')
-            action = setup.process_event(event)
+            action = process_event(event)
             self.state.process_action(action)
 
     def change_state(self):

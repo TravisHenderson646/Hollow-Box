@@ -57,7 +57,6 @@ class Biome_1(Game):
         for enemy in self.enemies:
             self.solid_entities.append(enemy)
         
-        
     def process_action(self, action):        
         super().process_action(action)
         if action == 'quit':
@@ -67,8 +66,6 @@ class Biome_1(Game):
             self.next = 'menu'
         elif action == 'rt':
             Biome_1.player.dash.ticks_since_input = 0
-        elif action == 'lt':
-            self.player.lt = True
         elif action == 'a':
             Biome_1.player.jump.ticks_since_input = 0
             Biome_1.player.jump.held = True
@@ -76,11 +73,8 @@ class Biome_1(Game):
             Biome_1.player.attack.ticks_since_input = 0
         elif action == 'unrt':
             pass
-        elif action == 'unlt':
-            self.player.lt = False
         elif action == 'una':
             Biome_1.player.jump.held = False       
-
             
     def attack_collision(self):
         Biome_1.player.attack.update()
@@ -106,9 +100,10 @@ class Biome_1(Game):
         
         # enemies
         for enemy in self.enemies.copy():
-            if enemy.rect.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
-                if not enemy.invulnerable: # todo: this check should go before collision bc faster
+            if not enemy.invulnerable:
+                if enemy.rect.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
                     Biome_1.player.attack.ticks_since_knockback = 0
+                    Biome_1.player.invulnerable = False
                     enemy.hp -= self.player.attack.damage
                     enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
                     enemy.got_hit_direction = Biome_1.player.attack.direction
@@ -118,13 +113,6 @@ class Biome_1(Game):
         for enemy in self.enemies:
             if Biome_1.player.rect.colliderect(enemy.rect):
                 Biome_1.player.got_hit(enemy)
-        # for tile in spikes:
-    
-    def hit_by_spike_collision(self): ###################p r e t t y sure this is unused hot garbage
-        for tile in self.tilemap.spike_tiles:
-            print(tile.rect, Biome_1.player.rect, Biome_1.player.vel.y)
-            if Biome_1.player.rect.colliderect(tile.rect):
-                Biome_1.player.got_hit(tile)
         
     def update(self): # Main loop
         Biome_1.player.update(self.tilemap)
@@ -139,7 +127,6 @@ class Biome_1(Game):
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
-
         
         if Biome_1.player.attack.ticks_since_last < Biome_1.player.attack.duration:
             self.attack_collision()

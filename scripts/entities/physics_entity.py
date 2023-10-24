@@ -17,7 +17,7 @@ class PhysicsEntity:
         self.terminal_vel = 4
         self.animation = ''
         self.last_movement = pg.Vector2()
-        self.anim_offset = pg.Vector2(0, 0) #todo: this apparently a hack soln to match the idle to the run img padding and more
+        self.anim_offset = pg.Vector2(0, 0)
         self.flip = False
         self.set_animation('idle') # could use self.animation_flag
         self.frame_movement = pg.Vector2(0, 0)        
