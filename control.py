@@ -11,14 +11,20 @@ wall climb like celest w button cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
 floating hurtboxes to pogo
 
-slime jumping enemy
-
 can send any random thing through the event queue apparently 
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
 
-
 if the player attacks an enemy the player loses any invulerability frames
+
+textbox in foreground so it moves parralax
+
+breakables take more than 1 hit
+####
+ENEMIES
+####
+jumping slime
+jazzball just bouncing around
 ####
 FIRST LEVEL
 ####
@@ -58,6 +64,8 @@ walljumps give back the double jump and or (not) dash
 ####
 Things to keep an eye on
 ####
+CLICKING X DOES NOT CLOSE THE GAME WTF todo
+
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
 maybe spike tiles should reduce to rects before going in the list

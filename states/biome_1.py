@@ -193,8 +193,6 @@ class Biome_1(Game):
               
         for dialogue_box in self.dialogue_boxes.values():
             if dialogue_box.active:
-                
-                print('lafjd')
                 dialogue_box.render(canvas, self.camera.rounded_pos) 
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 

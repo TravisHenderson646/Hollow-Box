@@ -21,7 +21,6 @@ class Gnat(PhysicsEntity):
         if self.active:
             self.vel = pg.Vector2(pg.Vector2(player.rect.center) - pg.Vector2(self.rect.center)).normalize() * self.speed
             if pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) > self.active_radius:
-                print('deactivated')
                 self.active = False
         elif pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) < self.idle_radius:
             self.active = True

@@ -24,6 +24,7 @@ for x in range(original.get_width()):
 class DialogueBox:
     def __init__(self, size, text):   
         self.text = text    
+        self.remaining_text = text
         self.size = size
         self.surf = pg.Surface(self.size).convert()
         self.character_images = character_images
@@ -32,6 +33,7 @@ class DialogueBox:
         self.kerning = 1
         self.line_spacing = 1
         self.active = False
+        self.still_talking = False
         self.current_x = 0
         self.current_y = 0
         self.current_character = 0
@@ -39,12 +41,36 @@ class DialogueBox:
         self.duration = 120
         
     def start(self):
-        self.active = True
-        self.current_x = 0
-        self.current_y = 0
-        self.current_character = 0
-        self.ticks_open = 0
-        self.surf = pg.Surface(self.size).convert()
+        if not self.active:
+            self.active = True
+            self.still_talking = True
+            self.current_x = 0
+            self.current_y = 0
+            self.current_character = 0
+            self.ticks_open = 0
+            self.surf = pg.Surface(self.size).convert()
+        elif self.still_talking:
+            self.player_skip_chat()
+        else:
+            self.active = False
+            
+    def player_skip_chat(self):
+        self.still_talking = False
+        for character in self.text[self.current_character:]:
+            #check if it fits
+            current_image = self.character_images[character]
+            check_x = self.current_x + current_image.get_width()
+            if check_x > self.size[0]:
+                if character != ' ':
+                    self.current_x = 0
+                    self.current_y += 8
+                    check_y = self.current_y + self.height + self.line_spacing
+                    if check_y > self.size[1]:
+                        pass
+            self.surf.blit(current_image, (self.current_x, self.current_y))
+            self.current_x += current_image.get_width() + self.kerning
+            self.current_character += 1
+            
         
     def update(self):
         if self.current_character != len(self.text):
@@ -64,6 +90,7 @@ class DialogueBox:
             self.current_character += 1
         else:
             self.ticks_open += 1
+            self.still_talking = False
             if self.ticks_open > self.duration:
                 self.active = False
             

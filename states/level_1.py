@@ -33,7 +33,6 @@ class Level_1(Biome_1):
         for tile in self.tilemap.interactable_tiles:
             if tile.rect.colliderect(Biome_1.player.rect):
                 if 'chest1' in tile.tags:
-                    print('startstart')
                     self.dialogue_boxes['chest1'].pos = (tile.rect.x - 80, tile.rect.y - 60)
                     self.dialogue_boxes['chest1'].start()
         
