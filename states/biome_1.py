@@ -29,6 +29,7 @@ class Biome_1(Game):
         self.map_id = 0
         self.enemies = 0
         self.sparks = []
+        self.dialogue_boxes = {}
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
@@ -42,8 +43,6 @@ class Biome_1(Game):
         self.projectiles = []
         self.particles = []
         self.sparks = []
-        
-        
         
         self.tilemap.current_solid_tiles = self.tilemap.solid_tiles.copy()
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
@@ -74,7 +73,12 @@ class Biome_1(Game):
         elif action == 'unrt':
             pass
         elif action == 'una':
-            Biome_1.player.jump.held = False       
+            Biome_1.player.jump.held = False    
+        elif action == 'up':
+            Biome_1.player.try_interact_flag = True   
+            
+    def process_player_interact(self):
+        pass   
             
     def attack_collision(self):
         Biome_1.player.attack.update()
@@ -115,6 +119,11 @@ class Biome_1(Game):
                 Biome_1.player.got_hit(enemy)
         
     def update(self): # Main loop
+     #   if Biome_1.player.collisions['down']:
+        if Biome_1.player.try_interact_flag:
+            self.process_player_interact()
+        Biome_1.player.try_interact_flag = False
+        
         Biome_1.player.update(self.tilemap)
         
         for enemy in self.enemies:
@@ -152,6 +161,10 @@ class Biome_1(Game):
             if kill:
                 self.sparks.remove(spark)
                 
+        for dialogue_box in self.dialogue_boxes.values():
+            if dialogue_box.active:
+                dialogue_box.update()
+                
         self.clouds.update()
                 
     def render(self, canvas: pg.Surface):
@@ -176,12 +189,21 @@ class Biome_1(Game):
             particle.render(canvas, self.camera.rounded_pos)   
               
         for spark in self.sparks:
-            spark.render(canvas, self.camera.rounded_pos)   
+            spark.render(canvas, self.camera.rounded_pos) 
+              
+        for dialogue_box in self.dialogue_boxes.values():
+            if dialogue_box.active:
+                
+                print('lafjd')
+                dialogue_box.render(canvas, self.camera.rounded_pos) 
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
   #      hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
    #     for rect in self.tilemap.chunks.get((hot_chunk), {}):
      #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+        
+
+       # canvas.fill((78,78,78),((Biome_1.player.rect.x - self.camera.rounded_pos[0],Biome_1.player.rect.y - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
         
         return canvas
     

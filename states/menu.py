@@ -7,6 +7,9 @@ class Menu(Game):
         super().__init__()
         self.next = 'level1'
         self.previous : str
+        self.screen_name_position = (20, 20)
+   #     self.menu_textbox = Game.text.generate_line_of_text('This is the flippin menu!!! Man it\'s starting to look GOOOOOD l0O0l')
+        
         
     def cleanup(self):
         print('cleaning up Menu state stuff...')
@@ -26,6 +29,7 @@ class Menu(Game):
         pass
     
     def render(self, canvas):
-        canvas.fill((150,60,90))
+        canvas.fill((150,60,150))
+ #       canvas.blit(self.menu_textbox, self.screen_name_position)
         return canvas
   

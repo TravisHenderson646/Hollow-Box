@@ -5412,6 +5412,19 @@
         "enemy",
         "slug"
       ]
+    },
+    "13;11": {
+      "type": "decor",
+      "variant": 3,
+      "pos": [
+        104,
+        88
+      ],
+      "tags": [
+        "rendered",
+        "interactable",
+        "chest1"
+      ]
     }
   },
   "offgrid": [

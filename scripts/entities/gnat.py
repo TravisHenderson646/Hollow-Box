@@ -10,7 +10,7 @@ class Gnat(PhysicsEntity):
         self.speed = 0.8
         self.hp = 3
         self.idle_radius = 80
-        self.active_radius = 300
+        self.active_radius = 160
         self.active = False
         
     def update(self, tilemap, player):
@@ -18,15 +18,14 @@ class Gnat(PhysicsEntity):
                     
         self.vel.x = 0
         self.vel.y = 0
-
-        if pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) < self.active_radius:
-            self.active = False
-        if pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) < self.idle_radius:
+        if self.active:
+            self.vel = pg.Vector2(pg.Vector2(player.rect.center) - pg.Vector2(self.rect.center)).normalize() * self.speed
+            if pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) > self.active_radius:
+                print('deactivated')
+                self.active = False
+        elif pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) < self.idle_radius:
             self.active = True
             
-        if self.active:
-         #enemy_position += (player_position - enemy_position).normal() * enemy_speed 
-            self.vel = pg.Vector2(pg.Vector2(player.rect.center) - pg.Vector2(self.rect.center)).normalize() * self.speed
         self.invulnerable = False
         if self.ticks_since_got_hit < 14: # this number could be lower
             self.ticks_since_got_hit += 1
@@ -38,8 +37,6 @@ class Gnat(PhysicsEntity):
                     self.vel.x = 1.5
                 case 3: #up
                     self.vel.y = -1
-        
-        
         
         super().calculate_frame_movement()
 

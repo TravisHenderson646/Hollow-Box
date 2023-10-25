@@ -6,7 +6,7 @@ pg.init()
 pg.joystick.init()
 print('joystick count', pg.joystick.get_count())
 joysticks = [pg.joystick.Joystick(x) for x in range(pg.joystick.get_count())]
-SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically
+SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes pg.display automatically 1280,720
 SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
@@ -56,3 +56,4 @@ sfx['dash'].set_volume(0.2)
 sfx['hit'].set_volume(0.12)
 sfx['shoot'].set_volume(0.2)
 sfx['ambience'].set_volume(0.7)
+

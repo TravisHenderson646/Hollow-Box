@@ -28,7 +28,7 @@ class Player(PhysicsEntity):
         self.in_got_hit = False
         self.invulnerable_duration = 120
         self.air_time = 0
-        self.float = False # depreciated
+        self.try_interact_flag = False
        
     def got_hit(self, enemy):
         setup.sfx['hit'].play()
@@ -171,6 +171,7 @@ class Player(PhysicsEntity):
                        
     def render(self, surf, offset):
         super().render(surf, offset)
+        
         if self.attack.ticks_since_last < self.attack.duration:
             if self.attack.direction in [0, 2]:
                 for hitbox, surface in zip(self.attack.hitboxes, self.attack.surfaces):
