@@ -9,7 +9,7 @@ class BirdGuy(PhysicsEntity):
     def __init__(self, pos):
         self.size = (25, 25) # todo: could probably automate size generation from image but i guess most enemies will have a defined hitbox
         super().__init__('bird_guy', pos, self.size)
-        self.speed = 0.1
+        self.speed = 0.4
         self.hp = 0
         self.dead = True
         self.movement.x = -1
@@ -30,11 +30,12 @@ class BirdGuy(PhysicsEntity):
             self.movement.x = -self.movement.x 
         ###                   
         if self.dialogue.active:
+            print('active')
             self.dialogue.pos = (self.rect.x - 60, self.rect.y - 60)
             self.dialogue.update()
-            self.vel.x = 0
+            self.frame_movement = pg.Vector2(0, 0)
+        else:
+            self.frame_movement.x = self.movement.x * self.speed
         self.vel.y = 0
-        
-        super().calculate_frame_movement()
 
         

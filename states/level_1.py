@@ -23,6 +23,7 @@ class Level_1(Biome_1):
                 self.npcs.append(BirdGuy(tile.rect.topleft))
         for npc in self.npcs:
             self.dialogue_boxes[npc.name] = npc.dialogue
+            self.solid_entities.append(npc)
     
     def start(self):
         super().start()

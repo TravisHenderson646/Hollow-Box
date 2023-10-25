@@ -62,9 +62,7 @@ class PhysicsEntity:
         if self.vel.x:
             self.frame_movement = pg.Vector2(self.vel.x, self.vel.y)   
         else:
-            self.frame_movement = pg.Vector2( # (x, y)
-                (self.movement.x) * self.speed,
-                self.vel.y)    
+            self.frame_movement = pg.Vector2((self.movement.x) * self.speed, self.vel.y)    
 
 
     def render(self, surf:pg.Surface, offset):
