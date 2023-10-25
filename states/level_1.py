@@ -3,6 +3,7 @@ import pygame as pg
 from scripts import setup
 from scripts.tilemap import Tilemap
 from scripts.text_handler import DialogueBox
+from scripts.entities.bird_guy import BirdGuy
 from states.biome_1 import Biome_1
 
 
@@ -15,8 +16,13 @@ class Level_1(Biome_1):
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
         self.dialogue_boxes = {
-            'chest1' :DialogueBox((150,40),'HERe is aa TEST dialogeue gbox good for testing im sure i coudlnttt come up with wnyh thing better112233')
+            'chest1' :DialogueBox((150,40),[['HERe is aa TEST dialogeue gbox good for testing im sure i coudlnttt come up with wnyh thing better112233']])
         }
+        for tile in self.tilemap.npcs:
+            if 'bird_guy' in tile.tags:
+                self.npcs.append(BirdGuy(tile.rect.topleft))
+        for npc in self.npcs:
+            self.dialogue_boxes[npc.name] = npc.dialogue
     
     def start(self):
         super().start()
@@ -35,6 +41,9 @@ class Level_1(Biome_1):
                 if 'chest1' in tile.tags:
                     self.dialogue_boxes['chest1'].pos = (tile.rect.x - 80, tile.rect.y - 60)
                     self.dialogue_boxes['chest1'].start()
+        for npc in self.npcs:
+            if npc.rect.colliderect(Biome_1.player.rect):
+                npc.dialogue.start()
         
     def process_action(self, action):
         super().process_action(action)
@@ -49,6 +58,8 @@ class Level_1(Biome_1):
                 if 'east' in tile.tags:
                     self.done = True
                     self.next = 'level2'
+        for npc in self.npcs:
+            npc.update(self.tilemap)
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)

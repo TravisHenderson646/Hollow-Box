@@ -37,6 +37,7 @@ class Tilemap:
         self.tilemap = {}
         self.tiles = []
         self.enemies = []
+        self.npcs = []
         self.chunked_tiles = []
         self.painted_tiles = []
         self.rendered_tiles = []
@@ -84,6 +85,8 @@ class Tilemap:
             self.solid_tiles.append(tile_instance)
         if 'interactable' in tile_instance.tags:
             self.interactable_tiles.append(tile_instance) # ok so i could do like i make a function and then i say 'if 'geode' in tags: interact equals a function like give geo
+        if 'npc' in tile_instance.tags:
+            self.npcs.append(tile_instance)
         if 'enemy' in tile_instance.tags:
             self.enemies.append(tile_instance)
         if 'entrance' in tile_instance.tags:

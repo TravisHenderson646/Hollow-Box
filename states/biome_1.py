@@ -30,6 +30,8 @@ class Biome_1(Game):
         self.enemies = 0
         self.sparks = []
         self.dialogue_boxes = {}
+        self.npcs = []
+            
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
@@ -48,6 +50,8 @@ class Biome_1(Game):
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
+        for npc in self.npcs:
+            npc.dialogue.message = 0
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
@@ -179,11 +183,15 @@ class Biome_1(Game):
             img = setup.assets['projectile']
             canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.camera.rounded_pos[0], projectile[0][1] - img.get_height() / 2 - self.camera.rounded_pos[1])) 
         
+        for npc in self.npcs:
+            npc.render(canvas, self.camera.rounded_pos)
+        
         if not Biome_1.player.dead > 25:
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
             enemy.render(canvas, self.camera.rounded_pos)
+            
     
         for particle in self.particles:
             particle.render(canvas, self.camera.rounded_pos)   
