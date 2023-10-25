@@ -37,11 +37,12 @@ class DialogueBox:
         self.line_spacing = 1
         self.active = False
         self.still_talking = False
+        self.message_completed = False
         self.current_x = 0
         self.current_y = 0
         self.current_character_index = 0
         self.ticks_open = 0
-        self.duration = 120
+        self.duration = 600
         
     def start(self):
         if not self.active:
@@ -55,9 +56,10 @@ class DialogueBox:
             self.surf = pg.Surface(self.size).convert()
         elif self.still_talking:
             self.player_skip_chat()
+        elif self.message_completed:
+            self.active = False
         else:
             self.still_talking = True            
-            self.remaining_text = self.script[self.batch][min(self.message, len(self.script[self.batch]) - 1)]
             self.current_x = 0
             self.current_y = 0
             self.current_character_index = 0
@@ -72,21 +74,24 @@ class DialogueBox:
             check_x = self.current_x + current_image.get_width()
             if check_x > self.size[0]:
                 if character != ' ':
-                    self.current_x = 0
-                    self.current_y += 8
                     check_y = self.current_y + self.height + self.line_spacing
                     if check_y > self.size[1]:
                         self.still_talking = False
                         self.remaining_text = self.text[self.current_character_index:]
                         break
+                    else:
+                        self.current_x = 0
+                        self.current_y += 8
             self.surf.blit(current_image, (self.current_x, self.current_y))
             self.current_x += current_image.get_width() + self.kerning
             self.current_character_index += 1
             if self.current_character_index == len(self.remaining_text):
                 self.still_talking = False
                 self.message += 1
+                self.message_completed = True
                 break
         self.remaining_text = self.text[self.current_character_index:]
+      #  self.still_talking = False
             
         
     def update(self):
@@ -97,19 +102,20 @@ class DialogueBox:
             check_x = self.current_x + current_image.get_width()
             if check_x > self.size[0]:
                 if character != ' ':
-                    self.current_x = 0
-                    self.current_y += 8
-                    check_y = self.current_y + self.height + self.line_spacing
+                    check_y = self.current_y + self.height * 2 + self.line_spacing
                     if check_y > self.size[1]:
                         self.still_talking = False
                         self.remaining_text = self.text[self.current_character_index:]
+                    else:
+                        self.current_x = 0
+                        self.current_y += 8
             self.surf.blit(current_image, (self.current_x, self.current_y))
             self.current_x += current_image.get_width() + self.kerning
             self.current_character_index += 1
             if self.current_character_index == len(self.remaining_text):
-                print('jsdfkjdf WWWWWWWWWW')
                 self.still_talking = False
                 self.message += 1
+                self.message_completed = True
         else:
             self.ticks_open += 1
             if self.ticks_open > self.duration:

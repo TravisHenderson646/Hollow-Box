@@ -13,7 +13,7 @@ class BirdGuy(PhysicsEntity):
         self.hp = 0
         self.dead = True
         self.movement.x = -1
-        self.dialogue = DialogueBox((80,40), bird_guy_lines)
+        self.dialogue = DialogueBox((50,25), bird_guy_lines)
         
     def update(self, tilemap):
         super().update()
@@ -30,8 +30,7 @@ class BirdGuy(PhysicsEntity):
             self.movement.x = -self.movement.x 
         ###                   
         if self.dialogue.active:
-            print('active')
-            self.dialogue.pos = (self.rect.x - 60, self.rect.y - 60)
+            self.dialogue.pos = (self.rect.x - 20, self.rect.y - 30)
             self.dialogue.update()
             self.frame_movement = pg.Vector2(0, 0)
         else:
