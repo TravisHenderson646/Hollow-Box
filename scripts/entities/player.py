@@ -357,7 +357,7 @@ class PlayerAttack:
             case 0: #right
                 self.player.vel.x = -1.5
             case 3: #up
-                self.player.vel.y = max(0, self.player.vel.y)
+                self.player.vel.y = max(1, self.player.vel.y)
             case 1: #down pogo
                 if self.ticks_since_knockback == 0:
                     self.player.jump.active = False

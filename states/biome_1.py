@@ -35,6 +35,11 @@ class Biome_1(Game):
         
     def cleanup(self):
         print(f'cleaning up lvl{self.map_id + 1}...')
+        for npc in self.npcs:
+            npc.dialogue.message = 0
+            npc.dialogue.still_talking = False
+            npc.dialogue.active = False
+            npc.dialogue.message_completed = False
     
     def start(self):
         print("Entering a biome_1...")
@@ -50,8 +55,7 @@ class Biome_1(Game):
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
-        for npc in self.npcs:
-            npc.dialogue.message = 0
+            
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
@@ -80,10 +84,7 @@ class Biome_1(Game):
             Biome_1.player.jump.held = False    
         elif action == 'up':
             Biome_1.player.try_interact_flag = True   
-            
-    def process_player_interact(self):
-        pass   
-            
+
     def attack_collision(self):
         Biome_1.player.attack.update()
         
@@ -124,8 +125,10 @@ class Biome_1(Game):
         
     def update(self): # Main loop
      #   if Biome_1.player.collisions['down']:
-        if Biome_1.player.try_interact_flag:
-            self.process_player_interact()
+        for npc in self.npcs:
+            if npc.rect.colliderect(Biome_1.player.rect):
+                if Biome_1.player.try_interact_flag == True:
+                    npc.dialogue.start()
         Biome_1.player.try_interact_flag = False
         
         Biome_1.player.update(self.tilemap)

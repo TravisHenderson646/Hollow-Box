@@ -35,16 +35,7 @@ class Level_1(Biome_1):
             for tile in self.tilemap.entrances:
                 if 'east' in tile.tags: # find the tile for level 2
                     Biome_1.player.rect.topleft = tile.rect.topleft
-                    
-    def process_player_interact(self):
-        for tile in self.tilemap.interactable_tiles:
-            if tile.rect.colliderect(Biome_1.player.rect):
-                if 'chest1' in tile.tags:
-                    self.dialogue_boxes['chest1'].pos = (tile.rect.x - 80, tile.rect.y - 60)
-                    self.dialogue_boxes['chest1'].start()
-        for npc in self.npcs:
-            if npc.rect.colliderect(Biome_1.player.rect):
-                npc.dialogue.start()
+
         
     def process_action(self, action):
         super().process_action(action)
