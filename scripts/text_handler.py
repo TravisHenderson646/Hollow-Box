@@ -109,6 +109,7 @@ class DialogueBox:
                     else:
                         self.current_x = 0
                         self.current_y += 8
+            #if self.still_talking # next 6 lines indent
             self.surf.blit(current_image, (self.current_x, self.current_y))
             self.current_x += current_image.get_width() + self.kerning
             self.current_character_index += 1
