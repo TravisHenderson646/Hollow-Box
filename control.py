@@ -42,11 +42,10 @@ i think collision box detection should happen and updatedddda dwd as, then hitbo
 ####
 Must be nice
 ####
+sfx:player hurt, spike clank, dirt clank, enemy hit, weapon swoosh, flower slashed
+
 arbitrary amount of collisionboxes on player. big one for interacting, smaller for physics, smallerer hurtbox
     bonus: extrabig keep_talking box to let player keep movement while talking
-
-npc to talk to
-first make readable signpost
     
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler
@@ -68,13 +67,11 @@ CLICKING X DOES NOT CLOSE THE GAME WTF todo
 
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
-maybe spike tiles should reduce to rects before going in the list
-
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
 ###
-SFX to make
+CHORES todo
 ###
-player hurt, spike clank, dirt clank, enemy hit, weapon swoosh, flower slashed
+Rename levels
 '''
 import sys
 

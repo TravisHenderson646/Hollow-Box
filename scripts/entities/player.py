@@ -28,6 +28,7 @@ class Player(PhysicsEntity):
         self.in_got_hit = False
         self.invulnerable_duration = 120
         self.air_time = 0
+        self.can_interact_flag = False
         self.try_interact_flag = False
        
     def got_hit(self, enemy):

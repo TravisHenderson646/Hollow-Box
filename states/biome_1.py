@@ -124,9 +124,10 @@ class Biome_1(Game):
                 Biome_1.player.got_hit(enemy)
         
     def update(self): # Main loop
-     #   if Biome_1.player.collisions['down']:
         for npc in self.npcs:
+            npc.can_interact_flag = False
             if npc.rect.colliderect(Biome_1.player.rect):
+                npc.can_interact_flag = True
                 if Biome_1.player.try_interact_flag == True:
                     npc.dialogue.start()
         Biome_1.player.try_interact_flag = False
@@ -188,13 +189,11 @@ class Biome_1(Game):
         
         for npc in self.npcs:
             npc.render(canvas, self.camera.rounded_pos)
-        
         if not Biome_1.player.dead > 25:
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
             enemy.render(canvas, self.camera.rounded_pos)
-            
     
         for particle in self.particles:
             particle.render(canvas, self.camera.rounded_pos)   

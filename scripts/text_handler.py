@@ -43,7 +43,7 @@ class DialogueBox:
         self.current_character_index = 0
         self.ticks_open = 0
         self.tick = 0
-        self.speed = 10
+        self.speed = 5
         self.duration = 600 / self.speed
         
     def start(self):
@@ -76,20 +76,27 @@ class DialogueBox:
         if self.tick % self.speed == 0:
             if self.still_talking:
                 character = self.remaining_text[self.current_character_index]
-                #check if it fits
                 current_image = self.character_images[character]
-                check_x = self.current_x + current_image.get_width()
+                #check if word fits
+                i = 0
+                test_character = character
+                check_x = self.current_x
+                test_image = current_image
+                while (test_character != ' ') and (self.current_character_index + i != len(self.remaining_text)):
+                    test_character = self.remaining_text[self.current_character_index + i]
+                    test_image = self.character_images[test_character]
+                    check_x += test_image.get_width() + self.kerning
+                    i += 1
+
                 if check_x > self.size[0]:
-                    if character != ' ':
-                        check_y = self.current_y + self.height * 2 + self.line_spacing
-                        if check_y > self.size[1]:
-                            self.still_talking = False
-                            self.remaining_text = self.remaining_text[self.current_character_index:]
-                            print(self.remaining_text)
-                        else:
-                            self.current_x = 0
-                            self.current_y += 8
-                if self.still_talking: # next 6 lines indent
+                    check_y = self.current_y + self.height * 2 + self.line_spacing
+                    if check_y > self.size[1]:
+                        self.still_talking = False
+                        self.remaining_text = self.remaining_text[self.current_character_index:]
+                    else:
+                        self.current_x = 0
+                        self.current_y += 8
+                if self.still_talking:
                     self.surf.blit(current_image, (self.current_x, self.current_y))
                     self.current_x += current_image.get_width() + self.kerning
                     self.current_character_index += 1
@@ -102,23 +109,27 @@ class DialogueBox:
                     self.active = False
                 
     def player_skip_chat(self):  
-        print(self.current_character_index)
-        print(self.remaining_text)
-        print(self.remaining_text[self.current_character_index:])
         for character in self.remaining_text[self.current_character_index:]:
-            #check if it fits
-            current_image = self.character_images[character]
-            check_x = self.current_x + current_image.get_width()
+            current_image = self.character_images[character]                
+            #check if word fits
+            i = 0
+            test_character = character
+            check_x = self.current_x
+            test_image = current_image
+            while (test_character != ' ') and (self.current_character_index + i != len(self.remaining_text)):
+                test_character = self.remaining_text[self.current_character_index + i]
+                test_image = self.character_images[test_character]
+                check_x += test_image.get_width() + self.kerning
+                i += 1
             if check_x > self.size[0]:
-                if character != ' ':
-                    check_y = self.current_y + self.height * 2 + self.line_spacing
-                    if check_y > self.size[1]:
-                        self.remaining_text = self.remaining_text[self.current_character_index:]
-                        self.still_talking = False
-                        break
-                    else:
-                        self.current_x = 0
-                        self.current_y += 8
+                check_y = self.current_y + self.height * 2 + self.line_spacing
+                if check_y > self.size[1]:
+                    self.remaining_text = self.remaining_text[self.current_character_index:]
+                    self.still_talking = False
+                    break
+                else:
+                    self.current_x = 0
+                    self.current_y += 8
             self.surf.blit(current_image, (self.current_x, self.current_y))
             self.current_x += current_image.get_width() + self.kerning
             self.current_character_index += 1
@@ -130,6 +141,7 @@ class DialogueBox:
             
     def render(self, canvas, offset):
         canvas.blit(self.surf, (self.pos[0] - offset[0], self.pos[1] - offset[1]))
+        # if active but not still_talking, blit a little dot on the bottom right to say see more
         
     def generate_line_of_text(self, text):
         text_width = 0
