@@ -13,12 +13,12 @@ class BirdGuy(PhysicsEntity):
         self.size = (25, 25) # todo: could probably automate size generation from image but i guess most enemies will have a defined hitbox
         super().__init__('bird_guy', pos, self.size)
         self.dialogue = DialogueBox((80,17), bird_guy_lines)
-        self.chevron = assets['chevron']
+        self.chevron = assets['chevron'].copy()
         self.chevron_width = self.chevron.get_width()
         self.chevron_tick = 0
         self.can_interact_flag = False
         self.speed = 0.4
-        self.hp = 0
+        self.hp = 69
         self.dead = True
         self.movement.x = -1
         self.look_what_i_can_do = False
@@ -31,7 +31,7 @@ class BirdGuy(PhysicsEntity):
             self.movement.x = -self.movement.x
         
         if self.look_what_i_can_do == False:
-            if (self.dialogue.active) and (self.dialogue.batch == 0) and (self.dialogue.message >= len(self.dialogue.script[0]) + 1):
+            if (self.dialogue.active) and (self.dialogue.batch == 0) and (self.dialogue.message >= len(self.dialogue.script[0]) -1):
                 self.look_what_i_can_do = True
                 self.ticks_since_look_what_i_can_do = 0
         else:
@@ -50,7 +50,6 @@ class BirdGuy(PhysicsEntity):
         ###                   
         if self.dialogue.active:
             self.dialogue.pos = (self.rect.x - 30, self.rect.y - 18)
-            self.dialogue.update()
             self.frame_movement = pg.Vector2(0, 0)
         else:
             self.frame_movement.x = self.movement.x * self.speed

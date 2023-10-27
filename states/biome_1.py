@@ -31,6 +31,7 @@ class Biome_1(Game):
         self.sparks = []
         self.dialogue_boxes = {}
         self.npcs = []
+        self.pickups = []
             
         
     def cleanup(self):
@@ -81,9 +82,19 @@ class Biome_1(Game):
         elif action == 'unrt':
             pass
         elif action == 'una':
-            Biome_1.player.jump.held = False    
+            Biome_1.player.jump.held = False
         elif action == 'up':
-            Biome_1.player.try_interact_flag = True   
+            Biome_1.player.try_interact_flag = True  
+        elif action == 'r':
+            Biome_1.player.jump.unlocked = not Biome_1.player.jump.unlocked
+        elif action == 't':
+            Biome_1.player.jump.double_unlocked = not Biome_1.player.jump.double_unlocked
+        elif action == 'o':
+            Biome_1.player.attack.unlocked = not Biome_1.player.attack.unlocked
+        elif action == 'u':
+            Biome_1.player.dash.unlocked = not Biome_1.player.dash.unlocked
+        elif action == 'y':
+            Biome_1.player.wallslide.unlocked = not Biome_1.player.wallslide.unlocked
 
     def attack_collision(self):
         Biome_1.player.attack.update()
@@ -134,6 +145,12 @@ class Biome_1(Game):
         
         Biome_1.player.update(self.tilemap)
         
+        debugger.debug('jump', ('jump', Biome_1.player.jump.unlocked))
+        debugger.debug('dash', ('dash', Biome_1.player.dash.unlocked))
+        debugger.debug('wallslide', ('wallslide', Biome_1.player.wallslide.unlocked))
+        debugger.debug('atack', ('atack', Biome_1.player.attack.unlocked))
+        debugger.debug('double_jump', ('double_jump', Biome_1.player.jump.double_unlocked))
+        
         for enemy in self.enemies:
             if not enemy.dead:
                 enemy.update(self.tilemap, self.player)
@@ -169,6 +186,12 @@ class Biome_1(Game):
             if kill:
                 self.sparks.remove(spark)
                 
+        for pickup in self.pickups:
+            if Biome_1.player.rect.colliderect(pickup.rect):
+                pickup.picked_up(Biome_1.player)
+                self.pickups.remove(pickup)
+            pickup.update()
+                
         for dialogue_box in self.dialogue_boxes.values():
             if dialogue_box.active:
                 dialogue_box.update()
@@ -200,6 +223,9 @@ class Biome_1(Game):
               
         for spark in self.sparks:
             spark.render(canvas, self.camera.rounded_pos) 
+            
+        for pickup in self.pickups:
+            pickup.render(canvas, self.camera.rounded_pos)
               
         for dialogue_box in self.dialogue_boxes.values():
             if dialogue_box.active:

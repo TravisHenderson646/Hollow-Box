@@ -2,6 +2,8 @@ import pygame as pg
 
 from scripts.image_handler import load_image
 
+from scripts.debugger import debugger
+
 
 original = load_image('small_font.png')
 list_of_characters = list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-,:+\'!?0123456789()/_=\\[]*"<>; ') # should not be self. bc its only used in init?
@@ -43,8 +45,8 @@ class DialogueBox:
         self.current_character_index = 0
         self.ticks_open = 0
         self.tick = 0
-        self.speed = 5
-        self.duration = 600 / self.speed
+        self.speed = 2
+        self.duration = 150 / self.speed
         
     def start(self):
         if not self.active:
@@ -106,7 +108,7 @@ class DialogueBox:
             else:
                 self.ticks_open += 1
                 if self.ticks_open > self.duration:
-                    self.active = False
+                    self.start()
                 
     def player_skip_chat(self):  
         for character in self.remaining_text[self.current_character_index:]:

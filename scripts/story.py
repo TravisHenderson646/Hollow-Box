@@ -20,3 +20,33 @@ bird_guy_lines = [
         'Hey! Look what I can do!!'
     ]
 ]
+
+jump_unlock_text = [
+    [
+        'Try Jumping!'
+    ]
+]
+
+double_jump_unlock_text = [
+    [
+        'Try Double Jumping!'
+    ]
+]
+
+dash_unlock_text = [
+    [
+        'Try Dashing!'
+    ]
+]
+
+attack_unlock_text = [
+    [
+        'Try Attacking!'
+    ]
+]
+
+wallslide_unlock_text = [
+    [
+        'Try Wallsliding!'
+    ]
+]

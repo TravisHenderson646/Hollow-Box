@@ -46,6 +46,7 @@ class Tilemap:
         self.attackable_tiles = []
         self.solid_tiles = []
         self.interactable_tiles = []
+        self.pickups = []
         
         self.panels = {}
         self.chunks = {}
@@ -55,7 +56,7 @@ class Tilemap:
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['type'] in ['spawners', 'spawns', 'enemies']:
+        if tile['type'] in ['spawners', 'spawns', 'enemies', 'unlocks']:
             image = pg.Surface((0, 0))
             width = 0
             height = 0
@@ -87,6 +88,8 @@ class Tilemap:
             self.interactable_tiles.append(tile_instance) # ok so i could do like i make a function and then i say 'if 'geode' in tags: interact equals a function like give geo
         if 'npc' in tile_instance.tags:
             self.npcs.append(tile_instance)
+        if 'unlock' in tile_instance.tags:
+            self.pickups.append(tile_instance)
         if 'enemy' in tile_instance.tags:
             self.enemies.append(tile_instance)
         if 'entrance' in tile_instance.tags:

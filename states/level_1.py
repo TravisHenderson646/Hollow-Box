@@ -5,6 +5,11 @@ from scripts.tilemap import Tilemap
 from scripts.text_handler import DialogueBox
 from scripts.entities.bird_guy import BirdGuy
 from states.biome_1 import Biome_1
+from scripts.jump_unlock import JumpUnlock
+from scripts.double_jump_unlock import DoubleJumpUnlock
+from scripts.dash_unlock import DashUnlock 
+from scripts.attack_unlock import AttackUnlock
+from scripts.wallslide_unlock import WallslideUnlock
 
 
 class Level_1(Biome_1):
@@ -21,9 +26,26 @@ class Level_1(Biome_1):
         for tile in self.tilemap.npcs:
             if 'bird_guy' in tile.tags:
                 self.npcs.append(BirdGuy(tile.rect.topleft))
+        for tile in self.tilemap.pickups:
+            if 'jump' in tile.tags:
+                self.pickups.append(JumpUnlock(tile.rect.topleft))
+        for tile in self.tilemap.pickups:
+            if 'double_jump' in tile.tags:
+                self.pickups.append(DoubleJumpUnlock(tile.rect.topleft))
+        for tile in self.tilemap.pickups:
+            if 'dash' in tile.tags:
+                self.pickups.append(DashUnlock(tile.rect.topleft))
+        for tile in self.tilemap.pickups:
+            if 'attack' in tile.tags:
+                self.pickups.append(AttackUnlock(tile.rect.topleft))
+        for tile in self.tilemap.pickups:
+            if 'wallslide' in tile.tags:
+                self.pickups.append(WallslideUnlock(tile.rect.topleft))
         for npc in self.npcs:
             self.dialogue_boxes[npc.name] = npc.dialogue
             self.solid_entities.append(npc)
+        for pickup in self.pickups:
+            self.dialogue_boxes[pickup.name] = pickup.text
     
     def start(self):
         super().start()

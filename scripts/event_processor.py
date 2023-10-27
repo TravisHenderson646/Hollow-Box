@@ -28,8 +28,16 @@ class _EventProcessor:
                 action = 'lt'
             if event.key == pg.K_k:
                 action = 'rt'
-            if event.key == pg.K_p:
-                action = 'p'
+            if event.key == pg.K_r: # for testing, rouyt
+                action = 'r'
+            if event.key == pg.K_u: # for testing, rouyt
+                action = 'u'
+            if event.key == pg.K_o: # for testing, rouyt
+                action = 'o'
+            if event.key == pg.K_t: # for testing, rouyt
+                action = 't'
+            if event.key == pg.K_y: # for testing, rouyt
+                action = 'y'
         elif event.type == pg.KEYUP:
             if event.key == pg.K_a:
                 action = 'unleft'

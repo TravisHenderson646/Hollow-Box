@@ -161,8 +161,6 @@ class Player(PhysicsEntity):
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
         self.attack.ticks_since_input += 1
-        
-        debugger.debug('dd', self.invulnerable)
 
         if self.wallslide.active:
             self.frame_movement = pg.Vector2(self.vel.x, self.vel.y)  
@@ -186,6 +184,8 @@ class Player(PhysicsEntity):
 class PlayerJump:
     def __init__(self, player):
         self.player = player
+        self.unlocked = True
+        self.double_unlocked = True
         self.able = False
         self.coyote_time = 7
         self.buffer = 7
@@ -201,14 +201,16 @@ class PlayerJump:
         
     def check(self):
         if self.able:
-            if self.ticks_since_input > 0:
-                print('Buffered jump alert!!!')
-            self.start()
+            if self.unlocked:
+                if self.ticks_since_input > 0:
+                    print('Buffered jump alert!!!')
+                self.start()
         else:
             if self.can_double:
-                if self.ticks_since_input > 0:
-                    print('Buffered double jump alert!!!')
-                self.start_double()
+                if self.double_unlocked:
+                    if self.ticks_since_input > 0:
+                        print('Buffered double jump alert!!!')
+                    self.start_double()
                 
     def start_double(self):
         self.ticks_since_input = 100
@@ -250,6 +252,7 @@ class PlayerJump:
 class PlayerAttack:
     def __init__(self, player):
         self.player = player
+        self.unlocked = True
         self.damage = 2
         self.direction = 0 # 0,1,2,3=right,down,left,up
         self.duration = 4
@@ -323,10 +326,11 @@ class PlayerAttack:
     
     def check(self):
         if self.ticks_since_last > self.cooldown:
-            if not self.player.dash.active:
-                if self.ticks_since_input > 0:
-                    print('Buffered attack alert!!!', self.ticks_since_input)
-                self.start()
+            if self.unlocked:
+                if not self.player.dash.active:
+                    if self.ticks_since_input > 0:
+                        print('Buffered attack alert!!!', self.ticks_since_input)
+                    self.start()
             
     def start(self):
         self.ticks_since_last = 0 # this is what actually causes the attack in update()
@@ -370,6 +374,7 @@ class PlayerAttack:
 class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
+        self.unlocked = True
         self.active = False
         self.speed = 0.5
         self.detach_buffer = 7
@@ -377,12 +382,13 @@ class PlayerWallSlide:
         self.direction = 1 # 1 or -1
         
     def start(self, direction):
-        self.active = True
-        self.player.jump.active = False
-        self.player.jump.can_double = True
-        self.player.dash.able = True
-        self.ticks_detaching = 0
-        self.direction = direction
+        if self.unlocked:
+            self.active = True
+            self.player.jump.active = False
+            self.player.jump.can_double = True
+            self.player.dash.able = True
+            self.ticks_detaching = 0
+            self.direction = direction
         
     def update(self, tilemap):
         self.player.vel[1] = min(self.player.vel[1], self.speed)
@@ -409,6 +415,7 @@ class PlayerWallSlide:
 class PlayerDash:
     def __init__(self, player):
         self.player = player
+        self.unlocked = True
         self.able = False
         self.buffer = 7
         self.active = False
@@ -421,10 +428,11 @@ class PlayerDash:
         
     def check(self):
         if self.able:
-            self.start()
-            if self.ticks_since_input > 0:
-                print('Buffered dash alert!!!')
-            self.ticks_since_input = 100
+            if self.unlocked:
+                self.start()
+                if self.ticks_since_input > 0:
+                    print('Buffered dash alert!!!')
+                self.ticks_since_input = 100
             
     def start(self):
         if self.ticks_since_last > self.cooldown:

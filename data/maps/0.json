@@ -5619,6 +5619,66 @@
         "painted",
         "chunked"
       ]
+    },
+    "20;6": {
+      "type": "unlocks",
+      "variant": 0,
+      "pos": [
+        160,
+        48
+      ],
+      "tags": [
+        "unlock",
+        "attack"
+      ]
+    },
+    "23;6": {
+      "type": "unlocks",
+      "variant": 4,
+      "pos": [
+        184,
+        48
+      ],
+      "tags": [
+        "unlock",
+        "wallslide"
+      ]
+    },
+    "26;7": {
+      "type": "unlocks",
+      "variant": 1,
+      "pos": [
+        208,
+        56
+      ],
+      "tags": [
+        "unlock",
+        "dash"
+      ]
+    },
+    "29;7": {
+      "type": "unlocks",
+      "variant": 2,
+      "pos": [
+        232,
+        56
+      ],
+      "tags": [
+        "unlock",
+        "double_jump"
+      ]
+    },
+    "18;11": {
+      "type": "unlocks",
+      "variant": 3,
+      "pos": [
+        144,
+        88
+      ],
+      "tags": [
+        "unlock",
+        "jump"
+      ]
     }
   },
   "offgrid": [
