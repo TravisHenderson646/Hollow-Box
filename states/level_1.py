@@ -2,8 +2,8 @@ import pygame as pg
 
 from scripts import setup
 from scripts.tilemap import Tilemap
-from scripts.text_handler import DialogueBox
-from scripts.entities.bird_guy import BirdGuy
+from scripts.entities.signpost import Signpost
+from scripts.story import signpost1_text, signpost2_text
 from states.biome_1 import Biome_1
 from scripts.jump_unlock import JumpUnlock
 from scripts.double_jump_unlock import DoubleJumpUnlock
@@ -20,25 +20,20 @@ class Level_1(Biome_1):
         self.tilemap = Tilemap(tile_size=8) # Create an instance of the Tilemap class
         self.tilemap.process_tilemap('data/maps/' + str(self.map_id) + '.json')
         self.enemies = []
-        self.dialogue_boxes = {
-            'chest1' :DialogueBox((150,40),[['HERe is aa TEST dialogeue gbox good for testing im sure i coudlnttt come up with wnyh thing better112233']])
-        }
         for tile in self.tilemap.npcs:
-            if 'bird_guy' in tile.tags:
-                self.npcs.append(BirdGuy(tile.rect.topleft))
+            if 'signpost' in tile.tags:
+                self.npcs.append(Signpost(tile.rect.topleft, signpost1_text))
+            if 'signpost2' in tile.tags:
+                self.npcs.append(Signpost(tile.rect.topleft, signpost2_text))
         for tile in self.tilemap.pickups:
             if 'jump' in tile.tags:
                 self.pickups.append(JumpUnlock(tile.rect.topleft))
-        for tile in self.tilemap.pickups:
             if 'double_jump' in tile.tags:
                 self.pickups.append(DoubleJumpUnlock(tile.rect.topleft))
-        for tile in self.tilemap.pickups:
             if 'dash' in tile.tags:
                 self.pickups.append(DashUnlock(tile.rect.topleft))
-        for tile in self.tilemap.pickups:
             if 'attack' in tile.tags:
                 self.pickups.append(AttackUnlock(tile.rect.topleft))
-        for tile in self.tilemap.pickups:
             if 'wallslide' in tile.tags:
                 self.pickups.append(WallslideUnlock(tile.rect.topleft))
         for npc in self.npcs:
@@ -49,9 +44,9 @@ class Level_1(Biome_1):
     
     def start(self):
         super().start()
-        if self.previous == 'menu': # if you came from level 2
+        if self.previous == 'menu': 
             for tile in self.tilemap.entrances:
-                if 'west' in tile.tags: # find the tile for level 2
+                if 'start' in tile.tags: # todo this should be start
                     Biome_1.player.rect.topleft = tile.rect.topleft
         if self.previous == 'level2': # if you came from level 2
             for tile in self.tilemap.entrances:
@@ -72,8 +67,6 @@ class Level_1(Biome_1):
                 if 'east' in tile.tags:
                     self.done = True
                     self.next = 'level2'
-        for npc in self.npcs:
-            npc.update(self.tilemap)
         
     def render(self, canvas: pg.Surface):
         canvas = super().render(canvas)

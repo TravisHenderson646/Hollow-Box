@@ -184,8 +184,8 @@ class Player(PhysicsEntity):
 class PlayerJump:
     def __init__(self, player):
         self.player = player
-        self.unlocked = True
-        self.double_unlocked = True
+        self.unlocked = False
+        self.double_unlocked = False
         self.able = False
         self.coyote_time = 7
         self.buffer = 7
@@ -252,7 +252,7 @@ class PlayerJump:
 class PlayerAttack:
     def __init__(self, player):
         self.player = player
-        self.unlocked = True
+        self.unlocked = False
         self.damage = 2
         self.direction = 0 # 0,1,2,3=right,down,left,up
         self.duration = 4
@@ -374,7 +374,7 @@ class PlayerAttack:
 class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
-        self.unlocked = True
+        self.unlocked = False
         self.active = False
         self.speed = 0.5
         self.detach_buffer = 7
@@ -415,7 +415,7 @@ class PlayerWallSlide:
 class PlayerDash:
     def __init__(self, player):
         self.player = player
-        self.unlocked = True
+        self.unlocked = False
         self.able = False
         self.buffer = 7
         self.active = False

@@ -13,7 +13,7 @@ class AttackUnlock:
         self.image = assets['attack'].copy()
         self.rect = pg.FRect(*pos, self.image.get_width(), self.image.get_height())
         self.tick = 0
-        self.text = DialogueBox((50, 9), attack_unlock_text)
+        self.text = DialogueBox((55, 9), attack_unlock_text)
         
     def picked_up(self, player):
         self.text.pos = (self.pos[0] - 5, self.pos[1] - 10)

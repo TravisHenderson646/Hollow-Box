@@ -4,6 +4,8 @@ class _EventProcessor:
     def __init__(self):
         self.lt_value = 0
         self.rt_value = 0
+        self.ls_valuex = 0
+        self.ls_valuey = 0
         
     def _process_event(self, event):
         action = ''
@@ -65,19 +67,21 @@ class _EventProcessor:
                 action = 'una'
         elif event.type == pg.JOYAXISMOTION:
             if event.axis == 0:
-                if event.value < -0.3:
+                if event.value < -0.3 and self.ls_valuex >= -0.3:
                     action = 'left'
-                if event.value > 0.3:
+                if event.value > 0.3 and self.ls_valuex <= 0.3:
                     action = 'right'
-                if -0.3 < event.value < 0.3:
+                if -0.3 < event.value < 0.3 and ((self.ls_valuex <= -0.3) or (self.ls_valuex >= 0.3)):
                     action = 'stop'
+                self.ls_valuex = event.value
             if event.axis == 1:
-                if event.value < -0.3:
+                if event.value < -0.3 and self.ls_valuey >= -0.3:
                     action = 'up'
-                if event.value > 0.3:
+                if event.value > 0.3 and self.ls_valuey <= 0.3:
                     action = 'down'
-                if -0.3 < event.value < 0.3:
+                if -0.3 < event.value < 0.3 and ((self.ls_valuey <= -0.3) or (self.ls_valuey >= 0.3)):
                     action = 'neutral'
+                self.ls_valuey = event.value
             if event.axis == 4:
                 if event.value > 0.8 and self.lt_value <= 0.8:
                     action = 'lt'

@@ -56,7 +56,7 @@ class Tilemap:
         self.map_height = 0
         
     def process_tile(self, tile):
-        if tile['type'] in ['spawners', 'spawns', 'enemies', 'unlocks']:
+        if tile['type'] in ['spawners', 'spawns', 'enemies', 'unlocks', 'npcs']:
             image = pg.Surface((0, 0))
             width = 0
             height = 0

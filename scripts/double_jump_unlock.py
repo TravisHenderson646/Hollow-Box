@@ -13,7 +13,7 @@ class DoubleJumpUnlock:
         self.image = assets['double_jump'].copy()
         self.rect = pg.FRect(*pos, self.image.get_width(), self.image.get_height())
         self.tick = 0
-        self.text = DialogueBox((50, 9), double_jump_unlock_text)
+        self.text = DialogueBox((70, 9), double_jump_unlock_text)
         
     def picked_up(self, player):
         self.text.pos = (self.pos[0] - 5, self.pos[1] - 10)

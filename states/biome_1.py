@@ -56,7 +56,6 @@ class Biome_1(Game):
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
-            
         for tile in self.tilemap.enemies:
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
@@ -84,7 +83,7 @@ class Biome_1(Game):
         elif action == 'una':
             Biome_1.player.jump.held = False
         elif action == 'up':
-            Biome_1.player.try_interact_flag = True  
+            Biome_1.player.try_interact_flag = True
         elif action == 'r':
             Biome_1.player.jump.unlocked = not Biome_1.player.jump.unlocked
         elif action == 't':
@@ -141,6 +140,7 @@ class Biome_1(Game):
                 npc.can_interact_flag = True
                 if Biome_1.player.try_interact_flag == True:
                     npc.dialogue.start()
+            npc.update(self.tilemap)
         Biome_1.player.try_interact_flag = False
         
         Biome_1.player.update(self.tilemap)
