@@ -155,8 +155,8 @@ class Player(PhysicsEntity):
         
         # add can_lt like jump.able
         #!!! could decay over time based on length of hover
-        if self.lt:
-            self.vel.y = min(.4,self.vel.y)
+   #     if self.lt:
+    #        self.vel.y = min(.4,self.vel.y)
             
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  

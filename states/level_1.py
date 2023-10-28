@@ -37,10 +37,10 @@ class Level_1(Biome_1):
             if 'wallslide' in tile.tags:
                 self.pickups.append(WallslideUnlock(tile.rect.topleft))
         for npc in self.npcs:
-            self.dialogue_boxes[npc.name] = npc.dialogue
+            self.dialogue_boxes.append(npc.dialogue)
             self.solid_entities.append(npc)
         for pickup in self.pickups:
-            self.dialogue_boxes[pickup.name] = pickup.text
+            self.dialogue_boxes.append(pickup.text)
     
     def start(self):
         super().start()

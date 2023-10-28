@@ -74,6 +74,7 @@ class DialogueBox:
             self.surf = pg.Surface(self.size).convert()
         
     def update(self):
+        print('active')
         self.tick += 1
         if self.tick % self.speed == 0:
             if self.still_talking:
