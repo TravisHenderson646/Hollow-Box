@@ -200,6 +200,7 @@ class Biome_1(Game):
                 
     def render(self, canvas: pg.Surface):
         self.camera.update((round(self.player.rect.centerx), round(self.player.rect.centery)))
+        canvas.fill((19, 178, 242))
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)
         self.tilemap.render(canvas, self.camera.rounded_pos)

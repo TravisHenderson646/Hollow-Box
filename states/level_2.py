@@ -21,7 +21,7 @@ class Level_2(Biome_1):
             if 'bee_guy' in tile.tags:
                 self.npcs.append(BeeGuy(tile.rect.topleft))
         for npc in self.npcs:
-            self.dialogue_boxes = npc.dialogue
+            self.dialogue_boxes.append(npc.dialogue)
             self.solid_entities.append(npc)
     
     def start(self):
