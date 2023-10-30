@@ -428,8 +428,8 @@ class PlayerDash:
         self.ticks_since_input = 500
         self.ticks_since_last = 500
         self.cooldown = 33
-        self.direction = (0, 0)
-        self.duration = 12
+        self.direction = 1 # -1 or 1 (L or R)
+        self.duration = 9
         self.speed = 2.5
         
     def check(self):
@@ -448,49 +448,19 @@ class PlayerDash:
             self.ticks_since_last = 0
             self.able = False
             if self.player.wallslide.active:
-                self.direction = (-self.player.wallslide.direction, 0)
+                self.direction = -self.player.wallslide.direction
+            elif self.player.movement.x:
+                self.direction = self.player.movement.x
             else:
-                self.direction = (
-                    (self.player.movement.x),
-                    (self.player.movement.y))
-            match self.direction:
-                case ( 0,  0):
-                    if self.player.flip:
-                        self.direction = (-1, 0)
-                    else:
-                        self.direction = (1, 0)
-                case ( 0,  1):
-                    self.player.vel.y =  self.player.terminal_vel
-                case ( 0, -1):
-                    self.player.vel.y = -1.8
-                case (-1, -1):
-                    self.player.vel.y = -1.7
-                case ( 1, -1):
-                    self.player.vel.y = -1.7
+                if self.player.flip:
+                    self.direction = -1
+                else:
+                    self.direction = 1
 
     def update(self):
         if self.ticks_since_last < self.duration:
-            match self.direction:
-                case ( 1,  0):
-                    self.player.vel.y = 0
-                    self.player.vel.x = self.player.speed * self.speed
-                case (-1,  0):
-                    self.player.vel.y = 0
-                    self.player.vel.x = -self.player.speed * self.speed
-                case ( 0,  1):
-                    pass
-                case ( 0, -1):
-                    pass
-                case ( 1,  1):
-                    self.player.vel.y = 0
-                    self.player.vel.x = self.player.speed * self.speed
-                case (-1,  1):
-                    self.player.vel.y = 0
-                    self.player.vel.x = -self.player.speed * self.speed
-                case (-1, -1):
-                    self.player.vel.x = -self.player.speed * self.speed / 2
-                case ( 1, -1):
-                    self.player.vel.x = self.player.speed * self.speed / 2
+            self.player.vel.y = 0
+            self.player.vel.x = self.player.speed * self.speed * self.direction
         else:
             self.active = False
 
