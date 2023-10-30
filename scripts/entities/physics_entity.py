@@ -14,7 +14,7 @@ class PhysicsEntity:
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         self.movement = pg.Vector2() # input movement of entity
-        self.terminal_vel = 4
+        self.terminal_vel = 3
         self.animation = ''
         self.last_movement = pg.Vector2()
         self.anim_offset = pg.Vector2(0, 0)
@@ -27,6 +27,7 @@ class PhysicsEntity:
         self.ticks_since_got_hit = 500
         self.got_hit_direction = 0 # 0right 1down 2left 3up
         self.invulnerable = False
+        self.gravity = 0.145
 
     
     def set_animation(self, animation):
@@ -51,7 +52,7 @@ class PhysicsEntity:
         if self.collisions['down'] or self.collisions['up']:
             self.vel.y = 0
         #gravity with terminal vel
-        self.vel.y = min(self.terminal_vel, self.vel.y + 0.13)   
+        self.vel.y = min(self.terminal_vel, self.vel.y + self.gravity)   
 
         self.hot_chunk = ((self.rect.centerx + setup.CHUNK_SIZE[0] / 2) // setup.CHUNK_SIZE[0], (self.rect.centery + setup.CHUNK_SIZE[1] / 2) // setup.CHUNK_SIZE[1])
         #self.animation.tick(self.animation_flag) also shouldn't this be at the end of the update? it will be off by 1 frame

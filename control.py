@@ -17,9 +17,10 @@ screenshake would be a really good example i think!!
 
 if the player attacks an enemy the player loses any invulerability frames
 
-textbox in foreground so it moves parralax
 
 breakables take more than 1 hit
+
+checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
 ####
 ENEMIES
 ####
@@ -58,13 +59,10 @@ solids could have decor hanging off them, vines hanging from platforms
 
 place camera scroll on player better between levels
 
-probably want to use a 'touched the ground' cleanup cycle so i can make it so
-walljumps give back the double jump and or (not) dash
+textbox in foreground so it moves parralax
 ####
 Things to keep an eye on
 ####
-CLICKING X DOES NOT CLOSE THE GAME WTF todo
-
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time

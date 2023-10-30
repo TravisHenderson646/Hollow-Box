@@ -17,14 +17,14 @@ class Player(PhysicsEntity):
         self.wallslide = PlayerWallSlide(self)
         self.lt = False
         
-        self.speed = 1.1
+        self.speed = 1.2
         self.hp = 5 
         
         self.invulnerable = False
         self.knockback_speed = 3
         self.knockback_direction = 1# left is -1
         self.ticks_since_player_got_hit = 500
-        self.player_got_hit_knockback_duration = 13
+        self.player_got_hit_knockback_duration = 10
         self.in_got_hit = False
         self.invulnerable_duration = 120
         self.air_time = 0
@@ -38,7 +38,7 @@ class Player(PhysicsEntity):
         self.dash.active = False
         self.collisions['down'] = False
         self.hp -= 1
-        self.vel.y = -2.4
+        self.vel.y = self.jump.double_impulse
         self.invulnerable = True
         self.air_time = self.jump.coyote_time + 1
         self.ticks_since_player_got_hit = 0
@@ -54,7 +54,7 @@ class Player(PhysicsEntity):
         self.dash.active = False
         self.collisions['down'] = False
         self.hp -= 1
-        self.vel.y = -1.8
+        self.vel.y = self.jump.double_impulse
         self.invulnerable = True
         self.ticks_since_player_got_hit = 0
         self.air_time = self.jump.coyote_time + 1
@@ -184,8 +184,8 @@ class Player(PhysicsEntity):
 class PlayerJump:
     def __init__(self, player):
         self.player = player
-        self.unlocked = False
-        self.double_unlocked = False
+        self.unlocked = True
+        self.double_unlocked = True
         self.able = False
         self.coyote_time = 7
         self.buffer = 7
@@ -195,9 +195,12 @@ class PlayerJump:
         self.can_double = False
         self.ticks_since_walljump = 500
         self.walljump_active = False
-        self.walljump_duration = 8
+        self.walljump_duration = 4
         self.walljump_speed = 2
         self.walljump_direction = 1 # -1 left or 1 right
+        self.impulse = -1.8
+        self.double_impulse = -1.4
+        self.walljump_impulse = -1.4
         
     def check(self):
         if self.able:
@@ -217,14 +220,14 @@ class PlayerJump:
         print('Double jump!!!')
         self.active = True
         self.can_double = False
-        self.player.vel.y = min(self.player.vel.y, -2.3)
+        self.player.vel.y = min(self.player.vel.y, self.double_impulse)
         
     def start_walljump(self):
         print('Wall jump!!!')
         self.player.wallslide.active = False
         self.ticks_since_walljump = 0
         self.active = True
-        self.player.vel.y = -2.3
+        self.player.vel.y = self.walljump_impulse
         self.ticks_since_input = 100
         self.walljump_direction = -self.player.wallslide.direction
             
@@ -234,17 +237,20 @@ class PlayerJump:
             print('Coyote jump alert !!!')
         self.able = False
         self.active = True
-        self.player.vel.y = -2.85
+        self.player.vel.y = self.impulse
         setup.sfx['jump'].play()  
         
     def update(self):
         if self.held:
-            self.player.vel.y -= 0.06
+            self.player.vel.y -= self.player.gravity * 0.5
             self.player.set_animation('jump')
+            if self.player.vel.y > 0:
+                self.active = False
         else:
-            self.player.vel.y += 0.48
-        if self.player.vel.y > 0.3:
+            self.player.vel.y = 0.5
             self.active = False
+   #     if self.player.vel.y == 0:
+ #           self.active = False
         if self.ticks_since_walljump < self.walljump_duration:
             self.player.vel.x = self.walljump_speed * self.walljump_direction
             self.walljump_active = True
@@ -252,7 +258,7 @@ class PlayerJump:
 class PlayerAttack:
     def __init__(self, player):
         self.player = player
-        self.unlocked = False
+        self.unlocked = True
         self.damage = 2
         self.direction = 0 # 0,1,2,3=right,down,left,up
         self.duration = 4
@@ -269,14 +275,14 @@ class PlayerAttack:
         self.hitboxes_vertical = []
         self.surfaces = []
         self.surfaces_vertical = [] # these could be in a dict with names
-        self.hitboxes.append(pg.FRect(0, 0, 13, 20))
-        self.hitboxes.append(pg.FRect(0, 0, 13, 16))
-        self.hitboxes.append(pg.FRect(0, 0, 20,  8))
-        self.hitboxes.append(pg.FRect(0, 0, 6 ,  4))
-        self.hitboxes_vertical.append(pg.FRect(0, 0, 20, 13))
-        self.hitboxes_vertical.append(pg.FRect(0, 0, 16, 13))
-        self.hitboxes_vertical.append(pg.FRect(0, 0,  8, 20))
-        self.hitboxes_vertical.append(pg.FRect(0, 0,  4, 6))
+        self.hitboxes.append(pg.FRect(0, 0,  7, 12))
+        self.hitboxes.append(pg.FRect(0, 0,  7,  9))
+        self.hitboxes.append(pg.FRect(0, 0, 13,  5))
+        self.hitboxes.append(pg.FRect(0, 0,  3,  2))
+        self.hitboxes_vertical.append(pg.FRect(0, 0, 12,  7))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  9,  7))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  5, 12))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  2,  3))
         self.hitbox_list = [self.hitboxes, self.hitboxes_vertical]
         for hitbox in self.hitboxes:
             self.surfaces.append(pg.Surface(hitbox.size))
@@ -366,7 +372,7 @@ class PlayerAttack:
             case 1: #down pogo
                 if self.ticks_since_knockback == 0:
                     self.player.jump.active = False
-                    self.player.vel.y = min(self.player.vel.y, -2.35)
+                    self.player.vel.y = min(self.player.vel.y, self.player.jump.double_impulse)
                     self.player.jump.can_double = True
                     self.player.dash.able = True
         self.ticks_since_knockback += 1
@@ -374,9 +380,9 @@ class PlayerAttack:
 class PlayerWallSlide:
     def __init__(self, player):
         self.player = player
-        self.unlocked = False
+        self.unlocked = True
         self.active = False
-        self.speed = 0.5
+        self.speed = 0.8
         self.detach_buffer = 7
         self.ticks_detaching = 500
         self.direction = 1 # 1 or -1
@@ -415,7 +421,7 @@ class PlayerWallSlide:
 class PlayerDash:
     def __init__(self, player):
         self.player = player
-        self.unlocked = False
+        self.unlocked = True
         self.able = False
         self.buffer = 7
         self.active = False
@@ -423,8 +429,8 @@ class PlayerDash:
         self.ticks_since_last = 500
         self.cooldown = 33
         self.direction = (0, 0)
-        self.duration = 20
-        self.speed = 3.3
+        self.duration = 12
+        self.speed = 2.5
         
     def check(self):
         if self.able:
@@ -456,11 +462,11 @@ class PlayerDash:
                 case ( 0,  1):
                     self.player.vel.y =  self.player.terminal_vel
                 case ( 0, -1):
-                    self.player.vel.y = -3.2
+                    self.player.vel.y = -1.8
                 case (-1, -1):
-                    self.player.vel.y = -3
+                    self.player.vel.y = -1.7
                 case ( 1, -1):
-                    self.player.vel.y = -3
+                    self.player.vel.y = -1.7
 
     def update(self):
         if self.ticks_since_last < self.duration:
