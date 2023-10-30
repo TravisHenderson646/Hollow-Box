@@ -11,6 +11,7 @@ from scripts.debugger import debugger
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
+        self.anim_offset = pg.Vector2(-3, -8)
         self.attack = PlayerAttack(self)
         self.jump = PlayerJump(self)
         self.dash = PlayerDash(self)
@@ -198,9 +199,9 @@ class PlayerJump:
         self.walljump_duration = 4
         self.walljump_speed = 2
         self.walljump_direction = 1 # -1 left or 1 right
-        self.impulse = -1.8
-        self.double_impulse = -1.4
-        self.walljump_impulse = -1.4
+        self.impulse = -2.2
+        self.double_impulse = self.impulse * 0.75
+        self.walljump_impulse = self.double_impulse
         
     def check(self):
         if self.able:
@@ -242,12 +243,12 @@ class PlayerJump:
         
     def update(self):
         if self.held:
-            self.player.vel.y -= self.player.gravity * 0.5
+            self.player.vel.y -= self.player.gravity * 0.2
             self.player.set_animation('jump')
             if self.player.vel.y > 0:
                 self.active = False
         else:
-            self.player.vel.y = 0.5
+            self.player.vel.y = 0.1
             self.active = False
    #     if self.player.vel.y == 0:
  #           self.active = False

@@ -10,7 +10,7 @@ SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes p
 SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
-PLAYER_COLLISION_SIZE = (7, 13)
+PLAYER_COLLISION_SIZE = (5, 7)
 CHUNK_SIZE = (60, 60)
 GAME_TICK = 0
 

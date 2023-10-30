@@ -27,7 +27,7 @@ class PhysicsEntity:
         self.ticks_since_got_hit = 500
         self.got_hit_direction = 0 # 0right 1down 2left 3up
         self.invulnerable = False
-        self.gravity = 0.145
+        self.gravity = 0.11
 
     
     def set_animation(self, animation):
