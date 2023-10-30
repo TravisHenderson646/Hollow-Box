@@ -170,7 +170,7 @@ class Player(PhysicsEntity):
         self.jump.walljump_active = False
                        
     def render(self, surf, offset):
-        super().render(surf, offset)
+      #  super().render(surf, offset)
         
         if self.attack.ticks_since_last < self.attack.duration:
             if self.attack.direction in [0, 2]:

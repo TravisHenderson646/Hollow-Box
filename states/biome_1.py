@@ -214,6 +214,7 @@ class Biome_1(Game):
         for npc in self.npcs:
             npc.render(canvas, self.camera.rounded_pos)
         if not Biome_1.player.dead > 25:
+            pass
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
@@ -241,7 +242,7 @@ class Biome_1(Game):
      #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
 
-       # canvas.fill((78,78,78),((Biome_1.player.rect.x - self.camera.rounded_pos[0],Biome_1.player.rect.y - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
+        canvas.fill((78,78,78),((Biome_1.player.rect.x - self.camera.rounded_pos[0],Biome_1.player.rect.y - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
         
         return canvas
     
