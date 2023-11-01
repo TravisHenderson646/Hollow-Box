@@ -15,14 +15,15 @@ class Gnat(PhysicsEntity):
         
     def update(self, tilemap, player):
         super().update()
-                    
+        self.hitboxes[0] = self.hurtboxes[0]
+        
         self.vel.x = 0
         self.vel.y = 0
         if self.active:
-            self.vel = pg.Vector2(pg.Vector2(player.rect.center) - pg.Vector2(self.rect.center)).normalize() * self.speed
-            if pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) > self.active_radius:
+            self.vel = pg.Vector2(pg.Vector2(player.hurtboxes[0].center) - pg.Vector2(self.hurtboxes[0].center)).normalize() * self.speed
+            if pg.Vector2(self.hurtboxes[0].x, self.hurtboxes[0].y).distance_to((player.hurtboxes[0].x, player.hurtboxes[0].y)) > self.active_radius:
                 self.active = False
-        elif pg.Vector2(self.rect.x, self.rect.y).distance_to((player.rect.x, player.rect.y)) < self.idle_radius:
+        elif pg.Vector2(self.hurtboxes[0].x, self.hurtboxes[0].y).distance_to((player.hurtboxes[0].x, player.hurtboxes[0].y)) < self.idle_radius:
             self.active = True
             
         self.invulnerable = False
@@ -36,6 +37,8 @@ class Gnat(PhysicsEntity):
                     self.vel.x = 1.5
                 case 3: #up
                     self.vel.y = -1
+                case 1: #up
+                    self.vel.y = 1
         
         super().calculate_frame_movement()
 

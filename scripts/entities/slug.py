@@ -12,8 +12,9 @@ class Slug(PhysicsEntity):
         
     def update(self, tilemap, player):
         super().update()
+        self.hitboxes[0] = self.hurtboxes[0]
         self.invulnerable = False
-        if self.ticks_since_got_hit < 14: # this number could be lower
+        if self.ticks_since_got_hit < 6: # this number could be lower
             self.ticks_since_got_hit += 1
             self.invulnerable = True
             match self.got_hit_direction:
@@ -30,9 +31,9 @@ class Slug(PhysicsEntity):
         ### Turn around at a ledge
         if self.collisions['down']:
             if self.movement.x == -1:    
-                check_pos = (self.rect.left - 1, self.rect.bottom + 1)
+                check_pos = (self.hurtboxes[0].left - 1, self.hurtboxes[0].bottom + 1)
             else:
-                check_pos = (self.rect.right + 1, self.rect.bottom + 1)
+                check_pos = (self.hurtboxes[0].right + 1, self.hurtboxes[0].bottom + 1)
             if not tilemap.check_point(check_pos, self.hot_chunk):
                 self.movement.x = -self.movement.x 
         ###           

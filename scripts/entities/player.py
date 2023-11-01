@@ -11,11 +11,12 @@ from scripts.debugger import debugger
 class Player(PhysicsEntity):
     def __init__(self, pos, size):
         super().__init__('player', pos, size)
-        self.anim_offset = pg.Vector2(-3, -8)
+        self.anim_offset = pg.Vector2(-1, -2)
         self.attack = PlayerAttack(self)
         self.jump = PlayerJump(self)
         self.dash = PlayerDash(self)
         self.wallslide = PlayerWallSlide(self)
+        self.hitboxes = []
         self.lt = False
         
         self.speed = 1.2
@@ -25,7 +26,7 @@ class Player(PhysicsEntity):
         self.knockback_speed = 3
         self.knockback_direction = 1# left is -1
         self.ticks_since_player_got_hit = 500
-        self.player_got_hit_knockback_duration = 10
+        self.player_got_hit_knockback_duration = 6
         self.in_got_hit = False
         self.invulnerable_duration = 120
         self.air_time = 0
@@ -43,7 +44,7 @@ class Player(PhysicsEntity):
         self.invulnerable = True
         self.air_time = self.jump.coyote_time + 1
         self.ticks_since_player_got_hit = 0
-        if enemy.rect.centerx > self.rect.centerx:
+        if enemy.hurtboxes[0].centerx > self.hurtboxes[0].centerx:
             self.knockback_direction = -1
         else:
             self.knockback_direction = 1  
@@ -170,7 +171,7 @@ class Player(PhysicsEntity):
         self.jump.walljump_active = False
                        
     def render(self, surf, offset):
-      #  super().render(surf, offset)
+        super().render(surf, offset)
         
         if self.attack.ticks_since_last < self.attack.duration:
             if self.attack.direction in [0, 2]:
@@ -295,40 +296,40 @@ class PlayerAttack:
     def update(self):
         match self.direction:
             case 2: #left
-                self.hitboxes[0].centery = self.player.rect.centery
-                self.hitboxes[0].right = self.player.rect.centerx
-                self.hitboxes[1].centery = self.player.rect.centery
+                self.hitboxes[0].centery = self.player.hurtboxes[0].centery
+                self.hitboxes[0].right = self.player.hurtboxes[0].centerx
+                self.hitboxes[1].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[1].right = self.hitboxes[0].left
-                self.hitboxes[2].centery = self.player.rect.centery
+                self.hitboxes[2].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[2].right = self.hitboxes[1].left
-                self.hitboxes[3].centery = self.player.rect.centery
+                self.hitboxes[3].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[3].right = self.hitboxes[2].left
             case 0: #right
-                self.hitboxes[0].centery = self.player.rect.centery
-                self.hitboxes[0].left = self.player.rect.centerx
-                self.hitboxes[1].centery = self.player.rect.centery
+                self.hitboxes[0].centery = self.player.hurtboxes[0].centery
+                self.hitboxes[0].left = self.player.hurtboxes[0].centerx
+                self.hitboxes[1].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[1].left = self.hitboxes[0].right
-                self.hitboxes[2].centery = self.player.rect.centery
+                self.hitboxes[2].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[2].left = self.hitboxes[1].right
-                self.hitboxes[3].centery = self.player.rect.centery
+                self.hitboxes[3].centery = self.player.hurtboxes[0].centery
                 self.hitboxes[3].left = self.hitboxes[2].right
             case 3: #up
-                self.hitboxes_vertical[0].centerx = self.player.rect.centerx
-                self.hitboxes_vertical[0].bottom = self.player.rect.centery
-                self.hitboxes_vertical[1].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[0].centerx = self.player.hurtboxes[0].centerx
+                self.hitboxes_vertical[0].bottom = self.player.hurtboxes[0].centery
+                self.hitboxes_vertical[1].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[1].bottom = self.hitboxes_vertical[0].top
-                self.hitboxes_vertical[2].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[2].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[2].bottom = self.hitboxes_vertical[1].top
-                self.hitboxes_vertical[3].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[3].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[3].bottom = self.hitboxes_vertical[2].top
             case 1: #down
-                self.hitboxes_vertical[0].centerx = self.player.rect.centerx
-                self.hitboxes_vertical[0].top = self.player.rect.centery
-                self.hitboxes_vertical[1].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[0].centerx = self.player.hurtboxes[0].centerx
+                self.hitboxes_vertical[0].top = self.player.hurtboxes[0].centery
+                self.hitboxes_vertical[1].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[1].top = self.hitboxes_vertical[0].bottom
-                self.hitboxes_vertical[2].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[2].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[2].top = self.hitboxes_vertical[1].bottom
-                self.hitboxes_vertical[3].centerx = self.player.rect.centerx
+                self.hitboxes_vertical[3].centerx = self.player.hurtboxes[0].centerx
                 self.hitboxes_vertical[3].top = self.hitboxes_vertical[2].bottom
     
     def check(self):

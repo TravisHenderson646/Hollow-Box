@@ -3248,18 +3248,6 @@
         "chunked"
       ]
     },
-    "36;17": {
-      "type": "enemies",
-      "variant": 1,
-      "pos": [
-        288,
-        136
-      ],
-      "tags": [
-        "enemy",
-        "slug"
-      ]
-    },
     "49;17": {
       "type": "enemies",
       "variant": 1,
@@ -3269,7 +3257,7 @@
       ],
       "tags": [
         "enemy",
-        "slug"
+        "badguy"
       ]
     },
     "62;16": {

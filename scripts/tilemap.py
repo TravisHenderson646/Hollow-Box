@@ -165,45 +165,45 @@ class Tilemap:
     
     def collide_x(self, entity, rect):
         if entity.frame_movement[0] > 0:
-            entity.rect.right = rect.left
+            entity.hurtboxes[0].right = rect.left
             entity.collisions['right'] = True
         if entity.frame_movement[0] < 0:
-            entity.rect.left = rect.right
+            entity.hurtboxes[0].left = rect.right
             entity.collisions['left'] = True
         
     def collide_y(self, entity, rect):
         if entity.frame_movement[1] > 0:
-            entity.rect.bottom = rect.top
+            entity.hurtboxes[0].bottom = rect.top
             entity.collisions['down'] = True
         if entity.frame_movement[1] < 0:
-            entity.rect.top = rect.bottom
+            entity.hurtboxes[0].top = rect.bottom
             entity.collisions['up'] = True 
                           
     def push_out_solid(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         
-        entity.rect.x += entity.frame_movement[0]
+        entity.hurtboxes[0].x += entity.frame_movement[0]
         
         # chunk tiles
         for rect in self.chunks.get(entity.hot_chunk, {}):
-            if entity.rect.colliderect(rect):
+            if entity.hurtboxes[0].colliderect(rect):
                 self.collide_x(entity, rect)
         # special solid tiles
         for tile in self.current_solid_tiles:
-            if entity.rect.colliderect(tile.rect):
+            if entity.hurtboxes[0].colliderect(tile.rect):
                 self.collide_x(entity, tile.rect)
                 if tile.name == 'spike':
                     entity.hit_by_spike = True
                     
-        entity.rect.y += entity.frame_movement[1]
+        entity.hurtboxes[0].y += entity.frame_movement[1]
         
         # chunk tiles
         for rect in self.chunks.get(entity.hot_chunk, {}):
-            if entity.rect.colliderect(rect):
+            if entity.hurtboxes[0].colliderect(rect):
                 self.collide_y(entity, rect)
         # special solid tiles
         for tile in self.current_solid_tiles:
-            if entity.rect.colliderect(tile.rect):
+            if entity.hurtboxes[0].colliderect(tile.rect):
                 self.collide_y(entity, tile.rect)
                 if tile.name == 'spike':
                     entity.hit_by_spike = True
@@ -220,8 +220,8 @@ class Tilemap:
     def check_wallslide(self, player):
         if player.wallslide.direction == -1:
         
-            top_check = (player.rect.left - 3, player.rect.top)
-            bottom_check = (player.rect.left - 3, player.rect.bottom)
+            top_check = (player.hurtboxes[0].left - 3, player.hurtboxes[0].top)
+            bottom_check = (player.hurtboxes[0].left - 3, player.hurtboxes[0].bottom)
         
             for rect in self.chunks.get(player.hot_chunk, {}):
                 if rect.collidepoint(top_check[0], top_check[1]):
@@ -240,8 +240,8 @@ class Tilemap:
                         player.hit_by_spike = True
                     return True
         if player.wallslide.direction == 1:
-            top_check = (player.rect.right + 3, player.rect.top)
-            bottom_check = (player.rect.right + 3, player.rect.bottom)
+            top_check = (player.hurtboxes[0].right + 3, player.hurtboxes[0].top)
+            bottom_check = (player.hurtboxes[0].right + 3, player.hurtboxes[0].bottom)
             for rect in self.chunks.get(player.hot_chunk, {}):
                 if rect.collidepoint(top_check[0], top_check[1]):
                     return True

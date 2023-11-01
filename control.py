@@ -22,7 +22,7 @@ breakables take more than 1 hit
 
 checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
 ####
-ENEMIES
+ENEMIESdd
 ####
 jumping slime
 jazzball just bouncing around

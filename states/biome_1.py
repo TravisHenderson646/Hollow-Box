@@ -11,6 +11,7 @@ from scripts.clouds import Clouds
 from scripts.spark import Spark
 from scripts.entities.slug import Slug
 from scripts.entities.gnat import Gnat
+from scripts.entities.badguy import Badguy
 from scripts.camera import Camera
 from states.game import Game
 
@@ -57,6 +58,8 @@ class Biome_1(Game):
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
         for tile in self.tilemap.enemies:
+            if 'badguy' in tile.tags:
+                self.enemies.append(Badguy(tile.rect.topleft))
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
             if 'gnat' in tile.tags:
@@ -120,23 +123,25 @@ class Biome_1(Game):
         # enemies
         for enemy in self.enemies.copy():
             if not enemy.invulnerable:
-                if enemy.rect.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
-                    Biome_1.player.attack.ticks_since_knockback = 0
-                    Biome_1.player.invulnerable = False
-                    enemy.hp -= self.player.attack.damage
-                    enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
-                    enemy.got_hit_direction = Biome_1.player.attack.direction
-                    setup.sfx['dash'].play()
+                for hurtbox in enemy.hurtboxes:
+                    if hurtbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+                        Biome_1.player.attack.ticks_since_knockback = 0
+                        Biome_1.player.invulnerable = False
+                        enemy.hp -= self.player.attack.damage
+                        enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
+                        enemy.got_hit_direction = Biome_1.player.attack.direction
+                        setup.sfx['dash'].play()
             
     def player_got_hit_collision(self):
         for enemy in self.enemies:
-            if Biome_1.player.rect.colliderect(enemy.rect):
-                Biome_1.player.got_hit(enemy)
+            for hitbox in enemy.hitboxes:
+                if Biome_1.player.hurtboxes[0].colliderect(hitbox):
+                    Biome_1.player.got_hit(enemy) # maybe i should actually pass the player into a got_hit funtion on the enemy
         
     def update(self): # Main loop\
         for npc in self.npcs:
             npc.can_interact_flag = False
-            if npc.rect.colliderect(Biome_1.player.rect):
+            if npc.hurtboxes[0].colliderect(Biome_1.player.hurtboxes[0]):
                 npc.can_interact_flag = True
                 if Biome_1.player.try_interact_flag == True:
                     npc.dialogue.start()
@@ -145,19 +150,13 @@ class Biome_1(Game):
         
         Biome_1.player.update(self.tilemap)
         
-  #      debugger.debug('jump', ('jump', Biome_1.player.jump.unlocked))
-   #     debugger.debug('dash', ('dash', Biome_1.player.dash.unlocked))
-    #    debugger.debug('wallslide', ('wallslide', Biome_1.player.wallslide.unlocked))
-     #   debugger.debug('atack', ('atack', Biome_1.player.attack.unlocked))
-      #  debugger.debug('double_jump', ('double_jump', Biome_1.player.jump.double_unlocked))
-        
         for enemy in self.enemies:
             if not enemy.dead:
                 enemy.update(self.tilemap, self.player)
             else:
                 self.enemies.remove(enemy)
                 setup.sfx['hit'].play()
-                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                self.sparks.append(Spark((200,250,80), enemy.hurtboxes[0].center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
@@ -187,7 +186,7 @@ class Biome_1(Game):
                 self.sparks.remove(spark)
                 
         for pickup in self.pickups:
-            if Biome_1.player.rect.colliderect(pickup.rect):
+            if Biome_1.player.hurtboxes[0].colliderect(pickup.rect):
                 pickup.picked_up(Biome_1.player)
                 self.pickups.remove(pickup)
             pickup.update()
@@ -199,7 +198,7 @@ class Biome_1(Game):
         self.clouds.update()
                 
     def render(self, canvas: pg.Surface):
-        self.camera.update((round(self.player.rect.centerx), round(self.player.rect.centery)))
+        self.camera.update((round(self.player.hurtboxes[0].centerx), round(self.player.hurtboxes[0].centery)))
         canvas.fill((19, 178, 242))
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)
@@ -237,12 +236,12 @@ class Biome_1(Game):
                 dialogue_box.render(canvas, self.camera.rounded_pos) 
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-  #      hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
+  #      hot_chunk = ((Biome_1.player.hurtboxes[0].centerx + 30) // 60, (Biome_1.player.hurtboxes[0].centery + 30) // 60)
    #     for rect in self.tilemap.chunks.get((hot_chunk), {}):
      #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
 
-        canvas.fill((78,78,78),((Biome_1.player.rect.x - self.camera.rounded_pos[0],Biome_1.player.rect.y - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
+        canvas.fill((78,78,78),((Biome_1.player.hurtboxes[0].x - self.camera.rounded_pos[0],Biome_1.player.hurtboxes[0].y - self.camera.rounded_pos[1],Biome_1.player.hurtboxes[0].width,Biome_1.player.hurtboxes[0].height)))
         
         return canvas
     

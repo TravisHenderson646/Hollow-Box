@@ -45,13 +45,13 @@ class BeeGuy(PhysicsEntity):
         
         ### Turn around at a ledge
         if self.movement.x == -1:    
-            check_pos = (self.rect.left - 1, self.rect.bottom + 1)
+            check_pos = (self.hurtboxes[0].left - 1, self.hurtboxes[0].bottom + 1)
         else:
-            check_pos = (self.rect.right + 1, self.rect.bottom + 1)
+            check_pos = (self.hurtboxes[0].right + 1, self.hurtboxes[0].bottom + 1)
         if not tilemap.check_point(check_pos, self.hot_chunk):
             self.movement.x = -self.movement.x 
         ###                
-        self.dialogue.pos = (self.rect.x - 30, self.rect.y - 18)   
+        self.dialogue.pos = (self.hurtboxes[0].x - 30, self.hurtboxes[0].y - 18)   
         if self.dialogue.active and (not self.look_what_i_can_do):
             self.frame_movement = pg.Vector2(0, 0)
         else:
@@ -60,7 +60,7 @@ class BeeGuy(PhysicsEntity):
         
 
     def render(self, surf:pg.Surface, offset):
-        pos = pg.Vector2(floor(self.rect.x), floor(self.rect.y))
+        pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
         surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
         if self.can_interact_flag:
             self.chevron_tick += 1

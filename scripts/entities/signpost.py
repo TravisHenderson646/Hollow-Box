@@ -9,10 +9,10 @@ from scripts.setup import assets
 
 class Signpost(PhysicsEntity):
     def __init__(self, pos, text):
-        self.size = (25, 25) # todo: could probably automate size generation from image but i guess most enemies will have a defined hitbox
+        self.size = (7, 10) # todo: could probably automate size generation from image but i guess most enemies will have a defined hitbox
         super().__init__('signpost', pos, self.size)
         self.dialogue = DialogueBox((80,9), text)
-        self.dialogue.pos = (self.rect.x - 30, self.rect.y - 18)
+        self.dialogue.pos = (self.hurtboxes[0].x - 30, self.hurtboxes[0].y - 18)
         self.chevron = assets['chevron'].copy()
         self.chevron_width = self.chevron.get_width()
         self.chevron_tick = 0
@@ -26,7 +26,7 @@ class Signpost(PhysicsEntity):
         self.frame_movement = pg.Vector2(0, 0)
 
     def render(self, surf:pg.Surface, offset):
-        pos = pg.Vector2(floor(self.rect.x), floor(self.rect.y))
+        pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
         surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
         if self.can_interact_flag:
             self.chevron_tick += 1
