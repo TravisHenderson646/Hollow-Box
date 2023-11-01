@@ -15,14 +15,16 @@ can send any random thing through the event queue apparently
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
 
-if the player attacks an enemy the player loses any invulerability frames
-
+if the player damages an enemy the player loses any invulerability frames
 
 breakables take more than 1 hit
 
+attacks clank other attacks
+attacks redirect projectiles
+
 checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
 ####
-ENEMIESdd
+ENEMIES
 ####
 jumping slime
 jazzball just bouncing around
@@ -70,6 +72,13 @@ if the parallax background looks wack (when you make one) try making sure the de
 CHORES todo
 ###
 Rename levels
+
+parse out physics entities, player, npc, enemy. the inheritance is messy
+determine what traits each has before implementation
+
+should got_hit be in each enemy class. (its trash now w/ gothitspike and gothitprojectile)
+
+change surfs to canvass where it makes sense
 '''
 import sys
 

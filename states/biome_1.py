@@ -33,6 +33,7 @@ class Biome_1(Game):
         self.dialogue_boxes = []
         self.npcs = []
         self.pickups = []
+        self.projectiles = []
             
         
     def cleanup(self):
@@ -131,12 +132,25 @@ class Biome_1(Game):
                         enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
                         enemy.got_hit_direction = Biome_1.player.attack.direction
                         setup.sfx['dash'].play()
+                for hitbox in enemy.hitboxes[1:]:
+                    if hitbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+                        Biome_1.player.attack.ticks_since_knockback = 0
+                        #sfx play clank
+        
+        for projectile in self.projectiles:
+            for hitbox in Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]:
+                if hitbox.collidepoint(projectile.pos):
+                    Biome_1.player.attack.ticks_since_knockback = 0
+                    projectile.dead = True
             
     def player_got_hit_collision(self):
         for enemy in self.enemies:
             for hitbox in enemy.hitboxes:
                 if Biome_1.player.hurtboxes[0].colliderect(hitbox):
                     Biome_1.player.got_hit(enemy) # maybe i should actually pass the player into a got_hit funtion on the enemy
+        for projectile in self.projectiles:
+            if Biome_1.player.hurtboxes[0].collidepoint(projectile.pos):
+                Biome_1.player.got_hit_by_projectile(projectile.pos)
         
     def update(self): # Main loop\
         for npc in self.npcs:
@@ -153,6 +167,8 @@ class Biome_1(Game):
         for enemy in self.enemies:
             if not enemy.dead:
                 enemy.update(self.tilemap, self.player)
+                self.projectiles.extend(enemy.projectiles)
+                enemy.projectiles = []
             else:
                 self.enemies.remove(enemy)
                 setup.sfx['hit'].play()
@@ -172,6 +188,18 @@ class Biome_1(Game):
                 Biome_1.player.got_hit_by_spike()
         else:
             Biome_1.player.hit_by_spike = False
+                            
+        for pickup in self.pickups:
+            if Biome_1.player.hurtboxes[0].colliderect(pickup.rect):
+                pickup.picked_up(Biome_1.player)
+                self.pickups.remove(pickup)
+            pickup.update()
+            
+        for projectile in self.projectiles:
+            if projectile.dead:
+                self.projectiles.remove(projectile)
+            else:    
+                projectile.update(self.tilemap)
             
         for particle in self.particles.copy():
             kill = particle.update()
@@ -179,17 +207,11 @@ class Biome_1(Game):
                 self.particles.remove(particle)
             else: # this just makes the leaves move wavy southwest idk its bad
                 particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.3    
-                    
+                           
         for spark in self.sparks.copy():
             kill = spark.update()
             if kill:
                 self.sparks.remove(spark)
-                
-        for pickup in self.pickups:
-            if Biome_1.player.hurtboxes[0].colliderect(pickup.rect):
-                pickup.picked_up(Biome_1.player)
-                self.pickups.remove(pickup)
-            pickup.update()
                 
         for dialogue_box in self.dialogue_boxes:
             if dialogue_box.active:
@@ -206,10 +228,6 @@ class Biome_1(Game):
         for tile in self.tilemap.current_rendered_tiles:
             canvas.blit(tile.image, (tile.pos[0] - self.camera.rounded_pos[0], tile.pos[1] - self.camera.rounded_pos[1]))
         
-        for projectile in self.projectiles.copy():
-            img = setup.assets['projectile']
-            canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.camera.rounded_pos[0], projectile[0][1] - img.get_height() / 2 - self.camera.rounded_pos[1])) 
-        
         if not Biome_1.player.dead > 25:
             pass
             Biome_1.player.render(canvas, self.camera.rounded_pos)
@@ -219,6 +237,9 @@ class Biome_1(Game):
             
         for npc in self.npcs:
             npc.render(canvas, self.camera.rounded_pos)
+        
+        for projectile in self.projectiles:
+            projectile.render(canvas, self.camera.rounded_pos)
     
         for particle in self.particles:
             particle.render(canvas, self.camera.rounded_pos)   
@@ -229,9 +250,6 @@ class Biome_1(Game):
         for pickup in self.pickups:
             pickup.render(canvas, self.camera.rounded_pos)
             
-        
-   #     for dialogue_box in self.dialogue_boxes.keys():
-    #        print(dialogue_box)
         for dialogue_box in self.dialogue_boxes:
             if dialogue_box.active:
                 dialogue_box.render(canvas, self.camera.rounded_pos) 

@@ -29,6 +29,7 @@ class PhysicsEntity:
         self.got_hit_direction = 0 # 0right 1down 2left 3up
         self.invulnerable = False
         self.gravity = 0.11
+        self.projectiles = []
 
     
     def set_animation(self, animation):

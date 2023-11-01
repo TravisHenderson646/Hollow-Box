@@ -48,6 +48,22 @@ class Player(PhysicsEntity):
             self.knockback_direction = -1
         else:
             self.knockback_direction = 1  
+                   
+    def got_hit_by_projectile(self, pos):
+        setup.sfx['hit'].play()
+        self.jump.active = False
+        self.wallslide.active = False
+        self.dash.active = False
+        self.collisions['down'] = False
+        self.hp -= 1
+        self.vel.y = self.jump.double_impulse
+        self.invulnerable = True
+        self.air_time = self.jump.coyote_time + 1
+        self.ticks_since_player_got_hit = 0
+        if pos.x > self.hurtboxes[0].centerx:
+            self.knockback_direction = -1
+        else:
+            self.knockback_direction = 1  
                  
     def got_hit_by_spike(self):
         setup.sfx['hit'].play()
