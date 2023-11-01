@@ -34,9 +34,9 @@ class Badguy(PhysicsEntity):
             self.invulnerable = True
             match self.got_hit_direction:
                 case 2: #left
-                    self.vel.x -= 1.5
+                    self.vel.x -= .8
                 case 0: #right
-                    self.vel.x += 1.5
+                    self.vel.x += .8
                 case 3: #up
                     self.vel.y = -1      
         
@@ -59,6 +59,12 @@ class Badguy(PhysicsEntity):
                     self.charge.ticks_since_started = 0
                     self.set_animation('charge')
                 self.charge.update(player)
+            if self.status == 'jump':
+                if not self.jump.active:
+                    self.jump.active = True
+                    self.jump.ticks_since_started = 0
+                    self.set_animation('idle')
+                self.jump.update(player)
                 
         self.calculate_frame_movement()
         
@@ -71,30 +77,45 @@ class Badguy(PhysicsEntity):
     def render(self, surf:pg.Surface, offset):
         pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
         surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
-        surf.fill((100,100,100), (self.hurtboxes[0].x - offset[0], self.hurtboxes[0].y - offset[1], 15, 25))
-        surf.fill((100,0, 0), (self.hitboxes[0].x - offset[0], self.hitboxes[0].y - offset[1], self.hitboxes[0].w, self.hitboxes[0].h))
+        if len(self.hitboxes) > 1:
+            print(len(self.hitboxes))
+            surf.fill((100,100,100), (self.jump.attack.x - offset[0], self.jump.attack.y - offset[1], self.jump.attack.w, self.jump.attack.h))
+  # TESTESTESTESTEST   
+     #   surf.fill((100,100,100), (self.hurtboxes[0].x - offset[0], self.hurtboxes[0].y - offset[1], 15, 25))
+      #  surf.fill((100,0, 0), (self.hitboxes[0].x - offset[0], self.hitboxes[0].y - offset[1], self.hitboxes[0].w, self.hitboxes[0].h))
         
 class BadguyJump:
     def __init__(self, badguy):
         self.badguy = badguy
         self.active = False
         self.ticks_since_started = 500
-        self.duration = 60
+        self.duration = 25
         self.direction = 1
+        self.attack = pg.FRect(0, 0, 35, 11)
         
     def update(self, player):
         if self.ticks_since_started == 0:
-            self.vel.y = -3
-            self.badguy.speed = 0.8
+            self.ticks_since_started = 1
+            self.badguy.vel.y = -2.5
+            self.badguy.speed = 0.4
+            if player.hurtboxes[0].centerx > self.badguy.hurtboxes[0].centerx:
+                self.badguy.movement.x = 1
+            else:
+                self.badguy.movement.x = -1
+        elif self.badguy.collisions['down']:
+            if self.ticks_since_started == 1:
+                self.badguy.speed = 0
+                self.badguy.hitboxes.append(self.attack)
+                self.badguy.hitboxes[1].bottom = self.badguy.hurtboxes[0].bottom
+                if self.badguy.movement.x == 1:
+                    self.badguy.hitboxes[1].left = self.badguy.hurtboxes[0].right
+                else:
+                    self.badguy.hitboxes[1].right = self.badguy.hurtboxes[0].left
+            self.ticks_since_started += 1
         if self.ticks_since_started >= self.duration:
             self.active = False
+            self.badguy.hitboxes.pop()
             self.badguy.status = 'think'
-            self.badguy.hurtboxes[0] = self.badguy.true_rect
-            self.badguy.hurtboxes[0].x = self.rect.x
-            self.badguy.hurtboxes[0].bottom = self.rect.bottom
-        if self.ticks_since_started > 10 and self.badguy.collisions['down']:
-            pass
-        self.ticks_since_started += 1
         
 
 class BadguyThink:
@@ -102,16 +123,15 @@ class BadguyThink:
         self.badguy = badguy
         self.active = False
         self.ticks_since_started = 500
-        self.duration = 180
+        self.duration = 120
         
     def update(self, player):
-        print(self.ticks_since_started)
         if self.ticks_since_started == 0:
             self.badguy.speed = random() * 0.4            
             self.badguy.movement.x = choice([-1, 1])
         if self.ticks_since_started >= self.duration:
             self.active = False
-            self.badguy.status = choice(['charge'])        
+            self.badguy.status = choice(['jump', 'charge'])        
         if player.hurtboxes[0].centerx < self.badguy.hurtboxes[0].centerx:
             self.badguy.flip = True
         else:

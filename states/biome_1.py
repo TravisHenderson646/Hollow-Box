@@ -210,14 +210,15 @@ class Biome_1(Game):
             img = setup.assets['projectile']
             canvas.blit(img, (projectile[0][0] - img.get_width() / 2 - self.camera.rounded_pos[0], projectile[0][1] - img.get_height() / 2 - self.camera.rounded_pos[1])) 
         
-        for npc in self.npcs:
-            npc.render(canvas, self.camera.rounded_pos)
         if not Biome_1.player.dead > 25:
             pass
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
             enemy.render(canvas, self.camera.rounded_pos)
+            
+        for npc in self.npcs:
+            npc.render(canvas, self.camera.rounded_pos)
     
         for particle in self.particles:
             particle.render(canvas, self.camera.rounded_pos)   
