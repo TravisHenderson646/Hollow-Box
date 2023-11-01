@@ -9,6 +9,7 @@ class Slug(PhysicsEntity):
         self.speed = 0.3
         self.movement.x = -1
         self.hp = 3
+        self.geo = 2
         
     def update(self, tilemap, player):
         super().update()

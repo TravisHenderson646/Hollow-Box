@@ -9,6 +9,7 @@ from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
+from scripts.geo import Geo
 from scripts.entities.slug import Slug
 from scripts.entities.gnat import Gnat
 from scripts.entities.badguy import Badguy
@@ -173,6 +174,9 @@ class Biome_1(Game):
                 self.enemies.remove(enemy)
                 setup.sfx['hit'].play()
                 self.sparks.append(Spark((200,250,80), enemy.hurtboxes[0].center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                for _ in range(enemy.geo):
+                    self.pickups.append(Geo(enemy.hurtboxes[0].center, 1))
+                    self.solid_entities.append(self.pickups[-1])
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
@@ -193,6 +197,8 @@ class Biome_1(Game):
             if Biome_1.player.hurtboxes[0].colliderect(pickup.rect):
                 pickup.picked_up(Biome_1.player)
                 self.pickups.remove(pickup)
+                if pickup in self.solid_entities:
+                    self.solid_entities.remove(pickup)
             pickup.update()
             
         for projectile in self.projectiles:

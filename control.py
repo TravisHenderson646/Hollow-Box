@@ -7,7 +7,7 @@ attack is like a upward jab with a stinger
 its fun for now but i dont think im going to want the pogo to reset everything, its too centralizing late game
 peach float
 landing could reset attack cooldown
-wall climb like celest w button cling but can attack
+wall climb like celest w bddddutton cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
 floating hurtboxes to pogo
 
@@ -21,6 +21,8 @@ breakables take more than 1 hit
 
 attacks clank other attacks
 attacks redirect projectiles
+
+enemies get hurt on spikes
 
 checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
 ####

@@ -23,7 +23,7 @@ class Signpost(PhysicsEntity):
         self.movement.x = 0
         
     def update(self, tilemap):
-        self.frame_movement = pg.Vector2(0, 0)
+        self.frame_movement = pg.Vector2(0, 0) # todo try putting this in init
 
     def render(self, surf:pg.Surface, offset):
         pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))

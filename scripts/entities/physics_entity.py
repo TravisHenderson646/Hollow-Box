@@ -30,6 +30,7 @@ class PhysicsEntity:
         self.invulnerable = False
         self.gravity = 0.11
         self.projectiles = []
+        self.geo = 2
 
     
     def set_animation(self, animation):

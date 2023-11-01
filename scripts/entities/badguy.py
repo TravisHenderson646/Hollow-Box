@@ -1,4 +1,4 @@
-from random import random, choice, choices
+from random import random, randint, choice, choices
 from math import floor
 
 import pygame as pg
@@ -17,7 +17,8 @@ class Badguy(PhysicsEntity):
         self.shoot = BadguyShoot(self)
         self.speed = 0.2
         self.movement.x = -1
-        self.hp = 30
+        self.hp = 15
+        self.geo = 15
         self.status = 'patrol' # 'patrol' never used
         self.idle_radius = 100
         self.active = False
@@ -103,22 +104,23 @@ class BadguyThink:
         
     def update(self, tilemap, player):
         if self.ticks_since_started == 0:
+            self.duration = randint(30, 90)
             for key in self.badguy.moves.keys():
                 self.badguy.moves[key] += 1
-            self.badguy.speed = random() * 0.4            
+            self.badguy.speed = random() * 0.3  + 0.1           
             self.badguy.movement.x = choice([-1, 1])
         if self.ticks_since_started >= self.duration:
             self.active = False
             if self.badguy.flip:
                 if tilemap.check_point((self.badguy.hurtboxes[0].left - 4, self.badguy.hurtboxes[0].bottom - 2), self.badguy.hot_chunk):
-                    self.badguy.moves['charge'] += 2
+                    self.badguy.moves['charge'] += 4
             else:
                 if tilemap.check_point((self.badguy.hurtboxes[0].right + 4, self.badguy.hurtboxes[0].bottom - 2), self.badguy.hot_chunk):
-                    self.badguy.moves['charge'] += 2                
+                    self.badguy.moves['charge'] += 4                
             if pg.Vector2(self.badguy.hurtboxes[0].centerx, self.badguy.hurtboxes[0].centery).distance_to((player.hurtboxes[0].centerx, player.hurtboxes[0].centery)) < self.range_spacing:
-                self.badguy.moves['jump'] += 2
+                self.badguy.moves['jump'] += 1
             else:
-                self.badguy.moves['shoot'] += 2
+                self.badguy.moves['shoot'] += 1
             self.badguy.status = choices(list(self.badguy.moves.keys()), weights = list(self.badguy.moves.values()))[0]        
         if player.hurtboxes[0].centerx < self.badguy.hurtboxes[0].centerx:
             self.badguy.flip = True
@@ -197,7 +199,7 @@ class BadguyCharge:
         self.active = False
         self.ticks_since_started = 500
         self.windup_duration = 60
-        self.duration = 120 # could randomize this at start of each charge
+        self.duration = 90 # could randomize this at start of each charge
         self.direction = 1
         self.rect = pg.FRect(0, 0, 15, 15)
         

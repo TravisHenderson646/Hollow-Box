@@ -18,6 +18,7 @@ class Player(PhysicsEntity):
         self.wallslide = PlayerWallSlide(self)
         self.hitboxes = []
         self.lt = False
+        self.geo = 0
         
         self.speed = 1.2
         self.hp = 5 

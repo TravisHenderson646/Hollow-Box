@@ -15,10 +15,12 @@ class Projectile: # todo could inherit from entity?
         self.speed = 2
         self.gravity = 0.07
         self.hot_chunk = (0, 0)
+        self.terminal_velocity = 3
         
     def update(self, tilemap):
         self.pos += self.vel
         self.vel.y += self.gravity
+        self.vel.y = min(self.vel.y, self.terminal_velocity)
         self.hot_chunk = ((self.pos.x + setup.CHUNK_SIZE[0] / 2) // setup.CHUNK_SIZE[0], (self.pos.y + setup.CHUNK_SIZE[1] / 2) // setup.CHUNK_SIZE[1])
         if tilemap.check_point(self.pos, self.hot_chunk):
             self.dead = True
