@@ -69,6 +69,6 @@ class PhysicsEntity:
             self.frame_movement = pg.Vector2((self.movement.x) * self.speed, self.vel.y)    
 
 
-    def render(self, surf:pg.Surface, offset):
+    def render(self, canvas:pg.Surface, offset):
         pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
-        surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
+        canvas.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))

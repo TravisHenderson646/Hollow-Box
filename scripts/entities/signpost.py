@@ -25,9 +25,9 @@ class Signpost(PhysicsEntity):
     def update(self, tilemap):
         self.frame_movement = pg.Vector2(0, 0) # todo try putting this in init
 
-    def render(self, surf:pg.Surface, offset):
+    def render(self, canvas:pg.Surface, offset):
         pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
-        surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
+        canvas.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
         if self.can_interact_flag:
             self.chevron_tick += 1
-            surf.blit(self.chevron, (pos[0] - offset[0], pos[1] - 10 - offset[1] + cos(self.chevron_tick / 15) * 3))
+            canvas.blit(self.chevron, (pos[0] - offset[0], pos[1] - 10 - offset[1] + cos(self.chevron_tick / 15) * 3))

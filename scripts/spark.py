@@ -16,7 +16,7 @@ class Spark:
         self.speed = max(0, self.speed - 0.05)
         return not self.speed
     
-    def render(self, surf, offset):
+    def render(self, canvas, offset):
         render_points = [
             (self.pos[0] + math.cos(self.angle                ) * self.speed - offset[0], self.pos[1] + math.sin(self.angle                ) * self.speed - offset[1]),
             (self.pos[0] + math.cos(self.angle + math.pi * 0.5) * self.speed - offset[0], self.pos[1] + math.sin(self.angle + math.pi * 0.5) * self.speed - offset[1]),
@@ -24,4 +24,4 @@ class Spark:
             (self.pos[0] + math.cos(self.angle + math.pi * 1.5) * self.speed - offset[0], self.pos[1] + math.sin(self.angle + math.pi * 1.5) * self.speed - offset[1])
         ]
         
-        pg.draw.polygon(surf, self.color, render_points)
+        pg.draw.polygon(canvas, self.color, render_points)

@@ -63,10 +63,10 @@ class Enemy(PhysicsEntity):
                 sparks.append(Spark(self.rect.center, math.pi, 5 + random.random()))
                 return True
             
-    def render(self, surf, offset):
-        super().render(surf, offset)
+    def render(self, canvas, offset):
+        super().render(canvas, offset)
         
         if self.flip:
-            surf.blit(pg.transform.flip(setup.assets['gun'], True, False), (self.rect.centerx - 4 - setup.assets['gun'].get_width() - offset[0], self.rect.centery - offset[1]))
+            canvas.blit(pg.transform.flip(setup.assets['gun'], True, False), (self.rect.centerx - 4 - setup.assets['gun'].get_width() - offset[0], self.rect.centery - offset[1]))
         else:
-            surf.blit(setup.assets['gun'], (self.rect.centerx + 4 - offset[0], self.rect.centery - offset[1]))
+            canvas.blit(setup.assets['gun'], (self.rect.centerx + 4 - offset[0], self.rect.centery - offset[1]))

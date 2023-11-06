@@ -272,10 +272,10 @@ class Tilemap:
                     current_panel.blit(tile.image, (tile.pos[0] - panel_offset[0], tile.pos[1] - panel_offset[1]))
                 current_panel.set_colorkey((0, 0, 0))
 
-    def render(self, surf, offset):
+    def render(self, canvas, offset):
         '''Takes the display surface and screen scroll and renders the relevant tilemap panels'''
-        disp_width = surf.get_width()
-        disp_height = surf.get_height()
+        disp_width = canvas.get_width()
+        disp_height = canvas.get_height()
         center_node = (round((offset[0] + disp_width/2) / disp_width), round((offset[1] + disp_height/2) / disp_height))
         hot_panels = (
             (center_node[0] - 1, center_node[1] - 1),
@@ -286,4 +286,4 @@ class Tilemap:
         for panel_pos in hot_panels:
             if panel_pos[0] >= 0 and panel_pos[1] >= 0:
                 panel = self.panels.get(panel_pos, pg.Surface((0, 0)))
-                surf.blit(panel, (panel_pos[0] * disp_width - offset[0], panel_pos[1] * disp_height - offset[1]))
+                canvas.blit(panel, (panel_pos[0] * disp_width - offset[0], panel_pos[1] * disp_height - offset[1]))

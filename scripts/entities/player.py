@@ -83,6 +83,7 @@ class Player(PhysicsEntity):
             self.knockback_direction = -1
      
     def update(self, tilemap):
+        debugger.debug('geo', ('geo:', self.geo))
         if setup.joysticks:
             axis0 = setup.joysticks[0].get_axis(0)
             axis1 = setup.joysticks[0].get_axis(1)
@@ -187,18 +188,18 @@ class Player(PhysicsEntity):
             super().calculate_frame_movement()
         self.jump.walljump_active = False
                        
-    def render(self, surf, offset):
-        super().render(surf, offset)
+    def render(self, canvas, offset):
+        super().render(canvas, offset)
         
         if self.attack.ticks_since_last < self.attack.duration:
             if self.attack.direction in [0, 2]:
                 for hitbox, surface in zip(self.attack.hitboxes, self.attack.surfaces):
                     pos = (hitbox.x - offset[0], hitbox.y - offset[1])
-                    surf.blit(surface,pos)
+                    canvas.blit(surface,pos)
             if self.attack.direction in [1, 3]:
                 for hitbox, surface in zip(self.attack.hitboxes_vertical, self.attack.surfaces_vertical):
                     pos = (hitbox.x - offset[0], hitbox.y - offset[1])
-                    surf.blit(surface,pos)
+                    canvas.blit(surface,pos)
 
 class PlayerJump:
     def __init__(self, player):

@@ -175,7 +175,8 @@ class Biome_1(Game):
                 setup.sfx['hit'].play()
                 self.sparks.append(Spark((200,250,80), enemy.hurtboxes[0].center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                 for _ in range(enemy.geo):
-                    self.pickups.append(Geo(enemy.hurtboxes[0].center, 1))
+                    direction = -1 if Biome_1.player.flip else 1
+                    self.pickups.append(Geo(enemy.hurtboxes[0].center, direction))
                     self.solid_entities.append(self.pickups[-1])
 
         for entity in self.solid_entities:

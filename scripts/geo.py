@@ -1,4 +1,4 @@
-from random import random
+from random import random, randint
 
 import pygame as pg
 
@@ -7,15 +7,18 @@ from scripts import setup
 
 class Geo(PhysicsEntity):
     def __init__(self, pos, direction):
-        self.size = (3, 3)
+        self.size = (7, 7)
+        pos = (pos[0] - 7, pos[1] - 3)
         super().__init__('geo', pos, self.size)
-        self.vel = pg.Vector2(random() * direction, -1 * random() - 1)
+        self.vel = pg.Vector2(random() * direction + direction, -1 * random() - 1)
         self.ticks_since_bounce = 500
         self.bounce_active = False
         self.bounce_duration = 3
-        self.restitution = 0.7
+        self.restitution = 0.6
         self.rect = pg.FRect(0,0,0,0)
         self.can_bounce = True
+        self.animation.frame = randint(0, len(self.animation.images * self.animation.image_dur))
+        self.animation.image_dur = randint(6, 22)
             
     def picked_up(self, player):
         player.geo += 1
@@ -40,6 +43,9 @@ class Geo(PhysicsEntity):
                 self.vel = pg.Vector2()
         elif self.collisions['up']:
             self.vel.y = 0
+        elif self.collisions['left'] or self.collisions['right']:
+            self.vel.x = -self.vel.x
+        
                 
         #gravity with terminal vel
         self.vel.y = min(self.terminal_vel, self.vel.y + self.gravity)   

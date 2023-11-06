@@ -15,12 +15,16 @@ can send any random thing through the event queue apparently
 from anywhere in pygame. so idk how to use that
 screenshake would be a really good example i think!!
 
+camera: any level could have multiple idle cameras that replace the main camera temporarily when a cutscene starts
+
 if the player damages an enemy the player loses any invulerability frames
 
 breakables take more than 1 hit
 
 attacks clank other attacks
 attacks redirect projectiles
+
+player should face someone theyre talking to, within a range maybe
 
 enemies get hurt on spikes
 
@@ -43,7 +47,7 @@ IMPORTANT TIDYING
 make sure nothing is positioned between the low res tiles in its final position, the player can't see between those pixels so there could be half pixel inconsistancies
 the chunks should probably be based on the largest enemy in the level?
     the chunks could also crop the colidable rects 
-i think collision box detection should happen and updatedddda dwd as, then hitbox/hurtbox detection happens
+i think collision box detection should happen and update, then hitbox/hurtbox detection happens
 ####
 Must be nice
 ####
@@ -55,13 +59,13 @@ arbitrary amount of collisionboxes on player. big one for interacting, smaller f
 particles should be like little sparks (not his sparks) when you jump or land or wallslide (brown pallette sparkler app LOL)
 Maybe it spits one out every half second instead of like a sprinkler
 
+geo could be different colors slightly maybe have to use pallets
+
 frame advance
 
 camera max and min distance each level
 
 solids could have decor hanging off them, vines hanging from platforms
-
-place camera scroll on player better between levels
 
 textbox in foreground so it moves parralax
 ####
@@ -81,6 +85,10 @@ determine what traits each has before implementation
 should got_hit be in each enemy class. (its trash now w/ gothitspike and gothitprojectile)
 
 change surfs to canvass where it makes sense
+
+single time pickups and stuff like geo should be seperate
+
+file structure
 '''
 import sys
 

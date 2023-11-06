@@ -17,7 +17,7 @@ class Badguy(PhysicsEntity):
         self.shoot = BadguyShoot(self)
         self.speed = 0.2
         self.movement.x = -1
-        self.hp = 15
+        self.hp = 1
         self.geo = 15
         self.status = 'patrol' # 'patrol' never used
         self.idle_radius = 100
@@ -31,7 +31,7 @@ class Badguy(PhysicsEntity):
         super().update()
         self.hitboxes[0] = self.hurtboxes[0]
         
-        debugger.debug('flag', self.moves)
+       # debugger.debug('flag', self.moves)
         
         self.invulnerable = False
         if self.ticks_since_got_hit < 6:
@@ -85,14 +85,14 @@ class Badguy(PhysicsEntity):
         else:
             self.frame_movement = pg.Vector2((self.movement.x) * self.speed, self.vel.y)    
 
-    def render(self, surf:pg.Surface, offset):
+    def render(self, canvas:pg.Surface, offset):
         pos = pg.Vector2(floor(self.hurtboxes[0].x), floor(self.hurtboxes[0].y))
-        surf.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
+        canvas.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))
         if len(self.hitboxes) > 1:
-            surf.fill((100,100,100), (self.jump.attack.x - offset[0], self.jump.attack.y - offset[1], self.jump.attack.w, self.jump.attack.h))
+            canvas.fill((100,100,100), (self.jump.attack.x - offset[0], self.jump.attack.y - offset[1], self.jump.attack.w, self.jump.attack.h))
   # TESTESTESTESTEST   
-     #   surf.fill((100,100,100), (self.hurtboxes[0].x - offset[0], self.hurtboxes[0].y - offset[1], 15, 25))
-      #  surf.fill((100,0, 0), (self.hitboxes[0].x - offset[0], self.hitboxes[0].y - offset[1], self.hitboxes[0].w, self.hitboxes[0].h))
+     #   canvas.fill((100,100,100), (self.hurtboxes[0].x - offset[0], self.hurtboxes[0].y - offset[1], 15, 25))
+      #  canvas.fill((100,0, 0), (self.hitboxes[0].x - offset[0], self.hitboxes[0].y - offset[1], self.hitboxes[0].w, self.hitboxes[0].h))
 
 class BadguyThink:
     def __init__(self, badguy):
