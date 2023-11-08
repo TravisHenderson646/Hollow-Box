@@ -16,10 +16,9 @@ class PhysicsEntity:
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
         self.movement = pg.Vector2() # input movement of entity
         self.terminal_vel = 3
-        self.animation = ''
-        self.last_movement = pg.Vector2()
-        self.anim_offset = pg.Vector2(0, 0)
         self.flip = False
+        self.animation = ''
+        self.anim_offset = pg.Vector2(0, 0)
         self.set_animation('idle') # could use self.animation_flag
         self.frame_movement = pg.Vector2(0, 0)        
         self.hot_chunk = (0, 0)
@@ -48,8 +47,6 @@ class PhysicsEntity:
             self.flip = False
         if self.movement.x == -1:
             self.flip = True
-        
-        self.last_movement = self.movement
         
         # Important that this happens then gravity so the player hits the ground every tick
         if self.collisions['down'] or self.collisions['up']:

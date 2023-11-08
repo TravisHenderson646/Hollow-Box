@@ -27,8 +27,11 @@ attacks redirect projectiles
 player should face someone theyre talking to, within a range maybe
 
 enemies get hurt on spikes
+you dont collect geo you break it open, ie lore so that geo gets auto picked up on lava/ spikes instead of it being unreachable
 
 checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
+
+boss tosses out 3 holes, they land randomly like hornet 2's spikes, then a wyrm goes between them a la ESA
 ####
 ENEMIES
 ####
