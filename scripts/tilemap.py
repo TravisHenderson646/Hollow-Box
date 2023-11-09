@@ -4,6 +4,9 @@ import json
 import pygame as pg
 
 from scripts import setup
+from scripts.entities.slug import Slug
+from scripts.entities.gnat import Gnat
+from scripts.entities.badguy import Badguy
 
 NEIGHBOR_OFFSET = [(a, b) for a in [-2, -1, 0, 1, 2] for b in [-2, -1, 0, 1, 2]]
 PHYSICS_TILES = {'grass', 'stone'}

@@ -30,6 +30,7 @@ class PhysicsEntity:
         self.gravity = 0.11
         self.projectiles = []
         self.geo = 2
+        self.spawn_point = (0, 0)
 
     
     def set_animation(self, animation):

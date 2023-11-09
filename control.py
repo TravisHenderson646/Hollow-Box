@@ -32,6 +32,10 @@ you dont collect geo you break it open, ie lore so that geo gets auto picked up 
 checkpoint that locks in hp so you can choose to retraverse and try to get there with more hp or not
 
 boss tosses out 3 holes, they land randomly like hornet 2's spikes, then a wyrm goes between them a la ESA
+
+theres a button that does a unique thing in each biome. in the graveyard it puts down a lantern
+
+vehicles could create different playable characters like gato roboto
 ####
 ENEMIES
 ####

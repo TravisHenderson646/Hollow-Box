@@ -60,6 +60,13 @@ class Biome_1(Game):
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
         for tile in self.tilemap.enemies:
+            #### todo todo todo todo todo todo todo todo todo todo
+            # i could do something like simply, ....
+            # wait
+            # ok im thinking that actually there should be 3 or 4 lists like one is all the enemies
+            # one is enemies that spawn on room entry one is enemies that spawn on bench sit
+            # i can just make a copy of what's left of the room entry list here 
+            # then refill the room entry list on bench sit
             if 'badguy' in tile.tags:
                 self.enemies.append(Badguy(tile.rect.topleft))
             if 'slug' in tile.tags:
