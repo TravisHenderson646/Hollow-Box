@@ -140,10 +140,11 @@ class Biome_1(Game):
                         enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
                         enemy.got_hit_direction = Biome_1.player.attack.direction
                         setup.sfx['dash'].play()
-                for hitbox in enemy.hitboxes[1:]:
-                    if hitbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
-                        Biome_1.player.attack.ticks_since_knockback = 0
-                        #sfx play clank
+            # Clank with enemy attacks
+            for hitbox in enemy.hitboxes[1:]:
+                if hitbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+                    Biome_1.player.attack.ticks_since_knockback = 0
+                    #sfx play clank
         
         for projectile in self.projectiles:
             for hitbox in Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]:
@@ -182,7 +183,7 @@ class Biome_1(Game):
                 setup.sfx['hit'].play()
                 self.sparks.append(Spark((200,250,80), enemy.hurtboxes[0].center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
                 for _ in range(enemy.geo):
-                    direction = -1 if Biome_1.player.flip else 1
+                    direction = -1 if Biome_1.player.flip else 1 # if attacking up or down this isn't believable
                     self.pickups.append(Geo(enemy.hurtboxes[0].center, direction))
                     self.solid_entities.append(self.pickups[-1])
 

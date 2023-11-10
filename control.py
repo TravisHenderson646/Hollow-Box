@@ -36,6 +36,10 @@ boss tosses out 3 holes, they land randomly like hornet 2's spikes, then a wyrm 
 theres a button that does a unique thing in each biome. in the graveyard it puts down a lantern
 
 vehicles could create different playable characters like gato roboto
+
+moving platforms, (could stop moving down if something bonks from below so they dont glitch up through)
+
+ng+ is remixed ng++ is randomizer
 ####
 ENEMIES
 ####
