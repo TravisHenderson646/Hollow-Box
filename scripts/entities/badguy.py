@@ -208,7 +208,7 @@ class BadguyCharge:
             self.badguy.moves['charge'] = 0
             self.rect.x = self.badguy.hurtboxes[0].x
             self.rect.y = self.badguy.hurtboxes[0].y
-            self.badguy.hurtboxes[0] = self.rect
+            self.badguy.hurtboxes[0].h -= 10
             if player.hurtboxes[0].centerx > self.badguy.hurtboxes[0].centerx:
                 self.badguy.movement.x = 1
             else:
@@ -220,8 +220,7 @@ class BadguyCharge:
         if self.ticks_since_started >= self.duration:
             self.active = False
             self.badguy.status = 'think'
-            self.badguy.hurtboxes[0] = self.badguy.true_rect
-            self.badguy.hurtboxes[0].x = self.rect.x
-            self.badguy.hurtboxes[0].bottom = self.rect.bottom
+            self.badguy.hurtboxes[0].h += 10
+            self.badguy.hurtboxes[0].y -= 10
         self.ticks_since_started += 1
         

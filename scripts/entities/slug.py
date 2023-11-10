@@ -13,7 +13,6 @@ class Slug(PhysicsEntity):
         
     def update(self, tilemap, player):
         super().update()
-        self.hitboxes[0] = self.hurtboxes[0]
         self.invulnerable = False
         if self.ticks_since_got_hit < 6: # this number could be lower
             self.ticks_since_got_hit += 1

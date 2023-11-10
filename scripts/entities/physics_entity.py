@@ -9,8 +9,8 @@ from scripts.debugger import debugger
 class PhysicsEntity:
     def __init__(self, name, pos, size):
         self.name = name
-        self.hitboxes = [pg.FRect(*pos, *size)]
         self.hurtboxes = [pg.FRect(*pos, *size)]
+        self.hitboxes = [self.hurtboxes[0]]
         self.vel = pg.Vector2(0, 0) # velocity imparted from other action
         self.speed = 1
         self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
@@ -32,7 +32,6 @@ class PhysicsEntity:
         self.geo = 2
         self.spawn_point = (0, 0)
 
-    
     def set_animation(self, animation):
         if animation !=self.animation:
             self.animation = animation
