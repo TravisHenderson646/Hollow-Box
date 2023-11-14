@@ -180,7 +180,7 @@ class Tilemap:
             entity.collisions['down'] = True
         if entity.frame_movement[1] < 0:
             entity.hurtboxes[0].top = rect.bottom
-            entity.collisions['up'] = True 
+            entity.collisions['up'] = True  
                           
     def push_out_solid(self, entity):
         entity.collisions = {'up': False, 'down': False, 'left': False, 'right': False}

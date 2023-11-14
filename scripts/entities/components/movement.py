@@ -1,6 +1,6 @@
 import pygame as pg
 
-from setup import CHUNK_SIZE
+from scripts.setup import CHUNK_SIZE
 
 
 
@@ -17,6 +17,51 @@ class Movement:
         
         self.gravity = 0.11
         self.terminal_vel = 3
+            
+    def collide_with_tilemap(self, tilemap):
+        self.collisions = {'up': False, 'down': False, 'left': False, 'right': False}
+        
+        self.entity.rect.x += self.frame_movement[0]
+        
+        # chunk tiles
+        for rect in tilemap.chunks.get(self.hot_chunk, {}):
+            if self.entity.rect.colliderect(rect):
+                self.collide_x(rect)
+        # special solid tiles
+        for tile in tilemap.current_solid_tiles:
+            if self.entity.rect.colliderect(tile.rect):
+                self.collide_x(tile.rect)
+                if tile.name == 'spike':
+                    self.entity.combat.hit_by_spike = True
+                    
+        self.entity.rect.y += self.frame_movement[1]
+        
+        # chunk tiles
+        for rect in tilemap.chunks.get(self.hot_chunk, {}):
+            if self.entity.rect.colliderect(rect):
+                self.collide_y(rect)
+        # special solid tiles
+        for tile in tilemap.current_solid_tiles:
+            if self.entity.rect.colliderect(tile.rect):
+                self.collide_y(tile.rect)
+                if tile.name == 'spike':
+                    self.entity.combat.hit_by_spike = True 
+                       
+    def collide_x(self, rect):
+        if self.frame_movement[0] > 0:
+            self.entity.rect.right = rect.left
+            self.collisions['right'] = True
+        if self.frame_movement[0] < 0:
+            self.entity.rect.left = rect.right
+            self.collisions['left'] = True
+        
+    def collide_y(self, rect):
+        if self.frame_movement[1] > 0:
+            self.entity.rect.bottom = rect.top
+            self.collisions['down'] = True
+        if self.frame_movement[1] < 0:
+            self.entity.rect.top = rect.bottom
+            self.collisions['up'] = True  
         
     def frame_start(self):
         self.vel.x = 0

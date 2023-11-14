@@ -27,7 +27,7 @@ class Player(PhysicsEntity):
         self.knockback_speed = 3
         self.knockback_direction = 1# left is -1
         self.ticks_since_player_got_hit = 500
-        self.player_got_hit_knockback_duration = 6
+        self.player_got_hit_knockback_duration = 10
         self.in_got_hit = False
         self.invulnerable_duration = 120
         self.air_time = 0

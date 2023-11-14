@@ -4,7 +4,7 @@ IDEAS
 #### 
 attack is like a upward jab with a stinger
 
-The game goes ding dang like in graveyard keeper when they drop off a body but it's like after you kill a boss except it's pretending like it happened organically
+The game goes dingdong like in graveyard keeper when they drop off a body but it's like 3 minutes after you kill a boss except it's pretending like it happened organically
 
 its fun for now but i dont think im going to want the pogo to reset everything, its too centralizing late game
 peach float

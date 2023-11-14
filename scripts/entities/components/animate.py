@@ -17,9 +17,9 @@ class Animate:
     def set_animation(self, animation):
         if animation !=self.animation:
             self.animation = animation
-            self.animation = setup.assets[self.name + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
+            self.animation = setup.assets[self.entity.name + '/' + self.animation].copy() # game from tools instead maybe... maybe call this set animation and update it from a layer above like entities.updateanimation()
 
 
     def render(self, canvas:pg.Surface, offset):
-        pos = pg.Vector2(floor(self.entity.hurtboxes[0].x), floor(self.entity.hurtboxes[0].y))
+        pos = pg.Vector2(floor(self.entity.rect.x), floor(self.entity.rect.y))
         canvas.blit(pg.transform.flip(self.animation.img(), self.flip, False), (pos - offset + self.anim_offset))

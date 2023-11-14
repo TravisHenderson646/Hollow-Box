@@ -10,7 +10,7 @@ from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
 from scripts.geo import Geo
-from scripts.entities.slug import Slug
+from scripts.entities.enemies.slug import Slug
 from scripts.entities.gnat import Gnat
 from scripts.entities.badguy import Badguy
 from scripts.camera import Camera
@@ -74,7 +74,8 @@ class Biome_1(Game):
             if 'gnat' in tile.tags:
                 self.enemies.append(Gnat(tile.rect.topleft))
         for enemy in self.enemies:
-            self.solid_entities.append(enemy)
+            pass
+#            self.solid_entitiestest.append(enemy)
         
     def process_action(self, action):        
         super().process_action(action)
@@ -130,33 +131,33 @@ class Biome_1(Game):
             setup.sfx['dash'].play()
         
         # enemies
-        for enemy in self.enemies.copy():
-            if not enemy.invulnerable:
-                for hurtbox in enemy.hurtboxes:
-                    if hurtbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
-                        Biome_1.player.attack.ticks_since_knockback = 0
-                        Biome_1.player.invulnerable = False
-                        enemy.hp -= self.player.attack.damage
-                        enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
-                        enemy.got_hit_direction = Biome_1.player.attack.direction
-                        setup.sfx['dash'].play()
-            # Clank with enemy attacks
-            for hitbox in enemy.hitboxes[1:]:
-                if hitbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
-                    Biome_1.player.attack.ticks_since_knockback = 0
-                    #sfx play clank
-        
-        for projectile in self.projectiles:
-            for hitbox in Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]:
-                if hitbox.collidepoint(projectile.pos):
-                    Biome_1.player.attack.ticks_since_knockback = 0
-                    projectile.dead = True
+#        for enemy in self.enemies.copy():
+#            if not enemy.invulnerable:
+#                for hurtbox in enemy.hurtboxes:
+#                    if hurtbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+#                        Biome_1.player.attack.ticks_since_knockback = 0
+#                        Biome_1.player.invulnerable = False
+#                        enemy.hp -= self.player.attack.damage
+#                        enemy.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
+#                        enemy.got_hit_direction = Biome_1.player.attack.direction
+#                        setup.sfx['dash'].play()
+#            # Clank with enemy attacks
+#            for hitbox in enemy.hitboxes[1:]:
+#                if hitbox.collidelist(Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]) + 1:
+#                    Biome_1.player.attack.ticks_since_knockback = 0
+#                    #sfx play clank
+#        
+#        for projectile in self.projectiles:
+#            for hitbox in Biome_1.player.attack.hitbox_list[Biome_1.player.attack.active_hitboxes]:
+#                if hitbox.collidepoint(projectile.pos):
+#                    Biome_1.player.attack.ticks_since_knockback = 0
+#                    projectile.dead = True
             
     def player_got_hit_collision(self):
-        for enemy in self.enemies:
-            for hitbox in enemy.hitboxes:
-                if Biome_1.player.hurtboxes[0].colliderect(hitbox):
-                    Biome_1.player.got_hit(enemy) # maybe i should actually pass the player into a got_hit funtion on the enemy
+     #   for enemy in self.enemies:
+      #      for hitbox in enemy.hitboxes:
+       #         if Biome_1.player.hurtboxes[0].colliderect(hitbox):
+        #            Biome_1.player.got_hit(enemy) # maybe i should actually pass the player into a got_hit funtion on the enemy
         for projectile in self.projectiles:
             if Biome_1.player.hurtboxes[0].collidepoint(projectile.pos):
                 Biome_1.player.got_hit_by_projectile(projectile.pos)
@@ -171,24 +172,28 @@ class Biome_1(Game):
             npc.update(self.tilemap)
         Biome_1.player.try_interact_flag = False
         
-        Biome_1.player.update(self.tilemap)
         
         for enemy in self.enemies:
-            if not enemy.dead:
+            if not enemy.combat.dead:
                 enemy.update(self.tilemap, self.player)
-                self.projectiles.extend(enemy.projectiles)
-                enemy.projectiles = []
+             #   self.projectiles.extend(enemy.projectiles)
+              #  enemy.projectiles = []
             else:
                 self.enemies.remove(enemy)
+       #         self.solid_entitiestest.remove(enemy)
                 setup.sfx['hit'].play()
-                self.sparks.append(Spark((200,250,80), enemy.hurtboxes[0].center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                for _ in range(enemy.geo):
+                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+                for _ in range(enemy.combat.geo):
                     direction = -1 if Biome_1.player.flip else 1 # if attacking up or down this isn't believable
-                    self.pickups.append(Geo(enemy.hurtboxes[0].center, direction))
+                    self.pickups.append(Geo(enemy.rect.center, direction))
                     self.solid_entities.append(self.pickups[-1])
+                    
+        Biome_1.player.update(self.tilemap)
 
         for entity in self.solid_entities:
             self.tilemap.push_out_solid(entity) # (note: after solids have moved)
+      #  for entity in self.solid_entitiestest:
+       #     self.tilemap.push_out_solidtest(entity) # (note: after solids have moved)
         
         if Biome_1.player.attack.ticks_since_last < Biome_1.player.attack.duration:
             self.attack_collision()
@@ -248,7 +253,7 @@ class Biome_1(Game):
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
-            enemy.render(canvas, self.camera.rounded_pos)
+            enemy.animate.render(canvas, self.camera.rounded_pos)
             
         for npc in self.npcs:
             npc.render(canvas, self.camera.rounded_pos)

@@ -6,10 +6,13 @@ from scripts.entities.components.animate import Animate
 from scripts import setup
 
 class Slug:
-    def __init__(self, pos, size):
+    def __init__(self, pos):
         self.name = 'slug'
-        self.rect = pg.FRect(*pos, *size)
+        self.size = (14, 10)
+        self.rect = pg.FRect(*pos, *self.size)
         self.movement = Movement(self)
+        self.movement.movement.x = -1
+        self.movement.speed = 0.3
         self.animate = Animate(self)
         self.combat = Combat(self)
         
@@ -17,12 +20,13 @@ class Slug:
         self.combat.frame_start()
         self.movement.frame_start()
         
-        self.combat.recovery_frames()
+        self.combat.hit_by_player(player)
+        self.combat.hit_player(player)
+        
         self.movement.turn_around_at_ledge(tilemap)
         self.movement.bonk()
         
         self.movement.calculate_frame_movement()
+        self.movement.collide_with_tilemap(tilemap)
 
-        self.animate.animation.tick()
-        
-        
+        self.animate.animation.tick() 
