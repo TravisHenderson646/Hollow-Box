@@ -14,7 +14,7 @@ class Slug(PhysicsEntity):
     def update(self, tilemap, player):
         super().update()
         self.invulnerable = False
-        if self.ticks_since_got_hit < 6: # this number could be lower
+        if self.ticks_since_got_hit < 6:
             self.ticks_since_got_hit += 1
             self.invulnerable = True
             match self.got_hit_direction:

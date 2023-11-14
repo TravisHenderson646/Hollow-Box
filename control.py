@@ -24,7 +24,11 @@ breakables take more than 1 hit
 attacks clank other attacks
 attacks redirect projectiles
 
+heavy slow big flying enemy that has momentum and bounces 
+
 player should face someone theyre talking to, within a range maybe
+
+dream nail could be reduced to a badge where enemies say a chat when pwned
 
 enemies get hurt on spikes
 you dont collect geo you break it open, ie lore so that geo gets auto picked up on lava/ spikes instead of it being unreachable
@@ -89,6 +93,8 @@ if the parallax background looks wack (when you make one) try making sure the de
 CHORES todo
 ###
 Rename levels
+
+probably should use an animation queue so stuff can like eg turn around then walk
 
 parse out physics entities, player, npc, enemy. the inheritance is messy
 determine what traits each has before implementation

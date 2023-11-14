@@ -9,7 +9,7 @@ class Animate:
     def __init__(self, entity):
         self.entity = entity
         self.flip = False
-        self.animation = ''
+        self.animation = '' # this ends up as a class not a string so why ''
         self.anim_offset = pg.Vector2()
         self.set_animation('idle')
         
