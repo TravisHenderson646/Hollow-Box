@@ -17757,15 +17757,15 @@
   },
   "offgrid": [
     {
-      "type": "enemies",
-      "variant": 1,
+      "type": "spawns",
+      "variant": 0,
       "pos": [
-        47,
-        108
+        150,
+        80
       ],
       "tags": [
-        "enemy",
-        "slug"
+        "npc",
+        "frog"
       ]
     },
     {

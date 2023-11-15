@@ -10,19 +10,19 @@ SCREEN = pg.display.set_mode((1280, 720)) # What the player sees # initializes p
 SCREEN_SIZE = SCREEN.get_size()
 CANVAS = pg.Surface((320, 180)) # What the player sees
 CANVAS_SIZE = CANVAS.get_size()
-PLAYER_COLLISION_SIZE = (9, 13)
+PLAYER_COLLISION_SIZE = (7, 7)
 CHUNK_SIZE = (60, 60)
 GAME_TICK = 0
 
 from scripts.image_handler import load_image, load_images, Animation
 
+# maybe even they should just be inside as a class level variable!!!
 assets = { # dict of every sprite's image or animation's set of images
     'decor': load_images('tiles/decor'),
     'grass': load_images('tiles/grass'),
     'special': load_images('tiles/special'),
     'large_decor': load_images('tiles/large_decor'),
     'stone': load_images('tiles/stone'),
-    'player': load_image('entities/player.png'),
     'background': load_image('background.png'),
     'clouds' : load_images('clouds'),
     'enemy/idle': Animation(load_images('entities/enemy/idle'), 12), # could be 'player.idle' as the key instead
@@ -39,6 +39,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'bee_guy/idle': Animation(load_images('entities/bee_guy/idle'), image_dur=12),
     'slug/idle': Animation(load_images('entities/slug/idle'), image_dur=12),
     'gnat/idle': Animation(load_images('entities/gnat/idle'), image_dur=12),
+    'frog/idle': Animation(load_images('entities/npcs/frog/idle'), image_dur=12),
     'signpost': load_image('entities/signpost.png'),
     'badguy/idle': Animation(load_images('entities/badguy/idle'), image_dur=12),
     'badguy/charge': Animation(load_images('entities/badguy/charge'), image_dur=12),
@@ -53,6 +54,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'entrances': load_images('tiles/entrances'),
     'exits': load_images('tiles/exits'),
 } # todo way later on this should probably be split up so theyre not all loaded at the same time
+# maybe even they should just be inside as a class level variable!!!
 
 sfx = { # dict of every sound effect
     'jump': pg.mixer.Sound('data/sfx/jump.wav'),

@@ -253,7 +253,7 @@ class Biome_1(Game):
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
-            enemy.animate.render(canvas, self.camera.rounded_pos)
+            enemy.animate.render(canvas, self.camera.rounded_pos) # todo: should just give the enemy a render function that merely calls enemy.animate.render() just for consistancy
             
         for npc in self.npcs:
             npc.render(canvas, self.camera.rounded_pos)
@@ -280,7 +280,7 @@ class Biome_1(Game):
      #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
 
-        canvas.fill((78,78,78),((Biome_1.player.hurtboxes[0].x - self.camera.rounded_pos[0],Biome_1.player.hurtboxes[0].y - self.camera.rounded_pos[1],Biome_1.player.hurtboxes[0].width,Biome_1.player.hurtboxes[0].height)))
+      #  canvas.fill((78,78,78),((Biome_1.player.hurtboxes[0].x - self.camera.rounded_pos[0],Biome_1.player.hurtboxes[0].y - self.camera.rounded_pos[1],Biome_1.player.hurtboxes[0].width,Biome_1.player.hurtboxes[0].height)))
         
         return canvas
     
