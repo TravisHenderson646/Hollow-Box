@@ -164,18 +164,18 @@ class Biome_1(Game):
         
     def update(self): # Main loop\
         for npc in self.npcs:
-            npc.can_interact_flag = False
-            if npc.hurtboxes[0].colliderect(Biome_1.player.hurtboxes[0]):
-                npc.can_interact_flag = True
-                if Biome_1.player.try_interact_flag == True:
-                    npc.dialogue.start()
-            npc.update(self.tilemap)
+    #        npc.can_interact_flag = False
+    #        if npc.hurtboxes[0].colliderect(Biome_1.player.hurtboxes[0]):
+    #            npc.can_interact_flag = True
+    #            if Biome_1.player.try_interact_flag == True:
+    #                npc.dialogue.start()
+            npc.update(self.tilemap, Biome_1.player)
         Biome_1.player.try_interact_flag = False
         
         
         for enemy in self.enemies:
             if not enemy.combat.dead:
-                enemy.update(self.tilemap, self.player)
+                enemy.update(self.tilemap, Biome_1.player)
              #   self.projectiles.extend(enemy.projectiles)
               #  enemy.projectiles = []
             else:
@@ -240,7 +240,7 @@ class Biome_1(Game):
         self.clouds.update()
                 
     def render(self, canvas: pg.Surface):
-        self.camera.update((round(self.player.hurtboxes[0].centerx), round(self.player.hurtboxes[0].centery)))
+        self.camera.update((round(Biome_1.player.hurtboxes[0].centerx), round(Biome_1.player.hurtboxes[0].centery)))
         canvas.fill((19, 178, 242))
         canvas.blit(setup.assets['background'], (0, 0))
         self.clouds.render(canvas, self.camera.rounded_pos)

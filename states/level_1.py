@@ -2,7 +2,7 @@ import pygame as pg
 
 from scripts import setup
 from scripts.tilemap import Tilemap
-from scripts.entities.signpost import Signpost
+from scripts.entities.npcs.signpost import Signpost
 from scripts.story import signpost1_text, signpost2_text
 from states.biome_1 import Biome_1
 from scripts.jump_unlock import JumpUnlock
@@ -38,7 +38,6 @@ class Level_1(Biome_1):
                 self.pickups.append(WallslideUnlock(tile.rect.topleft))
         for npc in self.npcs:
             self.dialogue_boxes.append(npc.dialogue)
-            self.solid_entities.append(npc)
         for pickup in self.pickups:
             self.dialogue_boxes.append(pickup.text)
     

@@ -22,7 +22,7 @@ class Signpost(PhysicsEntity):
         self.dead = True
         self.movement.x = 0
         
-    def update(self, tilemap):
+    def update(self, tilemap, player):
         self.frame_movement = pg.Vector2(0, 0) # todo try putting this in init
 
     def render(self, canvas:pg.Surface, offset):

@@ -39,7 +39,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'bee_guy/idle': Animation(load_images('entities/bee_guy/idle'), image_dur=12),
     'slug/idle': Animation(load_images('entities/slug/idle'), image_dur=12),
     'gnat/idle': Animation(load_images('entities/gnat/idle'), image_dur=12),
-    'signpost/idle': Animation(load_images('entities/signpost/idle'), image_dur=12), # this should probably just be painted
+    'signpost': load_image('entities/signpost.png'),
     'badguy/idle': Animation(load_images('entities/badguy/idle'), image_dur=12),
     'badguy/charge': Animation(load_images('entities/badguy/charge'), image_dur=12),
     'jump': load_image('unlocks/jump.png'),
