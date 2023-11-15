@@ -4,6 +4,9 @@ from scripts import setup
 from scripts.tilemap import Tilemap
 from scripts.entities.npcs.signpost import Signpost
 from scripts.entities.npcs.frog import Frog
+from scripts.entities.npcs.bee import Bee
+from scripts.entities.npcs.bear import Bear
+from scripts.entities.npcs.bird import Bird
 from scripts.story import signpost1_text, signpost2_text
 from states.biome_1 import Biome_1
 from scripts.jump_unlock import JumpUnlock
@@ -24,6 +27,12 @@ class Level_1(Biome_1):
         for tile in self.tilemap.npcs:
             if 'frog' in tile.tags:
                 self.npcs.append(Frog(tile.rect.topleft))
+            if 'bear' in tile.tags:
+                self.npcs.append(Bear(tile.rect.topleft))
+            if 'bee' in tile.tags:
+                self.npcs.append(Bee(tile.rect.topleft))
+            if 'bird' in tile.tags:
+                self.npcs.append(Bird(tile.rect.topleft))
             if 'signpost' in tile.tags:
                 self.npcs.append(Signpost(tile.rect.topleft, signpost1_text))
             if 'signpost2' in tile.tags:

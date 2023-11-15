@@ -17769,6 +17769,42 @@
       ]
     },
     {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        170,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bear"
+      ]
+    },
+    {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        130,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bee"
+      ]
+    },
+    {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        190,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bird"
+      ]
+    },
+    {
       "type": "decor",
       "variant": 0,
       "pos": [

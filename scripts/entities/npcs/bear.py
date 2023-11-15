@@ -8,14 +8,14 @@ from scripts.text_handler import DialogueBox
 from scripts.story import bird_guy_lines
 from scripts.setup import assets
 
-class Frog:
+class Bear:
     def __init__(self, pos):
-        self.name = 'frog'
+        self.name = 'bear'
         self.size = (6, 8)
         self.rect = pg.FRect(*pos, *self.size)
         self.interact_rect = self.rect
         self.movement = Movement(self)
-        self.movement.movement.x = -1
+        self.movement.movement.x = 1
         self.movement.speed = 0.1
         self.animate = Animate(self)
         self.dialogue = DialogueBox((90,17), bird_guy_lines)
