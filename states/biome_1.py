@@ -9,7 +9,7 @@ from scripts.entities.player import Player
 from scripts.tilemap import Tilemap
 from scripts.clouds import Clouds
 from scripts.spark import Spark
-from scripts.geo import Geo
+from scripts.entities.geo import Geo
 from scripts.entities.enemies.slug import Slug
 from scripts.entities.gnat import Gnat
 from scripts.entities.badguy import Badguy
@@ -186,7 +186,6 @@ class Biome_1(Game):
                 for _ in range(enemy.combat.geo):
                     direction = -1 if Biome_1.player.flip else 1 # if attacking up or down this isn't believable
                     self.pickups.append(Geo(enemy.rect.center, direction))
-                    self.solid_entities.append(self.pickups[-1])
                     
         Biome_1.player.update(self.tilemap)
 
@@ -208,12 +207,10 @@ class Biome_1(Game):
             Biome_1.player.hit_by_spike = False
                             
         for pickup in self.pickups:
-            if Biome_1.player.hurtboxes[0].colliderect(pickup.rect):
-                pickup.picked_up(Biome_1.player)
+            if pickup.dead:
                 self.pickups.remove(pickup)
-                if pickup in self.solid_entities:
-                    self.solid_entities.remove(pickup)
-            pickup.update()
+            else:
+                pickup.update(self.tilemap, Biome_1.player)
             
         for projectile in self.projectiles:
             if projectile.dead:

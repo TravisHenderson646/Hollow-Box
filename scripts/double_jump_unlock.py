@@ -14,6 +14,7 @@ class DoubleJumpUnlock:
         self.rect = pg.FRect(*pos, self.image.get_width(), self.image.get_height())
         self.tick = 0
         self.text = DialogueBox((70, 9), double_jump_unlock_text)
+        self.dead = False
         
     def picked_up(self, player):
         self.text.pos = (self.pos[0] - 5, self.pos[1] - 10)
@@ -21,7 +22,7 @@ class DoubleJumpUnlock:
         self.text.start()
         
         
-    def update(self):
+    def update(self, tilemap, player):
         self.tick += 1
         self.rect.y = self.pos[1] + cos(self.tick / 15) * 3.5
         
