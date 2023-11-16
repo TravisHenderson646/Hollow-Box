@@ -19,8 +19,8 @@ class Geo:
         self.movement.vel = pg.Vector2(random() * direction + direction, -1 * random() - 1)
         
         self.animate = Animate(self)
-        self.animate.animation.frame = randint(0, len(self.animate.animation.images * self.animate.animation.image_dur))
         self.animate.animation.image_dur = randint(6, 22)
+        self.animate.animation.frame = randint(0, len(self.animate.animation.images * self.animate.animation.image_dur))
         
         self.ticks_since_bounce = 500
         self.bounce_active = False
@@ -30,6 +30,7 @@ class Geo:
         
     def picked_up(self, player):
         player.geo += 1
+        # todo play sfx here
         
     def update(self, tilemap, player):
         if self.bounce_active:

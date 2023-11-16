@@ -91,6 +91,8 @@ Things to keep an eye on
 Could have 3 chunk dicts for each map, one for small, big, boss size collisions (rn i just have bigish)
 
 if the parallax background looks wack (when you make one) try making sure the depths are 1/2, 1/4, 1/8 etc so that they shift at the same time
+
+each enemy checks whether the player is attacking instead of checking once
 ###
 CHORES todo
 ###

@@ -109,6 +109,8 @@ class Player(PhysicsEntity):
             self.movement = pg.Vector2(keys[pg.K_d] - keys[pg.K_a], keys[pg.K_s] - keys[pg.K_w])
             self.lt = keys[pg.K_i]
         super().update()    
+        
+        self.attack.active = False
         self.invulnerable = False
         self.ticks_since_player_got_hit += 1
         self.attack.ticks_since_last += 1
@@ -187,11 +189,13 @@ class Player(PhysicsEntity):
         else:
             super().calculate_frame_movement()
         self.jump.walljump_active = False
+        if self.attack.ticks_since_last < self.attack.duration:
+            self.attack.active = True
                        
     def render(self, canvas, offset):
         super().render(canvas, offset)
         
-        if self.attack.ticks_since_last < self.attack.duration:
+        if self.attack.active:
             if self.attack.direction in [0, 2]:
                 for hitbox, surface in zip(self.attack.hitboxes, self.attack.surfaces):
                     pos = (hitbox.x - offset[0], hitbox.y - offset[1])
@@ -281,7 +285,7 @@ class PlayerAttack:
         self.unlocked = True
         self.damage = 2
         self.direction = 0 # 0,1,2,3=right,down,left,up
-        self.duration = 4
+        self.duration = 6
         self.cooldown = 33
         self.ticks_since_input = 500
         self.ticks_since_knockback = 500
@@ -290,19 +294,20 @@ class PlayerAttack:
         self.ticks_since_last = 500
         self.in_knockback = False
         self.active_hitboxes = 0 # could be active hitboxes
+        self.active = False
         
         self.hitboxes = []
         self.hitboxes_vertical = []
         self.surfaces = []
         self.surfaces_vertical = [] # these could be in a dict with names
-        self.hitboxes.append(pg.FRect(0, 0,  7, 12))
+        self.hitboxes.append(pg.FRect(0, 0,  8, 13))
         self.hitboxes.append(pg.FRect(0, 0,  7,  9))
         self.hitboxes.append(pg.FRect(0, 0, 13,  5))
-        self.hitboxes.append(pg.FRect(0, 0,  3,  2))
-        self.hitboxes_vertical.append(pg.FRect(0, 0, 12,  7))
+        self.hitboxes.append(pg.FRect(0, 0,  3,  3))
+        self.hitboxes_vertical.append(pg.FRect(0, 0, 13,  7))
         self.hitboxes_vertical.append(pg.FRect(0, 0,  9,  7))
         self.hitboxes_vertical.append(pg.FRect(0, 0,  5, 12))
-        self.hitboxes_vertical.append(pg.FRect(0, 0,  2,  3))
+        self.hitboxes_vertical.append(pg.FRect(0, 0,  3,  3))
         self.hitbox_list = [self.hitboxes, self.hitboxes_vertical]
         for hitbox in self.hitboxes:
             self.surfaces.append(pg.Surface(hitbox.size))

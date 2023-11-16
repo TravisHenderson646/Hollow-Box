@@ -34,6 +34,7 @@ class Biome_1(Game):
         self.dialogue_boxes = []
         self.npcs = []
         self.pickups = []
+        self.geo = []
         self.projectiles = []
             
         
@@ -54,6 +55,7 @@ class Biome_1(Game):
         self.projectiles = []
         self.particles = []
         self.sparks = []
+        self.geo = []
         
         self.tilemap.current_solid_tiles = self.tilemap.solid_tiles.copy()
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
@@ -174,18 +176,19 @@ class Biome_1(Game):
         
         
         for enemy in self.enemies:
-            if not enemy.combat.dead:
+            if enemy.combat.dead:
+                enemy.die( Biome_1.player, self.geo, self.enemies, self.sparks)
+#                self.enemies.remove(enemy)
+       #         self.solid_entitiestest.remove(enemy)
+#                setup.sfx['hit'].play()
+#                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+#                for _ in range(enemy.combat.geo):
+#                    direction = -1 if Biome_1.player.flip else 1 # if attacking up or down this isn't believable
+#                    self.geo.append(Geo(enemy.rect.center, direction))
+            else:
                 enemy.update(self.tilemap, Biome_1.player)
              #   self.projectiles.extend(enemy.projectiles)
               #  enemy.projectiles = []
-            else:
-                self.enemies.remove(enemy)
-       #         self.solid_entitiestest.remove(enemy)
-                setup.sfx['hit'].play()
-                self.sparks.append(Spark((200,250,80), enemy.rect.center, 1.5 + random.random(), Biome_1.player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                for _ in range(enemy.combat.geo):
-                    direction = -1 if Biome_1.player.flip else 1 # if attacking up or down this isn't believable
-                    self.pickups.append(Geo(enemy.rect.center, direction))
                     
         Biome_1.player.update(self.tilemap)
 
@@ -194,7 +197,7 @@ class Biome_1(Game):
       #  for entity in self.solid_entitiestest:
        #     self.tilemap.push_out_solidtest(entity) # (note: after solids have moved)
         
-        if Biome_1.player.attack.ticks_since_last < Biome_1.player.attack.duration:
+        if Biome_1.player.attack.active:
             self.attack_collision()
 
         if not Biome_1.player.invulnerable: 
@@ -211,6 +214,12 @@ class Biome_1(Game):
                 self.pickups.remove(pickup)
             else:
                 pickup.update(self.tilemap, Biome_1.player)
+                            
+        for geo in self.geo:
+            if geo.dead:
+                self.geo.remove(geo)
+            else:
+                geo.update(self.tilemap, Biome_1.player)
             
         for projectile in self.projectiles:
             if projectile.dead:
@@ -246,7 +255,6 @@ class Biome_1(Game):
             canvas.blit(tile.image, (tile.pos[0] - self.camera.rounded_pos[0], tile.pos[1] - self.camera.rounded_pos[1]))
         
         if not Biome_1.player.dead > 25:
-            pass
             Biome_1.player.render(canvas, self.camera.rounded_pos)
         
         for enemy in self.enemies:
@@ -266,6 +274,8 @@ class Biome_1(Game):
             
         for pickup in self.pickups:
             pickup.render(canvas, self.camera.rounded_pos)
+        for geo in self.geo:
+            geo.render(canvas, self.camera.rounded_pos)
             
         for dialogue_box in self.dialogue_boxes:
             if dialogue_box.active:

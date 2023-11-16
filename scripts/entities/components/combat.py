@@ -8,6 +8,10 @@ class Combat:
         self.hurtboxes = [entity.rect]
         self.hitboxes = [entity.rect]
         self.dead = False
+        self.frames_dead = 0
+        self.death_duration = 120
+        self.death_angle = 0
+        self.death_speed = 2
         self.hit_by_spike = False
         self.ticks_since_got_hit = 500
         self.number_of_invuln_frames = 8 # should be 1 + (however long the player's attack is)
@@ -15,7 +19,7 @@ class Combat:
         self.invulnerable = False # todo this attr might be useless
         self.hp = 3
         self.damage = 1
-        self.geo = 2
+        self.geo = 5
         
     def frame_start(self):
         if self.hp <= 0:
