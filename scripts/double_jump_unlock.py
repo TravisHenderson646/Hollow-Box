@@ -25,6 +25,10 @@ class DoubleJumpUnlock:
     def update(self, tilemap, player):
         self.tick += 1
         self.rect.y = self.pos[1] + cos(self.tick / 15) * 3.5
+      
+        if self.rect.colliderect(player.hurtboxes[0]):
+            self.picked_up(player)
+            self.dead = True
         
     def render(self, canvas, offset):
         canvas.blit(self.image, (self.rect.x - offset[0], self.rect.y - offset[1]))
