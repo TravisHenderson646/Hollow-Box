@@ -183,6 +183,13 @@ class Player(PhysicsEntity):
         self.jump.ticks_since_input += 1
         self.dash.ticks_since_input += 1  
         self.attack.ticks_since_input += 1
+        
+        if self.invulnerable:
+            self.hit_by_spike = False
+        elif self.hit_by_spike:
+            self.wallslide.active = False
+            self.hit_by_spike = False
+            self.got_hit_by_spike()
 
         if self.wallslide.active:
             self.frame_movement = pg.Vector2(self.vel.x, self.vel.y)  

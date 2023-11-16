@@ -156,13 +156,14 @@ class Biome_1(Game):
 #                    projectile.dead = True
             
     def player_got_hit_collision(self):
+        pass
      #   for enemy in self.enemies:
       #      for hitbox in enemy.hitboxes:
        #         if Biome_1.player.hurtboxes[0].colliderect(hitbox):
         #            Biome_1.player.got_hit(enemy) # maybe i should actually pass the player into a got_hit funtion on the enemy
-        for projectile in self.projectiles:
-            if Biome_1.player.hurtboxes[0].collidepoint(projectile.pos):
-                Biome_1.player.got_hit_by_projectile(projectile.pos)
+    #    for projectile in self.projectiles:
+     #       if Biome_1.player.hurtboxes[0].collidepoint(projectile.pos):
+      #          Biome_1.player.got_hit_by_projectile(projectile.pos)
         
     def update(self): # Main loop\
         for npc in self.npcs:
@@ -200,14 +201,13 @@ class Biome_1(Game):
         if Biome_1.player.attack.active:
             self.attack_collision()
 
-        if not Biome_1.player.invulnerable: 
-            self.player_got_hit_collision()   
-            if Biome_1.player.hit_by_spike:
-                Biome_1.player.wallslide.active = False
-                Biome_1.player.hit_by_spike = False
-                Biome_1.player.got_hit_by_spike()
-        else:
-            Biome_1.player.hit_by_spike = False
+#        if not Biome_1.player.invulnerable:  
+#            if Biome_1.player.hit_by_spike:
+#                Biome_1.player.wallslide.active = False
+#                Biome_1.player.hit_by_spike = False
+#                Biome_1.player.got_hit_by_spike()
+#        else:
+#            Biome_1.player.hit_by_spike = False
                             
         for pickup in self.pickups:
             if pickup.dead:
