@@ -27,23 +27,23 @@ class Combat:
         self.invulnerable = False
         
     def hit_player(self, player):
-        if not player.invulnerable:
+        if not player.combat.invulnerable:
             for hitbox in self.hitboxes:
-                if player.hurtboxes[0].colliderect(hitbox):
+                if player.rect.colliderect(hitbox):
+                    player.combat.invulnerable = True
                     sfx['hit'].play()
                     player.jump.active = False
                     player.wallslide.active = False
                     player.dash.active = False
-                    player.collisions['down'] = False
-                    player.hp -= self.damage
-                    player.vel.y = player.jump.double_impulse
-                    player.invulnerable = True
-                    player.air_time = player.jump.coyote_time + 1
-                    player.ticks_since_player_got_hit = 0
-                    if self.entity.rect.centerx > player.hurtboxes[0].centerx:
-                        player.knockback_direction = -1
+                    player.movement.collisions['down'] = False
+                    player.combat.hp -= self.damage
+                    player.movement.vel.y = player.jump.double_impulse
+                    player.movement.air_time = player.jump.coyote_time + 1
+                    player.combat.ticks_since_got_hit = 0
+                    if self.entity.rect.centerx > player.rect.centerx:
+                        player.combat.knockback_direction = -1
                     else:
-                        player.knockback_direction = 1  
+                        player.combat.knockback_direction = 1  
         
     def hit_by_player(self, player):
         if self.ticks_since_got_hit < self.number_of_invuln_frames:
@@ -57,12 +57,13 @@ class Combat:
                 case 3: #up
                     self.entity.movement.vel.y = -1
         else:
-            if player.attack.ticks_since_last < player.attack.duration:
+            if player.combat.attack.ticks_since_last < player.combat.attack.duration:
                 for hurtbox in self.hurtboxes:
-                    if hurtbox.collidelist(player.attack.hitbox_list[player.attack.active_hitboxes]) + 1:
-                        player.attack.ticks_since_knockback = 0
-                        player.invulnerable = False
-                        self.hp -= player.attack.damage
+                    if hurtbox.collidelist(player.combat.attack.hitbox_list[player.combat.attack.active_hitboxes]) + 1:
+                        player.combat.attack.ticks_since_knockback = 0
+                        player.combat.attack.in_knockback = True
+                        player.combat.invulnerable = False
+                        self.hp -= player.combat.attack.damage
                         self.ticks_since_got_hit = 0 # multi hit prevention from 1 attack
-                        self.got_hit_direction = player.attack.direction
+                        self.got_hit_direction = player.combat.attack.direction
                         sfx['dash'].play()

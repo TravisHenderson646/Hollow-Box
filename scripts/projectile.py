@@ -26,8 +26,8 @@ class Projectile: # todo could inherit from entity?
         self.hot_chunk = ((self.pos.x + setup.CHUNK_SIZE[0] / 2) // setup.CHUNK_SIZE[0], (self.pos.y + setup.CHUNK_SIZE[1] / 2) // setup.CHUNK_SIZE[1])
         if tilemap.check_point(self.pos, self.hot_chunk):
             self.dead = True
-        elif not player.invulnerable:
-            if player.hurtboxes[0].collidepoint(self.pos):
+        elif not player.combat.invulnerable:
+            if player.rect.collidepoint(self.pos):
                 player.got_hit_by_projectile(self.pos) # todo i should put this in this projectile class, take it out of player class
             
     def render(self, canvas: pg.Surface, offset):

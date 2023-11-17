@@ -37,7 +37,7 @@ class Frog:
         self.animate.animation.tick() 
         
         self.can_interact_flag = False
-        if self.interact_rect.colliderect(player.hurtboxes[0]):
+        if self.interact_rect.colliderect(player.rect):
             self.can_interact_flag = True
             if player.try_interact_flag == True:
                 self.dialogue.start()

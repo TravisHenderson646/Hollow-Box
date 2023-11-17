@@ -142,8 +142,9 @@ class DialogueBox:
 
             
     def render(self, canvas, offset):
-        canvas.blit(self.surf, (self.pos[0] - offset[0], self.pos[1] - offset[1]))
-        # if active but not still_talking, blit a little dot on the bottom right to say see more
+        if self.tick > 1: # hack fix to 1 frame late positioning
+            canvas.blit(self.surf, (self.pos[0] - offset[0], self.pos[1] - offset[1]))
+        #  todo if active but not still_talking, blit a little dot on the bottom right to say see more
         
     def generate_line_of_text(self, text):
         text_width = 0

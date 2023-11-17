@@ -61,7 +61,7 @@ class Geo:
         
         self.movement.collide_with_tilemap(tilemap)
         
-        if self.rect.colliderect(player.hurtboxes[0]):
+        if self.rect.colliderect(player.rect):
             self.picked_up(player)
             self.dead = True
             

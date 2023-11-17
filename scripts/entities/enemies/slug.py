@@ -23,16 +23,16 @@ class Slug:
         
     def die(self, player, geo_list, enemies_list, sparks_list):
         if self.combat.frames_dead == 0:
-            self.combat.death_angle = player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8
+            self.combat.death_angle = player.combat.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8
             setup.sfx['hit'].play()
-            sparks_list.append(Spark((200,70,120), self.rect.center, 1.5 + random.random(), player.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
+            sparks_list.append(Spark((200,70,120), self.rect.center, 1.5 + random.random(), player.combat.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
         if self.combat.frames_dead >= self.combat.death_duration:
             enemies_list.remove(self)
         else:
             if self.combat.geo > 0:
                 if not self.combat.frames_dead % 5:
                     self.combat.geo -= 1
-                    geo_list.append(Geo(self.rect.center, -1 if player.flip else 1))
+                    geo_list.append(Geo(self.rect.center, -1 if player.animate.flip else 1))
             else:    
                 self.rect.x += math.cos(self.combat.death_angle) * self.combat.death_speed
                 self.rect.y += math.sin(self.combat.death_angle) * self.combat.death_speed

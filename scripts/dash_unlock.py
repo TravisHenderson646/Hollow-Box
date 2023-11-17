@@ -25,7 +25,7 @@ class DashUnlock:
         self.tick += 1
         self.rect.y = self.pos[1] + cos(self.tick / 15) * 3.5
       
-        if self.rect.colliderect(player.hurtboxes[0]):
+        if self.rect.colliderect(player.rect):
             self.picked_up(player)
             self.dead = True
         

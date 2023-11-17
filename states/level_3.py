@@ -19,7 +19,7 @@ class Level_3(Biome_1):
         if self.previous == 'level2': # if you came from level 2
             for tile in self.tilemap.entrances:
                 if 'north' in tile.tags: # find the tile for level 2
-                    Biome_1.player.hurtboxes[0].topleft = tile.rect.topleft
+                    Biome_1.player.rect.topleft = tile.rect.topleft
                     
     def process_action(self, event):
         super().process_action(event)
@@ -27,7 +27,7 @@ class Level_3(Biome_1):
     def update(self):
         super().update()
         for tile in self.tilemap.exits:
-            if tile.rect.colliderect(Biome_1.player.hurtboxes[0]):
+            if tile.rect.colliderect(Biome_1.player.rect):
                 if 'north' in tile.tags:
                     self.done = True
                     self.next = 'level2'

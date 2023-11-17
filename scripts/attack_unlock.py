@@ -18,14 +18,14 @@ class AttackUnlock:
         
     def picked_up(self, player):
         self.text.pos = (self.pos[0] - 5, self.pos[1] - 10)
-        player.attack.unlocked = True
+        player.combat.attack.unlocked = True
         self.text.start()
         
     def update(self, tilemap, player):
         self.tick += 1
         self.rect.y = self.pos[1] + cos(self.tick / 15) * 3.5
       
-        if self.rect.colliderect(player.hurtboxes[0]):
+        if self.rect.colliderect(player.rect):
             self.picked_up(player)
             self.dead = True
         

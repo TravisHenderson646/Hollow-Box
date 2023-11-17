@@ -223,10 +223,10 @@ class Tilemap:
     def check_wallslide(self, player):
         if player.wallslide.direction == -1:
         
-            top_check = (player.hurtboxes[0].left - 3, player.hurtboxes[0].top)
-            bottom_check = (player.hurtboxes[0].left - 3, player.hurtboxes[0].bottom)
+            top_check = (player.rect.left - 3, player.rect.top)
+            bottom_check = (player.rect.left - 3, player.rect.bottom)
         
-            for rect in self.chunks.get(player.hot_chunk, {}):
+            for rect in self.chunks.get(player.movement.hot_chunk, {}):
                 if rect.collidepoint(top_check[0], top_check[1]):
                     return True
                 if rect.collidepoint(bottom_check[0], bottom_check[1]):
@@ -235,17 +235,17 @@ class Tilemap:
                 if tile.rect.collidepoint(top_check[0], top_check[1]):
                     if tile.name == 'spike':
                         #return False
-                        player.hit_by_spike = True
+                        player.combat.hit_by_spike = True
                     return True
                 if tile.rect.collidepoint(bottom_check[0], bottom_check[1]):
                     if tile.name == 'spike':
                         #return False
-                        player.hit_by_spike = True
+                        player.combat.hit_by_spike = True
                     return True
         if player.wallslide.direction == 1:
-            top_check = (player.hurtboxes[0].right + 3, player.hurtboxes[0].top)
-            bottom_check = (player.hurtboxes[0].right + 3, player.hurtboxes[0].bottom)
-            for rect in self.chunks.get(player.hot_chunk, {}):
+            top_check = (player.rect.right + 3, player.rect.top)
+            bottom_check = (player.rect.right + 3, player.rect.bottom)
+            for rect in self.chunks.get(player.movement.hot_chunk, {}):
                 if rect.collidepoint(top_check[0], top_check[1]):
                     return True
                 if rect.collidepoint(bottom_check[0], bottom_check[1]):
@@ -254,12 +254,12 @@ class Tilemap:
                 if tile.rect.collidepoint(top_check[0], top_check[1]):
                     if tile.name == 'spike':
                         #return False
-                        player.hit_by_spike = True
+                        player.combat.hit_by_spike = True
                     return True
                 if tile.rect.collidepoint(bottom_check[0], bottom_check[1]):
                     if tile.name == 'spike':
                         #return False
-                        player.hit_by_spike = True
+                        player.combat.hit_by_spike = True
                     return True
         return False
 

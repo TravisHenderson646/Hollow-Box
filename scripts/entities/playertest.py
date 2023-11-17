@@ -1,22 +1,27 @@
-import math
-import random
-
 import pygame as pg
 
 from scripts.particle import Particle
+from scripts.entities.components.combat import Combat
+from scripts.entities.components.movement import Movement
+from scripts.entities.components.animate import Animate
 from scripts import setup
-from scripts.entities.physics_entity import PhysicsEntity
 from scripts.debugger import debugger
 
-class Player(PhysicsEntity):
+class Player:
     def __init__(self, pos, size):
-        super().__init__('player', pos, size)
+        self.name = 'player'
+        self.size = size
+        self.rect = pg.FRect(*pos, *self.size)
         self.anim_offset = pg.Vector2(-1, -2)
         self.attack = PlayerAttack(self)
         self.jump = PlayerJump(self)
         self.dash = PlayerDash(self)
         self.wallslide = PlayerWallSlide(self)
-        self.hitboxes = []
+        self.movement = Movement(self)
+        self.animate = Animate(self)
+        self.combat = Combat(self)
+        
+        
         self.lt = False
         self.geo = 0
         
@@ -34,53 +39,6 @@ class Player(PhysicsEntity):
         self.can_interact_flag = False
         self.try_interact_flag = False
        
-    def got_hit(self, enemy):
-        setup.sfx['hit'].play()
-        self.jump.active = False
-        self.wallslide.active = False
-        self.dash.active = False
-        self.collisions['down'] = False
-        self.hp -= 1
-        self.vel.y = self.jump.double_impulse
-        self.invulnerable = True
-        self.air_time = self.jump.coyote_time + 1
-        self.ticks_since_player_got_hit = 0
-        if enemy.hurtboxes[0].centerx > self.hurtboxes[0].centerx:
-            self.knockback_direction = -1
-        else:
-            self.knockback_direction = 1  
-                   
-    def got_hit_by_projectile(self, pos):
-        setup.sfx['hit'].play()
-        self.jump.active = False
-        self.wallslide.active = False
-        self.dash.active = False
-        self.collisions['down'] = False
-        self.hp -= 1
-        self.vel.y = self.jump.double_impulse
-        self.invulnerable = True
-        self.air_time = self.jump.coyote_time + 1
-        self.ticks_since_player_got_hit = 0
-        if pos.x > self.hurtboxes[0].centerx:
-            self.knockback_direction = -1
-        else:
-            self.knockback_direction = 1  
-                 
-    def got_hit_by_spike(self):
-        setup.sfx['hit'].play()
-        self.jump.active = False
-        self.wallslide.active = False
-        self.dash.active = False
-        self.collisions['down'] = False
-        self.hp -= 1
-        self.vel.y = self.jump.double_impulse
-        self.invulnerable = True
-        self.ticks_since_player_got_hit = 0
-        self.air_time = self.jump.coyote_time + 1
-        if self.flip:
-            self.knockback_direction = 1
-        else:
-            self.knockback_direction = -1
      
     def update(self, tilemap):
         debugger.debug('geo', ('geo:', self.geo))
@@ -109,6 +67,11 @@ class Player(PhysicsEntity):
             self.movement = pg.Vector2(keys[pg.K_d] - keys[pg.K_a], keys[pg.K_s] - keys[pg.K_w])
             self.lt = keys[pg.K_i]
         super().update()    
+        
+        if self.flip:
+            self.anim_offset = pg.Vector2(0, -2)
+        else:
+            self.anim_offset = pg.Vector2(-1, -2)
         
         self.attack.active = False
         self.invulnerable = False
@@ -198,6 +161,7 @@ class Player(PhysicsEntity):
         self.jump.walljump_active = False
         if self.attack.ticks_since_last < self.attack.duration:
             self.attack.active = True
+            self.attack.update()
                        
     def render(self, canvas, offset):
         super().render(canvas, offset)
@@ -212,6 +176,54 @@ class Player(PhysicsEntity):
                     pos = (hitbox.x - offset[0], hitbox.y - offset[1])
                     canvas.blit(surface,pos)
 
+    def got_hit(self, enemy):
+        setup.sfx['hit'].play()
+        self.jump.active = False
+        self.wallslide.active = False
+        self.dash.active = False
+        self.collisions['down'] = False
+        self.hp -= 1
+        self.vel.y = self.jump.double_impulse
+        self.invulnerable = True
+        self.air_time = self.jump.coyote_time + 1
+        self.ticks_since_player_got_hit = 0
+        if enemy.hurtboxes[0].centerx > self.hurtboxes[0].centerx:
+            self.knockback_direction = -1
+        else:
+            self.knockback_direction = 1  
+                   
+    def got_hit_by_projectile(self, pos):
+        setup.sfx['hit'].play()
+        self.jump.active = False
+        self.wallslide.active = False
+        self.dash.active = False
+        self.collisions['down'] = False
+        self.hp -= 1
+        self.vel.y = self.jump.double_impulse
+        self.invulnerable = True
+        self.air_time = self.jump.coyote_time + 1
+        self.ticks_since_player_got_hit = 0
+        if pos.x > self.hurtboxes[0].centerx:
+            self.knockback_direction = -1
+        else:
+            self.knockback_direction = 1  
+                 
+    def got_hit_by_spike(self):
+        setup.sfx['hit'].play()
+        self.jump.active = False
+        self.wallslide.active = False
+        self.dash.active = False
+        self.collisions['down'] = False
+        self.hp -= 1
+        self.vel.y = self.jump.double_impulse
+        self.invulnerable = True
+        self.ticks_since_player_got_hit = 0
+        self.air_time = self.jump.coyote_time + 1
+        if self.flip:
+            self.knockback_direction = 1
+        else:
+            self.knockback_direction = -1
+            
 class PlayerJump:
     def __init__(self, player):
         self.player = player
@@ -495,66 +507,3 @@ class PlayerDash:
             self.player.vel.x = self.player.speed * self.speed * self.direction
         else:
             self.active = False
-
-
-        '''self.wallslide = False
-        if (self.collisions['right'] or self.collisions['left']) and self.air_time > 4:
-            self.wallslide = True
-            self.vel[1] = min(self.vel[1], 0.7)
-            if self.collisions['right']:
-                self.flip = False
-            else:
-                self.flip = True
-            self.set_animation('wallslide')
-        
-        if not self.wallslide: #could just unindent the next block and make them elifs    
-            if self.air_time > 12:
-                self.set_animation('jump')
-                self.jumps -= 1
-            elif movement[0] != 0:
-                self.set_animation('run')
-            else:
-                self.set_animation('idle')
-        
-        # 10 frames on then 50 frames arecooldown        
-        if self.dashing > 0:
-            self.dashing = max(0, self.dashing - 1)
-        if self.dashing < 0:
-            self.dashing = min(0, self.dashing + 1)
-        if abs(self.dashing) > 50:
-            self.vel[0] = abs(self.dashing) / self.dashing * 8
-            if abs(self.dashing) == 51:
-                self.vel[0] *= 0.1
-            #visual effects of dash
-            particle_velocity = [abs(self.dashing) / self.dashing * random.random() * 3, 0]
-            particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
-        if abs(self.dashing) in {49, 59}: #start and end (-1)
-            for i in range(20):
-                angle = random.random() * math.pi * 2
-                speed = random.random() * 0.5 + 0.5
-                particle_velocity = [math.cos(angle) * speed, math.sin(angle) *speed]
-                particles.append(Particle('particle', self.rect().center, vel=particle_velocity, frame=random.randint(0, 7)))
-
-        # lower the base (non player) vel slowly toward 0
-        if self.vel[0] > 0:
-            self.vel[0] = max(self.vel[0] - 0.1, 0)
-        if self.vel[0] < 0:
-            self.vel[0] = min(self.vel[0] + 0.1, 0)     '''
-        
-    '''
-        if self.wallslide:
-            if self.flip and self.last_movement[0] < 0:
-                self.vel[0] = 2.5
-                self.vel[1] = -2.8
-                self.air_time = 5
-                self.jumps -= 1
-                setup.sfx['jump'].play()
-                # could add 'return True' (or even 'return 'walljump') to 'hook' on events to the jump like an animation``
-                # or i guess so this class could have less coupling with 'game'
-            if not self.flip and self.last_movement[0] > 0:
-                self.vel[0] = -2.5
-                self.vel[1] = -2.8
-                self.air_time = 5
-                self.jumps -= 1
-                setup.sfx['jump'].play()
-                # could add 'return True' to 'hook' on events to the jump like an animation``'''
