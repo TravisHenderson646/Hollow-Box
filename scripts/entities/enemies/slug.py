@@ -43,9 +43,8 @@ class Slug:
         self.combat.frame_start()
         self.movement.frame_start()
         
-        self.combat.hit_by_player(player)
-        self.combat.hit_player(player)
-        
+        self.combat.knockback()
+  
         self.movement.turn_around_at_ledge(tilemap)
         self.movement.bonk()
         

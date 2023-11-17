@@ -20,9 +20,9 @@ class Player:
         self.wallslide = WallSlide(self)
         
         self.movement = Movement(self)
+        self.combat = Combat(self)
         self.animate = Animate(self)
         self.animate.anim_offset = pg.Vector2(0, -2)
-        self.combat = Combat(self)
         
         self.lt = False
         self.geo = 0
@@ -31,24 +31,24 @@ class Player:
         self.try_interact_flag = False
        
      
-    def update(self, tilemap):
+    def update(self, level):
         debugger.debug('geo', ('geo:', self.geo))
         ### Get user input
         if setup.joysticks:
             axis0 = setup.joysticks[0].get_axis(0)
             axis1 = setup.joysticks[0].get_axis(1)
             if axis0 < -0.5:
-                self.movement.x = -1
+                self.movement.movement.x = -1
             elif axis0 > 0.5:
-                self.movement.x = 1
+                self.movement.movement.x = 1
             else:
-                self.movement.x = 0
+                self.movement.movement.x = 0
             if axis1 < -0.5:
-                self.movement.y = -1
+                self.movement.movement.y = -1
             elif axis1 > 0.5:
-                self.movement.y = 1
+                self.movement.movement.y = 1
             else:
-                self.movement.y = 0
+                self.movement.movement.y = 0
             axis4 = setup.joysticks[0].get_axis(4)
             if axis4 > 0.8:
                 self.lt = True
@@ -114,7 +114,7 @@ class Player:
                 self.movement.vel.x = self.combat.knockback_speed * self.combat.knockback_direction
                 
         if self.wallslide.active:
-            self.wallslide.update(tilemap)
+            self.wallslide.update(level.tilemap)
         if self.jump.active:
             self.jump.update()
         if self.dash.active:
@@ -142,12 +142,18 @@ class Player:
         else:
             self.movement.calculate_frame_movement()
         self.jump.walljump_active = False
+        
+        self.movement.collide_with_tilemap(level.tilemap)
+                       
         if self.combat.attack.ticks_since_last < self.combat.attack.duration:
             self.combat.attack.active = True
             self.combat.attack.update()
-        
-        self.movement.collide_with_tilemap(tilemap)
-                       
+            self.combat.attack_tiles(level)
+            self.combat.attack_enemies(level)
+            
+        self.combat.enemies_attack(level)
+            
+            
     def render(self, canvas, offset):
         self.animate.render(canvas, offset)
         

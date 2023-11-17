@@ -61,7 +61,6 @@ class Biome_1(Game):
         self.tilemap.current_attackable_tiles = self.tilemap.attackable_tiles.copy()
         self.tilemap.current_rendered_tiles = self.tilemap.rendered_tiles.copy()
         
-        for tile in self.tilemap.enemies:
             #### todo todo todo todo todo todo todo todo todo todo
             # i could do something like simply, ....
             # wait
@@ -69,15 +68,13 @@ class Biome_1(Game):
             # one is enemies that spawn on room entry one is enemies that spawn on bench sit
             # i can just make a copy of what's left of the room entry list here 
             # then refill the room entry list on bench sit
+        for tile in self.tilemap.enemies:
             if 'badguy' in tile.tags:
                 self.enemies.append(Badguy(tile.rect.topleft))
             if 'slug' in tile.tags:
                 self.enemies.append(Slug(tile.rect.topleft))
             if 'gnat' in tile.tags:
                 self.enemies.append(Gnat(tile.rect.topleft))
-        for enemy in self.enemies:
-            pass
-#            self.solid_entitiestest.append(enemy)
         
     def process_action(self, action):        
         super().process_action(action)
@@ -109,29 +106,6 @@ class Biome_1(Game):
             Biome_1.player.dash.unlocked = not Biome_1.player.dash.unlocked
         elif action == 'y':
             Biome_1.player.wallslide.unlocked = not Biome_1.player.wallslide.unlocked
-
-    def player_attack_tiles(self):
-        
-        sfx_flag_spike = False
-        sfx_flag_break = False # To prevent sfx stacking
-        for tile in self.tilemap.current_attackable_tiles.copy():
-            if tile.rect.collidelist(Biome_1.player.combat.attack.hitbox_list[Biome_1.player.combat.attack.active_hitboxes]) + 1:
-                if tile.clanker:
-                    Biome_1.player.combat.attack.ticks_since_knockback = 0
-                    Biome_1.player.combat.attack.in_knockback = True
-                if tile.breakable:
-                    self.tilemap.current_attackable_tiles.remove(tile)
-                    if tile in self.tilemap.current_solid_tiles:
-                        self.tilemap.current_solid_tiles.remove(tile)
-                    if tile in self.tilemap.current_rendered_tiles:
-                        self.tilemap.current_rendered_tiles.remove(tile)
-                    self.sparks.append(Spark((200,250,80), tile.rect.center, 1.5 + random.random(), Biome_1.player.combat.attack.direction * math.pi/2 + random.random() * math.pi/4 - math.pi/8))
-                    #if tile.name == 'decor': sfx flag.... etc
-        if sfx_flag_break: # todo: fix sfx flags
-            setup.sfx['shoot'].play()
-        if sfx_flag_spike:
-            setup.sfx['dash'].play()
-
         
     def update(self): # Main loop
         for npc in self.npcs:
@@ -146,12 +120,7 @@ class Biome_1(Game):
              #   self.projectiles.extend(enemy.projectiles)
               #  enemy.projectiles = []
                     
-        Biome_1.player.update(self.tilemap)
-
-      #  self.tilemap.push_out_solid(Biome_1.player) # (note: after solids have moved)
-        
-        if Biome_1.player.combat.attack.active:
-            self.player_attack_tiles()
+        Biome_1.player.update(self)
                             
         for pickup in self.pickups:
             if pickup.dead:
@@ -226,72 +195,13 @@ class Biome_1(Game):
                 dialogue_box.render(canvas, self.camera.rounded_pos) 
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-  #      hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
-   #     for rect in self.tilemap.chunks.get((hot_chunk), {}):
-     #       canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+        hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
+        for rect in self.tilemap.chunks.get((hot_chunk), {}):
+            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
 # THIS IS HOW TO GET THE PLAYER NOT TO VIBRATE FROM CAMERA GLITCH IF AN EVEN OR ODD # OF PIXELS WIDE
 #        canvas.fill((78,78,78),((math.floor(Biome_1.player.rect.centerx + 0.5) - self.camera.rounded_pos[0],math.floor(Biome_1.player.rect.centery + 0.5) - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
    #     canvas.fill((78,78,78),((Biome_1.player.rect.x - self.camera.rounded_pos[0],Biome_1.player.rect.y + 0.5 - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))
         
         return canvas
-    
-    
-    
-'''    CODE GRAVEYARD
-            
-   #     self.leaf_spawners = []
-    #    for tree in self.tilemap.extract([('large_decor', 2)], keep=True):
-     #       self.leaf_spawners.append(pg.Rect(4 + tree['pos'][0], 4 + tree['pos'][1], 23, 13))
-        
-  #      self.enemies = [] 
-   #     for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]): #### MUST BE OFFGRID TILES
-    #        if spawner['variant'] == 0:
-     #           self.player.pos = pg.Vector2(spawner['pos'])
-      #          self.player.air_time = 0
-       #     else:
-        #        self.enemies.append(Enemy(spawner['pos'], (8, 15)))
-        
-        ### Update enemy projectiles
-        for projectile in self.projectiles.copy():  # [[x, y], direction, despawn timer] SHOULD PROBABLY BE A CLASS
-            projectile[2] += 1
-            projectile[0][0] += projectile[1]
-            if self.tilemap.solid_check(projectile[0]):
-                self.projectiles.remove(projectile)
-                for i in range(4):
-                    self.sparks.append(Spark(projectile[0], random.random() - 0.5 + (math.pi if projectile[1] > 0 else 0), 2 + random.random()))
-            elif projectile[2] > 300: # projectile times out for cleanup
-                self.projectiles.remove(projectile)
-            elif abs(self.player.dashing) < 50: # hit player if not invincible from dashing (player should have invincible attribute)
-                if self.player.rect().collidepoint(projectile[0]):
-                    self.player.dead += 1 # should def just have a is dead variable idk todo
-                    setup.sfx['hit'].play()
-                    self.projectiles.remove(projectile)
-                    for i in range(30):
-                        angle = random.random() * math.pi * 2
-                        speed = random.random() * 5
-                        self.sparks.append(Spark(self.player.rect().center, angle, 2 + random.random()))
-                        self.particles.append(Particle('particle', self.player.rect().center, vel=[math.cos(angle + math.pi) * speed * 0.5, math.sin(angle + math.pi) * speed * 0.5], frame=random.randint(0, 7)))
-        ###
-        ### Update enemies
- #       for enemy in self.enemies.copy():
-  #          kill = enemy.update(self.tilemap, self.player.rect(), self.player.dashing, self.projectiles, self.sparks, self.particles, movement=(0, 0))
-   #         if kill:
-    #            self.enemies.remove(enemy)
-        ###
-        ### Maybe spawn leafs
-    #    for rect in self.leaf_spawners:
-     #       if random.random() * 49999 < rect.width * rect.height: # this is a ridiculous control
-      #          pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
-       #         self.particles.append(Particle('leaf', pos, vel=[-0.1, 0.3], frame=random.randint(0, 20)))
-        ###
-              
-        ### If you're dead increment a timer and reload the level eventually
-        if self.player.dead > 0:
-            self.player.dead += 1 #timer
-            if self.player.dead <= 50:
-                self.transition = min(30, self.transition + 1) #hack soln to screen transition
-            if self.player.dead > 80:
-                self.reset()
-        ###
-'''
+

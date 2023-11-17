@@ -110,6 +110,8 @@ change surfs to canvass where it makes sense
 single time pickups and stuff like geo should be seperate
 
 file structure
+
+spikes pogo you > once per attack
 '''
 import sys
 
