@@ -13,7 +13,7 @@ from scripts import setup # could reduce todo
 class Slug:
     def __init__(self, pos):
         self.name = 'slug'
-        self.size = (14, 10)
+        self.size = (15, 8)
         self.rect = pg.FRect(*pos, *self.size)
         self.movement = Movement(self)
         self.movement.movement.x = -1
