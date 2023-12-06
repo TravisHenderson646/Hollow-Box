@@ -2,14 +2,23 @@
 ####
 IDEAS
 #### 
+could have 3 TODO lists.
+    1 things to code for when im focused
+    2 things to create for when im energized
+    3 things that r biolerplate for wen im ded
+    
+decor should be called clutter
+
+i think it would be cool if each enemy only dropped geo once, then there could be a 100% geo amount!
+
 attack is like a upward jab with a stinger
 
 The game goes dingdong like in graveyard keeper when they drop off a body but it's like 3 minutes after you kill a boss except it's pretending like it happened organically
-
+d
 its fun for now but i dont think im going to want the pogo to reset everything, its too centralizing late game
 peach float
 landing could reset attack cooldown
-wall climb like celest w bddddutton cling but can attack
+wall climb like celest w cling but can attack
 maybe a crouch? crouch also grabs walls? crouch jump is a roll
 floating hurtboxes to pogo
 
@@ -118,7 +127,6 @@ import sys
 import pygame as pg 
 
 from scripts import setup # pg.init right away!
-
 from states import level_1, level_2, level_3, menu #### pg.init first!
 from scripts.debugger import debugger
 from scripts.event_processor import process_event

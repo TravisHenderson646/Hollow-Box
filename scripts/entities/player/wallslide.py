@@ -6,7 +6,7 @@ class WallSlide:
         self.unlocked = True
         self.active = False
         self.speed = 0.8
-        self.detach_buffer = 7
+        self.detach_buffer = 3
         self.ticks_detaching = 500
         self.direction = 1 # 1 or -1
         

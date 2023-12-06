@@ -68,7 +68,10 @@ class Player:
         
         if self.movement.air_time > self.jump.coyote_time: #base this on vel[1] > 0.3 instead
             self.jump.able = False
-            self.animate.set_animation('jump')    
+            if self.movement.vel.y < 0.35:
+                self.animate.set_animation('jump')
+            else:
+                self.animate.set_animation('fall')
         if self.movement.collisions['down']:
             #i think this will reset the run animation to first frame every frame of running
             #solve with a animation_flag and only set_anim at the end of update
@@ -190,7 +193,7 @@ class Player:
         self.dash.active = False
         self.movement.collisions['down'] = False
         self.combat.hp -= 1
-        self.movement.vel.y = self.jump.double_impulse
+        self.movement.vel.y = self.combat.got_hit_impulse
         self.combat.invulnerable = True
         self.movement.air_time = self.jump.coyote_time + 1
         self.combat.ticks_since_got_hit = 0
@@ -206,7 +209,7 @@ class Player:
         self.dash.active = False
         self.movement.collisions['down'] = False
         self.combat.hp -= 1
-        self.movement.vel.y = self.jump.double_impulse
+        self.movement.vel.y = self.combat.got_hit_impulse
         self.combat.invulnerable = True
         self.combat.ticks_since_got_hit = 0
         self.movement.air_time = self.jump.coyote_time + 1

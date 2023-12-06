@@ -26,6 +26,7 @@ class Combat:
         self.knockback_direction = 1# left is -1
         self.got_hit_knockback_duration = 10
         self.in_got_hit = False
+        self.got_hit_impulse = -1.6
         self.invulnerable_duration = 120
         
     def frame_start(self):
@@ -78,7 +79,7 @@ class Combat:
                         self.player.dash.active = False
                         self.player.movement.collisions['down'] = False
                         self.hp -= enemy.combat.damage
-                        self.player.movement.vel.y = self.player.jump.double_impulse
+                        self.player.movement.vel.y = self.got_hit_impulse
                         self.player.movement.air_time = self.player.jump.coyote_time + 1
                         self.ticks_since_got_hit = 0
                         if enemy.rect.centerx > self.player.rect.centerx:

@@ -28,6 +28,7 @@ assets = { # dict of every sprite's image or animation's set of images
     'enemy/idle': Animation(load_images('entities/enemy/idle'), 12), # could be 'player.idle' as the key instead
     'enemy/run': Animation(load_images('entities/enemy/run'), 8),
     'player/idle': Animation(load_images('entities/player/idle'), image_dur=12),
+    'player/fall': Animation(load_images('entities/player/fall'), image_dur=12),
     'player/run': Animation(load_images('entities/player/run'), image_dur=8),
     'player/jump': Animation(load_images('entities/player/jump'), image_dur=5,),
     'player/slide': Animation(load_images('entities/player/slide'), image_dur=5,),

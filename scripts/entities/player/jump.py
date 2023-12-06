@@ -6,7 +6,7 @@ class Jump:
         self.unlocked = True
         self.double_unlocked = True
         self.able = False
-        self.coyote_time = 7
+        self.coyote_time = 4
         self.buffer = 7
         self.held = False
         self.active = False
@@ -17,8 +17,8 @@ class Jump:
         self.walljump_duration = 4
         self.walljump_speed = 2
         self.walljump_direction = 1 # -1 left or 1 right
-        self.impulse = -2.2
-        self.double_impulse = self.impulse * 0.75
+        self.impulse = -2.6
+        self.double_impulse = self.impulse * 0.85
         self.walljump_impulse = self.double_impulse
         
     def check(self):

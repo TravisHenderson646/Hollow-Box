@@ -1,274 +1,10 @@
 {
   "tilemap": {
-    "7;13": {
+    "11;14": {
       "type": "grass",
-      "variant": 1,
-      "pos": [
-        56,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        64,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        72,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        80,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;13": {
-      "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
         88,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        96,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        104,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        112,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        120,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        128,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        136,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "18;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        144,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        152,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "20;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        160,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        168,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        176,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        184,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "24;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        192,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "25;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        200,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "26;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        208,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "27;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        216,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "28;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        224,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "28;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        224,
         112
       ],
       "tags": [
@@ -276,23 +12,11 @@
         "chunked"
       ]
     },
-    "29;14": {
+    "11;15": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        232,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "29;15": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        232,
+        88,
         120
       ],
       "tags": [
@@ -300,11 +24,47 @@
         "chunked"
       ]
     },
-    "29;16": {
+    "12;15": {
       "type": "grass",
-      "variant": 4,
+      "variant": 0,
       "pos": [
-        232,
+        96,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "13;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        104,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "15;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        120,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "13;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        104,
         128
       ],
       "tags": [
@@ -312,12 +72,228 @@
         "chunked"
       ]
     },
-    "28;17": {
+    "14;16": {
       "type": "grass",
-      "variant": 4,
+      "variant": 0,
       "pos": [
-        224,
-        136
+        112,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "15;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        120,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "16;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        128,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "17;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        136,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "17;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        136,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "19;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        152,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "20;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        160,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "20;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        160,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "21;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        168,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "22;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        176,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "22;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        176,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "23;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        184,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "25;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        200,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "26;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        208,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "27;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        216,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "27;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        216,
+        128
       ],
       "tags": [
         "painted",
@@ -326,7 +302,7 @@
     },
     "27;17": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
         216,
         136
@@ -336,11 +312,11 @@
         "chunked"
       ]
     },
-    "26;17": {
+    "28;17": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
-        208,
+        224,
         136
       ],
       "tags": [
@@ -348,11 +324,11 @@
         "chunked"
       ]
     },
-    "25;17": {
+    "29;17": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
-        200,
+        232,
         136
       ],
       "tags": [
@@ -360,251 +336,11 @@
         "chunked"
       ]
     },
-    "24;18": {
+    "29;16": {
       "type": "grass",
-      "variant": 4,
+      "variant": 0,
       "pos": [
-        192,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        184,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        176,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        168,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "20;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        160,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        152,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        136,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        128,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        120,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        112,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        104,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        96,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        88,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        80,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        72,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;18": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        64,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;18": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        56,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        48,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        40,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "4;17": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        32,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "4;16": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        32,
+        232,
         128
       ],
       "tags": [
@@ -612,23 +348,11 @@
         "chunked"
       ]
     },
-    "3;16": {
+    "29;15": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
-        24,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "3;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        24,
+        232,
         120
       ],
       "tags": [
@@ -636,11 +360,59 @@
         "chunked"
       ]
     },
-    "3;14": {
+    "30;15": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
-        24,
+        240,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "31;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        248,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "20;12": {
+      "type": "spawns",
+      "variant": 4,
+      "pos": [
+        160,
+        96
+      ],
+      "tags": [
+        "start",
+        "entrance"
+      ]
+    },
+    "32;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
         112
       ],
       "tags": [
@@ -648,11 +420,307 @@
         "chunked"
       ]
     },
-    "4;14": {
+    "10;15": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
-        32,
+        80,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "7;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        56,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "10;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        80,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "10;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        80,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;3": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        24
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;3": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        24
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "10;3": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        80,
+        24
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;0": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        0
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;0": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        0
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "10;0": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        80,
+        0
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "21;3": {
+      "type": "special",
+      "variant": 0,
+      "pos": [
+        168,
+        24
+      ],
+      "tags": [
+        "dirt",
+        "rendered",
+        "attackable",
+        "breakable",
+        "clanker",
+        "solid"
+      ]
+    },
+    "18;8": {
+      "type": "special",
+      "variant": 0,
+      "pos": [
+        144,
+        64
+      ],
+      "tags": [
+        "dirt",
+        "rendered",
+        "attackable",
+        "breakable",
+        "clanker",
+        "solid"
+      ]
+    },
+    "32;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "35;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        280,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "35;13": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        280,
+        104
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "35;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        280,
         112
       ],
       "tags": [
@@ -660,12 +728,1240 @@
         "chunked"
       ]
     },
-    "5;14": {
+    "35;15": {
       "type": "grass",
+      "variant": 0,
+      "pos": [
+        280,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;13": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        104
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;11": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        88
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "35;11": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        280,
+        88
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;19": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        152
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;19": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        152
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "35;16": {
+      "type": "special",
       "variant": 1,
       "pos": [
-        40,
+        280,
+        128
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "36;16": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        288,
+        128
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "37;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        296,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "36;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        288,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "35;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        280,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "34;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        272,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "33;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        264,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "38;22": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        304,
+        176
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "39;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
         112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;13": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        104
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;12": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        312,
+        96
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "39;11": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        312,
+        88
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "39;10": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        80
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;10": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        80
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "36;8": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        288,
+        64
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "36;7": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        288,
+        56
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "36;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        288,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "37;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        296,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "39;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        312,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "38;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        304,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "41;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        328,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;10": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        80
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;11": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        88
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;13": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        104
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "42;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        336,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;7": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        56
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;8": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        64
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;10": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        80
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;11": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        88
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "43;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        344,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;19": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        152
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "40;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        320,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "45;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        360,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "46;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        368,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "41;18": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        328,
+        144
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "42;18": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        336,
+        144
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "43;18": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        344,
+        144
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "44;18": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        352,
+        144
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "45;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        360,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "45;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        360,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "45;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        360,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "46;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        368,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "46;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        368,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "46;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        368,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;11": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        88
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;10": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        80
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;8": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        64
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;7": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        56
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "44;6": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        352,
+        48
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "45;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        360,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "46;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        368,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "47;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        376,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "48;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        384,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "49;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        392,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "50;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        400,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "51;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        408,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "52;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        416,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "53;9": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        424,
+        72
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;13": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        104
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "7;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        56,
+        96
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;12": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        96
       ],
       "tags": [
         "painted",
@@ -684,83 +1980,11 @@
         "chunked"
       ]
     },
-    "18;18": {
+    "6;14": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
-        144,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "18;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        144,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "18;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        144,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        152,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        152,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        152,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "19;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        152,
+        48,
         112
       ],
       "tags": [
@@ -768,876 +1992,12 @@
         "chunked"
       ]
     },
-    "20;14": {
+    "7;13": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        160,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "20;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        160,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "20;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        160,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "20;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        160,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        168,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        168,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        168,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "21;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        168,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        176,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        176,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        176,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "22;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        176,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        184,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        184,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        184,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "23;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        184,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "24;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        192,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "24;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        192,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "24;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        192,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "24;17": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        192,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "25;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        200,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "25;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        200,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "25;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        200,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "26;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        208,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "26;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        208,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "26;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        208,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "27;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        216,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "27;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        216,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "27;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        216,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "28;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        224,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "28;16": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        224,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "18;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        144,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "18;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        144,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        136,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        136,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        136,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        128,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        128,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        128,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        128,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        136,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        120,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        120,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        120,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "15;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        120,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        112,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        112,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        112,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "14;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        112,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        104,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        104,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        104,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "13;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        104,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        96,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        96,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        96,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "12;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        96,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        88,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        88,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        88,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        88,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        80,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        80,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        80,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "10;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        80,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        72,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        72,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        72,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        72,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;17": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        112
+        56,
+        104
       ],
       "tags": [
         "painted",
@@ -1646,7 +2006,7 @@
     },
     "7;14": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
         56,
         112
@@ -1654,3048 +2014,11 @@
       "tags": [
         "painted",
         "chunked"
-      ]
-    },
-    "7;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;17": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        56,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        48,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        48,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;14": {
-      "type": "grass",
-      "variant": 9,
-      "pos": [
-        48,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        40,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        40,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "4;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        32,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;10": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        128,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;10": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        136,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;9": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        128,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;9": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        136,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;8": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        136,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;8": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        128,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "16;7": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        128,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "17;7": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        136,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;10": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        56,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;10": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        48,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;9": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        48,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;9": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        56,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;8": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        56,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;8": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        48,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;8": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        64,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;7": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        64,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;7": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;7": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        48,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;6": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;6": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        48,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;5": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        48,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;5": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;5": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;6": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;7": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        72,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;4": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;3": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        48,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;4": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        48,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;4": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        40,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;2": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        48,
-        16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;2": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;1": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        56,
-        8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;1": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;1": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;2": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;2": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;1": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        40,
-        8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;1": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        48,
-        8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;0": {
-      "type": "grass",
-      "variant": 9,
-      "pos": [
-        56,
-        0
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;0": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        0
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "6;0": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        48,
-        0
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;0": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        0
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;-1": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        -8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;-2": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        -16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;-3": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        -24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;-4": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        72,
-        -32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "9;-5": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        72,
-        -40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;-5": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        64,
-        -40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;-4": {
-      "type": "grass",
-      "variant": 9,
-      "pos": [
-        64,
-        -32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;-4": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        56,
-        -32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;-3": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        56,
-        -24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;-2": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        56,
-        -16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "7;-1": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        56,
-        -8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;-1": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        -8
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;0": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        40,
-        0
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;3": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        40,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "5;2": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        40,
-        16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;-2": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        -16
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "8;-3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        64,
-        -24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "29;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        232,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "30;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        240,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "31;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        248,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "32;13": {
-      "type": "grass",
-      "variant": 9,
-      "pos": [
-        256,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "33;13": {
-      "type": "grass",
-      "variant": 10,
-      "pos": [
-        264,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "34;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        272,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        280,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        288,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        296,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "38;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        304,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "39;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        312,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "40;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        320,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "41;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        328,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "41;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        328,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "40;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        320,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "40;16": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        320,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "39;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        312,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "38;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        304,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;17": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        296,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;18": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        296,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;18": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        288,
-        144
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;17": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        288,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        280,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "34;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        272,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "33;17": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        264,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "32;17": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        256,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "32;16": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        256,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "31;16": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        248,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "31;15": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        248,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "30;15": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        240,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        280,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        280,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        280,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        288,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        288,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        288,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        296,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        296,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "37;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        296,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "38;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        304,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "38;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        304,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "38;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        304,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "39;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        312,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "39;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        312,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "39;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        312,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "40;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        320,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "34;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        272,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "34;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        272,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "34;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        272,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "33;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        264,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "33;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        264,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "33;16": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        264,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "32;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        256,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "32;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        256,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "31;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        248,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "30;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        240,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "35;11": {
-      "type": "enemies",
-      "variant": 1,
-      "pos": [
-        280,
-        88
-      ],
-      "tags": [
-        "enemy",
-        "slug"
-      ]
-    },
-    "43;1": {
-      "type": "enemies",
-      "variant": 0,
-      "pos": [
-        344,
-        8
-      ],
-      "tags": [
-        "enemy",
-        "gnat"
-      ]
-    },
-    "42;0": {
-      "type": "enemies",
-      "variant": 0,
-      "pos": [
-        336,
-        0
-      ],
-      "tags": [
-        "enemy",
-        "gnat"
-      ]
-    },
-    "32;-3": {
-      "type": "large_decor",
-      "variant": 2,
-      "pos": [
-        256,
-        -24
-      ],
-      "tags": [
-        "painted"
-      ]
-    },
-    "42;13": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        336,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "43;13": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        344,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "43;14": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        344,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "42;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        336,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "42;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        336,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "43;15": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        344,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "43;16": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        344,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "41;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        328,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "41;16": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        328,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "40;17": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        320,
-        136
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "42;16": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        336,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "11;10": {
-      "type": "spawns",
-      "variant": 0,
-      "pos": [
-        88,
-        80
-      ],
-      "tags": [
-        "west",
-        "entrance"
-      ]
-    },
-    "41;11": {
-      "type": "spawns",
-      "variant": 1,
-      "pos": [
-        328,
-        88
-      ],
-      "tags": [
-        "east",
-        "entrance"
-      ]
-    },
-    "44;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        352,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "45;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        360,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "46;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        368,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "48;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        384,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "47;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        376,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "49;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        392,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "50;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        400,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "51;13": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        408,
-        104
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "51;12": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        408,
-        96
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "51;11": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        408,
-        88
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "51;10": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        408,
-        80
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "51;9": {
-      "type": "exits",
-      "variant": 1,
-      "pos": [
-        408,
-        72
-      ],
-      "tags": [
-        "east",
-        "exit"
-      ]
-    },
-    "24;6": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        192,
-        48
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "24;5": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        192,
-        40
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "24;4": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        192,
-        32
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "24;3": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        192,
-        24
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "25;3": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        200,
-        24
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "25;4": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        200,
-        32
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "25;5": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        200,
-        40
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "25;6": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        200,
-        48
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "24;7": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        192,
-        56
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "25;7": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        200,
-        56
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "32;-4": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        256,
-        -32
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "23;-11": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        184,
-        -88
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "33;7": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        264,
-        56
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "33;6": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        264,
-        48
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "33;5": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        264,
-        40
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "33;4": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        264,
-        32
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "33;3": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        264,
-        24
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "32;3": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        256,
-        24
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "32;4": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        256,
-        32
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "32;5": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        256,
-        40
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "32;6": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        256,
-        48
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "32;7": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        256,
-        56
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "31;7": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        248,
-        56
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "31;5": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        248,
-        40
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "31;4": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        248,
-        32
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "31;3": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        248,
-        24
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "31;6": {
-      "type": "special",
-      "variant": 0,
-      "pos": [
-        248,
-        48
-      ],
-      "tags": [
-        "dirt",
-        "rendered",
-        "attackable",
-        "breakable",
-        "clanker",
-        "solid"
-      ]
-    },
-    "18;-3": {
-      "type": "exits",
-      "variant": 0,
-      "pos": [
-        144,
-        -24
-      ],
-      "tags": [
-        "painted",
-        "clanker"
-      ]
-    },
-    "33;12": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        264,
-        96
-      ],
-      "tags": []
-    },
-    "32;12": {
-      "type": "grass",
-      "variant": 0,
-      "pos": [
-        256,
-        96
-      ],
-      "tags": []
-    },
-    "2;8": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;9": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;10": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;11": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        88
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;12": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        96
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;13": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;14": {
-      "type": "grass",
-      "variant": 10,
-      "pos": [
-        16,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;15": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        16,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;16": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        16,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;16": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        8,
-        128
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;15": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        8,
-        120
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;14": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;13": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;12": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        96
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;11": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        88
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;10": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        8,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;8": {
-      "type": "grass",
-      "variant": 9,
-      "pos": [
-        8,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        0,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;10": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;11": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        88
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;12": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        0,
-        96
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;12": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -8,
-        96
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;11": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -8,
-        88
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-2;11": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -16,
-        88
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-2;10": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        -16,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-2;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -16,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-2;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -16,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -24,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-4;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -32,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-5;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -40,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-6;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -48,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-7;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -56,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-8;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -64,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-7;9": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        -56,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-7;10": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        -56,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-6;10": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -48,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-5;10": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -40,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-4;10": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -32,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -24,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -8,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -8,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-4;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -32,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-5;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -40,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-6;9": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -48,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;10": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -24,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;10": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -8,
-        80
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "36;-18": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        288,
-        -144
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "52;-12": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        416,
-        -96
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "73;-11": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        584,
-        -88
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "85;-18": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        680,
-        -144
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
-      ]
-    },
-    "103;-27": {
-      "type": "special",
-      "variant": 1,
-      "pos": [
-        824,
-        -216
-      ],
-      "tags": [
-        "spike",
-        "painted",
-        "attackable",
-        "clanker",
-        "solid",
-        "hitbox"
       ]
     },
     "0;15": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
         0,
         120
@@ -4707,7 +2030,7 @@
     },
     "-1;15": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
         -8,
         120
@@ -4719,7 +2042,7 @@
     },
     "-2;15": {
       "type": "grass",
-      "variant": 6,
+      "variant": 0,
       "pos": [
         -16,
         120
@@ -4729,769 +2052,3955 @@
         "chunked"
       ]
     },
-    "-2;14": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        -16,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;14": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        -24,
-        112
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;13": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -24,
-        104
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;12": {
+    "-3;15": {
       "type": "grass",
       "variant": 0,
       "pos": [
         -24,
-        96
+        120
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-2;12": {
+    "-4;15": {
       "type": "grass",
-      "variant": 9,
+      "variant": 0,
       "pos": [
-        -16,
-        96
+        -32,
+        120
       ],
       "tags": [
         "painted",
         "chunked"
+      ]
+    },
+    "-2;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -16,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-5;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -40,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-8;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -64,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-9;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -72,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-10;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -80,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-11;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -88,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-13;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -104,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-14;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -112,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-15;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -120,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-16;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -128,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-17;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -136,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-18;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -144,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-19;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -152,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-21;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -168,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-22;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -176,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-24;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -192,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-25;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -200,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-26;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -208,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-27;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -216,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-28;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -224,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-29;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -232,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-30;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -240,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-31;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -248,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -256,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-33;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -264,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-34;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -272,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-35;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -280,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-36;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -288,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-37;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -296,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-38;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -304,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-39;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -312,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-40;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-41;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -328,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-42;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -336,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-43;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -344,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-44;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -352,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -360,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-46;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -368,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-47;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -376,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-48;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -384,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-49;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -392,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-50;15": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -400,
+        120
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-8;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -64,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-15;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -120,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-14;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -112,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-13;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -104,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-22;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -176,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-21;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -168,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-33;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -264,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -256,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-31;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -248,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-30;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -240,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-29;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -232,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -360,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-44;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -352,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-43;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -344,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-42;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -336,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-41;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -328,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-40;14": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        112
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -360,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-44;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -352,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-43;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -344,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-42;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -336,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-41;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -328,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-40;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -320,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-33;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -264,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-32;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -256,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-31;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -248,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-30;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -240,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-29;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -232,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-23;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -184,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-22;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -176,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-21;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -168,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-20;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -160,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-15;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -120,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-14;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -112,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-13;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -104,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-8;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -64,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-7;13": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -56,
+        104
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
       ]
     },
     "-2;13": {
-      "type": "grass",
-      "variant": 8,
+      "type": "special",
+      "variant": 1,
       "pos": [
         -16,
         104
       ],
       "tags": [
+        "spike",
         "painted",
-        "chunked"
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
       ]
     },
-    "-1;13": {
+    "6;16": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        -8,
-        104
+        48,
+        128
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-1;14": {
+    "6;17": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        -8,
-        112
+        48,
+        136
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "0;14": {
+    "6;18": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
+      "pos": [
+        48,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;19": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        152
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;25": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        200
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;26": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        208
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;27": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        216
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "3;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        24,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "2;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        16,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "1;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        8,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;33": {
+      "type": "grass",
+      "variant": 0,
       "pos": [
         0,
-        112
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "0;13": {
+    "-1;33": {
       "type": "grass",
-      "variant": 8,
+      "variant": 0,
       "pos": [
-        0,
-        104
+        -8,
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-8;9": {
+    "-2;33": {
       "type": "grass",
-      "variant": 5,
+      "variant": 0,
       "pos": [
-        -64,
-        72
+        -16,
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-9;9": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -72,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;8": {
-      "type": "grass",
-      "variant": 10,
-      "pos": [
-        -80,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;8": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-9;8": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -72,
-        64
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;9": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -80,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;9": {
-      "type": "grass",
-      "variant": 6,
-      "pos": [
-        -88,
-        72
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;7": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;7": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        -80,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;6": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;6": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        -80,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;5": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        -80,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-9;5": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        -72,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-8;5": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        -64,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-8;4": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        -64,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-7;4": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        -56,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-7;3": {
-      "type": "grass",
-      "variant": 11,
-      "pos": [
-        -56,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-6;3": {
-      "type": "grass",
-      "variant": 4,
-      "pos": [
-        -48,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-3;3": {
+    "-3;33": {
       "type": "grass",
       "variant": 0,
       "pos": [
         -24,
-        24
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-2;3": {
+    "-4;33": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
-        -16,
-        24
+        -32,
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-2;4": {
+    "-5;33": {
       "type": "grass",
-      "variant": 6,
+      "variant": 0,
       "pos": [
-        -16,
-        32
+        -40,
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-1;5": {
+    "-6;33": {
       "type": "grass",
-      "variant": 6,
-      "pos": [
-        -8,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;4": {
-      "type": "grass",
-      "variant": 12,
-      "pos": [
-        -8,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;5": {
-      "type": "grass",
-      "variant": 5,
-      "pos": [
-        0,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;5": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        8,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;6": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        8,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "1;7": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        8,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;7": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        16,
-        56
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "2;6": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        16,
-        48
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;5": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        40
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;4": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-11;3": {
-      "type": "grass",
-      "variant": 7,
-      "pos": [
-        -88,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -80,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-9;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -72,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-8;3": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -64,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-1;3": {
-      "type": "grass",
-      "variant": 1,
-      "pos": [
-        -8,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;3": {
-      "type": "grass",
-      "variant": 2,
-      "pos": [
-        0,
-        24
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "0;4": {
-      "type": "grass",
-      "variant": 3,
-      "pos": [
-        0,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-10;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -80,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-9;4": {
-      "type": "grass",
-      "variant": 8,
-      "pos": [
-        -72,
-        32
-      ],
-      "tags": [
-        "painted",
-        "chunked"
-      ]
-    },
-    "-6;2": {
-      "type": "grass",
-      "variant": 2,
+      "variant": 0,
       "pos": [
         -48,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-7;2": {
+    "-7;33": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
         -56,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-8;2": {
+    "-8;33": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
         -64,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-9;2": {
+    "-9;33": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
         -72,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-10;2": {
+    "-10;33": {
       "type": "grass",
-      "variant": 1,
+      "variant": 0,
       "pos": [
         -80,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-11;2": {
+    "-11;33": {
       "type": "grass",
       "variant": 0,
       "pos": [
         -88,
-        16
+        264
       ],
       "tags": [
         "painted",
         "chunked"
       ]
     },
-    "-5;5": {
-      "type": "enemies",
+    "-12;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-13;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -104,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-14;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -112,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-15;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -120,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-16;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -128,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-17;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -136,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-18;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -144,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-19;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -152,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-21;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -168,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-22;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -176,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-24;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -192,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-25;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -200,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-26;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -208,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-27;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -216,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-28;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -224,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-29;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -232,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-30;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -240,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-31;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -248,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -256,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-33;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -264,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-34;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -272,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-35;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -280,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-36;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -288,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-37;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -296,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-38;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -304,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-39;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -312,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-40;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-41;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -328,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-42;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -336,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-43;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -344,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-44;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -352,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -360,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-46;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -368,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-47;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -376,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-48;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -384,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-49;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -392,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-50;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -400,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        0,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-5;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -40,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-5;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -40,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-13;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -104,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-14;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -112,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-14;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -112,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-13;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -104,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-21;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -168,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-22;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -176,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-22;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -176,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-21;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -168,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -256,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-33;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -264,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-34;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -272,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-34;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -272,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-33;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -264,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -256,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-31;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -248,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-31;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -248,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-30;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -240,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-30;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -240,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-40;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-41;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -328,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-42;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -336,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-43;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -344,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-44;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -352,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -360,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -360,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-44;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -352,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-43;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -344,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-42;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -336,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-41;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -328,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-40;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-45;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -360,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-44;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -352,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-43;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -344,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-42;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -336,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-41;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -328,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-40;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -320,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-34;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -272,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-33;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -264,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-32;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -256,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-31;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -248,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-30;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -240,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-23;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -184,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-22;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -176,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-21;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -168,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-20;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -160,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-14;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -112,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-13;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -104,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-12;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -96,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-6;30": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -48,
+        240
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-5;30": {
+      "type": "special",
       "variant": 1,
       "pos": [
         -40,
-        40
+        240
       ],
       "tags": [
-        "enemy",
-        "slug"
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
       ]
     },
-    "13;11": {
+    "4;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        32,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "5;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        40,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "7;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        56,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "8;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        64,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "9;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        72,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "10;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        80,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "11;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        88,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;28": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        224
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;29": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        232
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "6;30": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        48,
+        240
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "12;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        96,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "13;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        104,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        0,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "0;20": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        0,
+        160
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-1;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -8,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-6;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -48,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -56,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-7;20": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -56,
+        160
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-6;20": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -48,
+        160
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-12;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;24": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -96,
+        192
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-12;19": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        152
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;18": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        144
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;17": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        136
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-12;16": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -96,
+        128
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "11;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        88,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "11;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        88,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "11;30": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        88,
+        240
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "11;29": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        88,
+        232
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "14;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        112,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "15;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        120,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "16;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        128,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "17;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        136,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "19;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        152,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "20;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        160,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "21;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        168,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "22;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        176,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "23;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        184,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "25;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        200,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;30": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        240
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;29": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        144,
+        232
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "18;28": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        144,
+        224
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "24;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;30": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        240
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;29": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        232
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;28": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        192,
+        224
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "24;27": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        192,
+        216
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "26;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        208,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "27;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        216,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "28;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        224,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "29;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        232,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "30;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        240,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;32": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        256
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;31": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        248
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;30": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        240
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;29": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        232
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;28": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        224
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;27": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        216
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;26": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        208
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;25": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        200
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;24": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        192
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "31;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        248,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "32;33": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        256,
+        264
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-16;25": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -128,
+        200
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-17;25": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -136,
+        200
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-20;23": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -160,
+        184
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-23;21": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -184,
+        168
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-27;20": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -216,
+        160
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-29;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -232,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-32;21": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -256,
+        168
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-35;22": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -280,
+        176
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-39;23": {
+      "type": "special",
+      "variant": 1,
+      "pos": [
+        -312,
+        184
+      ],
+      "tags": [
+        "spike",
+        "painted",
+        "attackable",
+        "clanker",
+        "solid",
+        "hitbox"
+      ]
+    },
+    "-40;25": {
+      "type": "grass",
+      "variant": 0,
+      "pos": [
+        -320,
+        200
+      ],
+      "tags": [
+        "painted",
+        "chunked"
+      ]
+    },
+    "-47;24": {
       "type": "decor",
       "variant": 3,
       "pos": [
-        104,
-        88
+        -376,
+        192
       ],
       "tags": [
-        "rendered",
-        "interactable",
-        "chest1"
+        "painted",
+        "chunked"
       ]
     }
   },
-  "offgrid": [
-    {
-      "type": "decor",
-      "variant": 0,
-      "pos": [
-        133,
-        49
-      ],
-      "tags": [
-        "rendered",
-        "breakable"
-      ]
-    },
-    {
-      "type": "large_decor",
-      "variant": 1,
-      "pos": [
-        56,
-        92
-      ],
-      "tags": [
-        "decor",
-        "rendered",
-        "breakable"
-      ]
-    },
-    {
-      "type": "decor",
-      "variant": 0,
-      "pos": [
-        165,
-        97
-      ],
-      "tags": [
-        "decor",
-        "rendered",
-        "breakable"
-      ]
-    },
-    {
-      "type": "decor",
-      "variant": 0,
-      "pos": [
-        203,
-        97
-      ],
-      "tags": [
-        "decor",
-        "rendered",
-        "breakable"
-      ]
-    },
-    {
-      "type": "decor",
-      "variant": 3,
-      "pos": [
-        41,
-        -16
-      ],
-      "tags": [
-        "decor",
-        "rendered",
-        "breakable"
-      ]
-    }
-  ],
+  "offgrid": [],
   "tile_size": 8
 }
