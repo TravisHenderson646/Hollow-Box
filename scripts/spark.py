@@ -10,8 +10,8 @@ class Spark:
         self.color = color
         
     def update(self):
-        self.pos[0] += math.cos(self.angle) * self.speed
-        self.pos[1] += math.sin(self.angle) * self.speed
+        self.pos[0] += math.cos(self.angle) * self.speed + 1
+        self.pos[1] += math.sin(self.angle) * self.speed + 1
         
         self.speed = max(0, self.speed - 0.05)
         return not self.speed
