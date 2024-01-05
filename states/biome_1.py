@@ -195,9 +195,9 @@ class Biome_1(Game):
                 dialogue_box.render(canvas, self.camera.rounded_pos) 
         
         # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST 
-        hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
-        for rect in self.tilemap.chunks.get((hot_chunk), {}):
-            canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
+  #      hot_chunk = ((Biome_1.player.rect.centerx + 30) // 60, (Biome_1.player.rect.centery + 30) // 60)
+  #      for rect in self.tilemap.chunks.get((hot_chunk), {}):
+  #          canvas.fill((150,0,0),(rect.x - self.camera.rounded_pos[0], rect.y - self.camera.rounded_pos[1], rect.w, rect.h))
         
 # THIS IS HOW TO GET THE PLAYER NOT TO VIBRATE FROM CAMERA GLITCH IF AN EVEN OR ODD # OF PIXELS WIDE
 #        canvas.fill((78,78,78),((math.floor(Biome_1.player.rect.centerx + 0.5) - self.camera.rounded_pos[0],math.floor(Biome_1.player.rect.centery + 0.5) - self.camera.rounded_pos[1],Biome_1.player.rect.width,Biome_1.player.rect.height)))

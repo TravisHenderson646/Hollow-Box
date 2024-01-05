@@ -3257,7 +3257,7 @@
       ],
       "tags": [
         "enemy",
-        "badguy"
+        "slug"
       ]
     },
     "62;16": {
@@ -7148,7 +7148,7 @@
       ],
       "tags": [
         "enemy",
-        "gnat"
+        "slug"
       ]
     },
     "126;8": {
@@ -7160,7 +7160,7 @@
       ],
       "tags": [
         "enemy",
-        "gnat"
+        "slug"
       ]
     },
     "114;17": {
@@ -17757,15 +17757,51 @@
   },
   "offgrid": [
     {
-      "type": "enemies",
-      "variant": 1,
+      "type": "spawns",
+      "variant": 0,
       "pos": [
-        47,
-        108
+        150,
+        80
       ],
       "tags": [
-        "enemy",
-        "slug"
+        "npc",
+        "frog"
+      ]
+    },
+    {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        170,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bear"
+      ]
+    },
+    {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        130,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bee"
+      ]
+    },
+    {
+      "type": "spawns",
+      "variant": 0,
+      "pos": [
+        190,
+        80
+      ],
+      "tags": [
+        "npc",
+        "bird"
       ]
     },
     {
@@ -18065,7 +18101,7 @@
       "variant": 4,
       "pos": [
         221,
-        95
+        -95
       ],
       "tags": [
         "start",
